@@ -869,7 +869,7 @@
 (defun find-org-file ()
   "Find Org file via completion in the minibuffer."
   (interactive)
-  (counsel-find-file org-directory))
+  (find-file org-directory))
 
 (global-set-key (kbd "C-c o f") #'find-org-file)
 
