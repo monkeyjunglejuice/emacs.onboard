@@ -1,0 +1,49 @@
+* ONBOARD – Portable Emacs config without any 3rd-party packages
+
+The goal of this Emacs config is to offer a clean slate to build upon.
+It stays as close as possible to vanilla Emacs, but offers some convenience
+and a better look, without relying on other packages than the built-ins.
+
+
+** Getting started
+
+*** New Emacs user without own config files?
+
+1. Download init-onboard.el
+2. Rename it to .emacs
+3. Move it to your home directory and start Emacs
+- or -
+1. Download init-onboard.el
+2. Rename it to init.el
+3. Move it to ~/.emacs.d directory and start Emacs
+
+*** Emacs user with existing .emacs or ~/.emacs.d/init.el file?
+
+1. Download init-onboard.el
+2. Put this in your Emacs init file: ~(require 'init-onboard "~/path/to/init-onboard.el")~
+3. Start Emacs
+
+** Tested with:
+
+- Emacs 27.1 on Ubuntu 20.04 LTS
+- Emacs 26.1 on Debian 10.9.0
+
+** Get comfortable
+
+"F12"  Toggle between dark and light theme
+
+"C-g"  Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
+
+"M-x"  Execute command: Press <Alt>-<x> to reach all available commands
+       Examples:
+
+"M-x list-packages"  Install 3rd-party packages ("app store"/"marketplace")
+"M-x check-parens"   Check if all parens match (in Emacs Lisp code file)
+"M-x load-file"      Load and execute (!) files with Emacs Lisp code
+
+"C-h o"  Place the point ("cursor") on a function, variable, or other symbol
+         and press the key binding to view documentation
+
+"M-;"    Comment/uncomment selected code
+
+
