@@ -2,11 +2,9 @@
 
 *Portable Emacs config without any 3rd-party packages*
 
-Overwhelmed by the complexity of Emacs starter distributions like Doom-Emacs or Spacemacs?
-You want to build your Emacs config bottom-up but not miss certain basics?
+Overwhelmed by the complexity of Emacs starter distributions like Doom-Emacs or Spacemacs? You want to build your Emacs config bottom-up but not miss certain basics?
 
-The goal of this Emacs config is to offer a clean slate to build upon.
-It stays as close as possible to vanilla Emacs, but offers some convenience and a better look, without relying on other packages than the built-ins.
+The goal of this Emacs config is to offer a clean slate to build upon. It stays as close as possible to vanilla Emacs, but offers some convenience and a better look, without relying on other packages than the built-ins.
 
 ** Getting started
 
@@ -40,8 +38,11 @@ It stays as close as possible to vanilla Emacs, but offers some convenience and 
 "M-x" Execute command: Press <Alt>-<x> to reach all available commands
 
 Examples:
+
 "M-x list-packages" Install 3rd-party packages ("app store"/"marketplace")
+
 "M-x check-parens" Check if all parens match (in Emacs Lisp code file)
+
 "M-x load-file" Load and execute (!) files with Emacs Lisp code
 
 "C-h o" Place the point ("cursor") on a function, variable, or other symbol and press the key binding to view documentation
