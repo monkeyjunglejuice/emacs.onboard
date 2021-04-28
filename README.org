@@ -30,7 +30,7 @@ or
 - Emacs 27.1 on Ubuntu 20.04 LTS
 - Emacs 26.1 on Debian 10.9.0
 
-** Get comfortable
+** Getting comfortable
 
 "F12" Toggle between dark and light theme
 
