@@ -5,7 +5,7 @@
 Overwhelmed by the complexity of Emacs starter distributions like Doom-Emacs or Spacemacs?
 You want to build your Emacs config bottom-up but not forget easy-to-miss basics?
 
-The goal of this Emacs config is to offer a clean slate to build upon. It stays as close as possible to vanilla Emacs, but offers some convenience and a better look, without relying on other packages. All built-in – all ONBOARD.
+The goal of this Emacs config is to offer a clean slate to build upon. It stays as close as possible to vanilla Emacs, but offers some convenience and a better look, without relying on other packages. It's all built-in – all ONBOARD.
 
 ** Getting started
 
