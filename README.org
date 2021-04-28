@@ -39,7 +39,7 @@ or
 
 
 ** Getting started (Windows)
-- Coming soon!
+- /Coming soon!/
 
 ** Tested with:
 
@@ -50,11 +50,9 @@ or
 
 ** Getting comfortable
 
-I put some effort into documentation. So if you are an Emacs beginner, you will find the most tips and answers in the file itself.
+If you are an Emacs beginner, you will find the most tips and answers in the file itself.
 
-One thing I cannot stress enough: The seemingly weird keybindings are not what make Emacs. They are in fact secondary. The /commands/ are the really interesting things.
-
-All those keybindings are just convenience shortcuts to use those commands, but they are not the commands themselves.
+The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All those keybindings are just convenience shortcuts to use commands, but they are not the commands themselves. The /commands/ are the really interesting things.
 
 What that means:
 
@@ -73,4 +71,4 @@ Examples:
 
 *** And the other important keybinding is this:
 
-*"C-g"* – Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
+2. *"C-g"* – Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
