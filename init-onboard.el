@@ -366,10 +366,10 @@
 ;; Use the minibuffer instead of dialog boxes
 (setq use-dialog-box nil)
 
-;; Change all yes/no questions to y/n type
+;; Change all yes/no questions to y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Show the file size in modeline
+;; Show the buffer size in the modeline
 (size-indication-mode 1)
 
 ;; Show column number along with line number in modeline
@@ -473,7 +473,7 @@
 (setq uniquify-buffer-name-style 'forward)
 
 
-;; Ibuffer – show a buffer list and do stuff with them
+;; Ibuffer – show all buffers in a list and do stuff with them
 (require 'ibuf-ext)
 (add-hook 'ibuffer-mode-hook
           (lambda ()
