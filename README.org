@@ -13,7 +13,7 @@ and a better look, without relying on other packages than the built-ins.
 1. Download init-onboard.el
 2. Rename it to .emacs
 3. Move it to your home directory and start Emacs
-- or -
+#- or -
 1. Download init-onboard.el
 2. Rename it to init.el
 3. Move it to ~/.emacs.d directory and start Emacs
