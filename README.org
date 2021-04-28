@@ -1,4 +1,4 @@
-* ONBOARD – Build your own vanilla Emacs
+* 🚀 ONBOARD – Build your own vanilla Emacs
 
 *Portable Emacs config without any 3rd-party packages*
 
