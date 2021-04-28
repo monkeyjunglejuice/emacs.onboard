@@ -1,9 +1,10 @@
-* ONBOARD – Portable Emacs config without any 3rd-party packages
+* ONBOARD – Build your own vanilla Emacs config
+
+*Portable Emacs config without any 3rd-party packages*
 
 The goal of this Emacs config is to offer a clean slate to build upon.
 It stays as close as possible to vanilla Emacs, but offers some convenience
 and a better look, without relying on other packages than the built-ins.
-
 
 ** Getting started
 
@@ -30,20 +31,19 @@ and a better look, without relying on other packages than the built-ins.
 
 ** Get comfortable
 
-"F12"  Toggle between dark and light theme
+"F12" Toggle between dark and light theme
 
-"C-g"  Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
+"C-g" Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
 
-"M-x"  Execute command: Press <Alt>-<x> to reach all available commands
-       Examples:
+"M-x" Execute command: Press <Alt>-<x> to reach all available commands
 
-"M-x list-packages"  Install 3rd-party packages ("app store"/"marketplace")
-"M-x check-parens"   Check if all parens match (in Emacs Lisp code file)
-"M-x load-file"      Load and execute (!) files with Emacs Lisp code
+Examples:
+"M-x list-packages" Install 3rd-party packages ("app store"/"marketplace")
+"M-x check-parens" Check if all parens match (in Emacs Lisp code file)
+"M-x load-file" Load and execute (!) files with Emacs Lisp code
 
-"C-h o"  Place the point ("cursor") on a function, variable, or other symbol
-         and press the key binding to view documentation
+"C-h o" Place the point ("cursor") on a function, variable, or other symbol and press the key binding to view documentation
 
-"M-;"    Comment/uncomment selected code
+"M-;" Comment/uncomment selected code
 
 
