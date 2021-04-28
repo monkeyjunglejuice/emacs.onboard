@@ -52,15 +52,15 @@ or
 
 I put some effort into documentation. So if you are an Emacs beginner, you will find the most tips and answers in the file itself.
 
-One thing I cannot stress enough: The seemingly weird keybindings are not what makes Emacs. They are in fact secondary.
+One thing I cannot stress enough: The seemingly weird keybindings are not what make Emacs. They are in fact secondary. The /commands/ are the really interesting things.
 
-The /commands/ are the really interesting things. All those keybindings are just convenience shortcuts to use those commands, but they are not those commands themselves.
+All those keybindings are just convenience shortcuts to use those commands, but they are not the commands themselves.
 
 What that means:
 
 *** There are just 2 keybindings that are really important:
 
-"M-x" Execute a command. Press <Alt>-<x> to reach all available commands.
+1. *"M-x"* – Execute a command. Press <Alt>-<x> to reach all available commands.
 
 Examples:
 
@@ -68,11 +68,11 @@ Examples:
 
 - "M-x check-parens" Check if all parens match (in Emacs Lisp code file)
 
-- "M-x help" to reach the ultimate help master menu
+- "M-x describe-key" find out what some keybinding does
 
-- "M-x describe-key" find out what some key combination does
+- "M-x help" to reach the ultimate help menu
 
 
 *** And the second important one is this:
 
-"C-g" Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
+*"C-g"* – Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
