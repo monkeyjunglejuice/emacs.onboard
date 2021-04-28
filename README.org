@@ -36,22 +36,22 @@ or
 
 ** Getting comfortable
 
-="F12"= Toggle between the dark and the light theme
+"F12" Toggle between the dark and the light theme
 
-="C-g"= Get out! Press =<Ctrl>-<g>= to cancel whatever happens (or 3x =<ESC>=)
+"C-g" Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
 
-="C-h o"= Place the point ("cursor") on a function, variable, or other symbol and press the key binding to view documentation
+"C-h o" Place the cursor on a function, variable, or other symbol and press the key binding to view documentation
 
-="M-;"= Comment/uncomment selected code
+"M-;" Comment/uncomment selected code
 
-="M-x"= Execute command: Press =<Alt>-<x>= to reach all available commands
+"M-x" Execute command: Press <Alt>-<x> to reach all available commands
 
 Examples:
 
-="M-x list-packages"= Install 3rd-party packages ("app store" or "marketplace")
+"M-x list-packages" Install 3rd-party packages ("app store" or "marketplace")
 
-="M-x check-parens"= Check if all parens match (in Emacs Lisp code file)
+"M-x check-parens" Check if all parens match (in Emacs Lisp code file)
 
-="M-x load-file"= Load and execute (!) files with Emacs Lisp code
+"M-x load-file" Load and execute (!) files with Emacs Lisp code
 
 
