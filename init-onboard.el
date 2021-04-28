@@ -1,5 +1,5 @@
 ;;; init-onboard.el --- Portable Emacs config without any 3rd-party packages
-
+v
 
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs-onboard
@@ -184,7 +184,7 @@
 ;; but scroll further down to "Theme configuration"
 
 (defgroup toggle-theme nil
-  "Toggle between light and dark theme via a single key press."
+  "Toggle between light and dark theme with a single key press."
   :group 'convenience)
 
 (defcustom light-theme-name 'leuven
