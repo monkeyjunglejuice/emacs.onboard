@@ -36,11 +36,11 @@ or
 
 "C-g" Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
 
-"M-x" Execute command: Press <Alt>-<x> to reach all available commands
-
 "C-h o" Place the point ("cursor") on a function, variable, or other symbol and press the key binding to view documentation
 
 "M-;" Comment/uncomment selected code
+
+"M-x" Execute command: Press <Alt>-<x> to reach all available commands
 
 Examples:
 
