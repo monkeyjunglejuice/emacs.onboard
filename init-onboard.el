@@ -505,7 +505,7 @@
 
 ;; Quickly jump to *scratch* buffer
 (defun scratch ()
-  "Jump to the *scratch* buffer. If it doe not exists, create it."
+  "Jump to the *scratch* buffer. If it does not yet exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
 
