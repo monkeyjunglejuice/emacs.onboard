@@ -400,10 +400,8 @@
       (define-key icomplete-minibuffer-map
         (kbd "C-p") #'icomplete-backward-completions)))
 
-
 ;; Enable autocompletion
 (icomplete-mode 1)
-
 
 ;; Make Icomplete better with Fido-mode (Emacs version 27 and higher)
 (when (>= emacs-major-version 27)
