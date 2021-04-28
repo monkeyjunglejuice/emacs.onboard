@@ -11,11 +11,11 @@
 
 ;; The goal of Emacs ONBOARD is to offer a clean slate to build upon.
 ;; It stays as close as possible to vanilla Emacs, but offers some convenience
-;; and a better look, without relying on other packages than the built-ins.
+;; and a better user experience, only relying on built-in packages.
 
 ;; Tested with:
-;;  - Emacs 27.1 on Ubuntu 20.04 LTS
-;;  - Emacs 26.1 on Debian 10.9.0
+;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
+;;  [X] Emacs 26.1 on Debian 10.9.0
 
 
 ;; KEYBINDINGS
@@ -25,14 +25,14 @@
 ;; "M-x"  Execute command: Press <Alt>-<x> to reach all available commands
 ;;        Examples:
 
-;; "M-x list-packages"  Install 3rd-party packages ("app store"/"marketplace")
+;; "M-x list-packages"  Install 3rd-party packages
 ;; "M-x check-parens"   Check if all parens match (in Emacs Lisp code file)
 ;; "M-x help"           Reach the ultimate help menu
 
 ;; "C-g"  Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
 
 ;; "C-h o"  Place the point ("cursor") on a function, variable, or other symbol
-;;          and press the keybinding to view documentation
+;;          and press the keybinding to view its documentation
 
 ;; "M-;"    Comment/uncomment selected code
 
@@ -231,7 +231,7 @@
 (defun load-theme-light ()
   "Load the light theme and apply some modifications."
   (interactive)
-  (mapc #'disable-theme custom-enabled-themes) ; clear any existing themes
+  (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'load-before-theme-light-hook)
   (load-theme light-theme-name t)
   (run-hooks 'load-after-theme-light-hook)
@@ -240,7 +240,7 @@
 (defun load-theme-dark ()
   "Load the dark theme and apply some modifications."
   (interactive)
-  (mapc #'disable-theme custom-enabled-themes) ; clear any existing themes
+  (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'load-before-theme-dark-hook)
   (load-theme dark-theme-name t)
   (run-hooks 'load-after-theme-dark-hook)
