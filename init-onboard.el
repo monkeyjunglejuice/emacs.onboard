@@ -970,6 +970,7 @@
 ;; (add-hook 'emacs-lisp-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
+;;             (company-mode)
 ;;             (flycheck-mode)
 ;;             (paren-face-mode)
 ;;             (paredit-mode)))
@@ -977,6 +978,7 @@
 ;; (add-hook 'lisp-interaction-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
+;;             (company-mode)
 ;;             (flycheck-mode -1)
 ;;             (paren-face-mode)
 ;;             (paredit-mode)))
