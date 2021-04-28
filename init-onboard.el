@@ -1,5 +1,5 @@
 ;;; init-onboard.el --- Portable Emacs config without any 3rd-party packages
-v
+
 
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs-onboard
