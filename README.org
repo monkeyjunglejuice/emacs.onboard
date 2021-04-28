@@ -68,11 +68,9 @@ Examples:
 
 - "M-x check-parens" Check if all parens match (in Emacs Lisp code file)
 
-- "M-x describe-key" find out what some keybinding does
-
 - "M-x help" to reach the ultimate help menu
 
 
-*** And the second important one is this:
+*** And the other important keybinding is this:
 
 *"C-g"* – Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
