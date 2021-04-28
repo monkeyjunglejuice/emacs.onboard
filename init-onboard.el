@@ -934,7 +934,7 @@
 ;; General programming settings
 (add-hook 'prog-mode-hook
           (lambda ()
-            ;; (linum-mode 1) ; turn on/off line numbers 'M-x linum-mode'
+            ;; (linum-mode 1) ; turn on/off line numbers "M-x linum-mode"
             ;; (electric-pair-local-mode 1) ; auto-close parens and brackets
 	          (setq show-trailing-whitespace t)))
 
