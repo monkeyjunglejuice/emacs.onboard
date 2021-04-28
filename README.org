@@ -1,10 +1,12 @@
-* ONBOARD – Build your own vanilla Emacs config
+* ONBOARD – Build your own vanilla Emacs
 
 *Portable Emacs config without any 3rd-party packages*
 
+Overwhelmed by the complexity of Emacs starter distributions like Doom-Emacs or Spacemacs?
+You want to build your Emacs config bottom-up but not miss certain basics?
+
 The goal of this Emacs config is to offer a clean slate to build upon.
-It stays as close as possible to vanilla Emacs, but offers some convenience
-and a better look, without relying on other packages than the built-ins.
+It stays as close as possible to vanilla Emacs, but offers some convenience and a better look, without relying on other packages than the built-ins.
 
 ** Getting started
 
@@ -13,7 +15,7 @@ and a better look, without relying on other packages than the built-ins.
 1. Download init-onboard.el
 2. Rename it to .emacs
 3. Move it to your home directory and start Emacs
-#- or -
+# - or -
 1. Download init-onboard.el
 2. Rename it to init.el
 3. Move it to ~/.emacs.d directory and start Emacs
