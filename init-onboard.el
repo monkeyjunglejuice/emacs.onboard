@@ -113,7 +113,10 @@
 (require 'server)
 
 
-;; Display the Emacs server name in the frame title
+;; "M-x info-emacs-manual" <s> server <RET>
+
+
+;; Display the name of the Emacs server process in the frame title
 
 (defun my-frame-title ()
   "Set a custom frame title."
