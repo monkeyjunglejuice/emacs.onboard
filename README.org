@@ -2,10 +2,18 @@
 
 *Portable Emacs config without any 3rd-party packages*
 
-Overwhelmed by the complexity of Emacs starter distributions like Doom-Emacs or Spacemacs?
+Overwhelmed by the complexity of (excellent) Emacs starter distributions like Doom-Emacs or Spacemacs?
 You want to build your Emacs config bottom-up but not forget easy-to-miss basics?
 
 The goal of this Emacs config is to offer a beginner-friendly, clean slate to build upon. It stays as close as possible to vanilla Emacs, but offers some convenience and a better look, without relying on other packages. It's all built-in – all ONBOARD.
+
+** Why, oh why? Yet another Emacs starter kit?
+
+Legit question. Well, better 69 roads to Emacs than 3-5, no? While I was setting up a VM to test some stuff, I wished I had a one-file-config that I can simply drop in, and have a sane environment in no time. An then, when I was cleaning up my Emacs config again, I realized that I haven't touched some parts within the last months or so. They just worked well.
+
+So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
+
+Actually I use not just that config but have my Emacs config modularized into several -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc. But this is the heart piece.
 
 ** Getting started (Linux)
 
@@ -29,29 +37,42 @@ or
 2. Put this in your Emacs init file: ~(require 'init-onboard "~/path/to/init-onboard.el")~
 3. Start Emacs
 
+
+** Getting started (Windows)
+- Coming soon!
+
 ** Tested with:
 
-- Emacs 27.1 on Ubuntu 20.04 LTS
-- Emacs 26.1 on Debian 10.9.0
+- [X] Emacs 27.1 on Ubuntu 20.04 LTS
+- [X] Emacs 26.1 on Debian 10.9.0
+- [ ] Emacs 27.1 on Windows 10
+- [ ] Emacs 27.1 on MacOS
 
 ** Getting comfortable
 
-"F12" Toggle between the dark and the light theme
+I put some effort into documentation. So if you are an Emacs beginner, you will find the most tips and answers in the file itself.
 
-"C-g" Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
+One thing I cannot stress enough: The seemingly weird keybindings are not what makes Emacs. They are in fact secondary.
 
-"C-h o" Place the cursor on a function, variable, or other symbol and press the key binding to view documentation
+The /commands/ are the really interesting things. All those keybindings are just convenience shortcuts to use those commands, but they are not those commands themselves.
 
-"M-;" Comment/uncomment selected code
+What that means:
 
-"M-x" Execute command: Press <Alt>-<x> to reach all available commands
+*** There are just 2 keybindings that are really important:
+
+"M-x" Execute a command. Press <Alt>-<x> to reach all available commands.
 
 Examples:
 
-"M-x list-packages" Install 3rd-party packages ("app store" or "marketplace")
+- "M-x list-packages" Install 3rd-party packages (the "Emacs app store" or "Emacs marketplace" cough-cough)
 
-"M-x check-parens" Check if all parens match (in Emacs Lisp code file)
+- "M-x check-parens" Check if all parens match (in Emacs Lisp code file)
 
-"M-x load-file" Load and execute (!) files with Emacs Lisp code
+- "M-x help" to reach the ultimate help master menu
+
+- "M-x describe-key" find out what some key combination does
 
 
+*** And the second important one is this:
+
+"C-g" Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
