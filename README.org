@@ -58,7 +58,7 @@ What that means:
 
 *** There are just 2 keybindings that are really important:
 
-1. *"M-x"* – Execute a command. Press <Alt>-<x> to reach all available commands.
+*"M-x"* – Execute a command. Press <Alt>-<x> to reach all available commands.
 
 Examples:
 
@@ -71,4 +71,4 @@ Examples:
 
 *** And the other important keybinding is this:
 
-2. *"C-g"* – Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
+*"C-g"* – Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
