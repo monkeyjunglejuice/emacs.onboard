@@ -17,21 +17,24 @@
 ;;  - Emacs 27.1 on Ubuntu 20.04 LTS
 ;;  - Emacs 26.1 on Debian 10.9.0
 
+
+;; KEYBINDINGS
+
 ;; "F12"  Toggle between dark and light theme
-
-;; "C-g"  Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
-
-;; "C-h o"  Place the point ("cursor") on a function, variable, or other symbol
-;;          and press the key binding to view documentation
-
-;; "M-;"    Comment/uncomment selected code
 
 ;; "M-x"  Execute command: Press <Alt>-<x> to reach all available commands
 ;;        Examples:
 
 ;; "M-x list-packages"  Install 3rd-party packages ("app store"/"marketplace")
 ;; "M-x check-parens"   Check if all parens match (in Emacs Lisp code file)
-;; "M-x load-file"      Load and execute (!) files with Emacs Lisp code
+;; "M-x help"           Reach the ultimate help menu
+
+;; "C-g"  Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
+
+;; "C-h o"  Place the point ("cursor") on a function, variable, or other symbol
+;;          and press the keybinding to view documentation
+
+;; "M-;"    Comment/uncomment selected code
 
 
 ;;; Code:
