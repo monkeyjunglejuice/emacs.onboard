@@ -58,11 +58,7 @@ What that means:
 
 *** There are just 2 keybindings that are really important:
 
-<<<<<<< HEAD
 "M-x" — Execute a command. Press <Alt>-<x> to reach all available commands.
-=======
-*"M-x"* – Execute a command. Press <Alt>-<x> to reach all available commands.
->>>>>>> 920ea843678924cce5df40e161cd2fa3130558cd
 
 Examples:
 
@@ -75,8 +71,5 @@ Examples:
 
 *** And the other important keybinding is this:
 
-<<<<<<< HEAD
 "C-g" — Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
-=======
-*"C-g"* – Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
->>>>>>> 920ea843678924cce5df40e161cd2fa3130558cd
+
