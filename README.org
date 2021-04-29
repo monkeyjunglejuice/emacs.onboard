@@ -5,7 +5,8 @@
 Overwhelmed by the complexity of (excellent) Emacs starter distributions like Doom-Emacs or Spacemacs?
 You want to build your Emacs config bottom-up but not forget easy-to-miss basics?
 
-The goal of this Emacs config is to offer a beginner-friendly, clean slate to build upon. It stays as close as possible to vanilla Emacs, but offers some convenience and a better look, without relying on other packages. It's all built-in – all ONBOARD.
+The goal of this Emacs starter kit is to offer a beginner-friendly, clean slate to build upon. It stays as close as possible to vanilla Emacs, but offers some convenience and a better look, without relying on other packages. It's all built-in – all ONBOARD.
+
 
 ** Why, oh why? Yet another Emacs starter kit?
 
@@ -14,6 +15,7 @@ Legit question. Well, better 69 roads to Emacs than 3-5, no? When I was setting 
 So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
 
 Actually I use not just that config but have my Emacs config modularized into several -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc. But this is the heart piece.
+
 
 ** Getting started (Linux)
 
@@ -27,6 +29,7 @@ or
 2. Rename it to =init.el=
 3. Move it to =~/.emacs.d= directory and start Emacs
 
+
 *** Emacs user with existing .emacs or ~/.emacs.d/init.el file?
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs-onboard/main/init-onboard.el][init-onboard.el]]
@@ -37,8 +40,10 @@ or
 2. Put this in your Emacs init file: ~(require 'init-onboard "~/path/to/init-onboard.el")~
 3. Start Emacs (this way may interfere with your current config)
 
+
 ** Getting started (Windows)
 - /Coming soon!/
+
 
 ** Tested with:
 
@@ -49,6 +54,7 @@ or
 - [ ] Emacs 27 on MacOS
 - [ ] Emacs 26 on MacOS
 
+
 ** Getting comfortable
 
 If you are an Emacs beginner, you will find the most tips and answers in the file itself.
@@ -56,6 +62,7 @@ If you are an Emacs beginner, you will find the most tips and answers in the fil
 The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All those keybindings are just convenience shortcuts to use commands, but they are not the commands themselves. The /commands/ are the really interesting things.
 
 What that means:
+
 
 *** There are just 2 keybindings that are really important:
 
@@ -74,32 +81,35 @@ Examples:
 
 "C-g" — Get out! Press <Ctrl>–<g> to cancel whatever happens (or hitting 3x <ESC> in utter panic, which has the same effect)
 
+
 ** Goals
+
+- Portable: Should work on recent Linux/Unix, Windows and MacOS systems; Emacs versions >= 26
 
 - Beginner-friendly: Novice Emacs users willing to look into Elisp code should be able to follow
 
 - Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, but an addition
 
-- One single file only
-
 - Only built-in packages/features coming with the GNU Emacs distribution's default build options
-
-- Portability: Should work on recent Linux/Unix, Windows and MacOS systems; Emacs versions >= 26
 
 - Documentation: Comments are first class; It should be clear why something is in the code
 
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable
+
+- One single file only
 
 
 ** Non-Goals
 
 - Provide a whole new experience like Spacemacs or Doom-Emacs do
 
-- Pre-configure everything and the cat's pillow
+- Pre-configure everything and the cat's pillow (if you know cats, …)
 
 - New keybindings. However, they may be useful sometimes.
+
+- (Re)creating functionality that would better fit into a 3rd-party package
 
 
 ** Contribution
 
-If you think this is something the (Emacs) world needs, you're welcome to send pull requests.
+You are welcome to contribute! Right now, I think testing on various OS is the most important thing to do, to detect and iron out potential issues users of other operating systems may have.
