@@ -1,4 +1,4 @@
-;;; init-onboard.el --- Portable Emacs config without any 3rd-party packages
+;;; init-onboard.el --- Portable Emacs starter kit without 3rd-party packages
 
 
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
@@ -9,14 +9,14 @@
 ;;; Commentary:
 
 
-;; The goal of Emacs ONBOARD is to offer a clean slate to build upon.
+;; The goal of ONBOARD is to offer a clean slate to build upon.
 ;; It stays as close as possible to vanilla Emacs, but offers some convenience
 ;; and a better user experience, only relying on built-in packages.
 
 ;; Tested with:
 ;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 26.1 on Debian 10.9.0
-
+;;  [X] Emacs 26.3 on Windows 10
 
 ;; KEYBINDINGS
 
@@ -26,15 +26,16 @@
 ;;        Examples:
 
 ;; "M-x list-packages"  Install 3rd-party packages
+;; "M-x user-init-file" Visit main configuration file ('.emacs' or 'init.el')
 ;; "M-x check-parens"   Check if all parens match (in Emacs Lisp code file)
 ;; "M-x help"           Reach the ultimate help menu
 
-;; "C-g"  Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
+;; "C-g"   Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
 
-;; "C-h o"  Place the point ("cursor") on a function, variable, or other symbol
-;;          and press the keybinding to view its documentation
+;; "C-h o" Place the point ("cursor") on a function, variable, or other symbol
+;;         and press the keybinding to view its documentation
 
-;; "M-;"    Comment/uncomment selected code
+;; "M-;"   Comment/uncomment selected code
 
 
 ;;; Code:
