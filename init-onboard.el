@@ -25,7 +25,6 @@
 ;; "M-x"  Execute command: Press <Alt>-<x> to reach all available commands
 ;;        Examples:
 
-;; "M-x list-packages"  Install 3rd-party packages
 ;; "M-x user-init-file" Visit main configuration file ('.emacs' or 'init.el')
 ;; "M-x check-parens"   Check if all parens match (in Emacs Lisp code file)
 ;; "M-x help"           Reach the ultimate help menu
