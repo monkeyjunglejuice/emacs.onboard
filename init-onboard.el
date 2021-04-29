@@ -827,7 +827,12 @@
 ;;; EMAIL HANDLING ____________________________________________________________
 
 
-;; Specify accounts in ~/.authinfo.gpg first. Content template:
+;; TODO: Send emails directly from Emacs via SMTP server (example, needs work)
+
+;; Must to be defined first
+;; (setq user-mail-address "mail@example.org")
+
+;; Specify accounts in '~/.authinfo.gpg'. Content template for authinfo.gpg:
 ;; machine mail.example.org port 25 login myuser password mypassword
 
 ;; Emacs email variables
