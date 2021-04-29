@@ -820,7 +820,7 @@
 
 
 ;; Browse URL with standard web browser
-(global-set-key (kbd "C-c w w") #'browse-url-firefox)
+(global-set-key (kbd "C-c w w") #'browse-url)
 
 
 ;;; EMAIL HANDLING ____________________________________________________________
