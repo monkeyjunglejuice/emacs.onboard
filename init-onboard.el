@@ -101,6 +101,19 @@
 (setq read-process-output-max (* 1024 1024)) ; 1 MB
 
 
+;; Emacs knows where it is (open and edit '.emacs' or 'init.el')
+(defun user-init-file ()
+  "Visit the init file."
+  (interactive)
+  (find-file user-init-file))
+
+;; Open to the '~/.emacs.d' directory in the file manager
+(defun user-emacs-directory ()
+  "Open the Emacs directory in Dired."
+  (interactive)
+  (dired user-emacs-directory))
+
+
 ;; Customizations (settings set via 'M-x customize' go to
 ;; '.emacs' or 'init.el' by default, unless specified otherwise
 ;; (setq custom-file (concat user-emacs-directory "custom.el"))
