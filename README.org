@@ -9,7 +9,7 @@ The goal of this Emacs config is to offer a beginner-friendly, clean slate to bu
 
 ** Why, oh why? Yet another Emacs starter kit?
 
-Legit question. Well, better 69 roads to Emacs than 3-5, no? While I was setting up a VM to test some stuff, I wished I had a one-file-config that I can simply drop in, and have a sane environment in no time. An then, when I was cleaning up my Emacs config again, I realized that I haven't touched some parts within the last months or so. They just worked well.
+Legit question. Well, better 69 roads to Emacs than 3-5, no? When I was setting up a VM to test some stuff, I wished I had a one-file-config that I can simply drop in, and have a sane environment in no time. An then, when I was cleaning up my Emacs config again, I realized that I haven't touched some parts within the last months or so. They just worked well.
 
 So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
 
@@ -35,8 +35,7 @@ or
 or
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs-onboard/main/init-onboard.el][init-onboard.el]]
 2. Put this in your Emacs init file: ~(require 'init-onboard "~/path/to/init-onboard.el")~
-3. Start Emacs
-
+3. Start Emacs (this way may interfere with your current config)
 
 ** Getting started (Windows)
 - /Coming soon!/
@@ -45,8 +44,10 @@ or
 
 - [X] Emacs 27.1 on Ubuntu 20.04 LTS
 - [X] Emacs 26.1 on Debian 10.9.0
-- [ ] Emacs 27.1 on Windows 10
-- [ ] Emacs 27.1 on MacOS
+- [ ] Emacs 27 on Windows 10
+- [ ] Emacs 26 Windows 10
+- [ ] Emacs 27 on MacOS
+- [ ] Emacs 26 on MacOS
 
 ** Getting comfortable
 
@@ -58,7 +59,7 @@ What that means:
 
 *** There are just 2 keybindings that are really important:
 
-"M-x" — Execute a command. Press <Alt>-<x> to reach all available commands.
+"M-x" — Execute a command. Press <Alt>–<x> to reach all available commands.
 
 Examples:
 
@@ -71,5 +72,34 @@ Examples:
 
 *** And the other important keybinding is this:
 
-"C-g" — Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>, which is the same)
+"C-g" — Get out! Press <Ctrl>–<g> to cancel whatever happens (or hitting 3x <ESC> in utter panic, which has the same effect)
 
+** Goals
+
+- Beginner-friendly: Novice Emacs users willing to look into Elisp code should be able to follow
+
+- Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, but an addition
+
+- One single file only
+
+- Only built-in packages/features coming with the GNU Emacs distribution's default build options
+
+- Portability: Should work on recent Linux/Unix, Windows and MacOS systems; Emacs versions >= 26
+
+- Documentation: Comments are first class; It should be clear why something is in the code
+
+- Modular simplicity: Code should not be intertwined, but easily modificable and separately usable
+
+
+** Non-Goals
+
+- Provide a whole new experience like Spacemacs or Doom-Emacs do
+
+- Pre-configure everything and the cat's pillow
+
+- New keybindings. However, they may be useful sometimes.
+
+
+** Contribution
+
+If you think this is something the (Emacs) world needs, you're welcome to send pull requests.
