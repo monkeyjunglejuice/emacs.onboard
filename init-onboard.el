@@ -347,6 +347,7 @@
 
 ;; Switch menu bar on (set to 1) or off (set to -1)
 (menu-bar-mode 1)
+;; Toggle menu bar visibility
 (global-set-key (kbd "C-c m") #'menu-bar-mode)
 
 ;; Disable the tool bar
