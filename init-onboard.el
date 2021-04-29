@@ -16,7 +16,7 @@
 ;; Tested with:
 ;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 26.1 on Debian 10.9.0
-;;  [X] Emacs 26.3 on Windows 10
+
 
 ;; KEYBINDINGS
 
@@ -102,13 +102,13 @@
 (setq read-process-output-max (* 1024 1024)) ; 1 MB
 
 
-;; Emacs knows where it is (open and edit '.emacs' or 'init.el')
+;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
 (defun user-init-file ()
   "Visit the init file."
   (interactive)
   (find-file user-init-file))
 
-;; Open to the '~/.emacs.d' directory in the file manager
+;; Open to the '~/.emacs.d' directory in the Dired file manager
 (defun user-emacs-directory ()
   "Open the Emacs directory in Dired."
   (interactive)
