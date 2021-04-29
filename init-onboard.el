@@ -126,10 +126,10 @@
 ;;; SERVER ____________________________________________________________________
 
 
-(require 'server)
-
-
 ;; How to use Emacs as an edit server: "M-x info-emacs-manual" <s> server <RET>
+
+
+(require 'server)
 
 
 ;; Display the name of the Emacs server process in the frame title
@@ -380,7 +380,7 @@
 (setq epg-pinentry-mode 'loopback)
 
 
-;;; MODELINE / MINIBUFFER _____________________________________________________
+;;; MODELINE / ECHO AREA / MINIBUFFER _________________________________________
 
 
 ;; Use the minibuffer instead of dialog boxes
@@ -445,14 +445,16 @@
 
 ;; Fix the default window splitting and placement
 ;; If this is a step too far, then replace
-;; `display-buffer-same-window' with `display-buffer-pop-up-window'
+;; `display-buffer-same-window' with `display-buffer-pop-up-window',
+;; or comment out the following expression and restart Emacs
+;; to experience the default window behavior
 
 (setq display-buffer-alist
       '((".*" (display-buffer-reuse-window display-buffer-same-window))))
 
 
 ;; Default window navigation – simply switch to the next window in order
-;; Default key binding is "C-x o"; added for convenience
+;; Added for convenience; default key binding is "C-x o"
 (global-set-key (kbd "M-o") #'other-window)
 
 
@@ -484,8 +486,8 @@
 ;;; BUFFERS ___________________________________________________________________
 
 
-;; Switch to another buffer (like tabs - when multiple files are open)
-;; Default keybinding is "C-x b"; added for convenience
+;; Switch to another buffer (those are like tabs – when multiple files are open)
+;; Added for convenience; default keybinding is "C-x b"
 (global-set-key (kbd "M-SPC") #'switch-to-buffer)
 
 
@@ -762,6 +764,8 @@
   (dired "~/"))
 
 
+;; Set new keybinding resembling "C-x C-f" for visiting files
+;; Added for convenience; default key binding is "C-x d"
 (global-set-key (kbd "C-x C-d") #'dired)
 
 
@@ -795,7 +799,7 @@
 ;;; PROCED ____________________________________________________________________
 
 
-;; Show OS processes
+;; Show and manage OS processes
 (require 'proced)
 (setq proced-auto-update-interval 1)
 (setq-default proced-auto-update-flag t
@@ -829,9 +833,10 @@
 ;;; EMAIL HANDLING ____________________________________________________________
 
 
-;; TODO: Send emails directly from Emacs via SMTP server (example, needs work)
+;; TODO: Send emails directly from Emacs using SMTP
+;; (example, needs some work)
 
-;; Must to be defined first
+;; Should be defined first
 ;; (setq user-mail-address "mail@example.org")
 
 ;; Specify accounts in '~/.authinfo.gpg'. Content template for authinfo.gpg:
@@ -942,11 +947,12 @@
 (global-set-key (kbd "C-x l") #'count-words)
 
 
-;; When re-visiting a file, point (cursor)
-;; goes to the last place where it was before
+;; When re-visiting a file, the cursor goes
+;; to the last place where it was before
 (require 'saveplace)
 (save-place-mode 1)
 (setq save-place-file (concat user-emacs-directory "var/save-place.el"))
+
 
 ;; More useful than the default
 (global-set-key (kbd "M-z") 'zap-up-to-char)
