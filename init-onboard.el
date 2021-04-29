@@ -71,7 +71,7 @@
 ;; Highlight lines in the package manager
 (add-hook 'package-menu-mode-hook
           (lambda ()
-            (hl-line-mode)))
+            (hl-line-mode 1)))
 
 
 ;;; SYSTEM ____________________________________________________________________
@@ -918,8 +918,8 @@
 (add-hook 'text-mode-hook
           (lambda ()
             (setq show-trailing-whitespace t)
-            (visual-line-mode)
-            (hl-line-mode)))
+            (visual-line-mode 1)
+            (hl-line-mode 1)))
 
 
 ;; Set desired line width
@@ -999,25 +999,25 @@
 ;; (add-hook 'emacs-lisp-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
-;;             (company-mode)
-;;             (flycheck-mode)
-;;             (paren-face-mode)
-;;             (paredit-mode)))
+;;             (company-mode 1)
+;;             (flycheck-mode 1)
+;;             (paren-face-mode 1)
+;;             (paredit-mode 1)))
 
 ;; (add-hook 'lisp-interaction-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
-;;             (company-mode)
+;;             (company-mode 1)
 ;;             (flycheck-mode -1)
-;;             (paren-face-mode)
-;;             (paredit-mode)))
+;;             (paren-face-mode 1)
+;;             (paredit-mode 1)))
 
 ;; (add-hook 'ielm-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
-;;             (company-mode)
-;;             (paren-face-mode)
-;;             (paredit-mode)))
+;;             (company-mode 1)
+;;             (paren-face-mode 1)
+;;             (paredit-mode 1)))
 
 
 ;;; HTML / CSS ________________________________________________________________
