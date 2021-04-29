@@ -127,10 +127,13 @@
 (require 'server)
 
 
-;; "M-x info-emacs-manual" <s> server <RET>
+;; How to use Emacs as an edit server: "M-x info-emacs-manual" <s> server <RET>
 
 
 ;; Display the name of the Emacs server process in the frame title
+;; to see easily to which server process a client is connected to
+;; Further information:
+;; https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html
 
 (defun my-frame-title ()
   "Set a custom frame title."
@@ -150,7 +153,7 @@
             (my-frame-title)))
 
 
-;; Shutdown Emacs server instance
+;; Shutdown Emacs server process
 
 (defun server-stop ()
   "Save buffers, quit and shutdown (kill) server."
