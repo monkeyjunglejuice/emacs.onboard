@@ -50,7 +50,7 @@ or
 - [X] Emacs 27.1 on Ubuntu 20.04 LTS
 - [X] Emacs 26.1 on Debian 10.9.0
 - [ ] Emacs 27 on Windows 10
-- [ ] Emacs 26 Windows 10
+- [ ] Emacs 26 on Windows 10
 - [ ] Emacs 27 on MacOS
 - [ ] Emacs 26 on MacOS
 
@@ -79,7 +79,7 @@ Examples:
 
 *** And the other important keybinding is this:
 
-"C-g" — Get out! Press <Ctrl>–<g> to cancel whatever happens (or hitting 3x <ESC> in utter panic, which has the same effect)
+"C-g" — Get out! Press <Ctrl>–<g> to cancel whatever happens (or hit 3x <ESC> in utter panic, which has the same effect)
 
 
 ** Goals
