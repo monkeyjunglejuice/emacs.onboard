@@ -10,11 +10,11 @@ The goal of this Emacs starter kit is to offer a beginner-friendly, clean slate 
 
 ** Why, oh why? Yet another Emacs starter kit?
 
-Legit question. Well, better 69 roads to Emacs than 3-5, no? When I was setting up a VM to test some stuff, I wished I had a one-file-config that I can simply drop in, and have a sane environment in no time. An then, when I was cleaning up my Emacs config again, I realized that I haven't touched some parts within the last months or so. They just worked well.
+Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in, and have a sane environment in no time. And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked well.
 
 So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
 
-Actually I use not just that config but have my Emacs config modularized into several -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc. But this is the heart piece.
+Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc. But this is the heart piece.
 
 
 ** Getting started (Linux)
@@ -64,7 +64,7 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 What that means:
 
 
-*** There are just 2 keybindings that are really important:
+*** There are just 2 really important keybindings:
 
 "M-x" — Execute a command. Press <Alt>–<x> to reach all available commands.
 
@@ -84,32 +84,34 @@ Examples:
 
 ** Goals
 
+- One single file only
+
 - Portable: Should work on recent Linux/Unix, Windows and MacOS systems; Emacs versions >= 26
 
-- Beginner-friendly: Novice Emacs users willing to look into Elisp code should be able to follow
+- Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow
 
-- Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, but an addition
+- Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, rather an add-on
 
-- Only built-in packages/features coming with the GNU Emacs distribution's default build options
+- Use only built-in packages and features enabled by the GNU Emacs distribution's default build options
 
-- Documentation: Comments are first class; It should be clear why something is in the code
+- Extendable by 3rd-party packages without interfering or breaking things
+
+- Documentation is first class; It should be clear why something is in the code
 
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable
-
-- One single file only
 
 
 ** Non-Goals
 
-- Provide a whole new experience like Spacemacs or Doom-Emacs do
+- Provide a whole new experience like Spacemacs or Doom-Emacs
 
-- Pre-configure everything and the cat's pillow (if you know cats, …)
+- Pre-configure everything and the cat's pillow (if you know cats …)
 
 - New keybindings. However, they may be useful sometimes.
 
-- (Re)creating functionality that would better fit into a 3rd-party package
+- (Re)creating functionality where a 3rd-party package would be a better fit
 
 
 ** Contribution
 
-You are welcome to contribute! Right now, I think testing on various OS is the most important thing to do, to detect and iron out potential issues users of other operating systems may have.
+You are welcome to contribute! Right now, I think testing on various OS is the most important thing, to detect and iron out potential issues users of other operating systems may have.
