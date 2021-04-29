@@ -43,6 +43,9 @@
 ;;; PACKAGE MANAGEMENT ________________________________________________________
 
 
+;; Browse, select and install 3rd-party packages: "M-x list-packages"
+
+
 (require 'package)
 
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
