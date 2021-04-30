@@ -989,7 +989,7 @@
 
 
 ;; Backspace deletes the whole indentation instead of one-by-one
-;; Possibly shadowed when things like 'smartparens-mode' are active
+;; Possibly shadowed by 3rd-party packages like 'smartparens-mode'
 (setq backward-delete-char-untabify-method 'hungry)
 
 
