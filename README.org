@@ -18,8 +18,7 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 
 
-** Getting started (Linux)
-
+** Getting started
 
 *** Try it out (without installation)
 
@@ -48,13 +47,13 @@ You can ask Emacs, where it expects to find the init file:
 Typical results:
 
 - on Linux/Unix
-  1. =/home/USERNAME/.emacs=
-  2. =/home/USERNAME/.emacs.d/init.el= 
+  a) =/home/USERNAME/.emacs=
+  b) =/home/USERNAME/.emacs.d/init.el= 
 - on Windows
-  1. =c:\Users\USERNAME\AppData\Roaming\.emacs=
-  2. =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
+  a) =c:\Users\USERNAME\AppData\Roaming\.emacs=
+  b) =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
 
-/The 2. option seems to be more commonly used./
+/Option b) seems to be more commonly used./
 
 
 *** Simple download and install ONBOARD (without Git)
