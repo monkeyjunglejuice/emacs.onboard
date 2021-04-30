@@ -51,15 +51,15 @@ Typical results:
 
 - on Linux/Unix
   - =/home/USERNAME/.emacs=
-  - =/home/USERNAME/.emacs.d/init.el= 
+  - =/home/USERNAME/.emacs.d/init.el=
 - on Windows
   - =c:\Users\USERNAME\AppData\Roaming\.emacs=
   - =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
 
-/The second option seems to be more commonly used./
+/The second options seem to be more common./
 
 
-*** Simply download and install ONBOARD without Git
+*** Or simply download and install ONBOARD without Git
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
 2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
