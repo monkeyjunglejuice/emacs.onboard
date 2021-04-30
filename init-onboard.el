@@ -409,7 +409,8 @@
 
 
 ;; Display completions vertically, using the newline separator '\n'
-;; Better than newline-separator --> 3rd-party package 'icomplete-vertical'
+;; There's a better way than the newline-separator:
+;; --> 3rd-party package 'icomplete-vertical' recommended
 (setq icomplete-separator "\n")
 
 ;; Provide some intuitive keybindings and make the display area higher
@@ -435,7 +436,7 @@
 
 
 ;; Enhance M-x to allow easier execution of commands
-;; --> requires 3rd-party package 'amx'
+;; --> 3rd-party package 'amx' recommended
 ;; (global-set-key (kbd "M-x") #'amx)
 ;; (global-set-key (kbd "M-X") #'amx-major-mode-commands)
 
@@ -557,7 +558,7 @@
 
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
-;; --> requires 3rd-party package 'xclip'
+;; --> 3rd-party package 'xclip' recommended
 ;; (xclip-mode 1)
 
 
@@ -1000,7 +1001,7 @@
 
 
 ;; Essential Lisp setup
-;; --> requires 3rd-party packages
+;; --> 3rd-party packages recommended
 
 ;; (add-hook 'emacs-lisp-mode-hook
 ;;           (lambda ()
