@@ -117,7 +117,7 @@ Examples:
 
 - Pre-configure everything and the cat's pillow (if you know cats …)
 
-- New keybindings. However, they may be useful sometimes.
+- New keybindings. However, they may be useful in certain circumstances.
 
 - (Re)creating functionality where a 3rd-party package would be a better fit
 
