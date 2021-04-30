@@ -117,10 +117,10 @@
   (dired user-emacs-directory))
 
 
-;; Customizations (settings set via 'M-x customize' go to
-;; '.emacs' or 'init.el' by default, unless specified otherwise
-;; (setq custom-file (concat user-emacs-directory "custom.el"))
-;; (require 'custom (concat user-emacs-directory "custom.el")
+;; Emacs will save customizations (settings via 'M-x customize')
+;; in '.emacs' or 'init.el'. If you don't want that, save them in another file
+;; (setq custom-file (concat user-emacs-directory "etc/custom.el"))
+;; (load custom-file)
 
 
 ;;; SERVER ____________________________________________________________________

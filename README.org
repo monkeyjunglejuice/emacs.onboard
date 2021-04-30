@@ -100,6 +100,8 @@ Examples:
 
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable
 
+- Follow no-littering best practices (https://github.com/emacscollective/no-littering)
+
 
 ** Non-Goals
 
