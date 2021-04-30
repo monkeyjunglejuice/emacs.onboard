@@ -20,37 +20,33 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 ** Getting started (Linux)
 
-*** Try it out without installation
+
+*** Try it out (without installation)
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
 2. Open a terminal
 3. Run the shell command: ~emacs -q --load /path/to/init-onboard.el~
 
 
-*** New Emacs user without own config file
+*** Install ONBOARD by cloning the Git repository (recommended)
 
-1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
-2. Rename it to =.emacs=
-3. Move it to your home directory and start Emacs
-or
-1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
-2. Rename it to =init.el=
-3. Move it to =~/.emacs.d= directory and start Emacs
-
-
-*** Emacs user with existing init file
-
-1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
-2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
-3. (Re)start Emacs
-or
 1. Clone this repository: ~git clone https://github.com/monkeyjunglejuice/emacs.onboard.git~
 2. Put that in your Emacs init file: ~(add-to-list 'load-path "/path/to/emacs.onboard")~
 3. Then add this to your init file: ~(require 'init-onboard)~ and (re)start Emacs
 
+/Don't have a init file or don't know where it is?/
 
-** Getting started (Windows)
-- /Coming soon!/
+Emacs knows: "M-x describe-variable" <RET> user-init-file
+That could be …
+on Linux/Unix: =/home/USERNAME/.emacs= or =/home/USERNAME/.emacs.d/init.el= 
+on Windows: =c:\Users\USERNAME\AppData\Roaming\.emacs=
+
+
+*** Simple download and install ONBOARD (without Git)
+
+1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
+2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
+3. (Re)start Emacs
 
 
 ** Tested with:
