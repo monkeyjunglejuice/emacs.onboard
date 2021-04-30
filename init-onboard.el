@@ -2,7 +2,7 @@
 
 
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
-;; URL: https://github.com/monkeyjunglejuice/emacs-onboard
+;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Version: 0.1.0
 
 
