@@ -186,7 +186,7 @@
                     :height 160)
 
 
-;; Set the modeline fonts. These function must be called to have any effect:
+;; Set the modeline fonts. This function must be called to have any effect:
 ;; Uncomment `load-after-theme-light-hook' and `load-after-theme-light-hook'
 ;; further down under "Theme configuration".
 
