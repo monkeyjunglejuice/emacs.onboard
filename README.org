@@ -29,13 +29,13 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 *** Install ONBOARD by cloning the Git repository (recommended)
 
-1. Clone this repository: ~git clone https://github.com/monkeyjunglejuice/emacs.onboard.git~
-2. Put that in your Emacs init file:
+*1.* Clone this repository: ~git clone https://github.com/monkeyjunglejuice/emacs.onboard.git~
+*2.* Put that in your Emacs init file:
 #+begin_src emacs-lisp
 (add-to-list 'load-path "/path/to/emacs.onboard")
 (require 'init-onboard)
 #+end_src
-3. (Re)start Emacs
+*3.* (Re)start Emacs
 
 
 **** You don't have a init file or don't know where it is?
@@ -57,7 +57,7 @@ Typical results:
 /The second option seems to be more commonly used./
 
 
-*** Simple download and install ONBOARD (without Git)
+*** Simply download and install ONBOARD without Git
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
 2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
