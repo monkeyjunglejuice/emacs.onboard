@@ -36,10 +36,16 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 /Don't have a init file or don't know where it is?/
 
-Emacs knows: "M-x describe-variable" <RET> user-init-file
-That could be …
-on Linux/Unix: =/home/USERNAME/.emacs= or =/home/USERNAME/.emacs.d/init.el= 
-on Windows: =c:\Users\USERNAME\AppData\Roaming\.emacs=
+Ask Emacs: "M-x describe-variable" <RET> user-init-file
+
+Typical results:
+
+- on Linux/Unix
+  - =/home/USERNAME/.emacs=
+  - =/home/USERNAME/.emacs.d/init.el= 
+- on Windows
+  - =c:\Users\USERNAME\AppData\Roaming\.emacs=
+  - =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
 
 
 *** Simple download and install ONBOARD (without Git)
