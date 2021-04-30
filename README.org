@@ -17,9 +17,17 @@ So I stripped out those parts and put it all in one file, and made them my core 
 Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc. But this is the heart piece.
 
 
+
 ** Getting started (Linux)
 
-*** New Emacs user without own config files?
+*** Try it out without installation
+
+1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs-onboard/main/init-onboard.el][init-onboard.el]]
+2. Open a terminal
+3. Run the shell command: ~emacs -q --load /path/to/init-onboard.el~
+
+
+*** New Emacs user without own config file
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs-onboard/main/init-onboard.el][init-onboard.el]]
 2. Rename it to =.emacs=
@@ -30,15 +38,15 @@ or
 3. Move it to =~/.emacs.d= directory and start Emacs
 
 
-*** Emacs user with existing .emacs or ~/.emacs.d/init.el file?
+*** Emacs user with existing init file
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs-onboard/main/init-onboard.el][init-onboard.el]]
-2. Open a terminal to try it out
-3. Run the shell command: ~emacs -Q --load ~/path/to/init-onboard.el~
+2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
+3. (Re)start Emacs
 or
-1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs-onboard/main/init-onboard.el][init-onboard.el]]
-2. Put this in your Emacs init file: ~(require 'init-onboard "~/path/to/init-onboard.el")~
-3. Start Emacs (this way may interfere with your current config)
+1. Clone this repository: ~git clone https://github.com/monkeyjunglejuice/emacs-onboard.git~
+2. Put that in your Emacs init file: ~(add-to-list 'load-path "/path/to/emacs-onboard")~
+3. Then add this to your init file: ~(require 'init-onboard)~ and (re)start Emacs
 
 
 ** Getting started (Windows)
