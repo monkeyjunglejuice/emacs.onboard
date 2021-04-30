@@ -37,23 +37,24 @@ Actually I use not only that config file, but have my Emacs config split into se
 #+end_src
 3. (Re)start Emacs
 
-/You don't have a init file or don't know where it is?/
+
+**** You don't have a init file or don't know where it is?
 
 By default (freshly installed Emacs) there is no init file.
-You can ask Emacs, where it expects to find the init file:
+You can ask Emacs where it expects to find the init file:
 
 "M-x describe-variable" <RET> user-init-file
 
 Typical results:
 
 - on Linux/Unix
-  a) =/home/USERNAME/.emacs=
-  b) =/home/USERNAME/.emacs.d/init.el= 
+  - =/home/USERNAME/.emacs=
+  - =/home/USERNAME/.emacs.d/init.el= 
 - on Windows
-  a) =c:\Users\USERNAME\AppData\Roaming\.emacs=
-  b) =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
+  - =c:\Users\USERNAME\AppData\Roaming\.emacs=
+  - =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
 
-/Option b) seems to be more commonly used./
+/The second option seems to be more commonly used./
 
 
 *** Simple download and install ONBOARD (without Git)
