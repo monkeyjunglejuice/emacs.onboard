@@ -31,21 +31,30 @@ Actually I use not only that config file, but have my Emacs config split into se
 *** Install ONBOARD by cloning the Git repository (recommended)
 
 1. Clone this repository: ~git clone https://github.com/monkeyjunglejuice/emacs.onboard.git~
-2. Put that in your Emacs init file: ~(add-to-list 'load-path "/path/to/emacs.onboard")~
-3. Then add this to your init file: ~(require 'init-onboard)~ and (re)start Emacs
+2. Put that in your Emacs init file:
+#+begin_src emacs-lisp
+(add-to-list 'load-path "/path/to/emacs.onboard")
+(require 'init-onboard)
+#+end_src
+3. (Re)start Emacs
 
-/Don't have a init file or don't know where it is?/
+/You don't have a init file or don't know where it is?/
 
-Ask Emacs: "M-x describe-variable" <RET> user-init-file
+By default (freshly installed Emacs) there is no init file.
+You can ask Emacs, where it expects to find the init file:
+
+"M-x describe-variable" <RET> user-init-file
 
 Typical results:
 
 - on Linux/Unix
-  - =/home/USERNAME/.emacs=
-  - =/home/USERNAME/.emacs.d/init.el= 
+  1. =/home/USERNAME/.emacs=
+  2. =/home/USERNAME/.emacs.d/init.el= 
 - on Windows
-  - =c:\Users\USERNAME\AppData\Roaming\.emacs=
-  - =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
+  1. =c:\Users\USERNAME\AppData\Roaming\.emacs=
+  2. =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
+
+/The 2. option seems to be more commonly used./
 
 
 *** Simple download and install ONBOARD (without Git)
