@@ -10,11 +10,15 @@ The goal of this Emacs starter kit is to offer a beginner-friendly, clean slate 
 
 ** Why, oh why? Yet another Emacs starter kit?
 
-Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in, and have a sane environment in no time. And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked well.
+Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in, and have a sane environment in no time.
+
+And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked well.
 
 So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
 
-Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc. But this is the heart piece.
+Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
+
+But this is the heart piece.
 
 
 
