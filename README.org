@@ -111,13 +111,13 @@ Examples:
 
 - Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow
 
-- Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, rather an add-on
-
 - Use only built-in packages and features enabled by the GNU Emacs distribution's default build options
 
 - Extendable by 3rd-party packages without interfering or breaking things
 
-- Documentation is first class; It should be clear why something is in the code
+- Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, rather an add-on
+
+- Documentation is first class; it should be clear why something is in the code
 
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable
 
@@ -128,9 +128,9 @@ Examples:
 
 - Provide a whole new experience like Spacemacs or Doom-Emacs
 
-- Pre-configure everything and the cat's pillow (if you know cats …)
-
 - New keybindings. However, they may be useful in certain circumstances.
+
+- Pre-configure everything and the cat's pillow (if you know cats …)
 
 - (Re)creating functionality where a 3rd-party package would be a better fit
 
