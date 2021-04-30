@@ -25,9 +25,9 @@
 ;; "M-x"  Execute command: Press <Alt>-<x> to reach all available commands
 ;;        Examples:
 
-;; "M-x user-init-file" Visit main configuration file ('.emacs' or 'init.el')
-;; "M-x check-parens"   Check if all parens match (in Emacs Lisp code file)
-;; "M-x help"           Reach the ultimate help menu
+;; "M-x goto-user-init-file" Visit main configuration file ('.emacs', 'init.el')
+;; "M-x check-parens"        Check if all parens match (in Emacs Lisp code file)
+;; "M-x help"                Reach the ultimate help menu
 
 ;; "C-g"   Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
 
@@ -105,13 +105,13 @@
 
 
 ;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
-(defun user-init-file ()
+(defun goto-user-init-file ()
   "Visit the init file."
   (interactive)
   (find-file user-init-file))
 
 ;; Open to the '~/.emacs.d' directory in the Dired file manager
-(defun user-emacs-directory ()
+(defun goto-user-emacs-directory ()
   "Open the Emacs directory in Dired."
   (interactive)
   (dired user-emacs-directory))
@@ -892,12 +892,12 @@
                              '((emacs-lisp . t)))
 
 
-(defun dired-org-directory ()
+(defun goto-org-directory ()
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
 
-(global-set-key (kbd "C-c o d") #'dired-org-directory)
+(global-set-key (kbd "C-c o d") #'goto-org-directory)
 
 
 (defun find-org-file ()
@@ -908,7 +908,7 @@
 (global-set-key (kbd "C-c o f") #'find-org-file)
 
 
-(defun org-notes ()
+(defun goto-org-notes ()
   "Visit the Org main file."
   (interactive)
   (find-file (concat org-directory "notes.org")))
