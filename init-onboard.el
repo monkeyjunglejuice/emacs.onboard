@@ -18,7 +18,7 @@
 ;;  [X] Emacs 26.1 on Debian 10.9.0
 
 
-;; KEYBINDINGS
+;; Keybindings
 
 ;; "F12"  Toggle between dark and light theme
 
