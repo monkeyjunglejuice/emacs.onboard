@@ -43,8 +43,8 @@
 ;;; EARLY INIT ________________________________________________________________
 
 
-;; Code that should run as early as possible in the init file and would
-;; normally reside within '~/.emacs.d/early-init.el' for Emacs 27 and higher
+;; Code that should run as early as possible and would normall reside
+;; within '~/.emacs.d/early-init.el' for Emacs 27 and higher
 
 
 ;; Tune garbage collection
@@ -310,9 +310,9 @@
 (global-set-key (kbd "<f12>") #'toggle-theme)
 
 ;; The hooks can be used to run additional functions before or after loading
-;; the selected light/dark or dark theme. Useful to set variables that will
-;; otherwise be overwritten by the themes, for instance the font size for
-;; the modeline, which is often explicitly set by themes.
+;; the selected light or dark theme. Useful to set variables that otherwise
+;; get overwritten by the themes; for instance the font size of the
+;; modeline, which is often explicitly set by the themes themselves.
 ;; The hooks can also be configured via "M-x customize-group RET toggle-theme"
 
 ;; (add-hook 'load-after-theme-light-hook
@@ -845,18 +845,19 @@
 ;;; EMAIL HANDLING ____________________________________________________________
 
 
-;; TODO: Send emails directly from Emacs using SMTP
-;; (example, needs some work)
+;; TODO: Send emails directly from Emacs using SMTP – example template
 
 ;; Should be defined first
 ;; (setq user-mail-address "mail@example.org")
 
-;; Specify accounts in '~/.authinfo.gpg'. Content template for authinfo.gpg:
-;; machine mail.example.org port 25 login myuser password mypassword
+;; To avoid typing in the password for each email, specify SMTP account(s)
+;; in '~/.authinfo.gpg'. Here's a content template for authinfo.gpg:
+;; machine mail.example.org port 587 login myuser password mypassword
+
 
 ;; Emacs email variables
-(require 'smtpmail)
 
+(require 'smtpmail)
 (setq send-mail-function 'smtpmail-send-it
       smtpmail-smtp-server "localhost"
       smtpmail-stream-type 'starttls
