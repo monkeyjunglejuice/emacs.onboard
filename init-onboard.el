@@ -831,8 +831,8 @@
 ;; BUILT-IN WEB BROWSER _______________________________________________________
 
 
-;; Emacs Web Wowser
-;; (require 'eww)
+;; Eww – Emacs Web Wowser
+
 
 ;; Pretend to be an iPhone
 ;; (setq url-user-agent
@@ -845,8 +845,11 @@
 (url-setup-privacy-info)
 
 
-;;; EXTERNAL WEB BROWSER ______________________________________________________
+;;; STANDARD WEB BROWSER ______________________________________________________
 
+
+;; This can be the system-wide graphical web browser, but also a web browser
+;; within Emacs. Other browse functions exist besides `browse-url'
 
 ;; Browse URL with standard web browser
 (global-set-key (kbd "C-c w w") #'browse-url)
@@ -875,6 +878,7 @@
       smtpmail-queue-dir "~/.mail/queued-mail/"
       smtpmail-smtp-user user-mail-address
       smtpmail-debug-info nil)
+
 
 (require 'message)
 (setq message-kill-buffer-on-exit t)
