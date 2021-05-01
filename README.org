@@ -63,7 +63,13 @@ Typical results:
 /The second options seem to be more common./
 
 
-*** Or simply download and install ONBOARD without Git
+*** Download and install ONBOARD without Git
+
+1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]] and rename it to =init.el=
+2. Put it in your =.emacs.d= directory
+3. (Re)start Emacs
+
+or
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
 2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
