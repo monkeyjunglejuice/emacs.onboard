@@ -364,8 +364,8 @@
 
 ;; Unclutter the user interface
 
-;; Switch menu bar on (set to 1) or off (set to -1)
-(menu-bar-mode 1)
+;; Switch menu bar on or off
+(menu-bar-mode 1) ; 1 means 'on'; -1 means 'off'
 ;; Toggle menu bar visibility
 (global-set-key (kbd "C-c m") #'menu-bar-mode)
 
