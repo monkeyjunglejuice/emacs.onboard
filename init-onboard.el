@@ -52,9 +52,9 @@
 ;; Show a message when garbage collection happens?
 (setq garbage-collection-messages nil)
 
-;; Set a high value of 128 MB to trigger theoretically less garbage collections
+;; Set a high value of 256 MB to trigger theoretically less garbage collections
 ;; during initialization. The Emacs default is a threshold of 800 KB
-(setq gc-cons-threshold (* 128 1000000))
+(setq gc-cons-threshold (* 256 1000000))
 
 ;; Then lower the threshold to 4 MB during normal operation to prevent longer
 ;; GC pauses, but still have it at a higher value than the default
@@ -132,6 +132,16 @@
   "Open the Emacs directory in Dired."
   (interactive)
   (dired user-emacs-directory))
+
+
+;; Diagnostics
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs started in %s with %d garbage collections."
+                     (format "%.3f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 
 
 ;;; SERVER ____________________________________________________________________
@@ -1049,18 +1059,6 @@
 
 ;; Was 'C-h S' before
 (define-key css-mode-map (kbd "C-c C-d d") #'css-lookup-symbol)
-
-
-;;; DIAGNOSTICS _______________________________________________________________
-
-
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs started in %s with %d garbage collections."
-                     (format "%.3f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
 
 
 ;;; ___________________________________________________________________________
