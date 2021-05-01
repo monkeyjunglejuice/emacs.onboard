@@ -915,7 +915,7 @@
 (define-key org-mode-map (kbd "C-c l") #'org-toggle-link-display)
 
 
-;; Literate programming -- activate code blocks via Babel languages
+;; Literate programming – activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((emacs-lisp . t)))
 
