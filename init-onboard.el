@@ -43,7 +43,7 @@
 ;;; EARLY INIT ________________________________________________________________
 
 
-;; Stuff that should run as early as possible in the init file and would
+;; Code that should run as early as possible in the init file and would
 ;; normally reside within '~/.emacs.d/early-init.el' for Emacs 27 and higher
 
 
@@ -52,15 +52,16 @@
 ;; Show a message when garbage collection happens?
 (setq garbage-collection-messages nil)
 
-;; Set a high value of 256 MB to trigger less garbage collections
-;; during initialization. The Emacs default is a threshold of 800kB
-(setq gc-cons-threshold (* 256 1000000))
+;; Set a high value of 128 MB to trigger theoretically less garbage collections
+;; during initialization. The Emacs default is a threshold of 800 KB
+(setq gc-cons-threshold (* 128 1000000))
 
-;; Then lower threshold to 8 MB to prevent long GC pauses
-;; during normal operation.
+;; Then lower the threshold to 4 MB to prevent longer GC pauses, but to a higher
+;; value than the default to experience less mini-interruptions – e. g. while
+;; scrolling larger buffers – during normal operation.
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (setq gc-cons-threshold (* 8 1000000))))
+            (setq gc-cons-threshold (* 4 1000000))))
 
 
 ;;; PACKAGE MANAGEMENT ________________________________________________________
