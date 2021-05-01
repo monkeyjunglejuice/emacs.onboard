@@ -134,12 +134,6 @@
   (dired user-emacs-directory))
 
 
-;; Normally, Emacs will save customizations (settings via 'M-x customize')
-;; in the init file. We save them in another file to keep the init file clean.
-(setq custom-file (concat user-emacs-directory "etc/custom.el"))
-(load custom-file)
-
-
 ;;; SERVER ____________________________________________________________________
 
 
