@@ -35,7 +35,7 @@ But this is the heart piece.
 
 *1.* Clone this repository: ~git clone https://github.com/monkeyjunglejuice/emacs.onboard.git~
 
-*2.* Put that in your Emacs init file:
+*2.* Put this in your Emacs init file:
 #+begin_src emacs-lisp
 (add-to-list 'load-path "/path/to/emacs.onboard")
 (require 'init-onboard)
