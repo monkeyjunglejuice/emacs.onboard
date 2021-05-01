@@ -941,10 +941,14 @@
   (interactive)
   (find-file (concat org-directory "notes.org")))
 
-(global-set-key (kbd "C-c o o") #'org-notes)
+(global-set-key (kbd "C-c o o") #'goto-org-notes)
 
 
-;;; MISC EDITING ______________________________________________________________
+;;; EDITING ___________________________________________________________________
+
+
+;; UTF-8
+(prefer-coding-system 'utf-8)
 
 
 ;; General text settings
