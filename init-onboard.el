@@ -101,8 +101,9 @@
 ;;; SYSTEM ____________________________________________________________________
 
 
-;; UTF-8
-(prefer-coding-system 'utf-8)
+;; Emacs will save customizations – settings via 'M-x customize' – in the
+;; init file. We can save them in another file to keep the init file clean.
+;; (setq custom-file (concat user-emacs-directory "etc/custom.el"))
 
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files
