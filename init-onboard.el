@@ -57,8 +57,8 @@
 (setq gc-cons-threshold (* 128 1000000))
 
 ;; Then lower the threshold to 4 MB during normal operation to prevent longer
-;; GC pauses, but set it to a higher value than the default to experience
-;; less mini-interruptions – e. g. while scrolling larger buffers.
+;; GC pauses, but still have it at a higher value than the default
+;; to experience less mini-interruptions – e. g. while scrolling larger buffers.
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq gc-cons-threshold (* 4 1000000))))
