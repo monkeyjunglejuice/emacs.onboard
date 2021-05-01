@@ -40,6 +40,29 @@
 ;;; Code:
 
 
+;;; EARLY INIT ________________________________________________________________
+
+
+;; Stuff that should run as early as possible in the init file and would
+;; normally reside within '~/.emacs.d/early-init.el' for Emacs 27 and higher
+
+
+;; Tune garbage collection
+
+;; Show a message when garbage collection happens?
+(setq garbage-collection-messages nil)
+
+;; Set a high value of 256 MB to trigger less garbage collections
+;; during initialization. The Emacs default is a threshold of 800kB
+(setq gc-cons-threshold (* 256 1000000))
+
+;; Then lower threshold to 8 MB to prevent long GC pauses
+;; during normal operation.
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 8 1000000))))
+
+
 ;;; PACKAGE MANAGEMENT ________________________________________________________
 
 
@@ -91,13 +114,6 @@
 
 ;; Set undo limit to 64 MB
 (setq undo-outer-limit (* 64 1000000))
-
-
-;; Tune garbage collection
-(setq garbage-collection-messages nil)
-
-;; x MB instead of 800 KB
-(setq gc-cons-threshold (* 8 1000000))
 
 
 ;; Increase the amount of data which Emacs reads from subprocesses
@@ -1037,6 +1053,18 @@
 
 ;; Was 'C-h S' before
 (define-key css-mode-map (kbd "C-c C-d d") #'css-lookup-symbol)
+
+
+;;; DIAGNOSTICS _______________________________________________________________
+
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs started in %s with %d garbage collections."
+                     (format "%.3f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 
 
 ;;; ___________________________________________________________________________
