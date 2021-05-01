@@ -134,16 +134,16 @@
   (dired user-emacs-directory))
 
 
-;; Emacs will save customizations (settings via 'M-x customize')
-;; in '.emacs' or 'init.el'. If you don't want that, save them in another file
-;; (setq custom-file (concat user-emacs-directory "etc/custom.el"))
-;; (load custom-file)
+;; Normally, Emacs will save customizations (settings via 'M-x customize')
+;; in the init file. We save them in another file to keep the init file clean.
+(setq custom-file (concat user-emacs-directory "etc/custom.el"))
+(load custom-file)
 
 
 ;;; SERVER ____________________________________________________________________
 
 
-;; How to use Emacs as an edit server: "M-x info-emacs-manual" <s> server <RET>
+;; Running Emacs as a daemon: "M-x info-emacs-manual" <s> server <RET>
 
 
 (require 'server)
