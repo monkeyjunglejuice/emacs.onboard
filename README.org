@@ -1,8 +1,10 @@
-* 🚀 ONBOARD – Emacs onboarding made easy 
+* 🚀 ONBOARD – Emacs onboarding made easy
 
-*Portable Emacs starter kit without any 3rd-party packages*
+/Portable Emacs starter kit without any 3rd-party packages/
 
-Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? *Or you don't want to configure anything and just … use it?* 🤯
+Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or …
+
+*You don't want to configure anything at all, but just … use it?* 🤯
 
 The ONBOARD Emacs starter kit provides a beginner-friendly, clean slate to build upon. It's almost vanilla Emacs, but offers some convenience and a better user experience, without relying on other packages. It's all built-in – all ONBOARD.
 
@@ -10,7 +12,7 @@ The ONBOARD Emacs starter kit provides a beginner-friendly, clean slate to build
 
 ✔ Only built-in packages
 
-✔ Drop in and take off
+✔ Hop on and take off
 
 
 ** Why, oh why? Yet another Emacs starter kit?
@@ -23,7 +25,7 @@ So I stripped out those parts and put it all in one file, and made them my core 
 
 Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
 
-… but this is the 💝 heart piece.
+… but this is the 💝 heart piece!
 
 
 ** Getting started
@@ -152,3 +154,8 @@ Examples:
 ** Contribution
 
 You are welcome to contribute! Right now, I guess testing on various OS has priority, to detect and iron out potential issues users of other operating systems may have.
+
+
+** Trivia
+
+The first known use of the word "onboard" was in 1958
