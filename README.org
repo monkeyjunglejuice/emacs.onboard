@@ -105,7 +105,7 @@ What that means:
 
 "M-x" — Press <Alt>+<x> to show all commands.
 
-"C-g" — Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic, which has the same effect!)
+"C-g" — Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic – same effect!)
 
 
 **** Examples:
