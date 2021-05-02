@@ -1,11 +1,14 @@
-* 🚀 ONBOARD – Build your own vanilla Emacs
+* 🚀 ONBOARD – Emacs onboarding made easy 
 
-*Portable Emacs config without any 3rd-party packages*
+*Portable Emacs starter kit without any 3rd-party packages*
 
-Overwhelmed by the complexity of (excellent) Emacs starter distributions like Doom-Emacs or Spacemacs?
-You want to build your Emacs config bottom-up but not forget easy-to-miss basics?
+Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or you don't want to configure anything and just … use it? 🤯
 
-The goal of this Emacs starter kit is to offer a beginner-friendly, clean slate to build upon. It stays as close as possible to vanilla Emacs, but offers some convenience and a better user experience, without relying on other packages. It's all built-in – all ONBOARD.
+The ONBOARD Emacs starter kit provides a beginner-friendly, clean slate to build upon. It's almost vanilla Emacs, but offers some convenience and a better user experience, without relying on other packages. It's all built-in – all ONBOARD.
+
+✔ One single file
+✔ Drop in and take off
+✔ Only built-in packages
 
 
 ** Why, oh why? Yet another Emacs starter kit?
@@ -18,8 +21,7 @@ So I stripped out those parts and put it all in one file, and made them my core 
 
 Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
 
-But this is the heart piece.
-
+… but this is the 💝 heart piece.
 
 
 ** Getting started
@@ -138,7 +140,7 @@ Examples:
 
 - Provide a whole new experience like Spacemacs or Doom-Emacs
 
-- New keybindings. However, they may be useful in certain circumstances.
+- New keybindings. However, they may be useful in certain circumstances
 
 - Pre-configure everything and the cat's pillow (if you know cats …)
 
@@ -147,4 +149,4 @@ Examples:
 
 ** Contribution
 
-You are welcome to contribute! Right now, I think testing on various OS is the most important thing, to detect and iron out potential issues users of other operating systems may have.
+You are welcome to contribute! Right now, I guess testing on various OS has priority, to detect and iron out potential issues users of other operating systems may have.
