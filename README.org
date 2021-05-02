@@ -101,22 +101,18 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 What that means:
 
 
-*** There are just 2 really important keybindings:
+*** There are only 2 really important keybindings:
 
-"M-x" — Execute a command. Press <Alt>–<x> to reach all available commands.
+"M-x" — Press <Alt>+<x> to show all commands.
 
-Examples:
+"C-g" — Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic, which has the same effect!)
+
+
+**** Examples:
 
 - "M-x list-packages" Install 3rd-party packages (the "Emacs app store" or "Emacs marketplace" cough-cough)
-
-- "M-x check-parens" Check if all parens match (in Emacs Lisp code file)
-
+- "M-x check-parens" Check if all parens match (within Emacs Lisp code)
 - "M-x help" to reach the ultimate help menu
-
-
-*** And the other important keybinding is this:
-
-"C-g" — Get out! Press <Ctrl>–<g> to cancel whatever happens (or hit 3x <ESC> in utter panic, which has the same effect)
 
 
 ** Goals
