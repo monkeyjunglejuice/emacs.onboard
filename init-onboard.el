@@ -385,15 +385,12 @@
 (global-set-key (kbd "C-c b") #'menu-bar-mode)
 
 ;; Display/hide the scroll bar?
-(require 'scroll-bar)
-(scroll-bar-mode 1)
+;; (scroll-bar-mode -1)
 
 ;; Display/hide the tool bar?
-(require 'tool-bar)
 (tool-bar-mode -1)
 
 ;; Enable/disable tooltips?
-(require 'tooltip)
 (tooltip-mode -1)
 
 ;; No startup screen
