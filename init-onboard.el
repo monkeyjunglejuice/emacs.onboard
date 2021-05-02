@@ -32,7 +32,7 @@
 ;; "C-g"   Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
 
 ;; "C-h o" Place the point ("cursor") on a function, variable, or other symbol
-;;         and press the keybinding to view its documentation
+;;         and issue the keybinding to view the symbol's documentation
 
 ;; "M-;"   Comment/uncomment selected code
 
@@ -49,16 +49,16 @@
 
 ;; Tune garbage collection
 
-;; Show a message when garbage collection happens?
+;; Show a message when garbage collection happens? Useful while tuning the GC
 (setq garbage-collection-messages nil)
 
-;; Set a high value of 256 MB to trigger theoretically less garbage collections
+;; Temporary set a high value of 256 MB to trigger less garbage collections
 ;; during initialization. The Emacs default is a threshold of 800 KB
 (setq gc-cons-threshold (* 256 1000000))
 
 ;; Then lower the threshold to 4 MB during normal operation to prevent longer
-;; GC pauses, but still have it at a higher value than the default
-;; to experience less mini-interruptions – e. g. while scrolling larger buffers.
+;; GC pauses, but still have it at a higher value than the default to
+;; experience less mini-interruptions – eg. while scrolling larger buffers.
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq gc-cons-threshold (* 4 1000000))))
@@ -362,23 +362,23 @@
 ;; Define the cursor type
 (add-to-list 'default-frame-alist '(cursor-type . bar))
 
-;; Cursor blinking – off or on?
+;; Enable/disable Cursor blinking?
 (blink-cursor-mode -1) ; -1 means 'off'; 1 means 'on'
 
 ;; Make the cursor stand out?
 (setq visible-cursor nil)
 
-;; Menu bar on/off by default?
+;; Display/hide menu bar by default?
 (menu-bar-mode 1)
 
 ;; Toggle menu bar visibility by keybinding
 (global-set-key (kbd "C-c b") #'menu-bar-mode)
 
-;; Enable/disable the tool bar?
+;; Display/hide the tool bar?
 (require 'tool-bar)
 (tool-bar-mode -1)
 
-;; Enable/disable the scroll bar?
+;; Display/hide the scroll bar?
 (require 'scroll-bar)
 (scroll-bar-mode -1)
 
@@ -414,7 +414,7 @@
 ;; Use the minibuffer instead of dialog boxes
 (setq use-dialog-box nil)
 
-;; Change all yes/no questions to y/n
+;; Change all yes/no style questions to y/n style
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Show the buffer size in the modeline
@@ -438,7 +438,7 @@
 
 ;; Display completions vertically, using the newline separator '\n'
 ;; There's a better way than the newline-separator:
-;; --> 3rd-party package 'icomplete-vertical' recommended
+;; --> recommended 3rd-party package 'icomplete-vertical'
 (setq icomplete-separator "\n")
 
 ;; Provide some intuitive keybindings and make the display area higher
@@ -464,7 +464,7 @@
 
 
 ;; Enhance M-x to allow easier execution of commands
-;; --> 3rd-party package 'amx' recommended
+;; --> recommended 3rd-party package 'amx'
 ;; (global-set-key (kbd "M-x") #'amx)
 ;; (global-set-key (kbd "M-X") #'amx-major-mode-commands)
 
@@ -586,7 +586,7 @@
 
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
-;; --> 3rd-party package 'xclip' recommended
+;; --> recommended 3rd-party package 'xclip'
 ;; (xclip-mode 1)
 
 
@@ -801,6 +801,11 @@
 ;;; ESHELL ____________________________________________________________________
 
 
+;; Eshell is *not* a terminal emulator, but a *shell* equivalent to Bash or Fish
+;; that runs within Emacs. It is independent from the OS. Eshell looks like
+;; a Posix shell superficially, but is also a REPL for Emacs Lisp expressions.
+
+
 (require 'esh-mode)
 
 ;; Get rid of the Eshell startup message
@@ -818,6 +823,9 @@
 ;;; SHELL _____________________________________________________________________
 
 
+;; Issue shell commands and display their output
+
+
 ;; Set another shell than the default one
 ;; (setq shell-file-name "/usr/bin/bash")
 
@@ -829,6 +837,8 @@
 
 
 ;; Show and manage OS processes
+
+
 (require 'proced)
 (setq proced-auto-update-interval 1)
 (setq-default proced-auto-update-flag t
@@ -977,7 +987,7 @@
 (setq sentence-end-double-space nil)
 
 
-;; Better than 'just-one-space', which was M-SPC before
+;; Better than the default 'just-one-space', which was M-SPC before
 (global-set-key (kbd "S-SPC") #'cycle-spacing)
 
 
@@ -997,7 +1007,8 @@
 
 
 ;; Typing a character while a text selection is active,
-;; deletes the selection and replaces it with the typed character
+;; deletes the selection and replaces it with the typed character,
+;; which is mostly common when working with text
 ;; (delete-selection-mode 1)
 
 
@@ -1018,10 +1029,8 @@
 
 
 ;; Parenthesis settings
-
 (require 'paren)
 (show-paren-mode 1)
-
 (setq show-paren-style 'parenthesis)
 ;; (setq show-paren-delay 0)
 
@@ -1031,15 +1040,17 @@
 (setq backward-delete-char-untabify-method 'hungry)
 
 
-;; Additional keybindings
+;; Additional keybinding to resemble other S-expression related keybindings
+;; who begin usually with C-M
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
 ;;; ELISP _____________________________________________________________________
 
 
-;; Essential Lisp setup
-;; --> 3rd-party packages recommended
+;; Essential Emacs Lisp setup
+;; --> recommended 3rd-party packages:
+;; 'rainbow-delimiters', 'company', 'flycheck', 'paren-face', 'paredit'
 
 ;; (add-hook 'emacs-lisp-mode-hook
 ;;           (lambda ()
