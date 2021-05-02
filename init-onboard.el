@@ -358,11 +358,11 @@
 ;; Set the default height of the Emacs frame in characters
 (add-to-list 'default-frame-alist '(height . 24))
 
-;; Set the distance from the left screen edge – x-axis
-(add-to-list 'default-frame-alist '(left . 0))
+;; Set the distance from the left screen edge
+;; (add-to-list 'default-frame-alist '(left . 0))
 
-;; Set the distance from the top screen edge – y-axis
-(add-to-list 'default-frame-alist '(top . 0))
+;; Set the distance from the top screen edge
+;; (add-to-list 'default-frame-alist '(top . 0))
 
 ;; Set the cursor type
 ;; To learn about available cursors, place your cursor behind 'cursor-type' in the
@@ -384,13 +384,13 @@
 ;; Toggle menu bar visibility by keybinding
 (global-set-key (kbd "C-c b") #'menu-bar-mode)
 
+;; Display/hide the scroll bar?
+(require 'scroll-bar)
+(scroll-bar-mode 1)
+
 ;; Display/hide the tool bar?
 (require 'tool-bar)
 (tool-bar-mode -1)
-
-;; Display/hide the scroll bar?
-(require 'scroll-bar)
-(scroll-bar-mode -1)
 
 ;; Enable/disable tooltips?
 (require 'tooltip)
