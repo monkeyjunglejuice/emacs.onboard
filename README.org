@@ -153,9 +153,5 @@ Examples:
 
 ** Contribution
 
-You are welcome to contribute! Right now, I guess testing on various OS has priority, to detect and iron out potential issues users of other operating systems may have.
+You are welcome to contribute! Right now, I think testing on various OS ond making common features work has the highest priority, to enable portability and iron out potential issues users of various operating systems may have.
 
-
-:TRIVIA:
-The first known use of the term "onboard" was in 1958
-:END:
