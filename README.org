@@ -156,6 +156,6 @@ Examples:
 You are welcome to contribute! Right now, I guess testing on various OS has priority, to detect and iron out potential issues users of other operating systems may have.
 
 
-** Trivia
-
-The first known use of the word "onboard" was in 1958
+:TRIVIA:
+The first known use of the term "onboard" was in 1958
+:END:
