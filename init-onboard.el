@@ -273,8 +273,8 @@
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'load-before-theme-light-hook)
   (load-theme light-theme-name t)
-  (run-hooks 'load-after-theme-light-hook)
-  (setq active-theme-variant 'light))
+  (setq active-theme-variant 'light)
+  (run-hooks 'load-after-theme-light-hook))
 
 (defun load-theme-dark ()
   "Load the dark theme and apply some modifications."
@@ -282,8 +282,8 @@
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'load-before-theme-dark-hook)
   (load-theme dark-theme-name t)
-  (run-hooks 'load-after-theme-dark-hook)
-  (setq active-theme-variant 'dark))
+  (setq active-theme-variant 'dark)
+  (run-hooks 'load-after-theme-dark-hook))
 
 (defun toggle-theme ()
   "Toggle between light and dark theme."
