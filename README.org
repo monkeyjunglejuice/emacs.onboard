@@ -66,7 +66,7 @@ Typical results:
   - =c:\Users\USERNAME\AppData\Roaming\.emacs=
   - =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
 
-/The second options seem to be more common./
+/The second options seems to be more common./
 
 
 *** Download and install ONBOARD without Git
