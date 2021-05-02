@@ -26,13 +26,14 @@
 ;;        – hold down the "Meta key" and press <x>
 ;;        – the "Meta key" is usually <Alt> on Linux/Windows and <Option> on Mac
 ;;
+;; "C-g"  Get out! Press <Ctrl>-<g> to cancel whatever happens – or hit 3x <ESC>
+;;
+;;
 ;; Examples:
 ;;
 ;; "M-x goto-user-init-file" Visit main configuration file ('.emacs', 'init.el')
-;; "M-x check-parens"        Check if all parens match (in Emacs Lisp code file)
+;; "M-x check-parens"        Check if all parens match (in Emacs Lisp code)
 ;; "M-x help"                Reach the ultimate help menu
-;;
-;; "C-g"   Get out! Press <Ctrl>-<g> to cancel whatever happens (or 3x <ESC>)
 ;;
 ;; "C-h o" Place the cursor behind a keyword, function, variable or other symbol
 ;;         to issue the command `describe-symbol' via keybinding and
