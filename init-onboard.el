@@ -1093,9 +1093,6 @@
 (require 'css-mode)
 (setq css-indent-offset 2)
 
-;; Was 'C-h S' before
-(define-key css-mode-map (kbd "C-c C-d d") #'css-lookup-symbol)
-
 
 ;;; ___________________________________________________________________________
 (provide 'init-onboard)
