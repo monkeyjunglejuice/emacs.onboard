@@ -359,11 +359,16 @@
 ;; Set the distance from the top screen edge – y-axis
 (add-to-list 'default-frame-alist '(top . 0))
 
-;; Define the cursor type
+;; Set the cursor type
+;; To learn about available cursors, place your cursor behind 'cursor-type' in the
+;; code below and hit "C-h o" or "M-x describe-symbol" <RET> cursor-type <RET>
 (add-to-list 'default-frame-alist '(cursor-type . bar))
 
 ;; Enable/disable Cursor blinking?
-(blink-cursor-mode -1) ; -1 means 'off'; 1 means 'on'
+(blink-cursor-mode 1) ; -1 means 'off'; 1 means 'on'
+
+;; Cursor blinking interval in seconds
+(setq blink-cursor-interval 0.4)
 
 ;; Make the cursor stand out?
 (setq visible-cursor nil)
