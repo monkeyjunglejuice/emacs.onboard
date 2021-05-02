@@ -341,15 +341,56 @@
 ;;; USER INTERFACE ____________________________________________________________
 
 
-;; Initial frame size - graphical Emacs only
+;; Default frame settings
+(setq default-frame-alist '())
 
-(setq default-frame-alist '(;; (top . 0)
-                            ;; (left . 960)
-                            (width . 80)
-                            (height . 24)))
-
-;; Or start Emacs always maximized
+;; Don't set frame size or position and start Emacs maximized instead
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Set the default width of the Emacs frame in characters
+(add-to-list 'default-frame-alist '(width . 80))
+
+;; Set the default height of the Emacs frame in characters
+(add-to-list 'default-frame-alist '(height . 24))
+
+;; Set the distance from the left screen edge – x-axis
+(add-to-list 'default-frame-alist '(left . 0))
+
+;; Set the distance from the top screen edge – y-axis
+(add-to-list 'default-frame-alist '(top . 0))
+
+;; Define the cursor type
+(add-to-list 'default-frame-alist '(cursor-type . bar))
+
+;; Cursor blinking – off or on?
+(blink-cursor-mode -1) ; -1 means 'off'; 1 means 'on'
+
+;; Make the cursor stand out?
+(setq visible-cursor nil)
+
+;; Menu bar on/off by default?
+(menu-bar-mode 1)
+
+;; Toggle menu bar visibility by keybinding
+(global-set-key (kbd "C-c b") #'menu-bar-mode)
+
+;; Enable/disable the tool bar?
+(require 'tool-bar)
+(tool-bar-mode -1)
+
+;; Enable/disable the scroll bar?
+(require 'scroll-bar)
+(scroll-bar-mode -1)
+
+;; Enable/disable tooltips?
+(require 'tooltip)
+(tooltip-mode -1)
+
+;; No startup screen
+(setq inhibit-startup-screen t)
+
+;; Turn off alarms completely
+(setq ring-bell-function 'ignore)
 
 
 ;; Smooth scrolling
@@ -360,36 +401,6 @@
               scroll-step 1
               scroll-margin 1
               scroll-preserve-screen-position 1)
-
-
-;; Unclutter the user interface
-
-;; Switch menu bar on or off
-(menu-bar-mode 1) ; 1 means 'on'; -1 means 'off'
-;; Toggle menu bar visibility
-(global-set-key (kbd "C-c m") #'menu-bar-mode)
-
-;; Disable the tool bar
-(require 'tool-bar)
-(tool-bar-mode -1)
-
-;; Disable the scroll bar
-(require 'scroll-bar)
-(scroll-bar-mode -1)
-
-;; Disable tooltips
-(require 'tooltip)
-(tooltip-mode -1)
-
-;; No startup screen
-(setq inhibit-startup-screen t)
-
-;; Turn off blinking cursor
-(blink-cursor-mode -1)
-;; (setq visible-cursor nil)
-
-;; Turn off alarms completely
-(setq ring-bell-function 'ignore)
 
 
 ;; Pinentry
