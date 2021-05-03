@@ -701,17 +701,14 @@ or `system-configuration' directly."
 
 (require 'recentf)
 
-
 (setq recentf-max-menu-items 10
       recentf-max-saved-items 100)
 
 (setq recentf-save-file
       (concat user-emacs-directory "var/recentf-save.el"))
 
-
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
-
 
 ;; Ignore some recently visitet files
 
@@ -832,9 +829,6 @@ or `system-configuration' directly."
 ;; that runs within Emacs. It is independent from the OS. Eshell looks like
 ;; a Posix shell superficially, but is also a REPL for Emacs Lisp expressions.
 
-
-(require 'esh-mode)
-
 ;; Get rid of the Eshell startup message
 (require 'em-banner)
 (setq eshell-banner-message "")
@@ -852,7 +846,6 @@ or `system-configuration' directly."
 
 ;; Issue shell commands and display their output
 
-
 ;; Set another shell than the default one
 ;; (setq shell-file-name "/usr/bin/bash")
 
@@ -865,7 +858,6 @@ or `system-configuration' directly."
 
 ;; Show and manage OS processes
 
-
 (require 'proced)
 (setq proced-auto-update-interval 1)
 (setq-default proced-auto-update-flag t
@@ -876,7 +868,6 @@ or `system-configuration' directly."
 
 
 ;; Eww – Emacs Web Wowser
-
 
 ;; Pretend to be an iPhone
 ;; (setq url-user-agent
@@ -933,30 +924,25 @@ or `system-configuration' directly."
 
 (require 'org)
 
-
 ;; Set the Org paths
 (setq org-directory "~/org/")
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
-
+;; Global todo states
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
-
 
 ;; Capture: put newer entries on top
 (setq org-reverse-note-order t)
 (global-set-key (kbd "C-c o c") #'org-capture)
 
-
 ;; Agenda
 (setq org-agenda-files (list org-directory))
 (global-set-key (kbd "C-c o a") #'org-agenda)
 
-
 ;; Links
 (global-set-key (kbd "C-c o l") #'org-store-link)
 (define-key org-mode-map (kbd "C-c l") #'org-toggle-link-display)
-
 
 ;; Literate programming – activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages
@@ -993,7 +979,6 @@ or `system-configuration' directly."
 ;; UTF-8
 (prefer-coding-system 'utf-8)
 
-
 ;; General text settings
 (add-hook 'text-mode-hook
           (lambda ()
@@ -1001,26 +986,20 @@ or `system-configuration' directly."
             (visual-line-mode 1)
             (hl-line-mode 1)))
 
-
 ;; Set desired line width
 (setq-default fill-column 80)
-
 
 ;; Final new line
 (setq require-final-newline t)
 
-
 ;; Sentences end with a single space
 (setq sentence-end-double-space nil)
-
 
 ;; Better than the default 'just-one-space', which was M-SPC before
 (global-set-key (kbd "S-SPC") #'cycle-spacing)
 
-
 ;; Count lines, words and chars (buffer or region)
 (global-set-key (kbd "C-x l") #'count-words)
-
 
 ;; When re-visiting a file, the cursor goes
 ;; to the last place where it was before
@@ -1028,10 +1007,8 @@ or `system-configuration' directly."
 (save-place-mode 1)
 (setq save-place-file (concat user-emacs-directory "var/save-place.el"))
 
-
 ;; More useful than the default
 (global-set-key (kbd "M-z") 'zap-up-to-char)
-
 
 ;; Typing a character while a text selection is active,
 ;; deletes the selection and replaces it with the typed character,
@@ -1049,11 +1026,9 @@ or `system-configuration' directly."
             ;; (electric-pair-local-mode 1) ; auto-close parens and brackets
 	          (setq show-trailing-whitespace t)))
 
-
 ;; Indentation
 (setq-default indent-tabs-mode nil ; don't use tabs for indentation
               tab-width 2)         ; set display width for tab characters
-
 
 ;; Parenthesis settings
 (require 'paren)
@@ -1061,11 +1036,9 @@ or `system-configuration' directly."
 (setq show-paren-style 'parenthesis)
 ;; (setq show-paren-delay 0)
 
-
 ;; Backspace deletes the whole indentation instead of one-by-one
 ;; Possibly shadowed by 3rd-party packages like 'smartparens-mode'
 (setq backward-delete-char-untabify-method 'hungry)
-
 
 ;; Additional keybinding to resemble other S-expression related keybindings
 ;; who begin usually with C-M
