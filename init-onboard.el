@@ -385,7 +385,7 @@ or `system-configuration' directly."
 ;; Set the cursor type
 ;; To learn about available cursors, place your cursor behind 'cursor-type' in the
 ;; code below and hit "C-h o" or "M-x describe-symbol" <RET> cursor-type <RET>
-(add-to-list 'default-frame-alist '(cursor-type . bar))
+(add-to-list 'default-frame-alist '(cursor-type . (bar . 3)))
 
 ;; Enable/disable Cursor blinking?
 (blink-cursor-mode 1) ; -1 means 'off'; 1 means 'on'
