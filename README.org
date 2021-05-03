@@ -69,18 +69,7 @@ Typical results:
  3. (Re)start Emacs
 
 
-** Tested with:
-
-- [X] Emacs 27.1 on Ubuntu 20.04 LTS
-- [X] Emacs 26.1 on Debian 10.9.0
-- [ ] Emacs 27 on Windows 10
-- [ ] Emacs 26 on Windows 10
-- [ ] Emacs 27 on MacOS
-- [ ] Emacs 26 on MacOS
-
-
 ** Getting comfortable
-
 
 The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All those keybindings are just convenience shortcuts to use /commands/, but they are not the commands themselves. The commands are the really interesting things. What that means:
 
@@ -97,6 +86,16 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 - "M-x list-packages" Install 3rd-party packages (the "Emacs app store" or "Emacs marketplace" cough-cough)
 - "M-x check-parens" Check if all parens match (within Emacs Lisp code)
 - "M-x help" to reach the ultimate help menu
+
+
+** Tested with:
+
+- [X] Emacs 27.1 on Ubuntu 20.04 LTS
+- [X] Emacs 26.1 on Debian 10.9.0
+- [ ] Emacs 27 on Windows 10
+- [ ] Emacs 26 on Windows 10
+- [ ] Emacs 27 on MacOS
+- [ ] Emacs 26 on MacOS
 
 
 ** Goals
@@ -147,7 +146,6 @@ Actually I use not only that config file, but have my Emacs config split into se
 You are welcome! Here's the agenda what's currently important/worked on:
 
 - Test the config on various Emacsen and operating systems
-
 - Ensure portability between various host OS. All features should work in Linux, Windows and Mac equally well.
 
 
