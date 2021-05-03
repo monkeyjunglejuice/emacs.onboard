@@ -74,7 +74,6 @@
 
 ;; Browse, select and install 3rd-party packages: "M-x list-packages"
 
-
 (require 'package)
 
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -171,9 +170,7 @@ or `system-configuration' directly."
 
 ;; Running Emacs as a daemon: "M-x info-emacs-manual" <s> server <RET>
 
-
 (require 'server)
-
 
 ;; Display the name of the Emacs server process in the frame title
 ;; to see easily to which server process a client is connected to
