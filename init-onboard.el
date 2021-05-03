@@ -808,8 +808,8 @@ or `system-configuration' directly."
 
 
 ;; Goto home directory
-(defun dired-home ()
-  "Show the home directory in Dired."
+(defun goto-home-directory ()
+  "Open the home directory in Dired."
   (interactive)
   (dired "~/"))
 
