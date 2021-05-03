@@ -403,11 +403,11 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c b") #'menu-bar-mode)
 
 ;; Display/hide the scroll bar?
-;; (if (fboundp #'scroll-bar-mode) ; Emacs 26.1 compatibility
+;; (if (fboundp 'scroll-bar-mode) ; Emacs 26.1 compatibility
 ;;     (scroll-bar-mode -1))
 
 ;; Display/hide the tool bar?
-(if (fboundp #'tool-bar-mode) ; Emacs 26.1 compatibility
+(if (fboundp 'tool-bar-mode) ; Emacs 26.1 compatibility
     (tool-bar-mode -1))
 
 ;; Enable/disable tooltips?
