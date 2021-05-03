@@ -698,14 +698,15 @@ or `system-configuration' directly."
 
 (require 'recentf)
 
+;; Turn on recent file mode to visit recently edited files
+(recentf-mode 1)
+
 (setq recentf-max-menu-items 10
       recentf-max-saved-items 100)
 
 (setq recentf-save-file
       (concat user-emacs-directory "var/recentf-save.el"))
 
-;; Turn on recent file mode to visit recently edited files
-(recentf-mode 1)
 
 ;; Ignore some recently visitet files
 
