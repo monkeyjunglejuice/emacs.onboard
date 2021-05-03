@@ -478,11 +478,10 @@ or `system-configuration' directly."
         (kbd "C-p") #'icomplete-backward-completions)))
 
 ;; Enable autocompletion
-(icomplete-mode 1)
-
 ;; Make Icomplete better with Fido-mode (Emacs version 27 and higher)
-(when (>= emacs-major-version 27)
-  (fido-mode 1))
+(if (>= emacs-major-version 27)
+    (fido-mode 1)
+  (icomplete-mode 1))
 
 
 ;; Enhance M-x to allow easier execution of commands
