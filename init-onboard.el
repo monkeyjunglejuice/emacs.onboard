@@ -352,7 +352,6 @@ or `system-configuration' directly."
 
 ;; ****************************************************************************
 
-
 ;; Load the theme eventually
 (load-theme-default)
 
@@ -581,7 +580,9 @@ or `system-configuration' directly."
 ;; Set the initial mode of the *scratch* buffer
 (setq initial-major-mode #'org-mode)
 
+
 ;; Quickly jump to *scratch* buffer
+
 (defun scratch ()
   "Jump to the *scratch* buffer. If it does not yet exist, create it."
   (interactive)
