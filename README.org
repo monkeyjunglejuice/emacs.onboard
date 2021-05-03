@@ -82,9 +82,7 @@ Typical results:
 ** Getting comfortable
 
 
-The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All those keybindings are just convenience shortcuts to use commands, but they are not the commands themselves. The /commands/ are the really interesting things.
-
-What that means:
+The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All those keybindings are just convenience shortcuts to use /commands/, but they are not the commands themselves. The commands are the really interesting things. What that means:
 
 
 *** There are only 2 really important keybindings:
@@ -146,7 +144,7 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 ** Contribute
 
-You are welcome! Here's the Agenda:
+You are welcome! Here's the agenda what's currently important/worked on:
 
 - Test the config on various Emacsen and operating systems
 
