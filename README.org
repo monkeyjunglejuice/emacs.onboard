@@ -6,7 +6,7 @@ Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs
 
 *You don't want to configure anything at all, but just … use it?* 🤯
 
-The ONBOARD Emacs starter kit provides a beginner-friendly, clean slate to build upon. It's almost vanilla Emacs, but offers some convenience and a better user experience, without relying on other packages. It's all built-in, all ONBOARD.
+The ONBOARD Emacs starter kit provides a beginner-friendly, clean slate to build upon. It's almost vanilla Emacs, but offers some convenience and a better user experience, without relying on other packages. It's all built-in, all onboard.
 
 ✔ One single file
 
