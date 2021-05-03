@@ -15,29 +15,14 @@ The ONBOARD Emacs starter kit provides a beginner-friendly, clean slate to build
 ✔ Hop on and take off
 
 
-** Why, oh why? Yet another Emacs starter kit?
-
-Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in, and have a sane environment in no time.
-
-And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked well.
-
-So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
-
-Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
-
-… but this is the 💝 heart piece!
-
-
-** Getting started
-
-*** Try it out (without installation)
+** TRY
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
 2. Open a terminal
 3. Run the shell command: ~emacs -q --load /path/to/init-onboard.el~
 
 
-*** Install ONBOARD by cloning the Git repository (recommended)
+** INSTALL
 
 *1.* Clone this repository: ~git clone https://github.com/monkeyjunglejuice/emacs.onboard.git~
 
@@ -50,7 +35,7 @@ Actually I use not only that config file, but have my Emacs config split into se
 *3.* (Re)start Emacs
 
 
-**** You don't have a init file or don't know where it is?
+*** You don't have a init file or don't know where it is?
 
 By default (freshly installed Emacs) there is no init file.
 You can ask Emacs where it expects to find the init file:
@@ -69,17 +54,19 @@ Typical results:
 /The second options seems to be more common./
 
 
-*** Download and install ONBOARD without Git
+*** INSTALL without Git
 
-1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]] and rename it to =init.el=
-2. Put it in your =.emacs.d= directory
-3. (Re)start Emacs
+ /Some like it quick and dirty, eh?/ 🙈
 
-or
+ 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]] and rename it to =init.el=
+ 2. Put it in your =.emacs.d= directory
+ 3. (Re)start Emacs
 
-1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
-2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
-3. (Re)start Emacs
+ or
+
+ 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
+ 2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
+ 3. (Re)start Emacs
 
 
 ** Tested with:
@@ -94,7 +81,6 @@ or
 
 ** Getting comfortable
 
-If you are an Emacs beginner, you will find the most tips and answers in the file itself.
 
 The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All those keybindings are just convenience shortcuts to use commands, but they are not the commands themselves. The /commands/ are the really interesting things.
 
@@ -103,7 +89,7 @@ What that means:
 
 *** There are only 2 really important keybindings:
 
-"M-x" — Press <Alt>+<x> to show all commands.
+"M-x" — Press <Alt>+<x> to show all commands
 
 "C-g" — Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic – same effect!)
 
@@ -116,8 +102,6 @@ What that means:
 
 
 ** Goals
-
-- One single file only
 
 - Portable: Should work on recent Linux/Unix, Windows and MacOS systems; Emacs versions >= 26
 
@@ -147,7 +131,25 @@ What that means:
 - (Re)creating functionality where a 3rd-party package would be a better fit
 
 
-** Contribution
+** Why, oh why? Yet another Emacs starter kit?
 
-You are welcome to contribute! Right now, I think testing on various OS ond making common features work has the highest priority, to enable portability and iron out potential issues users of various operating systems may have.
+Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in and have a sane Emacs environment in no time.
+
+And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked well.
+
+So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
+
+Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
+
+… but this is the 💝 heart piece!
+
+
+** Contribute
+
+You are welcome! Here's the Agenda:
+
+- Test the config on various Emacsen and operating systems
+
+- Ensure portability between various host OS. All features should work in Linux, Windows and Mac equally well.
+
 
