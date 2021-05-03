@@ -48,10 +48,8 @@ Typical results:
   - =/home/USERNAME/.emacs=
   - =/home/USERNAME/.emacs.d/init.el=
 - on Windows
-  - =c:\Users\USERNAME\AppData\Roaming\.emacs=
-  - =c:\Users\USERNAME\AppData\Roaming\.emacs.d\init.el=
-
-/The second options seems to be more common./
+  - =c:/Users/USERNAME/AppData/Roaming/.emacs=
+  - =c:/Users/USERNAME/AppData/Roaming/.emacs.d/init.el=
 
 
 *** Install without Git
