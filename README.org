@@ -54,7 +54,7 @@ Typical results:
 /The second options seems to be more common./
 
 
-*** INSTALL without Git
+*** Install without Git
 
  /Some like it quick and dirty, eh?/ 🙈
 
@@ -122,7 +122,7 @@ What that means:
 
 ** Non-Goals
 
-- Provide a whole new experience like Spacemacs or Doom-Emacs
+- Providing a whole new experience like Spacemacs or Doom-Emacs
 
 - New keybindings. However, they may be useful in certain circumstances
 
