@@ -108,6 +108,7 @@
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files
 (setq load-prefer-newer t)
 
+
 ;; Increase warning threshold
 (setq large-file-warning-threshold (* 64 1000000))
 
@@ -116,6 +117,7 @@
 
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setq read-process-output-max (* 1024 1024)) ; 1 MB
+
 
 ;; Diagnostics
 (add-hook 'emacs-startup-hook
@@ -352,6 +354,7 @@ or `system-configuration' directly."
 
 ;; ****************************************************************************
 
+
 ;; Load the theme eventually
 (load-theme-default)
 
@@ -457,7 +460,6 @@ or `system-configuration' directly."
       icomplete-show-matches-on-no-input t
       icomplete-hide-common-prefix nil)
 
-
 ;; Display completions vertically, using the newline separator '\n'
 ;; There's a better way than the newline-separator:
 ;; --> recommended 3rd-party package 'icomplete-vertical'
@@ -498,7 +500,6 @@ or `system-configuration' directly."
 ;; `display-buffer-same-window' with `display-buffer-pop-up-window',
 ;; or comment out the following expression and restart Emacs
 ;; to experience the default window behavior
-
 (setq display-buffer-alist
       '((".*" (display-buffer-reuse-window display-buffer-same-window))))
 
@@ -506,7 +507,6 @@ or `system-configuration' directly."
 ;; Default window navigation – simply switch to the next window in order
 ;; Added for convenience; default key binding is "C-x o"
 (global-set-key (kbd "M-o") #'other-window)
-
 
 ;; Navigate windows by direction
 ;; (require 'windmove)
@@ -519,7 +519,6 @@ or `system-configuration' directly."
 
 ;; Display-buffer: avoid resizing
 (setq even-window-sizes nil)
-
 
 ;; Focus follows mouse
 (setq mouse-autoselect-window nil
@@ -857,7 +856,9 @@ or `system-configuration' directly."
 ;; Show and manage OS processes
 
 (require 'proced)
+
 (setq proced-auto-update-interval 1)
+
 (setq-default proced-auto-update-flag t
               proced-descend t)
 
