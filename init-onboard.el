@@ -380,44 +380,44 @@ or `system-configuration' directly."
 ;; Set the cursor type
 ;; To learn about available cursors, place your cursor behind 'cursor-type' in the
 ;; code below and hit "C-h o" or "M-x describe-symbol" <RET> cursor-type <RET>
-(add-to-list 'default-frame-alist '(cursor-type . (bar . 3)))
+(add-to-list 'default-frame-alist '(cursor-type . (bar . 2)))
 
-;; Enable/disable Cursor blinking?
-(blink-cursor-mode 1) ; -1 means 'off'; 1 means 'on'
+;; Turn on/off cursor blinking by default?
+(blink-cursor-mode 1) ; 1 means 'on' / -1 means 'off'
 
 ;; Cursor blinking interval in seconds
 (setq blink-cursor-interval 0.4)
 
-;; Make the cursor stand out?
+;; Emphasize the cursor when running Emacs in a text terminal?
 (setq visible-cursor nil)
 
-;; Display/hide menu bar by default?
+;; Turn the menu bar on/off by default?
 (menu-bar-mode 1)
 
-;; Toggle menu bar visibility by keybinding
+;; Show/hide menu bar via keybinding
 (global-set-key (kbd "C-c b") #'menu-bar-mode)
 
-;; Display/hide the scroll bar?
+;; Turn the scroll bar on/off by default?
 ;; (if (fboundp 'scroll-bar-mode) ; Emacs 26.1 compatibility
 ;;     (scroll-bar-mode -1))
 
-;; Display/hide the tool bar?
+;; Turn the tool bar on/off by default?
 (if (fboundp 'tool-bar-mode) ; Emacs 26.1 compatibility
     (tool-bar-mode -1))
 
 ;; Enable/disable tooltips?
 (tooltip-mode -1)
 
-;; No startup screen
+;; Turn off the startup screen?
 (setq inhibit-startup-screen t)
 
-;; Turn off alarms completely
+;; Turn off alarms?
 (setq ring-bell-function 'ignore)
 
 
 ;; Smooth scrolling
 (setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))
-              mouse-wheel-progressive-speed nil
+              mouse-wheel-progressive-speed t
               mouse-wheel-follow-mouse t
               scroll-conservatively 10000
               scroll-step 1
