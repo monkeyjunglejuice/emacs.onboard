@@ -147,20 +147,20 @@
 ;; Simplify writing operating system specific code
 
 (defun lin-like ()
-  "True if SYSTEM-TYPE is Linux or something compatible.
-For a finer granularity, use the variables `system-type'
+  "True if `system-type' is Linux or something compatible.
+For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "gnu/linux" "berkeley-unix" "gnu" "gnu/kfreebsd")))
 
 (defun win-like ()
   "True if `system-type' is Windows or something compatible.
-For a finer granularity, use the variables `system-type'
+For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "windows-nt" "cygwin" "ms-dos")))
 
 (defun mac-like ()
   "True if `system-type' is MacOS or something compatible.
-For a finer granularity, use the variables `system-type'
+For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type "darwin"))
 
