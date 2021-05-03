@@ -594,6 +594,7 @@ or `system-configuration' directly."
 
 
 (require 'select)
+
 (setq
  ;; Use clipboard
  select-enable-clipboard t
