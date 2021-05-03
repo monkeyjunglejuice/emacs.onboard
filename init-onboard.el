@@ -642,13 +642,13 @@ or `system-configuration' directly."
 
 
 ;; Make backups of all edited files before saving them
-
 (setq backup-by-copying t
       kept-new-versions 5
       kept-old-versions 1
       delete-old-versions t
       version-control t)
 
+;; Specify file name/path patterns and directories ("REGEXP" . DIRECTORY)
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "var/backup/"))))
 
