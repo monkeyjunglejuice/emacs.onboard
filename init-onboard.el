@@ -108,31 +108,14 @@
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files
 (setq load-prefer-newer t)
 
-
 ;; Increase warning threshold
 (setq large-file-warning-threshold (* 64 1000000))
-
 
 ;; Set undo limit to 64 MB
 (setq undo-outer-limit (* 64 1000000))
 
-
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setq read-process-output-max (* 1024 1024)) ; 1 MB
-
-
-;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
-(defun goto-user-init-file ()
-  "Visit the init file."
-  (interactive)
-  (find-file user-init-file))
-
-;; Open to the '~/.emacs.d' directory in the Dired file manager
-(defun goto-user-emacs-directory ()
-  "Open the Emacs directory in Dired."
-  (interactive)
-  (dired user-emacs-directory))
-
 
 ;; Diagnostics
 (add-hook 'emacs-startup-hook
@@ -163,6 +146,19 @@ or `system-configuration' directly."
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type "darwin"))
+
+
+;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
+(defun goto-user-init-file ()
+  "Visit the init file."
+  (interactive)
+  (find-file user-init-file))
+
+;; Open to the '~/.emacs.d' directory in the Dired file manager
+(defun goto-user-emacs-directory ()
+  "Open the Emacs directory in Dired."
+  (interactive)
+  (dired user-emacs-directory))
 
 
 ;;; SERVER ____________________________________________________________________
