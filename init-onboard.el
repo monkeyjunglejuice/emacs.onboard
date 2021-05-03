@@ -536,7 +536,7 @@ or `system-configuration' directly."
 ;;; BUFFERS ___________________________________________________________________
 
 
-;; Switch to another buffer (those are like tabs – when multiple files are open)
+;; Switch to another buffer. Kinda like tabs – having multiple files open
 ;; Added for convenience; default keybinding is "C-x b"
 (global-set-key (kbd "M-SPC") #'switch-to-buffer)
 
@@ -545,7 +545,7 @@ or `system-configuration' directly."
 (setq uniquify-buffer-name-style 'forward)
 
 
-;; Ibuffer – show all buffers in a list and do stuff with them
+;; Ibuffer – the buffer manager. When you have lots of buffers
 (require 'ibuf-ext)
 (add-hook 'ibuffer-mode-hook
           (lambda ()
@@ -1018,8 +1018,8 @@ or `system-configuration' directly."
 ;; General programming settings
 (add-hook 'prog-mode-hook
           (lambda ()
-            ;; (linum-mode 1) ; line numbers on=1 or off=-1 / "M-x linum-mode"
-            ;; (electric-pair-local-mode 1) ; auto-close parens and brackets
+            ;; (linum-mode 1) ; line numbers on/off by default, "M-x linum-mode"
+            ;; (electric-pair-local-mode 1) ; auto-close parens/brackets
 	          (setq show-trailing-whitespace t)))
 
 ;; Indentation
