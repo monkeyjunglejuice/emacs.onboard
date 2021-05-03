@@ -97,7 +97,7 @@
     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 
-;; Highlight lines in the package manager
+;; Highlight current line in the package manager
 (add-hook 'package-menu-mode-hook
           (lambda ()
             (hl-line-mode 1)))
