@@ -145,7 +145,7 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 You are welcome! Here's the agenda what's currently important/worked on:
 
-- Test the config on various Emacsen and operating systems
+- Testing the config on various Emacsen and operating systems
 - Ensure portability between various host OS. All features should work in Linux, Windows and Mac equally well.
 
 
