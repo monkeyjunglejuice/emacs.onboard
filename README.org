@@ -52,7 +52,7 @@ Typical results:
   - =c:/Users/USERNAME/AppData/Roaming/.emacs.d/init.el=
 
 
-*** Install without Git
+*** Installation without Git
 
  /Some like it quick and dirty, eh?/ 🙈
 
