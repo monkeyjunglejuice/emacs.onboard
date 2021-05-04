@@ -309,7 +309,8 @@ or `system-configuration' directly."
 (defun toggle-theme ()
   "Toggle between light and dark theme."
   (interactive)
-  (cond ((equal active-theme-variant 'light) (load-theme-dark))
+  (cond
+   ((equal active-theme-variant 'light) (load-theme-dark))
         ((equal active-theme-variant 'dark) (load-theme-light))
         (t (mapc #'disable-theme custom-enabled-themes))))
 
