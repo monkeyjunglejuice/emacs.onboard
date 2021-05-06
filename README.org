@@ -2,20 +2,31 @@
 
 /Portable Emacs starter kit without any 3rd-party packages/
 
-Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or …
+Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or you don't want to configure Emacs, but just … use it? 🤯
 
-*You don't want to configure anything at all, but just … use it?* 🤯
-
-The ONBOARD Emacs starter kit provides a beginner-friendly, clean slate to build upon. It's almost vanilla Emacs, but offers some convenience and a better user experience, without relying on other packages. It's all built-in, all onboard.
+The ONBOARD Emacs starter is a clean slate to build upon. It's almost vanilla Emacs, but gives you some convenience and a better user experience, without relying on other packages. It's all built-in, all onboard.
 
 ✔ One single file
 
 ✔ Only built-in packages
 
-✔ Hop on and take off
+✔ Beginner-friendly drop-in config
 
 
-** TRY
+** Why, oh why? Yet another Emacs starter kit?
+
+Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in and have a sane Emacs environment in no time.
+
+And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked well.
+
+So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
+
+Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
+
+… but this is the 💝 heart piece!
+
+
+** TRY IT
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
 2. Open a terminal
@@ -124,19 +135,6 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 - Pre-configure everything and the cat's pillow (if you know cats …)
 
 - (Re)creating functionality where a 3rd-party package would be a better fit
-
-
-** Why, oh why? Yet another Emacs starter kit?
-
-Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in and have a sane Emacs environment in no time.
-
-And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked well.
-
-So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
-
-Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
-
-… but this is the 💝 heart piece!
 
 
 ** Contribute
