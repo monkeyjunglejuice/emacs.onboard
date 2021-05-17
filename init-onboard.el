@@ -757,7 +757,7 @@ or `system-configuration' directly."
 
 
 ;; Rename files/directories like normal text via `wdired-mode'
-(define-key dired-mode-map (kbd "C-c w d") #'wdired-change-to-wdired-mode)
+(define-key dired-mode-map (kbd "C-c d r") #'wdired-change-to-wdired-mode)
 
 
 ;; Auto refresh dired when contents of a directory change
