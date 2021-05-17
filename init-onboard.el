@@ -756,6 +756,10 @@ or `system-configuration' directly."
 (setq dired-recursive-copies 'always)
 
 
+;; Rename files/directories like normal text via `wdired-mode'
+(define-key dired-mode-map (kbd "C-c w d") #'wdired-change-to-wdired-mode)
+
+
 ;; Auto refresh dired when contents of a directory change
 (require 'autorevert)
 (add-hook 'dired-mode-hook #'auto-revert-mode)
