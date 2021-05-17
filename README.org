@@ -46,7 +46,7 @@ Actually I use not only that config file, but have my Emacs config split into se
 *3.* (Re)start Emacs
 
 
-*** You don't have a init file or don't know where it is?
+/You don't have a init file or don't know where it is?/
 
 By default (freshly installed Emacs) there is no init file.
 You can ask Emacs where it expects to find the init file:
