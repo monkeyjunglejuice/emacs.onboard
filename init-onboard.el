@@ -650,7 +650,7 @@ or `system-configuration' directly."
 
 ;; Specify file name/path patterns and directories ("REGEXP" . DIRECTORY)
 (setq backup-directory-alist
-      `(("." . ,(concat user-emacs-directory "var/backup/"))))
+      `(("." . ,(concat user-emacs-directory "backup/"))))
 
 
 ;;; LOCKFILES _________________________________________________________________
@@ -665,9 +665,6 @@ or `system-configuration' directly."
 
 (setq auto-save-default t
       auto-save-interval 0)
-
-(setq auto-save-list-file-prefix
-      (concat user-emacs-directory "var/auto-save/sessions/"))
 
 
 ;;; HELP ______________________________________________________________________
@@ -704,17 +701,11 @@ or `system-configuration' directly."
 (setq recentf-max-menu-items 10
       recentf-max-saved-items 100)
 
-(setq recentf-save-file
-      (concat user-emacs-directory "var/recentf-save.el"))
-
 
 ;; Ignore some recently visitet files
 
 (add-to-list 'recentf-exclude
              (concat user-emacs-directory "elpa/"))
-
-(add-to-list 'recentf-exclude
-             (concat user-emacs-directory "var/"))
 
 
 ;; Use 'completing-read' to choose between recent files
@@ -1009,7 +1000,6 @@ or `system-configuration' directly."
 ;; to the last place where it was before
 (require 'saveplace)
 (save-place-mode 1)
-(setq save-place-file (concat user-emacs-directory "var/save-place.el"))
 
 ;; More useful than the default
 (global-set-key (kbd "M-z") 'zap-up-to-char)

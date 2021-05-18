@@ -123,8 +123,6 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable
 
-- Follow no-littering best practices (https://github.com/emacscollective/no-littering)
-
 
 ** Non-Goals
 
