@@ -90,7 +90,7 @@
   (package-initialize))
 
 
-;; GNU TLS connection issue workaround
+;; GNU TLS connection issue workaround for Emacs 26.3
 (require 'gnutls)
 (if (and (version< emacs-version "26.3") (>= libgnutls-version 30604))
     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
@@ -129,7 +129,7 @@
                      gcs-done)))
 
 
-;; Simplify writing operating system specific code
+;; Helpers to simplify writing operating system specific code
 
 (defun lin-like ()
   "True if `system-type' is Linux or something compatible.
@@ -363,23 +363,25 @@ or `system-configuration' directly."
 ;;; USER INTERFACE ____________________________________________________________
 
 
-;; Default frame settings
+;; Default frame settings – start with an empty alist
 (setq default-frame-alist '())
-
-;; Don't set frame size or position and start Emacs maximized instead
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Set the default width of the Emacs frame in characters
 (add-to-list 'default-frame-alist '(width . 80))
 
-;; Set the default height of the Emacs frame in characters
+;; Set the default height of the Emacs frame in lines
 (add-to-list 'default-frame-alist '(height . 24))
 
-;; Set the distance from the left screen edge
+;; Horizontal position: set the distance from the left screen edge
 ;; (add-to-list 'default-frame-alist '(left . 0))
 
-;; Set the distance from the top screen edge
+;; Vertical position: set the distance from the top screen edge
 ;; (add-to-list 'default-frame-alist '(top . 0))
+
+;; Don't set frame size or position, but start Emacs maximized instead.
+;; Therefore, comment out the width, height and position settings above.
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 
 ;; Set the cursor type
 ;; To learn about available cursors, place your cursor behind 'cursor-type' in the
@@ -394,6 +396,7 @@ or `system-configuration' directly."
 
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setq visible-cursor nil)
+
 
 ;; Turn the menu bar on/off by default?
 (menu-bar-mode 1)
