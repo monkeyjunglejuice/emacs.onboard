@@ -702,7 +702,7 @@ or `system-configuration' directly."
 (recentf-mode 1)
 
 (setq recentf-max-menu-items 10
-      recentf-max-saved-items 100)
+      recentf-max-saved-items 10)
 
 
 ;; Ignore some recently visitet files
