@@ -748,7 +748,7 @@ or `system-configuration' directly."
   (setq dired-recursive-deletes 'top) ; ask when directory not empty
   (message "Trash off: Files will be deleted immediately!"))
 
-(trash-on) ; make it the default
+(trash-on) ; set the default
 
 
 ;; Copying files/directories
