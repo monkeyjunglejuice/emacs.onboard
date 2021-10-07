@@ -232,10 +232,14 @@ or `system-configuration' directly."
   "Custom modeline styling."
   (set-face-attribute 'mode-line nil
                       ;; :family "IBM Plex Mono" ; inherited from default
+                      :slant  'normal
+                      :weight 'normal
                       :width  'normal
                       :height 100)
   (set-face-attribute 'mode-line-inactive nil
                       ;; :family "IBM Plex Mono" ; inherited from default
+                      :slant  'normal
+                      :weight 'normal
                       :width  'normal
                       :height 100))
 
@@ -689,6 +693,7 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
+;; Search and replace
 (global-set-key (kbd "M-%") 'query-replace-regexp)
 (global-set-key (kbd "C-M-%") 'replace-regexp)
 
