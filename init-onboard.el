@@ -960,14 +960,6 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c o d") #'goto-org-directory)
 
 
-(defun find-org-file ()
-  "Find Org file via completion in the minibuffer."
-  (interactive)
-  (find-file org-directory))
-
-(global-set-key (kbd "C-c o f") #'find-org-file)
-
-
 (defun goto-org-notes ()
   "Visit the Org main file."
   (interactive)
