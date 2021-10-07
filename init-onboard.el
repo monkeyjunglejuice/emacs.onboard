@@ -713,7 +713,7 @@ or `system-configuration' directly."
 ;; Ignore some recently visitet files
 
 (add-to-list 'recentf-exclude
-             (concat user-emacs-directory "elpa/"))
+             (expand-file-name (concat user-emacs-directory "elpa/")))
 
 
 ;; Use 'completing-read' to choose between recent files
