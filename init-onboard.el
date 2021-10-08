@@ -48,7 +48,7 @@
 ;;; EARLY INIT ________________________________________________________________
 
 
-;; Code that should run as early as possible and would normall reside
+;; Code that should run as early as possible and would normally reside
 ;; within '~/.emacs.d/early-init.el' for Emacs 27 and higher
 
 
@@ -57,7 +57,7 @@
 ;; Show a message when garbage collection happens? Useful while tuning the GC
 (setq garbage-collection-messages nil)
 
-;; Temporary set a high value of 256 MB to trigger less garbage collections
+;; Temporarily set a high value of 256 MB to trigger less garbage collections
 ;; during initialization. The Emacs default is a threshold of 800 KB
 (setq gc-cons-threshold (* 256 1000000))
 
