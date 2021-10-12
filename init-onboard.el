@@ -215,6 +215,22 @@ or `system-configuration' directly."
                     :width  'normal
                     :height 120)
 
+;; Set an alternative monospaced font (optional)
+(set-face-attribute 'fixed-pitch nil
+                    ;; :family "IBM Plex Mono" ; set the font name
+                    :slant  'normal
+                    :weight 'normal
+                    :width  'normal
+                    :height 120)
+
+;; Set another alternative monospaced fonts, preferably with serifs (optional)
+(set-face-attribute 'fixed-pitch-serif nil
+                    ;; :family "IBM Plex Mono" ; set the font name
+                    :slant  'normal
+                    :weight 'normal
+                    :width  'normal
+                    :height 120)
+
 ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
 (set-face-attribute 'variable-pitch nil
                     ;; :family "Crimson Pro" ; set the font name
