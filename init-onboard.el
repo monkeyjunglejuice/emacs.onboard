@@ -612,7 +612,7 @@ or `system-configuration' directly."
   (interactive)
   (switch-to-buffer "*scratch*"))
 
-(global-set-key (kbd "C-c s c") #'scratch)
+(global-set-key (kbd "C-c s s") #'scratch)
 
 
 ;;; CLIPBOARD, COPY & PASTE ___________________________________________________
@@ -857,7 +857,7 @@ or `system-configuration' directly."
 (setq  eshell-list-files-after-cd t)
 
 ;; To open more than one eshell buffer: "C-u C-c e e"
-(global-set-key (kbd "C-c e e") #'eshell)
+(global-set-key (kbd "C-c e s") #'eshell)
 
 
 ;;; SHELL _____________________________________________________________________
@@ -869,7 +869,7 @@ or `system-configuration' directly."
 ;; (setq shell-file-name "/usr/bin/bash")
 
 ;; To open more than one shell buffer: "C-u C-c s s"
-(global-set-key (kbd "C-c s s") #'shell)
+(global-set-key (kbd "C-c s h") #'shell)
 
 
 ;;; PROCED ____________________________________________________________________
