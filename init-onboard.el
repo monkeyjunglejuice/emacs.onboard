@@ -872,8 +872,6 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c s h") #'shell)
 
 
-
-
 ;;; PROCED ____________________________________________________________________
 
 
