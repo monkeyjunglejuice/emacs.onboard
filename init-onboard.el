@@ -424,7 +424,7 @@ or `system-configuration' directly."
 (menu-bar-mode 1)
 
 ;; Show/hide menu bar via keybinding
-(global-set-key (kbd "C-c b") #'menu-bar-mode)
+(global-set-key (kbd "C-c m") #'menu-bar-mode)
 
 ;; Turn the scroll bar on/off by default?
 ;; (if (fboundp 'scroll-bar-mode) ; Emacs 26.1 compatibility
