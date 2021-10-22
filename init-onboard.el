@@ -904,17 +904,20 @@ or `system-configuration' directly."
 ;;; STANDARD WEB BROWSER ______________________________________________________
 
 
-;; This can be the system-wide graphical web browser,
+;; This can be a graphical web browser,
 ;; but also a text-mode web browser within Emacs.
 
-;; Let Emacs' `browse-url' function use:
+;; Set Emacs' `browse-url' function to use:
+
+;; … the system-wide default browser
 (setq browse-url-browser-function #'browse-url-default-browser)
 
-;; Or use W3m --> recommended 3rd-party package 'w3m'
+;; … or W3m --> recommended 3rd-party package 'w3m'
 ;; (setq browse-url-browser-function #'w3m-browse-url)
 
-;; Or set Firefox explicitly
+;; … or set Firefox explicitly
 ;; (setq browse-url-browser-function #'browse-url-firefox)
+
 
 ;; Keybinding to browse an URL
 (global-set-key (kbd "C-c w w") #'browse-url)
