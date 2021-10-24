@@ -1077,14 +1077,18 @@ or `system-configuration' directly."
 
 ;; Essential Emacs Lisp setup
 ;; --> recommended 3rd-party packages:
-;; 'rainbow-delimiters', 'company', 'flycheck', 'paren-face', 'paredit'
+;; 'paredit', 'rainbow-delimiters', 'company', 'flycheck'
+
+;; Install recommended packages:
+;; (mapc #'package-install
+;;         '(rainbow-delimiters company flycheck paren-face paredit))
+
 
 ;; (add-hook 'emacs-lisp-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
 ;;             (company-mode 1)
 ;;             (flycheck-mode 1)
-;;             (paren-face-mode 1)
 ;;             (paredit-mode 1)))
 
 ;; (add-hook 'lisp-interaction-mode-hook
@@ -1092,14 +1096,12 @@ or `system-configuration' directly."
 ;;             (rainbow-delimiters-mode-enable)
 ;;             (company-mode 1)
 ;;             (flycheck-mode -1)
-;;             (paren-face-mode 1)
 ;;             (paredit-mode 1)))
 
 ;; (add-hook 'ielm-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
 ;;             (company-mode 1)
-;;             (paren-face-mode 1)
 ;;             (paredit-mode 1)))
 
 
