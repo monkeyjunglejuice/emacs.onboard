@@ -7,8 +7,8 @@
 
 
 ;;; Commentary:
-
-
+;;
+;;
 ;; The goal of ONBOARD is to offer a clean slate to build your own Emacs config.
 ;; It stays as close as possible to vanilla Emacs, but offers some convenience
 ;; and a better user experience, while only relying on built-in packages.
@@ -16,8 +16,8 @@
 ;; Tested with:
 ;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 26.1 on Debian 10.9.0
-
-
+;;
+;;
 ;; KEYBINDINGS
 ;;
 ;; "F12"  Toggle between dark and light theme
