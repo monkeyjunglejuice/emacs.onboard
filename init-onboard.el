@@ -522,13 +522,11 @@ or `system-configuration' directly."
 ;;; WINDOW MANAGEMENT _________________________________________________________
 
 
-;; Fix the default window splitting and placement
-;; If this is a step too far, then replace
-;; `display-buffer-same-window' with `display-buffer-pop-up-window',
-;; or comment out the following expression and restart Emacs
-;; to experience the default window behavior
-(setq display-buffer-alist
-      '((".*" (display-buffer-reuse-window display-buffer-same-window))))
+;; Modify the default window splitting and placement:
+;; Emacs often opens buffers in new windows. If you don't like that behavior,
+;; then uncomment the following expression and restart Emacs
+;; (setq display-buffer-alist
+;;       '((".*" (display-buffer-reuse-window display-buffer-same-window))))
 
 
 ;; Default window navigation – simply switch to the next window in order
