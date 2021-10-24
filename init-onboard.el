@@ -580,11 +580,12 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
-;; Kill the current buffer immediately instead of presenting a selection
+;; Kill the current buffer immediately instead of presenting a selection.
+;; It's the equivalent to "close tab" in the web browser or other editors
 (global-set-key (kbd "C-x k") #'kill-current-buffer)
 
 
-;; Kill all buffers at once
+;; Kill all buffers at once – equivalent to "close all tabs"
 
 (defun kill-all-buffers ()
   "Close all buffers at once."
@@ -599,7 +600,7 @@ or `system-configuration' directly."
 ;;; SCRATCH BUFFER ____________________________________________________________
 
 
-;; Empty *scratch* buffer content at startup
+;; Empty *scratch* buffer at startup
 (setq initial-scratch-message "")
 
 ;; Set the initial mode of the *scratch* buffer
@@ -674,6 +675,7 @@ or `system-configuration' directly."
       delete-old-versions t
       version-control t)
 
+;; Where to save the backups.
 ;; Specify file name/path patterns and directories ("REGEXP" . DIRECTORY)
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backup/"))))
@@ -682,7 +684,7 @@ or `system-configuration' directly."
 ;;; LOCKFILES _________________________________________________________________
 
 
-;; Let Emacs keeping track of files currently open
+;; Let Emacs keep track of files currently open
 (setq create-lockfiles t)
 
 
