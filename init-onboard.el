@@ -14,6 +14,7 @@
 ;; and a better user experience, while only relying on built-in packages.
 ;;
 ;; Tested with:
+;;  [X] Emacs 27.2 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 26.1 on Debian 10.9.0
 ;;
