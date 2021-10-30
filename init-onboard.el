@@ -1107,6 +1107,10 @@ or `system-configuration' directly."
 ;;             (paredit-mode 1)))
 
 
+;; More convenient than the default "C-x C-e", since it's needed so often
+(define-key emacs-lisp-mode-map (kbd "C-c C-c") #'eval-last-sexp)
+
+
 ;;; HTML/CSS __________________________________________________________________
 
 
