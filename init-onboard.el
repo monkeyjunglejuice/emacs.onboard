@@ -808,18 +808,7 @@ or `system-configuration' directly."
 
 ;; Directory listing columns; Switch arguments with "C-u s"
 ;; Show all files: -lhFA and hide backups with an additional -B
-
-(defun dired-hide-dotfiles ()
-  "Hide dotfiles in Dired."
-  (interactive)
-  (setq-default dired-listing-switches "--group-directories-first -lhF"))
-
-(defun dired-show-dotfiles ()
-  "Show dotfiles in Dired."
-  (interactive)
-  (setq-default dired-listing-switches "--group-directories-first -lhFA"))
-
-(dired-show-dotfiles) ; set the default
+(setq-default dired-listing-switches "--group-directories-first -lhFA")
 
 
 ;; Linux/Unix only
