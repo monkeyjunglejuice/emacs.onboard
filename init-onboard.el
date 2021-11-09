@@ -464,6 +464,10 @@ or `system-configuration' directly."
 ;;; MODELINE / ECHO AREA / MINIBUFFER _________________________________________
 
 
+;; Allow minibuffer commands while in the minibuffer
+(setq enable-recursive-minibuffers t)
+(minibuffer-depth-indicate-mode 1)
+
 ;; Use the minibuffer instead of dialog boxes
 (setq use-dialog-box nil)
 
