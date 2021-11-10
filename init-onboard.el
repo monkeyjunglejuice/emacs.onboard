@@ -809,7 +809,7 @@ or `system-configuration' directly."
 
 ;; Directory listing columns; Switch arguments with "C-u s"
 ;; Show all files: -lhFA and hide backups with an additional -B
-(setq-default dired-listing-switches "--group-directories-first -lhFA")
+(setq-default dired-listing-switches "-lhFA")
 
 
 ;; Linux/Unix only
