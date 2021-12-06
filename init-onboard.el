@@ -791,12 +791,15 @@ or `system-configuration' directly."
 (setq auto-revert-verbose nil)
 
 
-;; Short file listing by default; toggle detailled listing via "s-("
+;; Short file listing by default; toggle detailed listing via "s-("
 (defun dired-hide-details ()
-   "Hide details for file listings per default."
-   (dired-hide-details-mode 1))
+  "Hide details for file listings per default."
+  (dired-hide-details-mode 1))
 
-(add-hook 'dired-mode-hook #'dired-hide-details)
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (hl-line-mode 1)
+            (dired-hide-details)))
 
 
 ;; Mimic dual-pane file managers
