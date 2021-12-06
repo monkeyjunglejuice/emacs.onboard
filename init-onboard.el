@@ -526,7 +526,7 @@ or `system-configuration' directly."
 ;;; WINDOW MANAGEMENT _________________________________________________________
 
 
-;; Emacs often opens buffers in new windows. This makes the window splitting
+;; Emacs often opens buffers in new windows. Let's make window splitting
 ;; and placement more predictable. For the default windows behavior,
 ;; comment out the following expression and restart Emacs
 (setq display-buffer-base-action
