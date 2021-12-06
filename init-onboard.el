@@ -1008,8 +1008,7 @@ or `system-configuration' directly."
 (add-hook 'text-mode-hook
           (lambda ()
             (setq show-trailing-whitespace t)
-            (visual-line-mode 1)
-            (hl-line-mode 1)))
+            (visual-line-mode 1)))
 
 ;; Set desired line width
 (setq-default fill-column 80)
