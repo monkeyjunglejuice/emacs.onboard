@@ -332,8 +332,8 @@ or `system-configuration' directly."
   (interactive)
   (cond
    ((equal active-theme-variant 'light) (load-theme-dark))
-        ((equal active-theme-variant 'dark) (load-theme-light))
-        (t (mapc #'disable-theme custom-enabled-themes))))
+   ((equal active-theme-variant 'dark) (load-theme-light))
+   (t (mapc #'disable-theme custom-enabled-themes))))
 
 (defun load-theme-default ()
   "Load the default theme."
