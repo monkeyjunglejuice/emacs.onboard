@@ -1,5 +1,4 @@
-;;; init-onboard.el --- Portable Emacs starter kit without 3rd-party packages
-
+;;; init-onboard.el --- Portable Emacs starter kit without 3rd-party packages  -*- lexical-binding: t; -*-
 
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
