@@ -17,20 +17,18 @@
 ;;  [X] Emacs 27.2 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 26.1 on Debian 10.9.0
-;;
-;;
-;; KEYBINDINGS
-;;
-;; "F12"  Toggle between dark and light theme
+
+;;; Keybindings:
 ;;
 ;; "M-x"  Show all commands
 ;;        – hold down the "Meta key" and press <x>
 ;;        – the "Meta key" is usually <Alt> on Linux/Windows and <Option> on Mac
 ;;
-;; "C-g"  Get out! Press <Ctrl>-<g> to cancel whatever happens – or hit 3x <ESC>
+;; "C-g"  Get out! Press <Ctrl>+<g> to cancel whatever happens – or hit 3x <ESC>
 ;;
-;;
-;; Examples:
+;; "M-F12"  Toggle between dark and light theme
+
+;;; Examples:
 ;;
 ;; "M-x goto-user-init-file" Visit main configuration file ('.emacs', 'init.el')
 ;; "M-x check-parens"        Check if all parens match (in Emacs Lisp code)
@@ -356,7 +354,7 @@ or `system-configuration' directly."
 (setq default-theme-variant 'dark)
 
 ;; Set the keybinding to toggle between light and dark:
-(global-set-key (kbd "<f12>") #'toggle-theme)
+(global-set-key (kbd "<M-f12>") #'toggle-theme)
 
 ;; The hooks can be used to run additional functions before or after loading
 ;; the selected light or dark theme. Useful to set variables that otherwise
