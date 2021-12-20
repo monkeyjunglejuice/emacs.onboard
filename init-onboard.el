@@ -1,13 +1,14 @@
 ;;; init-onboard.el --- Portable Emacs starter kit without 3rd-party packages  -*- lexical-binding: t; -*-
 
+;; Copyright (C) 2021 Dan Dee
+
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Version: 0.1.0
-
+;; Package-Requires: ((emacs "26.1"))
+;; Keywords: convenience
 
 ;;; Commentary:
-;;
-;;
 ;; The goal of ONBOARD is to offer a clean slate to build your own Emacs config.
 ;; It stays as close as possible to vanilla Emacs, but offers some convenience
 ;; and a better user experience, while only relying on built-in packages.
