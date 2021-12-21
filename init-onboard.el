@@ -26,7 +26,7 @@
 ;;
 ;; "C-g"  Get out! Press <Ctrl>+<g> to cancel whatever happens – or hit 3x <ESC>
 ;;
-;; "M-F12"  Toggle between dark and light theme
+;; "F12"  Toggle between dark and light theme
 
 ;;; Examples:
 ;;
@@ -353,7 +353,7 @@ or `system-configuration' directly."
 (setq default-theme-variant 'dark)
 
 ;; Set the keybinding to toggle between light and dark:
-(global-set-key (kbd "<M-f12>") #'toggle-theme)
+(global-set-key (kbd "<f12>") #'toggle-theme)
 
 ;; The hooks can be used to run additional functions before or after loading
 ;; the selected light or dark theme. Useful to set variables that otherwise
