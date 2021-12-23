@@ -536,7 +536,6 @@ or `system-configuration' directly."
 ;; Default window navigation – simply switch to the next window in order
 ;; Added for convenience; default key binding is "C-x o"
 (global-set-key (kbd "M-o") #'other-window)
-(global-set-key (kbd "M-O") #'other-frame)
 
 
 ;; navigate windows by direction
