@@ -854,8 +854,8 @@ or `system-configuration' directly."
 (require 'em-dirs)
 (setq  eshell-list-files-after-cd t)
 
-;; To open more than one eshell buffer: "C-u C-c e s"
-(global-set-key (kbd "C-c e e") #'eshell)
+;; To open more than one eshell buffer: "C-u C-c x e"
+(global-set-key (kbd "C-c x e") #'eshell)
 
 
 ;;; SHELL _____________________________________________________________________
@@ -866,8 +866,8 @@ or `system-configuration' directly."
 ;; Set another shell than the default one
 ;; (setq shell-file-name "/usr/bin/bash")
 
-;; To open more than one shell buffer: "C-u C-c s h"
-(global-set-key (kbd "C-c e s") #'shell)
+;; To open more than one shell buffer: "C-u C-c x s"
+(global-set-key (kbd "C-c x s") #'shell)
 
 
 ;;; PROCED ____________________________________________________________________
