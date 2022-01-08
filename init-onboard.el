@@ -1036,6 +1036,10 @@ or `system-configuration' directly."
 ;; which is mostly common when working with text
 ;; (delete-selection-mode 1)
 
+;; Whitespace cleanup
+(define-key prog-mode-map (kbd "C-c C-w") #'whitespace-cleanup)
+(define-key text-mode-map (kbd "C-c C-w") #'whitespace-cleanup)
+
 
 ;;; PROGRAMMING _______________________________________________________________
 
@@ -1045,7 +1049,7 @@ or `system-configuration' directly."
           (lambda ()
             ;; (linum-mode 1) ; line numbers on/off by default, "M-x linum-mode"
             ;; (electric-pair-local-mode 1) ; auto-close parens/brackets
-	          (setq show-trailing-whitespace t)))
+            (setq show-trailing-whitespace t)))
 
 ;; Indentation
 (setq-default indent-tabs-mode nil ; don't use tabs for indentation
