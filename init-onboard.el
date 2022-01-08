@@ -957,7 +957,24 @@ or `system-configuration' directly."
 
 ;; Set the Org paths
 (setq org-directory "~/org/")
+
+(defun goto-org-directory ()
+  "Show the Org directory in Dired."
+  (interactive)
+  (dired org-directory))
+
+(global-set-key (kbd "C-c o d") #'goto-org-directory)
+
+
 (setq org-default-notes-file (concat org-directory "notes.org"))
+
+(defun goto-org-notes ()
+  "Visit the Org main file."
+  (interactive)
+  (find-file (concat org-directory "notes.org")))
+
+(global-set-key (kbd "C-c o o") #'goto-org-notes)
+
 
 ;; Global todo states
 (setq org-todo-keywords
@@ -978,22 +995,6 @@ or `system-configuration' directly."
 ;; Literate programming – activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((emacs-lisp . t)))
-
-
-(defun goto-org-directory ()
-  "Show the Org directory in Dired."
-  (interactive)
-  (dired org-directory))
-
-(global-set-key (kbd "C-c o d") #'goto-org-directory)
-
-
-(defun goto-org-notes ()
-  "Visit the Org main file."
-  (interactive)
-  (find-file (concat org-directory "notes.org")))
-
-(global-set-key (kbd "C-c o o") #'goto-org-notes)
 
 
 ;;; EDITING ___________________________________________________________________
