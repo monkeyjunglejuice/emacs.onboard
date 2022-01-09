@@ -1038,8 +1038,8 @@ or `system-configuration' directly."
 ;; (delete-selection-mode 1)
 
 ;; Cleanup trailing whitespace
-(define-key prog-mode-map (kbd "C-c C-w") #'whitespace-cleanup)
-(define-key text-mode-map (kbd "C-c C-w") #'whitespace-cleanup)
+(define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
+(define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
 ;;; PROGRAMMING _______________________________________________________________
