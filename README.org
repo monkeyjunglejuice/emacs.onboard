@@ -2,7 +2,7 @@
 
 /Portable Emacs starter kit without any 3rd-party packages/
 
-Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or you don't want to configure Emacs, but just … use it? 🤯
+Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or you don't want to configure Emacs, but … just use it??? 🤯
 
 The ONBOARD Emacs starter is a clean slate to build upon. It's almost vanilla Emacs, but gives you some convenience and a better user experience, without relying on other packages. It's all built-in, all onboard.
 
@@ -11,7 +11,6 @@ The ONBOARD Emacs starter is a clean slate to build upon. It's almost vanilla Em
 ✔ Only built-in packages
 
 ✔ Beginner-friendly drop-in config
-
 
 ** Why, oh why? Yet another Emacs starter kit?
 
@@ -25,13 +24,11 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 … but this is the 💝 heart piece!
 
-
 ** TRY IT
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/init-onboard.el][init-onboard.el]]
 2. Open a terminal
 3. Run the shell command: ~emacs -q --load /path/to/init-onboard.el~
-
 
 ** INSTALL
 
@@ -44,7 +41,6 @@ Actually I use not only that config file, but have my Emacs config split into se
 #+end_src
 
 *3.* (Re)start Emacs
-
 
 /You don't have a init file or don't know where it is?/
 
@@ -62,7 +58,6 @@ Typical results:
   - =c:/Users/USERNAME/AppData/Roaming/.emacs=
   - =c:/Users/USERNAME/AppData/Roaming/.emacs.d/init.el=
 
-
 *** Installation without Git
 
  /Some like it quick and dirty, eh?/ 🙈
@@ -77,11 +72,9 @@ Typical results:
  2. Put this in your Emacs init file: ~(require 'init-onboard "/path/to/init-onboard.el")~
  3. (Re)start Emacs
 
-
 ** Getting comfortable
 
 The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All those keybindings are just convenience shortcuts to use /commands/, but they are not the commands themselves. The commands are the really interesting things. What that means:
-
 
 *** There are only 2 really important keybindings:
 
@@ -89,13 +82,11 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 
 "C-g" — Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic – same effect!)
 
-
 **** Examples:
 
 - "M-x list-packages" Install 3rd-party packages (the "Emacs app store" or "Emacs marketplace" cough-cough)
 - "M-x check-parens" Check if all parens match (within Emacs Lisp code)
 - "M-x help" to reach the ultimate help menu
-
 
 ** Tested with:
 
@@ -105,7 +96,6 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 - [ ] Emacs 26 on Windows 10
 - [ ] Emacs 27 on MacOS
 - [ ] Emacs 26 on MacOS
-
 
 ** Goals
 
@@ -123,7 +113,6 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable
 
-
 ** Non-Goals
 
 - Providing a whole new experience like Spacemacs or Doom-Emacs
@@ -133,7 +122,6 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 - Pre-configure everything and the cat's pillow (if you know cats …)
 
 - (Re)creating functionality where a 3rd-party package would be a better fit
-
 
 ** Contribute
 
