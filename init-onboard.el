@@ -989,8 +989,9 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c o a") #'org-agenda)
 
 ;; Links
-(global-set-key (kbd "C-c o l") #'org-store-link)
-(define-key org-mode-map (kbd "C-c l") #'org-toggle-link-display)
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c C-l") #'org-insert-link)
+(define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
 
 ;; Literate programming – activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages
