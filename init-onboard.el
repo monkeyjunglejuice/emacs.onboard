@@ -796,7 +796,7 @@ or `system-configuration' directly."
 
 (add-hook 'dired-mode-hook
           (lambda ()
-            (hl-line-mode 1)
+            (hl-line-mode -1)  ; highlight current line or not
             (dired-hide-details)))
 
 
