@@ -211,7 +211,7 @@ or `system-configuration' directly."
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
-                    :height 120)
+                    :height 140)
 
 ;; Set an alternative monospaced font (optional)
 (set-face-attribute 'fixed-pitch nil
@@ -219,7 +219,7 @@ or `system-configuration' directly."
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
-                    :height 120)
+                    :height 140)
 
 ;; Set another alternative monospaced fonts, preferably with serifs (optional)
 (set-face-attribute 'fixed-pitch-serif nil
@@ -227,7 +227,7 @@ or `system-configuration' directly."
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
-                    :height 120)
+                    :height 140)
 
 ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
 (set-face-attribute 'variable-pitch nil
