@@ -70,18 +70,18 @@
 ;;; PACKAGE MANAGEMENT ________________________________________________________
 
 
-;; Browse, select and install 3rd-party packages: "M-x list-packages"
+;; Browse, select and install 3rd-party packages: "M-x list-packages RET"
 
 (require 'package)
 
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
+;; 1st priority – preferred
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 
-  (when no-ssl (warn "Your version of Emacs does not support SSL connections!"))
-
-  (add-to-list 'package-archives
-               (cons "melpa" (concat proto "://melpa.org/packages/")) t))
+;; 2nd priority –
+;; install form melpa-stable' only if a package from 'melpa' is broken
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; `package-initialize' seems not needed any more with Emacs 27?
 (when (< emacs-major-version 27)
