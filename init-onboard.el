@@ -401,7 +401,7 @@ or `system-configuration' directly."
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Dont' show the fringe on that side
-(add-to-list 'default-frame-alist '(right-fringe . 0))
+;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
 ;; Set the cursor type
 ;; To learn about available cursors, place your cursor behind 'cursor-type' in the
