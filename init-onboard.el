@@ -1007,7 +1007,6 @@ or `system-configuration' directly."
 ;; General text settings
 (add-hook 'text-mode-hook
           (lambda ()
-            (setq show-trailing-whitespace t)
             (visual-line-mode 1)))
 
 ;; Set desired line width
@@ -1038,6 +1037,12 @@ or `system-configuration' directly."
 ;; which is mostly common when working with text
 ;; (delete-selection-mode 1)
 
+
+;; Show trailing whitespace in "text" modes?
+
+(add-hook 'text-mode-hook
+          (lambda () (setq show-trailing-whitespace nil)))
+
 ;; Cleanup trailing whitespace
 (define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 (define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
@@ -1049,9 +1054,12 @@ or `system-configuration' directly."
 ;; General programming settings
 (add-hook 'prog-mode-hook
           (lambda ()
-            ;; (linum-mode 1) ; line numbers on/off by default, "M-x linum-mode"
-            ;; (electric-pair-local-mode 1) ; auto-close parens/brackets
-            (setq show-trailing-whitespace t)))
+            ;; Line numbers on/off by default? "M-x linum-mode"
+            ;; (linum-mode nil)
+            ;; Auto-close parens, brackets, quotes?
+            ;; (electric-pair-local-mode nil)
+            ;; trailing whitespace in "prog" modes
+            (setq show-trailing-whitespace nil)))
 
 ;; Indentation
 (setq-default indent-tabs-mode nil ; don't use tabs for indentation
