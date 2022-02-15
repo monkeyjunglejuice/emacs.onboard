@@ -956,7 +956,7 @@ or `system-configuration' directly."
 (require 'org)
 
 ;; Set the Org paths
-(setq org-directory "~/org/")
+(setq org-directory "~/Org/")
 
 (defun goto-org-directory ()
   "Show the Org directory in Dired."
