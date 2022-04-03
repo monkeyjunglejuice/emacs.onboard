@@ -423,7 +423,6 @@ or `system-configuration' directly."
 ;; Turn the menu bar on/off by default?
 (menu-bar-mode 1)
 
-
 ;; Turn the scroll bar on/off by default?
 ;; (if (fboundp 'scroll-bar-mode) ; Emacs 26.1 compatibility
 ;;     (scroll-bar-mode -1))
