@@ -583,7 +583,7 @@ or `system-configuration' directly."
 
 
 ;; Kill the current buffer immediately instead of presenting a selection.
-;; It's the equivalent to "close tab" in the web browser or other editors
+;; It's the equivalent to "close tab" in a web browser or other editors
 (global-set-key (kbd "C-x k") #'kill-current-buffer)
 
 
@@ -609,10 +609,10 @@ or `system-configuration' directly."
 (setq initial-major-mode #'org-mode)
 
 
-;; Quickly jump to *scratch* buffer
+;; Quickly jump to the *scratch* buffer
 
 (defun scratch ()
-  "Jump to the *scratch* buffer. If it does not yet exist, create it."
+  "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
 
@@ -733,7 +733,7 @@ or `system-configuration' directly."
       recentf-max-saved-items 100)
 
 
-;; Ignore some recently visitet files
+;; Ignore some recently visited files
 
 (add-to-list 'recentf-exclude
              (expand-file-name (concat user-emacs-directory "elpa/")))
@@ -885,7 +885,7 @@ or `system-configuration' directly."
 ;; BUILT-IN WEB BROWSER _______________________________________________________
 
 
-;; Eww – Emacs Web Wowser
+;; EWW – Emacs Web Wowser
 
 ;; Pretend to be an iPhone
 ;; (setq url-user-agent
