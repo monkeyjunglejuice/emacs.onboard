@@ -892,7 +892,7 @@ or `system-configuration' directly."
 ;; Or pretend to be the W3m text-mode browser
 (setq url-user-agent "w3m/0.5.3+git20190105")
 
-(setq url-privacy-level '(email lastloc os cookies emacs))
+(setq url-privacy-level '(email lastloc os emacs))
 (url-setup-privacy-info)
 
 
