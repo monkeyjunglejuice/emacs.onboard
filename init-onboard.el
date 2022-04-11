@@ -836,6 +836,14 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x C-d") #'dired)
 
 
+;;; COMINT ____________________________________________________________________
+
+
+(require 'comint)
+(setq comint-input-ignoredups t
+      comint-prompt-read-only t)
+
+
 ;;; ESHELL ____________________________________________________________________
 
 
