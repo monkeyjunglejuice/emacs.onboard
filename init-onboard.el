@@ -459,6 +459,9 @@ or `system-configuration' directly."
 ;;; MODELINE / ECHO AREA / MINIBUFFER _________________________________________
 
 
+;; Delete duplicates from the command history
+(setq history-delete-duplicates t)
+
 ;; Allow minibuffer commands while in the minibuffer
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
