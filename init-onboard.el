@@ -675,8 +675,8 @@ or `system-configuration' directly."
 
 ;; Make backups of all edited files before saving them
 (setq backup-by-copying t
-      kept-new-versions 5
-      kept-old-versions 1
+      kept-new-versions 10
+      kept-old-versions 3
       delete-old-versions t
       version-control t)
 
