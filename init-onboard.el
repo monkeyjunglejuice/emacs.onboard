@@ -74,12 +74,12 @@
 
 (require 'package)
 
-;; 1st priority – preferred
+;; 1st priority
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 
-;; 2nd priority –
-;; install form melpa-stable' only if a package from 'melpa' is broken
+;; 2nd priority
+;; Install form melpa-stable' only if a package from 'melpa' is broken
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
