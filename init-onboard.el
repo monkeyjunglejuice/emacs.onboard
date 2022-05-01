@@ -537,10 +537,10 @@ or `system-configuration' directly."
 
 ;; Default window navigation – simply switch to the next window in order
 ;; Added for convenience; default key binding is "C-x o"
-(global-set-key (kbd "M-o") #'other-window)
+(global-set-key (kbd "M-SPC") #'other-window)
 
 
-;; navigate windows by direction
+;; Navigate windows by direction
 ;; (require 'windmove)
 ;; (setq windmove-wrap-around nil)
 ;; (global-set-key (kbd "s-j") #'windmove-down)
@@ -561,15 +561,12 @@ or `system-configuration' directly."
 (require 'winner)
 (winner-mode 1)
 (define-key winner-mode-map (kbd "C-x 4 u") #'winner-undo)
+(define-key winner-mode-map (kbd "M-[") #'winner-undo)
 (define-key winner-mode-map (kbd "C-x 4 r") #'winner-redo)
+(define-key winner-mode-map (kbd "M-]") #'winner-redo)
 
 
 ;;; BUFFERS ___________________________________________________________________
-
-
-;; Switch to another buffer. Kinda like tabs – having multiple files open
-;; Added for convenience; default keybinding is "C-x b"
-(global-set-key (kbd "M-SPC") #'switch-to-buffer)
 
 
 ;; Uniquify buffer names for identically-named files
