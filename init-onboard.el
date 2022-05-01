@@ -833,7 +833,7 @@ or `system-configuration' directly."
 
 ;; Set new keybinding resembling "C-x C-f" for visiting files
 ;; Added for convenience; default key binding is "C-x d"
-(global-set-key (kbd "C-x C-d") #'dired)
+(global-set-key (kbd "C-x C-d") #'dired-jump)
 
 
 ;;; COMINT ____________________________________________________________________
