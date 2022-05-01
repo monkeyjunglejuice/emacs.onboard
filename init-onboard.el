@@ -1001,6 +1001,17 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c C-l") #'org-insert-link)
 (define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
 
+
+;; Insert snippets
+
+(defun org-insert-caption ()
+  "Insert caption snippet."
+  (interactive)
+  (insert "#+caption: "))
+
+(define-key org-mode-map (kbd "C-c C-:") #'org-insert-caption)
+
+
 ;; Literate programming – activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((emacs-lisp . t)))
