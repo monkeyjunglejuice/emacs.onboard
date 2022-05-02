@@ -569,17 +569,20 @@ or `system-configuration' directly."
 ;;; BUFFERS ___________________________________________________________________
 
 
-;; Uniquify buffer names for identically-named files
-(setq uniquify-buffer-name-style 'forward)
-
-
-;; Ibuffer – the buffer manager. When you have lots of buffers
+;; Ibuffer – the buffer manager
 (require 'ibuf-ext)
+
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-auto-mode 1)))
 
+(setq ibuffer-marked-face 'dired-marked)
+
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+
+;; Uniquify buffer names for identically-named files
+(setq uniquify-buffer-name-style 'forward)
 
 
 ;; Kill the current buffer immediately instead of presenting a selection.
