@@ -888,6 +888,16 @@ or `system-configuration' directly."
               proced-descend t)
 
 
+;;; CALENDAR __________________________________________________________________
+
+
+(require 'calendar)
+
+(setq calendar-date-style 'iso
+      calendar-week-start-day 1
+      calendar-weekend-days '(6 0))
+
+
 ;; BUILT-IN WEB BROWSER _______________________________________________________
 
 
