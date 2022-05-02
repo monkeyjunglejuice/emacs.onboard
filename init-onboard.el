@@ -479,7 +479,13 @@ or `system-configuration' directly."
 (column-number-mode 1)
 
 
-;;; MINIBUFFER COMPLETION _____________________________________________________
+;;; ELDOC _____________________________________________________________________
+
+
+(setq eldoc-echo-area-use-multiline-p t)
+
+
+;;; COMPLETION ________________________________________________________________
 
 
 (require 'icomplete)
