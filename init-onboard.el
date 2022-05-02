@@ -1056,7 +1056,7 @@ or `system-configuration' directly."
 (save-place-mode 1)
 
 ;; More useful than the default
-(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "M-z") #'zap-up-to-char)
 
 ;; Typing a character while a text selection is active,
 ;; deletes the selection and replaces it with the typed character,
