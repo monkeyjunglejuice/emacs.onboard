@@ -344,7 +344,7 @@ or `system-configuration' directly."
 ;; Theme configuration ********************************************************
 
 ;; Set the light theme here:
-(setq light-theme-name 'leuven)
+(setq light-theme-name 'tsdh-light)
 
 ;; Set the dark theme here:
 (setq dark-theme-name 'wombat)
