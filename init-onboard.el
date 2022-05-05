@@ -483,7 +483,8 @@ or `system-configuration' directly."
 ;;; ELDOC _____________________________________________________________________
 
 
-(setq eldoc-echo-area-use-multiline-p t)
+(setq eldoc-echo-area-use-multiline-p t
+      eldoc-minor-mode-string "")
 
 
 ;;; COMPLETION ________________________________________________________________
