@@ -1117,30 +1117,37 @@ or `system-configuration' directly."
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
+;;; SYNTAX CHECK ______________________________________________________________
+
+
+(require 'flymake)
+
+(define-key flymake-mode-map (kbd "M-n") #'flymake-goto-next-error)
+(define-key flymake-mode-map (kbd "M-p") #'flymake-goto-prev-error)
+
+
 ;;; ELISP _____________________________________________________________________
 
 
 ;; Essential Emacs Lisp setup
-;; --> recommended 3rd-party packages:
-;; 'paredit', 'rainbow-delimiters', 'company', 'flycheck'
-
+;; --> recommended 3rd-party packages: paredit, rainbow-delimiters, company
 ;; Install recommended packages:
 ;; (mapc #'package-install
-;;         '(rainbow-delimiters company flycheck paren-face paredit))
+;;         '(paredit rainbow-delimiters company))
 
 
 ;; (add-hook 'emacs-lisp-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
 ;;             (company-mode 1)
-;;             (flycheck-mode 1)
+;;             (flymake-mode 1)
 ;;             (paredit-mode 1)))
 
 ;; (add-hook 'lisp-interaction-mode-hook
 ;;           (lambda ()
 ;;             (rainbow-delimiters-mode-enable)
 ;;             (company-mode 1)
-;;             (flycheck-mode -1)
+;;             (flymake-mode -1)
 ;;             (paredit-mode 1)))
 
 ;; (add-hook 'ielm-mode-hook
