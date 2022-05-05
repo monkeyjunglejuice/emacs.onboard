@@ -464,6 +464,7 @@ or `system-configuration' directly."
 
 ;; Allow minibuffer commands while in the minibuffer
 (setq enable-recursive-minibuffers t)
+(global-set-key (kbd "C-M-g") #'exit-recursive-edit)
 (minibuffer-depth-indicate-mode 1)
 
 ;; Use the minibuffer instead of dialog boxes
