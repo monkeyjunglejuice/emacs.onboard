@@ -797,16 +797,17 @@ or `system-configuration' directly."
 (add-hook 'dired-mode-hook #'auto-revert-mode)
 (setq auto-revert-verbose nil)
 
-
-;; Short file listing by default; toggle detailed listing via "s-("
-(defun dired-hide-details ()
-  "Hide details for file listings per default."
-  (dired-hide-details-mode 1))
-
+;; Directory listings
 (add-hook 'dired-mode-hook
           (lambda ()
-            (hl-line-mode -1)  ; highlight current line or not
-            (dired-hide-details)))
+            ; Highlight current line or not?
+            (hl-line-mode -1)
+            ; Hide details in file listings?
+            (dired-hide-details-mode -1)))
+
+;; Listing columns; Switch arguments with "C-u s"
+;; Show all files: -vlhFA and hide backups with -B
+(setq-default dired-listing-switches "-vlhFA")
 
 
 ;; Mimic dual-pane file managers
@@ -817,11 +818,6 @@ or `system-configuration' directly."
 (require 'image-dired)
 (setq image-dired-thumb-margin 0
       image-dired-thumb-relief 0)
-
-
-;; Directory listing columns; Switch arguments with "C-u s"
-;; Show all files: -vlhFA and hide backups with an additional -B
-(setq-default dired-listing-switches "-vlhFA")
 
 
 ;; Linux/Unix only
