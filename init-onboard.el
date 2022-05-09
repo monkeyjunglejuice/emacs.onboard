@@ -617,8 +617,9 @@ or `system-configuration' directly."
 (setq initial-scratch-message "")
 
 ;; Set the initial mode of the *scratch* buffer
-;; (setq initial-major-mode 'org-mode)
-(setq initial-major-mode 'lisp-interaction-mode)
+;; (setq initial-major-mode 'lisp-interaction-mode)  ; default
+(setq initial-major-mode 'org-mode)
+
 
 
 ;; Quickly jump to the *scratch* buffer
