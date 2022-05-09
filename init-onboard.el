@@ -740,12 +740,11 @@ or `system-configuration' directly."
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
 
-(setq recentf-max-menu-items 32
-      recentf-max-saved-items 32)
+(setq recentf-max-menu-items 50
+      recentf-max-saved-items 50)
 
-
-;; Ignore some recently visited files
-
+;; Ignore some recently visited files,
+;; eg. to prevent them from showing up amongst recent files after package upgrades
 (add-to-list 'recentf-exclude
              (expand-file-name (concat user-emacs-directory "elpa/")))
 
