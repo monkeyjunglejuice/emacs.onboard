@@ -899,14 +899,13 @@ or `system-configuration' directly."
               proced-descend t)
 
 
-;;; CALENDAR __________________________________________________________________
+;;; NET-UTILS _________________________________________________________________
 
 
-(require 'calendar)
+(require 'net-utils)
 
-(setq calendar-date-style 'iso
-      calendar-week-start-day 1
-      calendar-weekend-days '(6 0))
+(setq netstat-program "netstat"
+      netstat-program-options '("-atupe"))
 
 
 ;; BUILT-IN WEB BROWSER _______________________________________________________
