@@ -832,7 +832,7 @@ or `system-configuration' directly."
     (call-process "xdg-open" nil 0 nil file)
     (message "Opening %s done" file)))
 
-(define-key dired-mode-map (kbd "M-RET") #'dired-xdg-open)
+(define-key dired-mode-map (kbd "M-RET") #'onb-dired-xdg-open)
 
 
 ;; Goto home directory
