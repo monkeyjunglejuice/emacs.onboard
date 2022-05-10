@@ -131,19 +131,19 @@
 
 ;; Helpers to simplify writing operating system specific code
 
-(defun sys-lin-p ()
+(defun onb-syslinp ()
   "True if `system-type' is Linux or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "gnu/linux" "berkeley-unix" "gnu" "gnu/kfreebsd")))
 
-(defun sys-win-p ()
+(defun onb-syswinp ()
   "True if `system-type' is Windows or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "windows-nt" "cygwin" "ms-dos")))
 
-(defun sys-mac-p ()
+(defun onb-sysmacp ()
   "True if `system-type' is MacOS or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
@@ -151,13 +151,13 @@ or `system-configuration' directly."
 
 
 ;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
-(defun goto-user-init-file ()
+(defun onb-user-init-file ()
   "Visit the init file."
   (interactive)
   (find-file user-init-file))
 
 ;; Open to the '~/.emacs.d' directory in the Dired file manager
-(defun goto-user-emacs-directory ()
+(defun onb-user-emacs-directory ()
   "Open the Emacs directory in Dired."
   (interactive)
   (dired user-emacs-directory))
@@ -175,7 +175,7 @@ or `system-configuration' directly."
 ;; Further information:
 ;; https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html
 
-(defun my-frame-title ()
+(defun onb-frame-title ()
   "Set a custom frame title."
   (setq frame-title-format
         (concat "%b (%f)"
@@ -185,17 +185,17 @@ or `system-configuration' directly."
 (add-hook 'emacs-startup-hook
           (lambda ()
             "Run functions after loading init files"
-            (my-frame-title)))
+            (onb-frame-title)))
 
 (add-hook 'server-mode-hook
           (lambda ()
             "Run functions after entering or leaving 'server-mode'."
-            (my-frame-title)))
+            (onb-frame-title)))
 
 
 ;; Shutdown Emacs server process
 
-(defun server-stop ()
+(defun onb-server-stop ()
   "Save buffers, quit and shutdown (kill) server."
   (interactive)
   (save-some-buffers)
@@ -241,10 +241,10 @@ or `system-configuration' directly."
 
 
 ;; Set the modeline fonts. This function must be called to have any effect:
-;; Uncomment `load-after-theme-light-hook' and `load-after-theme-light-hook'
+;; Uncomment `onb-load-after-theme-light-hook' and `onb-load-after-theme-light-hook'
 ;; further down under "Theme configuration".
 
-(defun my-modeline ()
+(defun onb-modeline ()
   "Custom modeline styling."
   (set-face-attribute 'mode-line nil
                       ;; :family "IBM Plex Mono" ; inherited from default
@@ -1032,6 +1032,16 @@ or `system-configuration' directly."
 ;; Literate programming – activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((emacs-lisp . t)))
+
+
+;;; CALENDAR __________________________________________________________________
+
+
+(require 'calendar)
+
+(setq calendar-date-style 'iso
+      calendar-week-start-day 1
+      calendar-weekend-days '(6 0))
 
 
 ;;; GENERAL EDITING ___________________________________________________________
