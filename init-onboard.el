@@ -32,13 +32,14 @@
 
 ;;; Examples:
 ;;
-;; "M-x goto-user-init-file" Visit main configuration file ('.emacs', 'init.el')
-;; "M-x check-parens"        Check if all parens match (in Emacs Lisp code)
+;; "M-x onb-"                Show all commands defined in this file
+;; "M-x onb-user-init-file"  Visit main configuration file – .emacs or init.el
+;; "M-x check-parens"        Check if all parens match in Emacs Lisp code
 ;; "M-x help"                Reach the ultimate help menu
 ;;
 ;; "C-h o" Place the cursor behind a keyword, function, variable or other symbol
-;;         to issue the command `describe-symbol' via keybinding and
-;;         view the symbol's documentation
+;;         to issue the command `describe-symbol' via keybinding
+;;         and view the symbol's documentation
 ;;
 ;; "M-;"   Comment/uncomment a selected piece of text or code
 
@@ -266,79 +267,79 @@ or `system-configuration' directly."
 ;; Default/fallback definitions – don't change them here,
 ;; but scroll further down to "Theme configuration"
 
-(defgroup toggle-theme nil
+(defgroup onb-toggle-theme nil
   "Toggle between light and dark theme with a single key press."
   :group 'convenience)
 
-(defcustom light-theme-name 'leuven
+(defcustom onb-light-theme-name 'modus-operandi
   "Name of the light theme."
   :group 'toggle-theme
   :type 'symbol)
 
-(defcustom dark-theme-name 'wombat
+(defcustom onb-dark-theme-name 'modus-vivendi
   "Name of the dark theme."
   :group 'toggle-theme
   :type 'symbol)
 
-(defcustom default-theme-variant 'dark
+(defcustom onb-default-theme-variant 'dark
   "Load either the 'light or the 'dark theme at startup?"
   :group 'toggle-theme
   :type 'symbol)
 
-(defvar active-theme-variant nil
+(defvar onb-active-theme-variant nil
   "Holds the information about the currently active theme variant.")
 
-(defcustom load-before-theme-light-hook nil
+(defcustom onb-load-before-theme-light-hook nil
   "Run before loading the light theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom load-after-theme-light-hook nil
+(defcustom onb-load-after-theme-light-hook nil
   "Run after loading the light theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom load-before-theme-dark-hook nil
+(defcustom onb-load-before-theme-dark-hook nil
   "Run before loading the dark theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom load-after-theme-dark-hook nil
+(defcustom onb-load-after-theme-dark-hook nil
   "Run after loading the dark theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defun load-theme-light ()
+(defun onb-load-theme-light ()
   "Load the light theme and apply some modifications."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'load-before-theme-light-hook)
-  (load-theme light-theme-name t)
-  (setq active-theme-variant 'light)
-  (run-hooks 'load-after-theme-light-hook))
+  (load-theme onb-light-theme-name t)
+  (setq onb-active-theme-variant 'light)
+  (run-hooks 'onb-load-after-theme-light-hook))
 
-(defun load-theme-dark ()
+(defun onb-load-theme-dark ()
   "Load the dark theme and apply some modifications."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'load-before-theme-dark-hook)
-  (load-theme dark-theme-name t)
-  (setq active-theme-variant 'dark)
-  (run-hooks 'load-after-theme-dark-hook))
+  (load-theme onb-dark-theme-name t)
+  (setq onb-active-theme-variant 'dark)
+  (run-hooks 'onb-load-after-theme-dark-hook))
 
-(defun toggle-theme ()
+(defun onb-toggle-theme ()
   "Toggle between light and dark theme."
   (interactive)
   (cond
-   ((equal active-theme-variant 'light) (load-theme-dark))
-   ((equal active-theme-variant 'dark) (load-theme-light))
+   ((equal onb-active-theme-variant 'light) (onb-load-theme-dark))
+   ((equal onb-active-theme-variant 'dark) (onb-load-theme-light))
    (t (mapc #'disable-theme custom-enabled-themes))))
 
-(defun load-theme-default ()
+(defun onb-load-theme-default ()
   "Load the default theme."
   (cond
-   ((equal default-theme-variant 'light) (load-theme-light))
-   ((equal default-theme-variant 'dark) (load-theme-dark))
+   ((equal onb-default-theme-variant 'light) (onb-load-theme-light))
+   ((equal onb-default-theme-variant 'dark) (onb-load-theme-dark))
    (t (message
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
@@ -346,16 +347,16 @@ or `system-configuration' directly."
 ;; Theme configuration ********************************************************
 
 ;; Set the light theme here:
-(setq light-theme-name 'tsdh-light)
+(setq onb-light-theme-name 'tsdh-light)
 
 ;; Set the dark theme here:
-(setq dark-theme-name 'wombat)
+(setq onb-dark-theme-name 'wombat)
 
 ;; Set the default variant here, either 'light or 'dark:
-(setq default-theme-variant 'dark)
+(setq onb-default-theme-variant 'dark)
 
 ;; Set the keybinding to toggle between light and dark:
-(global-set-key (kbd "<f12>") #'toggle-theme)
+(global-set-key (kbd "<f12>") #'onb-toggle-theme)
 
 ;; The hooks can be used to run additional functions before or after loading
 ;; the selected light or dark theme. Useful to set variables that otherwise
@@ -363,11 +364,11 @@ or `system-configuration' directly."
 ;; modeline, which is often explicitly set by the themes themselves.
 ;; The hooks can also be configured via "M-x customize-group RET toggle-theme"
 
-;; (add-hook 'load-after-theme-light-hook
+;; (add-hook 'onb-load-after-theme-light-hook
 ;;           (lambda ()
 ;;             (my-modeline)))
 
-;; (add-hook 'load-after-theme-dark-hook
+;; (add-hook 'onb-load-after-theme-dark-hook
 ;;           (lambda ()
 ;;             (set-background-color "#000000") ; example
 ;;             (set-cursor-color "red3") ; example
@@ -377,7 +378,7 @@ or `system-configuration' directly."
 
 
 ;; Load the theme eventually
-(load-theme-default)
+(onb-load-theme-default)
 
 
 ;;; USER INTERFACE ____________________________________________________________
@@ -626,12 +627,12 @@ or `system-configuration' directly."
 
 ;; Quickly jump to the *scratch* buffer
 
-(defun scratch ()
+(defun onb-scratch ()
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
 
-(global-set-key (kbd "C-c s s") #'scratch)
+(global-set-key (kbd "C-c s s") #'onb-scratch)
 
 
 ;;; CLIPBOARD, COPY & PASTE ___________________________________________________
@@ -660,7 +661,7 @@ or `system-configuration' directly."
 
 ;; Copy the file name (path) of the current file
 
-(defun copy-file-name-to-clipboard ()
+(defun onb-copy-file-name-to-clipboard ()
   "Copy the current buffer's file name to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
@@ -674,12 +675,12 @@ or `system-configuration' directly."
 
 ;; Simple alternative for 'yank-pop'
 
-(defun insert-kill-ring-item ()
+(defun onb-insert-kill-ring-item ()
   "Select and insert an item from the 'kill-ring'."
   (interactive)
   (insert (completing-read "Yank: " kill-ring nil t)))
 
-(global-set-key (kbd "M-y") #'insert-kill-ring-item)
+(global-set-key (kbd "M-y") #'onb-insert-kill-ring-item)
 
 
 ;;; BACKUP ____________________________________________________________________
@@ -753,12 +754,12 @@ or `system-configuration' directly."
 
 ;; Use 'completing-read' to choose between recent files
 
-(defun find-recentf ()
+(defun onb-find-recentf ()
   "Find recent file via completion in the minibuffer."
   (interactive)
   (find-file (completing-read "Find recent file: " recentf-list nil t) nil))
 
-(global-set-key (kbd "C-x f") #'find-recentf)
+(global-set-key (kbd "C-x f") #'onb-find-recentf)
 
 
 ;;; DIRED _____________________________________________________________________
@@ -769,21 +770,21 @@ or `system-configuration' directly."
 
 ;; Use the system trash when deleting files
 
-(defun trash-on ()
+(defun onb-trash-on ()
   "Delete files by moving to the system trash."
   (interactive)
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-deletes 'always) ; don't ask when directory not empty
   (message "Trash on: Deleted files will go to system trash."))
 
-(defun trash-off ()
+(defun onb-trash-off ()
   "Delete files immediately."
   (interactive)
   (setq delete-by-moving-to-trash nil)
   (setq dired-recursive-deletes 'top) ; ask when directory not empty
   (message "Trash off: Files will be deleted immediately!"))
 
-(trash-on) ; set the default
+(onb-trash-on) ; set the default
 
 
 ;; Copying files/directories
@@ -823,7 +824,7 @@ or `system-configuration' directly."
 
 
 ;; Linux/Unix only
-(defun dired-xdg-open ()
+(defun onb-dired-xdg-open ()
   "Open files and folders with the default desktop app."
   (interactive)
   (let* ((file (dired-get-filename nil t)))
@@ -835,7 +836,7 @@ or `system-configuration' directly."
 
 
 ;; Goto home directory
-(defun goto-home-directory ()
+(defun onb-home-directory ()
   "Open the home directory in Dired."
   (interactive)
   (dired "~/"))
@@ -983,22 +984,22 @@ or `system-configuration' directly."
 ;; Set the Org paths
 (setq org-directory "~/Org/")
 
-(defun goto-org-directory ()
+(defun onb-org-directory ()
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
 
-(global-set-key (kbd "C-c o d") #'goto-org-directory)
+(global-set-key (kbd "C-c o d") #'onb-org-directory)
 
 
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
-(defun goto-org-notes ()
+(defun onb-org-notes ()
   "Visit the Org main file."
   (interactive)
   (find-file (concat org-directory "notes.org")))
 
-(global-set-key (kbd "C-c o o") #'goto-org-notes)
+(global-set-key (kbd "C-c o o") #'onb-org-notes)
 
 
 ;; Global todo states
@@ -1021,12 +1022,12 @@ or `system-configuration' directly."
 
 ;; Insert snippets
 
-(defun org-insert-caption ()
+(defun onb-org-insert-caption ()
   "Insert caption snippet."
   (interactive)
   (insert "#+caption: "))
 
-(define-key org-mode-map (kbd "C-c C-:") #'org-insert-caption)
+(define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
 
 
 ;; Literate programming – activate code blocks via Babel languages
