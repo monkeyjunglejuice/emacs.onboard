@@ -803,10 +803,10 @@ or `system-configuration' directly."
 ;; Directory listings
 (add-hook 'dired-mode-hook
           (lambda ()
-            ; Highlight current line or not?
+            ;; Highlight current line or not?
             (hl-line-mode -1)
-            ; Hide details in file listings?
-            (dired-hide-details-mode -1)))
+            ;; Hide details in file listings?
+            (dired-hide-details-mode 1)))
 
 ;; Listing columns; Switch arguments with "C-u s"
 ;; Show all files: -vlhFA and hide backups with -B
