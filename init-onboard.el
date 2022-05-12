@@ -387,10 +387,13 @@ or `system-configuration' directly."
 ;; Default frame settings – start with an empty alist
 (setq default-frame-alist '())
 
-;; Set the default width of the Emacs frame in characters
+;; Either start Emacs maximized …
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; … or set the default width of the Emacs frame in characters
 (add-to-list 'default-frame-alist '(width . 80))
 
-;; Set the default height of the Emacs frame in lines
+;; … and set the default height of the Emacs frame in lines
 (add-to-list 'default-frame-alist '(height . 24))
 
 ;; Horizontal position: set the distance from the left screen edge
@@ -398,10 +401,6 @@ or `system-configuration' directly."
 
 ;; Vertical position: set the distance from the top screen edge
 ;; (add-to-list 'default-frame-alist '(top . 0))
-
-;; Don't set frame size or position, but start Emacs maximized instead.
-;; Therefore, comment out the width, height and position settings above.
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Dont' show the fringe on that side
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
