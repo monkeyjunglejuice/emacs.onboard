@@ -612,6 +612,10 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x K") 'kill-all-buffers)
 
 
+;; Get the buffer out of the way, but let it alive
+(global-set-key (kbd "C-c k") #'bury-buffer)
+
+
 ;;; SCRATCH BUFFER ____________________________________________________________
 
 
