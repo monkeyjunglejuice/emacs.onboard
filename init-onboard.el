@@ -1022,6 +1022,10 @@ or `system-configuration' directly."
 (define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
 
 
+;; Literate programming – activate code blocks via Babel languages
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((emacs-lisp . t)))
+
 ;; Insert snippets
 
 (defun onb-org-insert-caption ()
@@ -1030,11 +1034,6 @@ or `system-configuration' directly."
   (insert "#+caption: "))
 
 (define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
-
-
-;; Literate programming – activate code blocks via Babel languages
-(org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t)))
 
 
 ;;; CALENDAR __________________________________________________________________
