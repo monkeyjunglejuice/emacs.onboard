@@ -806,7 +806,7 @@ or `system-configuration' directly."
           (lambda ()
             ;; Highlight current line or not?
             (hl-line-mode -1)
-            ;; Hide details in file listings?
+            ;; Hide details in file listings? Toggle temporarily via "S-("
             (dired-hide-details-mode 1)))
 
 ;; Listing columns; Switch arguments with "C-u s"
