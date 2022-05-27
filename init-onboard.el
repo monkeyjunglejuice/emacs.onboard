@@ -500,30 +500,28 @@ or `system-configuration' directly."
       icomplete-show-matches-on-no-input t
       icomplete-hide-common-prefix nil)
 
-;; Display completions vertically, using the newline separator '\n'
-;; There's a better way than the newline-separator:
-;; --> recommended 3rd-party package 'icomplete-vertical'
-(setq icomplete-separator "\n")
+;; Emacs version 28 and later: vertical completion with fido-vertical
+(if (>= emacs-major-version 28)
+    (fido-vertical-mode 1))
 
-;; Provide some intuitive keybindings and make the display area higher
-;; when vertical completion is set
-(if (string= icomplete-separator "\n")
+;; Emacs version 27 and below: vertical completion with fido or icomplete
+(if (<= emacs-major-version 27)
     (progn
-      (setq icomplete-prospects-height 10)
-      (define-key icomplete-minibuffer-map
-        (kbd "<down>") #'icomplete-forward-completions)
-      (define-key icomplete-minibuffer-map
-        (kbd "<up>") #'icomplete-backward-completions)
-      (define-key icomplete-minibuffer-map
-        (kbd "C-n") #'icomplete-forward-completions)
-      (define-key icomplete-minibuffer-map
-        (kbd "C-p") #'icomplete-backward-completions)))
-
-;; Enable autocompletion
-;; Improve Icomplete with Fido-mode (Emacs version 27 and higher)
-(if (>= emacs-major-version 27)
-    (fido-mode 1)
-  (icomplete-mode 1))
+      ;; Display completions vertically, using the newline separator '\n'
+      (setq icomplete-separator "\n")
+      ;; Provide intuitive keybindings
+      (define-key icomplete-minibuffer-map (kbd "<down>")
+        #'icomplete-forward-completions)
+      (define-key icomplete-minibuffer-map (kbd "<up>")
+        #'icomplete-backward-completions)
+      (define-key icomplete-minibuffer-map (kbd "C-n")
+        #'icomplete-forward-completions)
+      (define-key icomplete-minibuffer-map (kbd "C-p")
+        #'icomplete-backward-completions)
+      ;; Turn on fido-mode, if available
+      (if (fboundp #'fido-mode)
+          (fido-mode 1)
+        (icomplete-mode 1))))
 
 
 ;; Enhance M-x to allow easier execution of commands
