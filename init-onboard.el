@@ -712,7 +712,7 @@ or `system-configuration' directly."
 ;;; AUTO-SAVE _________________________________________________________________
 
 
-(setq auto-save-default t
+(setq auto-save-default nil
       auto-save-interval 0)
 
 
