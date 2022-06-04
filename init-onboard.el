@@ -449,7 +449,7 @@ or `system-configuration' directly."
               mouse-wheel-follow-mouse t
               scroll-conservatively 10000
               scroll-step 1
-              scroll-margin 1
+              scroll-margin 0  ; leave n lines on both screen ends
               scroll-preserve-screen-position 1)
 
 
