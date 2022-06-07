@@ -210,7 +210,7 @@ or `system-configuration' directly."
 
 ;; Set the default monospaced font
 (set-face-attribute 'default nil
-                    ;; :family "IBM Plex Mono" ; set the font name
+                    ;; :family "IBM Plex Mono" ; set the font name here
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
@@ -218,7 +218,7 @@ or `system-configuration' directly."
 
 ;; Set an alternative monospaced font (optional)
 (set-face-attribute 'fixed-pitch nil
-                    ;; :family "IBM Plex Mono" ; set the font name
+                    ;; :family "IBM Plex Mono" ; set the font name here
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
@@ -226,7 +226,7 @@ or `system-configuration' directly."
 
 ;; Set another alternative monospaced fonts, preferably with serifs (optional)
 (set-face-attribute 'fixed-pitch-serif nil
-                    ;; :family "IBM Plex Mono" ; set the font name
+                    ;; :family "IBM Plex Mono" ; set the font name here
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
@@ -234,14 +234,14 @@ or `system-configuration' directly."
 
 ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
 (set-face-attribute 'variable-pitch nil
-                    ;; :family "Crimson Pro" ; set the font name
+                    ;; :family "Crimson Pro" ; set the font name here
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
                     :height 160)
 
 
-;; Set the modeline fonts. This function must be called to have any effect:
+;; Set the modeline fonts. This function will be called later to have an effect:
 ;; Uncomment `onb-load-after-theme-light-hook' and `onb-load-after-theme-light-hook'
 ;; further down under "Theme configuration".
 
