@@ -626,7 +626,6 @@ or `system-configuration' directly."
 (setq initial-major-mode 'org-mode)
 
 
-
 ;; Quickly jump to the *scratch* buffer
 
 (defun onb-scratch ()
