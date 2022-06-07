@@ -368,15 +368,13 @@ or `system-configuration' directly."
 ;; modeline, which is often explicitly set by the themes themselves.
 ;; The hooks can also be configured via "M-x customize-group RET toggle-theme"
 
-;; (add-hook 'onb-load-after-theme-light-hook
-;;           (lambda ()
-;;             (my-modeline)))
+(add-hook 'onb-load-after-theme-light-hook
+          (lambda ()
+            (onb-modeline)))
 
-;; (add-hook 'onb-load-after-theme-dark-hook
-;;           (lambda ()
-;;             (set-background-color "#000000") ; example
-;;             (set-cursor-color "red3") ; example
-;;             (my-modeline)))
+(add-hook 'onb-load-after-theme-dark-hook
+          (lambda ()
+            (onb-modeline)))
 
 ;; ****************************************************************************
 
