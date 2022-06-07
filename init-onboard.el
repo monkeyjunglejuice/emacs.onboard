@@ -214,7 +214,7 @@ or `system-configuration' directly."
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
-                    :height 140)
+                    :height 130)
 
 ;; Set an alternative monospaced font (optional)
 (set-face-attribute 'fixed-pitch nil
@@ -222,7 +222,7 @@ or `system-configuration' directly."
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
-                    :height 140)
+                    :height 130)
 
 ;; Set another alternative monospaced fonts, preferably with serifs (optional)
 (set-face-attribute 'fixed-pitch-serif nil
@@ -230,7 +230,7 @@ or `system-configuration' directly."
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
-                    :height 140)
+                    :height 130)
 
 ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
 (set-face-attribute 'variable-pitch nil
@@ -238,7 +238,7 @@ or `system-configuration' directly."
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
-                    :height 160)
+                    :height 150)
 
 
 ;; Set the modeline fonts. This function will be called later to have an effect:
