@@ -465,8 +465,9 @@ or `system-configuration' directly."
 (setq history-delete-duplicates t)
 
 ;; Allow minibuffer commands while in the minibuffer
+;; There are two commands to get out of recursive minibuffers:
+;; "C-M-c" `exit-recursive-edit' and "C-]" `abort-recursive-edit'
 (setq enable-recursive-minibuffers t)
-(global-set-key (kbd "C-M-g") #'exit-recursive-edit)
 (minibuffer-depth-indicate-mode 1)
 
 ;; Use the minibuffer instead of dialog boxes
