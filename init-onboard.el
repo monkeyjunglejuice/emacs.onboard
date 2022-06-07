@@ -347,10 +347,14 @@ or `system-configuration' directly."
 ;; Theme configuration ********************************************************
 
 ;; Set the light theme here:
-(setq onb-light-theme-name 'tsdh-light)
+(if (>= emacs-major-version 28)
+    (setq onb-light-theme-name 'modus-operandi)
+  (setq onb-light-theme-name 'tsdh-light))  ; fallback
 
 ;; Set the dark theme here:
-(setq onb-dark-theme-name 'wombat)
+(if (>= emacs-major-version 28)
+    (setq onb-dark-theme-name 'modus-vivendi)
+  (setq onb-dark-theme-name 'wombat))  ; fallback
 
 ;; Set the default variant here, either 'light or 'dark:
 (setq onb-default-theme-variant 'dark)
