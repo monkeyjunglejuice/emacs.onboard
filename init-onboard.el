@@ -396,10 +396,10 @@ or `system-configuration' directly."
 ;; … and set the default height of the Emacs frame in lines
 (add-to-list 'default-frame-alist '(height . 24))
 
-;; Horizontal position: set the distance from the left screen edge
+;; Horizontal position: set the distance from the left screen edge in pixels
 ;; (add-to-list 'default-frame-alist '(left . 0))
 
-;; Vertical position: set the distance from the top screen edge
+;; Vertical position: set the distance from the top screen edge in pixels
 ;; (add-to-list 'default-frame-alist '(top . 0))
 
 ;; Dont' show the fringe on that side
