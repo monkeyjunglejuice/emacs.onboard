@@ -815,11 +815,11 @@ or `system-configuration' directly."
 (setq-default dired-listing-switches "-vlhFA")
 
 
-;; Mimic dual-pane file managers
+;; Mimic dual-pane file managers?
 (setq dired-dwim-target t)
 
 
-;; Image
+;; Images
 (require 'image-dired)
 (setq image-dired-thumb-margin 0
       image-dired-thumb-relief 0)
@@ -837,7 +837,7 @@ or `system-configuration' directly."
 (define-key dired-mode-map (kbd "M-RET") #'onb-dired-xdg-open)
 
 
-;; Goto home directory
+;; Go to home directory
 (defun onb-home-directory ()
   "Open the home directory in Dired."
   (interactive)
