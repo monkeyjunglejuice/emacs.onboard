@@ -1102,11 +1102,11 @@ or `system-configuration' directly."
 (add-hook 'prog-mode-hook
           (lambda ()
             ;; Line numbers on/off by default? "M-x linum-mode"
-            ;; (linum-mode nil)
+            ;; (linum-mode 1)
             ;; Auto-close parens, brackets, quotes?
-            ;; (electric-pair-local-mode nil)
-            ;; trailing whitespace in "prog" modes
-            (setq show-trailing-whitespace nil)))
+            (electric-pair-mode 1)
+            ;; Indicate trailing whitespace in "prog" modes?
+            (setq show-trailing-whitespace t)))
 
 ;; Indentation
 (setq-default indent-tabs-mode nil ; don't use tabs for indentation
