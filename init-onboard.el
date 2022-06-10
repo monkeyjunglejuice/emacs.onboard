@@ -1149,25 +1149,28 @@ or `system-configuration' directly."
 ;;         '(paredit rainbow-delimiters company))
 
 
-;; (add-hook 'emacs-lisp-mode-hook
-;;           (lambda ()
-;;             (rainbow-delimiters-mode-enable)
-;;             (company-mode 1)
-;;             (flymake-mode 1)
-;;             (paredit-mode 1)))
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            ;; (rainbow-delimiters-mode-enable)
+            ;; (company-mode 1)
+            ;; (paredit-mode 1)
+            (flymake-mode 1)
+            (electric-pair-mode 1)
+            ))
 
-;; (add-hook 'lisp-interaction-mode-hook
-;;           (lambda ()
-;;             (rainbow-delimiters-mode-enable)
-;;             (company-mode 1)
-;;             (flymake-mode -1)
-;;             (paredit-mode 1)))
+(add-hook 'lisp-interaction-mode-hook
+          (lambda ()
+            ;; (rainbow-delimiters-mode-enable)
+            ;; (company-mode 1)
+            ;; (paredit-mode 1)
+            ))
 
-;; (add-hook 'ielm-mode-hook
-;;           (lambda ()
-;;             (rainbow-delimiters-mode-enable)
-;;             (company-mode 1)
-;;             (paredit-mode 1)))
+(add-hook 'ielm-mode-hook
+          (lambda ()
+            ;; (rainbow-delimiters-mode-enable)
+            ;; (company-mode 1)
+            ;; (paredit-mode 1)
+            ))
 
 
 ;;; HTML/CSS __________________________________________________________________
