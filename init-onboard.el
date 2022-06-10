@@ -624,7 +624,7 @@ or `system-configuration' directly."
 (setq initial-scratch-message "")
 
 ;; Set an initial major mode instead of `lisp-interaction-mode' (default)
-;; (setq initial-major-mode #'org-mode)
+(setq initial-major-mode #'org-mode)
 ;; (setq initial-major-mode #'fundamental-mode)
 
 ;; Quickly jump to the *scratch* buffer
