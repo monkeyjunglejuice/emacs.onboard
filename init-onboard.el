@@ -806,7 +806,7 @@ or `system-configuration' directly."
 (add-hook 'dired-mode-hook
           (lambda ()
             ;; Highlight current line or not?
-            (hl-line-mode -1)
+            (hl-line-mode 1)
             ;; Hide details in file listings? Toggle temporarily via "S-("
             (dired-hide-details-mode 1)))
 
