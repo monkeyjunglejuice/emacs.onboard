@@ -572,9 +572,7 @@ or `system-configuration' directly."
 (require 'winner)
 (winner-mode 1)
 (define-key winner-mode-map (kbd "C-x 4 u") #'winner-undo)
-(define-key winner-mode-map (kbd "M-[") #'winner-undo)
 (define-key winner-mode-map (kbd "C-x 4 r") #'winner-redo)
-(define-key winner-mode-map (kbd "M-]") #'winner-redo)
 
 
 ;;; BUFFERS ___________________________________________________________________
