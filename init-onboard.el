@@ -1099,22 +1099,27 @@ or `system-configuration' directly."
 ;; General programming settings
 (add-hook 'prog-mode-hook
           (lambda ()
-            ;; Line numbers on/off by default? "M-x linum-mode"
-            ;; (linum-mode 1)
-            ;; Auto-close parens, brackets, quotes?
-            (electric-pair-mode 1)
+            ;; Line numbers on/off by default? "M-x display-line-numbers-mode"
+            (display-line-numbers-mode -1)
             ;; Indicate trailing whitespace in "prog" modes?
             (setq show-trailing-whitespace t)))
 
+
 ;; Indentation
-(setq-default indent-tabs-mode nil ; don't use tabs for indentation
+(setq-default indent-tabs-mode nil ; don't use tabs but spaces
               tab-width 2)         ; set display width for tab characters
 
+
 ;; Parenthesis settings
-(require 'paren)
+
 (show-paren-mode 1)
-(setq show-paren-style 'parenthesis)
-;; (setq show-paren-delay 0)
+
+(setq show-paren-style 'parenthesis
+      show-paren-delay 0.125)
+
+;; Auto-close parens, brackets and quotes?
+(setq electric-pair-mode 1)
+
 
 ;; Backspace deletes the whole indentation instead of one-by-one
 ;; Possibly shadowed by 3rd-party packages like 'smartparens-mode'
