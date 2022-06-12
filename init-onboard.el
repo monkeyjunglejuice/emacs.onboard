@@ -119,7 +119,6 @@
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setq read-process-output-max (* 1024 1024)) ; 1 MB
 
-
 ;; Diagnostics
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -195,7 +194,6 @@ or `system-configuration' directly."
 
 
 ;; Shutdown Emacs server process
-
 (defun onb-server-stop ()
   "Save buffers, quit and shutdown (kill) server."
   (interactive)
@@ -210,7 +208,7 @@ or `system-configuration' directly."
 
 ;; Set the default monospaced font
 (set-face-attribute 'default nil
-                    ;; :family "IBM Plex Mono" ; set the font name here
+                    ;; :family "IBM Plex Mono"
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
@@ -218,7 +216,7 @@ or `system-configuration' directly."
 
 ;; Set an alternative monospaced font (optional)
 (set-face-attribute 'fixed-pitch nil
-                    ;; :family "IBM Plex Mono" ; set the font name here
+                    ;; :family "IBM Plex Mono"
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
@@ -226,7 +224,7 @@ or `system-configuration' directly."
 
 ;; Set another alternative monospaced fonts, preferably with serifs (optional)
 (set-face-attribute 'fixed-pitch-serif nil
-                    ;; :family "IBM Plex Mono" ; set the font name here
+                    ;; :family "IBM Plex Mono"
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
@@ -234,7 +232,7 @@ or `system-configuration' directly."
 
 ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
 (set-face-attribute 'variable-pitch nil
-                    ;; :family "Crimson Pro" ; set the font name here
+                    ;; :family "Crimson Pro"
                     :slant  'normal
                     :weight 'normal
                     :width  'normal
@@ -248,13 +246,13 @@ or `system-configuration' directly."
 (defun onb-modeline ()
   "Custom modeline styling."
   (set-face-attribute 'mode-line nil
-                      ;; :family "IBM Plex Mono" ; inherited from default
+                      ;; :family "IBM Plex Mono" ; inherited from `default'
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 100)
   (set-face-attribute 'mode-line-inactive nil
-                      ;; :family "IBM Plex Mono" ; inherited from default
+                      ;; :family "IBM Plex Mono" ; inherited from `default'
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
@@ -346,15 +344,15 @@ or `system-configuration' directly."
 
 ;; Theme configuration ********************************************************
 
-;; Set the light theme here:
-(if (>= emacs-major-version 28)
-    (setq onb-light-theme-name 'modus-operandi)
-  (setq onb-light-theme-name 'tsdh-light))  ; fallback
+;; Set the light theme:
+(cond
+ ((>= emacs-major-version 28) (setq onb-light-theme-name 'modus-operandi))
+ ((<= emacs-major-version 27) (setq onb-light-theme-name 'tsdh-light)))
 
-;; Set the dark theme here:
-(if (>= emacs-major-version 28)
-    (setq onb-dark-theme-name 'modus-vivendi)
-  (setq onb-dark-theme-name 'wombat))  ; fallback
+;; Set the dark theme:
+(cond
+ ((>= emacs-major-version 28) (setq onb-dark-theme-name 'modus-vivendi))
+ ((<= emacs-major-version 27) (setq onb-dark-theme-name 'wombat)))
 
 ;; Set the default variant here, either 'light or 'dark:
 (setq onb-default-theme-variant 'dark)
@@ -377,7 +375,6 @@ or `system-configuration' directly."
             (onb-modeline)))
 
 ;; ****************************************************************************
-
 
 ;; Load the theme eventually
 (onb-load-theme-default)
