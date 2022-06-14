@@ -1141,44 +1141,74 @@ or `system-configuration' directly."
 (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)
 
 
-;;; ELISP _____________________________________________________________________
+;;; LISP _____________________________________________________________________
 
 
-;; Essential Emacs Lisp setup
-;; --> recommended 3rd-party packages: paredit, rainbow-delimiters, company
-;; Install recommended packages:
+;; Essential setup for lispy languages.
+;; Install recommended packages. If those packagaes are not installed,
+;; built-in alternatives will be used for basic support
 ;; (mapc #'package-install
-;;         '(paredit rainbow-delimiters company))
+;;         '(company aggressive-indent rainbow-delimiters smartparens))
+
+(defun onb-setup-lisp-buffer ()
+  "Essential buffer setup for lispy languages."
+  (setq show-paren-style 'expression)
+  (show-paren-mode 1)
+  (if (fboundp #'company-mode) (company-mode-on))
+  (if (fboundp #'flymake-mode) (flymake-mode 1))
+  (if (fboundp #'aggressive-indent-mode) (aggressive-indent-mode 1)
+    (electric-indent-mode 1))
+  (if (fboundp #'rainbow-delimiters-mode-enable)
+      (rainbow-delimiters-mode-enable))
+  (if (fboundp #'smartparens-mode)
+      (progn (turn-on-smartparens-strict-mode)
+             (turn-on-show-smartparens-mode))
+    (electric-pair-mode 1)))
+
+(defun onb-setup-lisp-interaction ()
+  "Essential interaction buffer setup for lispy languages."
+  (setq show-paren-style 'expression)
+  (show-paren-mode 1)
+  (if (fboundp #'company-mode) (company-mode-on))
+  (if (fboundp #'flymake-mode) (flymake-mode -1))
+  (if (fboundp #'aggressive-indent-mode) (aggressive-indent-mode 1)
+    (electric-indent-mode 1))
+  (if (fboundp #'rainbow-delimiters-mode) (rainbow-delimiters-mode-enable))
+  (if (fboundp #'smartparens-mode)
+      (progn (turn-on-smartparens-strict-mode)
+             (turn-on-show-smartparens-mode))
+    (electric-pair-mode 1)))
+
+(defun onb-setup-lisp-repl ()
+  "Essential REPL setup for lispy languages."
+  (setq show-paren-style 'expression)
+  (show-paren-mode 1)
+  (if (fboundp #'company-mode) (company-mode-on))
+  (electric-indent-mode 1)
+  (if (fboundp #'rainbow-delimiters-mode) (rainbow-delimiters-mode-enable))
+  (if (fboundp #'smartparens-mode)
+      (progn (turn-on-smartparens-strict-mode)
+             (turn-on-show-smartparens-mode))
+    (electric-pair-mode 1)))
 
 
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            ;; (rainbow-delimiters-mode-enable)
-            ;; (company-mode 1)
-            ;; (paredit-mode 1)
-            (flymake-mode 1)
-            (electric-pair-mode 1)
-            ))
+;; Emacs Lisp
+(add-hook 'emacs-lisp-mode-hook #'onb-setup-lisp-buffer)
+(add-hook 'lisp-interaction-mode-hook #'onb-setup-lisp-interaction)
+(add-hook 'ielm-mode-hook #'onb-setup-lisp-repl)
 
-(add-hook 'lisp-interaction-mode-hook
-          (lambda ()
-            ;; (rainbow-delimiters-mode-enable)
-            ;; (company-mode 1)
-            ;; (paredit-mode 1)
-            ))
+;; Common Lisp
+(add-hook 'lisp-mode-hook #'onb-setup-lisp-buffer)
+(add-hook 'inferior-lisp-mode-hook #'onb-setup-lisp-repl)
 
-(add-hook 'ielm-mode-hook
-          (lambda ()
-            ;; (rainbow-delimiters-mode-enable)
-            ;; (company-mode 1)
-            ;; (paredit-mode 1)
-            ))
+;; Scheme
+(add-hook 'scheme-mode-hook #'onb-setup-lisp-buffer)
+(add-hook 'inferior-scheme-mode-hook #'onb-setup-lisp-repl)
 
 
 ;;; HTML/CSS __________________________________________________________________
 
 
-;; CSS
 (require 'css-mode)
 (setq css-indent-offset 2)
 
