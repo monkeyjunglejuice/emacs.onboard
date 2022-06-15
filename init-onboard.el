@@ -808,8 +808,8 @@ or `system-configuration' directly."
             (hl-line-mode 1)))
 
 ;; Listing columns; Switch arguments with "C-u s"
-;; Show all files: -vlhFA and hide backups with -B
-(setq-default dired-listing-switches "-vlhFA")
+;; Show all files: -DlhFA and hide backups with -B
+(setq-default dired-listing-switches "-DlhFA")
 
 
 ;; Mimic dual-pane file managers?
