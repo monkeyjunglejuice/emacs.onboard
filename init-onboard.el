@@ -1144,9 +1144,8 @@ or `system-configuration' directly."
 ;;; LISP _____________________________________________________________________
 
 
-;; Essential setup for lispy languages.
-;; Install recommended packages. If those packagaes are not installed,
-;; built-in alternatives will be used for basic support
+;; Essential setup for lispy languages. Install recommended packages,
+;; or the built-in alternatives will be used for basic support
 ;; (mapc #'package-install
 ;;         '(company aggressive-indent rainbow-delimiters smartparens))
 
