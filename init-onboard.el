@@ -1070,7 +1070,6 @@ or `system-configuration' directly."
 
 ;; When re-visiting a file, the cursor goes
 ;; to the last place where it was before
-(require 'saveplace)
 (save-place-mode 1)
 
 ;; More useful than the default
@@ -1082,13 +1081,12 @@ or `system-configuration' directly."
 ;; (delete-selection-mode 1)
 
 
-;; Show trailing whitespace in "text" modes?
-
 (add-hook 'text-mode-hook
-          (lambda () (setq show-trailing-whitespace nil)))
+          (lambda ()
+            ;; Indicate trailing whitespace in "text" modes?
+            (setq show-trailing-whitespace nil)))
 
-;; Cleanup trailing whitespace
-(define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
+;; Cleanup trailing whitespace in "text" modes
 (define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
@@ -1098,10 +1096,13 @@ or `system-configuration' directly."
 ;; General programming settings
 (add-hook 'prog-mode-hook
           (lambda ()
-            ;; Line numbers on/off by default? "M-x display-line-numbers-mode"
+            ;; Line numbers on or off? "M-x display-line-numbers-mode"
             (display-line-numbers-mode -1)
             ;; Indicate trailing whitespace in "prog" modes?
             (setq show-trailing-whitespace t)))
+
+;; Cleanup trailing whitespace in "prog" modes
+(define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
 ;; Indentation
