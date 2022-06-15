@@ -740,8 +740,8 @@ or `system-configuration' directly."
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
 
-(setq recentf-max-menu-items 50
-      recentf-max-saved-items 50)
+(setq recentf-max-menu-items 10
+      recentf-max-saved-items 1000)
 
 ;; Ignore some recently visited files,
 ;; eg. to prevent them from showing up amongst recent files after package upgrades
