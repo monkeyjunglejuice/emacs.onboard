@@ -699,8 +699,8 @@ or `system-configuration' directly."
 ;;; LOCKFILES _________________________________________________________________
 
 
-;; Let Emacs keep track of files currently open
-(setq create-lockfiles t)
+;; Let Emacs keep track of files currently visited
+(setq create-lockfiles nil)
 
 
 ;;; AUTO-SAVE _________________________________________________________________
