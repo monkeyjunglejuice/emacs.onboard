@@ -1138,6 +1138,8 @@ or `system-configuration' directly."
 ;; Disable the legacy backend
 (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
 
+(define-key flymake-mode-map (kbd "M-g e") #'flymake-show-project-diagnostics)
+(define-key flymake-mode-map (kbd "M-g e") #'flymake-show-buffer-diagnostics)
 (define-key flymake-mode-map (kbd "M-g n") #'flymake-goto-next-error)
 (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)
 
