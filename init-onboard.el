@@ -809,7 +809,7 @@ or `system-configuration' directly."
 
 ;; Listing columns; Switch arguments with "C-u s"
 ;; Show all files: -DlhFA and hide backups with -B
-(setq-default dired-listing-switches "-DlhFA")
+(setq-default dired-listing-switches "-DlhvFA")
 
 
 ;; Mimic dual-pane file managers?
