@@ -4,7 +4,7 @@
 
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 0.2.0
+;; Version: 0.2.1
 ;; Package-Requires: ((emacs "26.1"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -86,9 +86,8 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
-;; `package-initialize' seems not needed any more with Emacs 27?
-(when (< emacs-major-version 27)
-  (package-initialize))
+;; Initialize packages
+(package-initialize)
 
 
 ;; GNU TLS connection issue workaround for Emacs 26.3
@@ -411,6 +410,7 @@ or `system-configuration' directly."
 ;; Uncomment the next expression to change the curser to a blinking bar
 ;; (add-to-list 'default-frame-alist '(cursor-type . (bar . 2)))
 
+
 ;; Turn on/off cursor blinking by default?
 (blink-cursor-mode -1) ; 1 means 'on' / -1 means 'off'
 
@@ -419,6 +419,9 @@ or `system-configuration' directly."
 
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setq visible-cursor nil)
+
+;; Highlight the current line only in the active window
+(setq hl-line-sticky-flag nil)
 
 
 ;; Turn the menu bar on/off by default?
@@ -432,11 +435,14 @@ or `system-configuration' directly."
 (if (fboundp 'tool-bar-mode) ; Emacs 26.1 compatibility
     (tool-bar-mode -1))
 
+
 ;; Enable/disable tooltips?
 (tooltip-mode -1)
 
+
 ;; Turn off the startup screen?
 (setq inhibit-startup-screen t)
+
 
 ;; Turn off alarms?
 (setq ring-bell-function 'ignore)
@@ -618,12 +624,12 @@ or `system-configuration' directly."
 ;; Empty *scratch* buffer at startup
 (setq initial-scratch-message "")
 
-;; Set an initial major mode instead of `lisp-interaction-mode' (default)
-(setq initial-major-mode #'org-mode)
-;; (setq initial-major-mode #'fundamental-mode)
+;; Set an initial major mode
+(setq initial-major-mode #'org-mode)  ; for general writing and notes
+;; (setq initial-major-mode #'lisp-interaction-mode)  ; default
+;; (setq initial-major-mode #'fundamental-mode)  ; basic text mode
 
 ;; Quickly jump to the *scratch* buffer
-
 (defun onb-scratch ()
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
@@ -794,8 +800,8 @@ or `system-configuration' directly."
 
 ;; Auto refresh dired when contents of a directory change
 (require 'autorevert)
-(add-hook 'dired-mode-hook #'auto-revert-mode)
 (setq auto-revert-verbose nil)
+(add-hook 'dired-mode-hook #'auto-revert-mode)
 
 
 ;; Directory listings
@@ -1048,61 +1054,46 @@ or `system-configuration' directly."
 ;; UTF-8
 (prefer-coding-system 'utf-8)
 
-;; General text settings
-(add-hook 'text-mode-hook
-          (lambda ()
-            (visual-line-mode 1)))
+;; In a file buffer, remember the place where the cursor was before
+(save-place-mode 1)
 
-;; Set desired line width
+;; Set desired line length in characters
 (setq-default fill-column 80)
 
-;; Final new line
+;; Visual word wrapping
+(add-hook 'text-mode-hook #'visual-line-mode)
+
+;; Save always with a final new line
 (setq require-final-newline t)
 
 ;; Sentences end with a single space
 (setq sentence-end-double-space nil)
 
-;; Better than the default 'just-one-space', which was M-SPC before
-(global-set-key (kbd "S-SPC") #'cycle-spacing)
-
-;; Count lines, words and chars (buffer or region)
-(global-set-key (kbd "C-x l") #'count-words)
-
-;; When re-visiting a file, the cursor goes
-;; to the last place where it was before
-(save-place-mode 1)
-
-;; More useful than the default
-(global-set-key (kbd "M-z") #'zap-up-to-char)
-
 ;; Typing a character while a text selection is active,
 ;; deletes the selection and replaces it with the typed character,
-;; which is mostly common when working with text
-;; (delete-selection-mode 1)
+(delete-selection-mode 1)
 
 
+;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
           (lambda ()
-            ;; Indicate trailing whitespace in "text" modes?
-            (setq show-trailing-whitespace nil)))
+            (setq show-trailing-whitespace t)))
 
 ;; Cleanup trailing whitespace in "text" modes
 (define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
+;; Better than the default 'just-one-space' (was M-SPC before)
+(global-set-key (kbd "S-SPC") #'cycle-spacing)
+
+;; Count lines, words and chars (buffer or region)
+(global-set-key (kbd "C-x l") #'count-words)
+
+;; More useful than the default
+(global-set-key (kbd "M-z") #'zap-up-to-char)
+
+
 ;;; PROGRAMMING _______________________________________________________________
-
-
-;; General programming settings
-(add-hook 'prog-mode-hook
-          (lambda ()
-            ;; Line numbers on or off? "M-x display-line-numbers-mode"
-            (display-line-numbers-mode -1)
-            ;; Indicate trailing whitespace in "prog" modes?
-            (setq show-trailing-whitespace t)))
-
-;; Cleanup trailing whitespace in "prog" modes
-(define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
 ;; Indentation
@@ -1110,23 +1101,39 @@ or `system-configuration' directly."
               tab-width 2)         ; set display width for tab characters
 
 
-;; Parenthesis settings
+;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode"
+;; Goto line: "M-g M-g"
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (display-line-numbers-mode -1)))
 
-(show-paren-mode 1)
 
+;; Indicate trailing whitespace in programming modes?
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq show-trailing-whitespace t)))
+
+;; Cleanup trailing whitespace in programming modes
+(define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
+
+
+;; Indicate matching parens
+(add-hook 'prog-mode-hook #'show-paren-local-mode)
+
+;; How to display matching parens
 (setq show-paren-style 'parenthesis
-      show-paren-delay 0.125)
+      show-paren-delay 0.00)
 
 ;; Auto-close parens, brackets and quotes?
-(setq electric-pair-mode 1)
+(electric-pair-mode 1)
 
 
 ;; Backspace deletes the whole indentation instead of one-by-one
-;; Possibly shadowed by 3rd-party packages like 'smartparens-mode'
+;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode')
 (setq backward-delete-char-untabify-method 'hungry)
 
 ;; Additional keybinding to resemble other S-expression related keybindings
-;; who begin usually with C-M
+;; who usually begin with "C-M"
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
@@ -1138,24 +1145,26 @@ or `system-configuration' directly."
 ;; Disable the legacy backend
 (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
 
-(define-key flymake-mode-map (kbd "M-g e") #'flymake-show-project-diagnostics)
-(define-key flymake-mode-map (kbd "M-g e") #'flymake-show-buffer-diagnostics)
-(define-key flymake-mode-map (kbd "M-g n") #'flymake-goto-next-error)
-(define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)
+(define-key flymake-mode-map (kbd "M-g M-p") #'flymake-show-project-diagnostics)
+(define-key flymake-mode-map (kbd "M-g M-e") #'flymake-show-buffer-diagnostics)
+(define-key flymake-mode-map (kbd "M-g M-f") #'flymake-goto-next-error)
+(define-key flymake-mode-map (kbd "M-g M-b") #'flymake-goto-prev-error)
 
 
 ;;; LISP _____________________________________________________________________
 
 
-;; Essential setup for lispy languages. Install recommended packages,
+;; Essential setup for lispy languages. Either install recommended packages,
 ;; or the built-in alternatives will be used for basic support
+
 ;; (mapc #'package-install
 ;;         '(company aggressive-indent rainbow-delimiters smartparens))
+
 
 (defun onb-setup-lisp-buffer ()
   "Essential buffer setup for lispy languages."
   (setq show-paren-style 'expression)
-  (show-paren-mode 1)
+  (show-paren-local-mode 1)
   (if (fboundp #'company-mode) (company-mode-on))
   (if (fboundp #'flycheck-mode) (flycheck-mode 1)
     (flymake-mode 1))
@@ -1169,7 +1178,7 @@ or `system-configuration' directly."
 (defun onb-setup-lisp-interaction ()
   "Essential interaction-buffer setup for lispy languages."
   (setq show-paren-style 'expression)
-  (show-paren-mode 1)
+  (show-paren-local-mode 1)
   (if (fboundp #'company-mode) (company-mode-on))
   (if (fboundp #'flycheck-mode) (flycheck-mode -1))
   (flymake-mode -1)
@@ -1183,7 +1192,7 @@ or `system-configuration' directly."
 (defun onb-setup-lisp-repl ()
   "Essential REPL setup for lispy languages."
   (setq show-paren-style 'expression)
-  (show-paren-mode 1)
+  (show-paren-local-mode 1)
   (if (fboundp #'company-mode) (company-mode-on))
   (if (fboundp #'aggressive-indent-mode) (aggressive-indent-mode -1))
   (electric-indent-mode 1)
