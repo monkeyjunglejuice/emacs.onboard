@@ -422,7 +422,7 @@ or `system-configuration' directly."
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setq visible-cursor nil)
 
-;; Highlight the current line only in the active window
+;; Make sure to highlight the current line only in the active window.
 (setq hl-line-sticky-flag nil)
 
 
