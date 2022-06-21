@@ -1072,9 +1072,9 @@ or `system-configuration' directly."
 ;; Sentences end with a single space
 (setq sentence-end-double-space nil)
 
-;; Typing a character while a text selection is active,
-;; deletes the selection and replaces it with the typed character,
-(delete-selection-mode 1)
+;; If set to '1', tping characters while a text selection is active,
+;; replaces the selection with the typed characters
+(delete-selection-mode -1)
 
 
 ;; Indicate trailing whitespace in "text" modes?
