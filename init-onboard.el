@@ -104,6 +104,20 @@
             (hl-line-mode 1)))
 
 
+;; Helper function to install 3rd-party packages
+(defun onb-ensure-packages (toggle package-list)
+  "PACKAGE-LIST will be installed if 'yes is passed as an argument to TOGGLE.
+Nothing will happen when TOGGLE receives any other argument – eg. 'no or 'nope.
+The purpose of this function is to make sure certain Emacs Lisp packages
+will be installed and remain installed if you choose."
+  (when (eq toggle 'yes)
+    (mapc #'(lambda (package)
+              (unless (package-installed-p package)
+                (package-refresh-contents)
+                (package-install package)))
+          package-list)))
+
+
 ;;; SYSTEM ____________________________________________________________________
 
 
@@ -534,8 +548,13 @@ or `system-configuration' directly."
 
 ;; Enhance M-x to allow easier execution of commands
 ;; --> recommended 3rd-party package 'amx'
-;; (global-set-key (kbd "M-x") #'amx)
-;; (global-set-key (kbd "M-X") #'amx-major-mode-commands)
+;; Select 'no = do nothing / 'yes = install packages from list:
+(onb-ensure-packages 'no
+                     '(amx))
+
+(when (fboundp #'amx)
+  (global-set-key (kbd "M-x") #'amx)
+  (global-set-key (kbd "M-X") #'amx-major-mode-commands))
 
 
 ;;; WINDOW MANAGEMENT _________________________________________________________
@@ -661,7 +680,11 @@ or `system-configuration' directly."
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
-;; (xclip-mode 1)
+;; Select 'no = do nothing / 'yes = install packages from list:
+(onb-ensure-packages 'no
+                     '(xclip))
+
+(if (fboundp #'xclip-mode) (xclip-mode 1))
 
 
 ;; Copy the file name (path) of the current file
@@ -938,12 +961,17 @@ or `system-configuration' directly."
 ;; This can be a graphical web browser,
 ;; but also a text-mode web browser within Emacs.
 
+
 ;; Set Emacs' `browse-url' function to use:
 
 ;; … the system-wide default browser
 (setq browse-url-browser-function #'browse-url-default-browser)
 
 ;; … or W3m --> recommended 3rd-party package 'w3m'
+;; Select 'no = do nothing / 'yes = install packages from list:
+(onb-ensure-packages 'no
+                     '(w3m))
+
 ;; (setq browse-url-browser-function #'w3m-browse-url)
 
 ;; … or set Firefox explicitly
@@ -1160,15 +1188,21 @@ or `system-configuration' directly."
 ;; Essential setup for lispy languages. Either install recommended packages,
 ;; or the built-in alternatives will be used for basic support
 
-;; (mapc #'package-install
-;;         '(company aggressive-indent rainbow-delimiters smartparens))
+;; If you would like to have the 3rd-party packages installed, set the argument
+;; to 'yes and evaluate the function (eg. restart Emacs)
+;; Select 'no = do nothing / 'yes = install packages from list:
+(onb-ensure-packages 'no
+                     '(company
+                       aggressive-indent
+                       rainbow-delimiters
+                       smartparens))
 
 
 (defun onb-setup-lisp-buffer ()
   "Essential buffer setup for lispy languages."
   (setq show-paren-style 'expression)
   (show-paren-local-mode 1)
-  (if (fboundp #'company-mode) (company-mode-on))
+  (if (fboundp #'company-mode) (company-mode 1))
   (if (fboundp #'flycheck-mode) (flycheck-mode 1)
     (flymake-mode 1))
   (if (fboundp #'aggressive-indent-mode) (aggressive-indent-mode 1)
