@@ -1,4 +1,4 @@
-;;; init-onboard.el --- Portable Emacs starter kit without 3rd-party packages  -*- lexical-binding: t; -*-
+;;; init-onboard.el --- Emacs ONBOARD Starter Kit  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021–2022 Dan Dee
 
