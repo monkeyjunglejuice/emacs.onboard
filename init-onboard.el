@@ -989,7 +989,7 @@ or `system-configuration' directly."
 (require 'org)
 
 ;; Set the Org paths
-(setq org-directory "~/Org/")
+(setq org-directory (expand-file-name "~/Org/"))
 
 (defun onb-org-directory ()
   "Show the Org directory in Dired."
