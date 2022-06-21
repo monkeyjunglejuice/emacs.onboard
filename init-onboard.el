@@ -626,9 +626,9 @@ or `system-configuration' directly."
 ;; Empty *scratch* buffer at startup
 (setq initial-scratch-message "")
 
-;; Set an initial major mode
-(setq initial-major-mode #'org-mode)  ; for general writing and notes
+;; Set an initial major mode for the *scratch* buffer
 ;; (setq initial-major-mode #'lisp-interaction-mode)  ; default
+(setq initial-major-mode #'org-mode)  ; for general writing and notes
 ;; (setq initial-major-mode #'fundamental-mode)  ; basic text mode
 
 ;; Quickly jump to the *scratch* buffer
@@ -858,6 +858,7 @@ or `system-configuration' directly."
 
 
 (require 'comint)
+
 (setq comint-input-ignoredups t
       comint-prompt-read-only t)
 
@@ -886,6 +887,7 @@ or `system-configuration' directly."
 
 ;; Issue shell commands and display their output
 
+
 ;; Set another shell than the default one
 ;; (setq shell-file-name "/usr/bin/bash")
 
@@ -897,6 +899,7 @@ or `system-configuration' directly."
 
 
 ;; Show and manage OS processes
+
 
 (require 'proced)
 
@@ -915,10 +918,8 @@ or `system-configuration' directly."
       netstat-program-options '("-atupe"))
 
 
-;; BUILT-IN WEB BROWSER _______________________________________________________
+;; BUILT-IN WEB BROWSER "EWW" _________________________________________________
 
-
-;; EWW – Emacs Web Wowser
 
 ;; Pretend to be an iPhone
 ;; (setq url-user-agent
