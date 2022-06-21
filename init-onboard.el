@@ -1216,7 +1216,7 @@ or `system-configuration' directly."
   "Essential interaction-buffer setup for lispy languages."
   (setq show-paren-style 'expression)
   (show-paren-local-mode 1)
-  (if (fboundp #'company-mode) (company-mode-on))
+  (if (fboundp #'company-mode) (company-mode 1))
   (if (fboundp #'flycheck-mode) (flycheck-mode -1))
   (flymake-mode -1)
   (if (fboundp #'aggressive-indent-mode) (aggressive-indent-mode 1)
