@@ -1238,7 +1238,7 @@ or `system-configuration' directly."
 (add-hook 'lisp-interaction-mode-hook #'onb-setup-lisp-interaction)
 (add-hook 'ielm-mode-hook #'onb-setup-lisp-repl)
 
-;; Common Lisp
+;; Lisp
 (add-hook 'lisp-mode-hook #'onb-setup-lisp-buffer)
 (add-hook 'inferior-lisp-mode-hook #'onb-setup-lisp-repl)
 
