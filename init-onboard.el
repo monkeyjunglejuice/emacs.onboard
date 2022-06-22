@@ -107,15 +107,23 @@
 ;; Helper function to install 3rd-party packages
 (defun onb-ensure-packages (toggle package-list)
   "PACKAGE-LIST will be installed if 'yes is passed as an argument to TOGGLE.
-Nothing will happen when TOGGLE receives any other argument – eg. 'no or 'nope.
-The purpose of this function is to make sure certain Emacs Lisp packages
-will be installed and remain installed if you choose."
+When TOGGLE receives any other argument – eg. 'no or 'nope, then nothing will
+happen. The purpose of this function is to make sure that certain Emacs Lisp
+packages will be present on your system."
   (when (eq toggle 'yes)
     (mapc #'(lambda (package)
               (unless (package-installed-p package)
                 (package-refresh-contents)
                 (package-install package)))
           package-list)))
+
+(defalias 'ont-ensure-packages 'onb-ensure-packages
+  "Alias for the function 'onb-ensure-packages' from Emacs ONBOARD.")
+
+;; Example: You can install suggested 3rd-party packages from within this file
+;; with single expressions like this:
+;; (onb-ensure-packages 'yes '(the-matrix-theme))  ; <-- installs the package
+;; (onb-ensure-packages 'no '(the-matrix-theme))   ; <-- does nothing (default)
 
 
 ;;; SYSTEM ____________________________________________________________________
@@ -546,12 +554,11 @@ or `system-configuration' directly."
         (icomplete-mode 1))))
 
 
-;; Enhance M-x to allow easier execution of commands
+;; Improve completion by remembering frequently used commands
 ;; --> recommended 3rd-party package 'amx'
-;; Select 'no = do nothing / 'yes = install packages from list:
-(onb-ensure-packages 'no
-                     '(amx))
-
+;; If you would like to install the 3rd-party package(s), change 'no into 'yes
+;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
+(onb-ensure-packages 'no '(amx))
 (when (fboundp #'amx)
   (global-set-key (kbd "M-x") #'amx)
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
@@ -680,10 +687,9 @@ or `system-configuration' directly."
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
-;; Select 'no = do nothing / 'yes = install packages from list:
-(onb-ensure-packages 'no
-                     '(xclip))
-
+;; If you would like to install the 3rd-party package(s), change 'no into 'yes
+;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
+(onb-ensure-packages 'no '(xclip))
 (if (fboundp #'xclip-mode) (xclip-mode 1))
 
 
