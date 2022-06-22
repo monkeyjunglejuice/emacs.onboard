@@ -728,7 +728,7 @@ or `system-configuration' directly."
       version-control t)
 
 ;; Where to save the backups.
-;; Specify file name/path patterns and directories ("REGEXP" . DIRECTORY)
+;; Specify file name/path patterns and directories ("REGEXP" . "DIRECTORY")
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backup/"))))
 
@@ -964,7 +964,7 @@ or `system-configuration' directly."
 ;;; STANDARD WEB BROWSER ______________________________________________________
 
 
-;; This can be a graphical web browser,
+;; This can be any graphical web browser,
 ;; but also a text-mode web browser within Emacs.
 
 
