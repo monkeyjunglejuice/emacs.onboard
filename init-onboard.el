@@ -1090,18 +1090,31 @@ or `system-configuration' directly."
 ;; Set desired line length in characters
 (setq-default fill-column 80)
 
-;; Visual word wrapping
-(add-hook 'text-mode-hook #'visual-line-mode)
+;; While a text selection is active, typing characters replaces
+;; the selection with the typed characters (default: -1 = off)
+(delete-selection-mode -1)
 
 ;; Save always with a final new line
 (setq require-final-newline t)
 
+;; Better than the default 'just-one-space' (was M-SPC before)
+(global-set-key (kbd "S-SPC") #'cycle-spacing)
+
+;; Count lines, words and chars (buffer or region)
+(global-set-key (kbd "C-x l") #'count-words)
+
+;; Kill up to character
+(global-set-key (kbd "M-z") #'zap-up-to-char)
+
+
+;;; TEXT MODES / WRITING ______________________________________________________
+
+
+;; Visual word wrapping
+(add-hook 'text-mode-hook #'visual-line-mode)
+
 ;; Sentences end with a single space
 (setq sentence-end-double-space nil)
-
-;; If set to '1', tping characters while a text selection is active,
-;; replaces the selection with the typed characters
-(delete-selection-mode -1)
 
 
 ;; Indicate trailing whitespace in "text" modes?
@@ -1113,22 +1126,7 @@ or `system-configuration' directly."
 (define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
-;; Better than the default 'just-one-space' (was M-SPC before)
-(global-set-key (kbd "S-SPC") #'cycle-spacing)
-
-;; Count lines, words and chars (buffer or region)
-(global-set-key (kbd "C-x l") #'count-words)
-
-;; More useful than the default
-(global-set-key (kbd "M-z") #'zap-up-to-char)
-
-
-;;; PROGRAMMING _______________________________________________________________
-
-
-;; Indentation
-(setq-default indent-tabs-mode nil ; don't use tabs but spaces
-              tab-width 2)         ; set display width for tab characters
+;;; LINE-NUMBERS ______________________________________________________________
 
 
 ;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode"
@@ -1136,6 +1134,39 @@ or `system-configuration' directly."
 (add-hook 'prog-mode-hook
           (lambda ()
             (display-line-numbers-mode -1)))
+
+
+;;; INDENTATION _______________________________________________________________
+
+
+(setq-default indent-tabs-mode nil ; don't use tabs but spaces
+              tab-width 2)         ; set display width for tab characters
+
+;; Indent automatically?
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (electric-indent-mode 1)))
+
+;; Delete the whole indentation instead of one-by-one with <backspace>
+;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode')
+(setq backward-delete-char-untabify-method 'hungry)
+
+
+;;; BRACKETS / PARENTHESIS ____________________________________________________
+
+
+;; How to display matching parens?
+(setq show-paren-style 'parenthesis
+      show-paren-delay 0.00)
+
+
+;; Auto-close parens, brackets and quotes?
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (electric-pair-mode 1)))
+
+
+;;; WHITESPACE ________________________________________________________________
 
 
 ;; Indicate trailing whitespace in programming modes?
@@ -1147,27 +1178,12 @@ or `system-configuration' directly."
 (define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
-;; Indicate matching parens
-(add-hook 'prog-mode-hook #'show-paren-local-mode)
-
-;; How to display matching parens
-(setq show-paren-style 'parenthesis
-      show-paren-delay 0.00)
-
-;; Auto-close parens, brackets and quotes?
-(electric-pair-mode 1)
-
-
-;; Backspace deletes the whole indentation instead of one-by-one
-;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode')
-(setq backward-delete-char-untabify-method 'hungry)
-
-;; Additional keybinding to resemble other S-expression related keybindings
-;; who usually begin with "C-M"
-(global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
-
-
 ;;; SYNTAX CHECK ______________________________________________________________
+
+
+;; Check syntax?
+;; There are several syntax-checkers already built-in, but additional ones
+;; can be installed as 3rd-party packages "M-x package-install <RET> flymake-"
 
 
 (require 'flymake)
@@ -1175,67 +1191,46 @@ or `system-configuration' directly."
 ;; Disable the legacy backend
 (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
 
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (flymake-mode 1)))
+
 (define-key flymake-mode-map (kbd "M-g M-p") #'flymake-show-project-diagnostics)
 (define-key flymake-mode-map (kbd "M-g M-e") #'flymake-show-buffer-diagnostics)
 (define-key flymake-mode-map (kbd "M-g M-f") #'flymake-goto-next-error)
 (define-key flymake-mode-map (kbd "M-g M-b") #'flymake-goto-prev-error)
 
 
-;;; LISP _____________________________________________________________________
+;;; LISP LANGUAGES ____________________________________________________________
 
 
-;; Essential setup for lispy languages. Either install recommended packages,
-;; or the built-in alternatives will be used for basic support
-
-;; If you would like to have the 3rd-party packages installed, set the argument
-;; to 'yes and evaluate the function (eg. restart Emacs)
-;; Select 'no = do nothing / 'yes = install packages from list:
-(onb-ensure-packages 'no
-                     '(company
-                       aggressive-indent
-                       rainbow-delimiters
-                       smartparens))
+;; Basic support for lispy languages. For extended support via
+;; 3rd-party-packages see https://github.com/monkeyjunglejuice/emacs.ontop
 
 
 (defun onb-setup-lisp-buffer ()
-  "Essential buffer setup for lispy languages."
-  (setq show-paren-style 'expression)
-  (show-paren-local-mode 1)
-  (if (fboundp #'company-mode) (company-mode 1))
-  (if (fboundp #'flycheck-mode) (flycheck-mode 1)
-    (flymake-mode 1))
-  (if (fboundp #'aggressive-indent-mode) (aggressive-indent-mode 1)
-    (electric-indent-mode 1))
-  (if (fboundp #'rainbow-delimiters-mode) (rainbow-delimiters-mode-enable))
-  (if (fboundp #'smartparens-mode)
-      (progn (turn-on-smartparens-strict-mode) (turn-on-show-smartparens-mode))
-    (electric-pair-mode 1)))
+  "Basic buffer setup for lispy languages."
+  (flymake-mode 1)
+  (electric-indent-mode 1)
+  (electric-pair-mode 1)
+  (setq-local show-paren-style 'expression)
+  (show-paren-mode 1))
 
 (defun onb-setup-lisp-interaction ()
-  "Essential interaction-buffer setup for lispy languages."
-  (setq show-paren-style 'expression)
-  (show-paren-local-mode 1)
-  (if (fboundp #'company-mode) (company-mode 1))
-  (if (fboundp #'flycheck-mode) (flycheck-mode -1))
+  "Basic interaction-buffer setup for lispy languages."
   (flymake-mode -1)
-  (if (fboundp #'aggressive-indent-mode) (aggressive-indent-mode 1)
-    (electric-indent-mode 1))
-  (if (fboundp #'rainbow-delimiters-mode) (rainbow-delimiters-mode-enable))
-  (if (fboundp #'smartparens-mode)
-      (progn (turn-on-smartparens-strict-mode) (turn-on-show-smartparens-mode))
-    (electric-pair-mode 1)))
+  (electric-indent-mode 1)
+  (electric-pair-mode 1)
+  (setq-local show-paren-style 'expression)
+  (show-paren-mode 1))
 
 (defun onb-setup-lisp-repl ()
-  "Essential REPL setup for lispy languages."
-  (setq show-paren-style 'expression)
-  (show-paren-local-mode 1)
-  (if (fboundp #'company-mode) (company-mode-on))
-  (if (fboundp #'aggressive-indent-mode) (aggressive-indent-mode -1))
+  "Basic REPL setup for lispy languages."
+  (flymake-mode -1)
   (electric-indent-mode 1)
-  (if (fboundp #'rainbow-delimiters-mode) (rainbow-delimiters-mode-enable))
-  (if (fboundp #'smartparens-mode)
-      (progn (turn-on-smartparens-strict-mode) (turn-on-show-smartparens-mode))
-    (electric-pair-mode 1)))
+  (electric-pair-mode 1)
+  (setq-local show-paren-style 'expression)
+  (show-paren-mode 1))
 
 
 ;; Emacs Lisp
@@ -1250,6 +1245,11 @@ or `system-configuration' directly."
 ;; Scheme
 (add-hook 'scheme-mode-hook #'onb-setup-lisp-buffer)
 (add-hook 'inferior-scheme-mode-hook #'onb-setup-lisp-repl)
+
+
+;; Additional keybinding to resemble other S-expression related keybindings
+;; who usually begin with "C-M". Also useful editing non-lisp languages
+(global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
 ;;; HTML/CSS __________________________________________________________________
