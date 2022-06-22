@@ -227,39 +227,36 @@ or `system-configuration' directly."
 ;;; FONTS _____________________________________________________________________
 
 
-;; The height value is in 1/10 pt, so 120 will give 12 pt
-
-;; Set the default monospaced font
-(set-face-attribute 'default nil
-                    ;; :family "IBM Plex Mono"
-                    :slant  'normal
-                    :weight 'normal
-                    :width  'normal
-                    :height 130)
-
-;; Set an alternative monospaced font (optional)
-(set-face-attribute 'fixed-pitch nil
-                    ;; :family "IBM Plex Mono"
-                    :slant  'normal
-                    :weight 'normal
-                    :width  'normal
-                    :height 130)
-
-;; Set another alternative monospaced fonts, preferably with serifs (optional)
-(set-face-attribute 'fixed-pitch-serif nil
-                    ;; :family "IBM Plex Mono"
-                    :slant  'normal
-                    :weight 'normal
-                    :width  'normal
-                    :height 130)
-
-;; Set the proportional font (toggle by "M-x variable-pitch-mode")
-(set-face-attribute 'variable-pitch nil
-                    ;; :family "Crimson Pro"
-                    :slant  'normal
-                    :weight 'normal
-                    :width  'normal
-                    :height 150)
+(defun onb-fonts ()
+  "The height value is in 1/10 pt, so 130 will give 13 pt."
+  ;; Set the default monospaced font
+  (set-face-attribute 'default nil
+                      ;; :family "IBM Plex Mono"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
+  ;; Set an alternative monospaced font (optional)
+  (set-face-attribute 'fixed-pitch nil
+                      ;; :family "IBM Plex Mono"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
+  ;; Set another alternative monospaced fonts, preferably with serifs (optional)
+  (set-face-attribute 'fixed-pitch-serif nil
+                      ;; :family "IBM Plex Mono"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
+  ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
+  (set-face-attribute 'variable-pitch nil
+                      ;; :family "Crimson Pro"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 150))
 
 
 ;; Set the modeline fonts. This function will be called later to have an effect:
@@ -269,13 +266,13 @@ or `system-configuration' directly."
 (defun onb-modeline ()
   "Custom modeline styling."
   (set-face-attribute 'mode-line nil
-                      ;; :family "IBM Plex Mono" ; inherited from `default'
+                      ;; :family "IBM Plex Mono"  ; inherited from `default'
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 100)
   (set-face-attribute 'mode-line-inactive nil
-                      ;; :family "IBM Plex Mono" ; inherited from `default'
+                      ;; :family "IBM Plex Mono"  ; inherited from `default'
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
@@ -391,13 +388,15 @@ or `system-configuration' directly."
 
 (add-hook 'onb-load-after-theme-light-hook
           (lambda ()
+            (onb-fonts)
             (onb-modeline)))
 
 (add-hook 'onb-load-after-theme-dark-hook
           (lambda ()
+            (onb-fonts)
             (onb-modeline)))
 
-;; ****************************************************************************
+;; ////////////////////////////////////////////////////////////////////////////
 
 ;; Load the theme eventually
 (onb-load-theme-default)
