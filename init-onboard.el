@@ -973,13 +973,6 @@ or `system-configuration' directly."
 ;; … the system-wide default browser
 (setq browse-url-browser-function #'browse-url-default-browser)
 
-;; … or W3m --> recommended 3rd-party package 'w3m'
-;; Select 'no = do nothing / 'yes = install packages from list:
-(onb-ensure-packages 'no
-                     '(w3m))
-
-;; (setq browse-url-browser-function #'w3m-browse-url)
-
 ;; … or set Firefox explicitly
 ;; (setq browse-url-browser-function #'browse-url-firefox)
 
