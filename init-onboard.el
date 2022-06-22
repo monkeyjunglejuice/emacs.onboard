@@ -362,7 +362,7 @@ or `system-configuration' directly."
 ;; Set the light theme:
 (cond
  ((>= emacs-major-version 28) (setq onb-light-theme-name 'modus-operandi))
- ((<= emacs-major-version 27) (setq onb-light-theme-name 'tsdh-light)))
+ ((<= emacs-major-version 27) (setq onb-light-theme-name 'leuven)))
 
 ;; Set the dark theme:
 (cond
