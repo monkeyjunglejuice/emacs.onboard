@@ -1010,6 +1010,16 @@ or `system-configuration' directly."
 (setq message-kill-buffer-on-exit t)
 
 
+;;; CALENDAR __________________________________________________________________
+
+
+(require 'calendar)
+
+(setq calendar-date-style 'iso
+      calendar-week-start-day 1
+      calendar-weekend-days '(6 0))
+
+
 ;;; ORG-MODE __________________________________________________________________
 
 
@@ -1066,16 +1076,6 @@ or `system-configuration' directly."
   (insert "#+caption: "))
 
 (define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
-
-
-;;; CALENDAR __________________________________________________________________
-
-
-(require 'calendar)
-
-(setq calendar-date-style 'iso
-      calendar-week-start-day 1
-      calendar-weekend-days '(6 0))
 
 
 ;;; GENERAL EDITING ___________________________________________________________
