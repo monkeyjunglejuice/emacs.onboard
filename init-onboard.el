@@ -4,7 +4,7 @@
 
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 0.2.2
+;; Version: 0.3.0
 ;; Package-Requires: ((emacs "26.1"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
