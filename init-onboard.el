@@ -283,7 +283,7 @@ or `system-configuration' directly."
 
 
 ;; Default/fallback definitions – don't change them here,
-;; but scroll further down to "Theme configuration"
+;; but scroll further down to "THEME CONFIG"
 
 (defgroup onb-toggle-theme nil
   "Toggle between light and dark theme with a single key press."
@@ -361,8 +361,9 @@ or `system-configuration' directly."
    (t (message
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
+;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-;; Theme configuration ********************************************************
+;;; THEME CONFIG
 
 ;; Set the light theme:
 (cond
