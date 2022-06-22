@@ -1195,10 +1195,10 @@ or `system-configuration' directly."
           (lambda ()
             (flymake-mode 1)))
 
-(define-key flymake-mode-map (kbd "M-g M-p") #'flymake-show-project-diagnostics)
-(define-key flymake-mode-map (kbd "M-g M-e") #'flymake-show-buffer-diagnostics)
-(define-key flymake-mode-map (kbd "M-g M-f") #'flymake-goto-next-error)
-(define-key flymake-mode-map (kbd "M-g M-b") #'flymake-goto-prev-error)
+(define-key flymake-mode-map (kbd "M-g E") #'flymake-show-project-diagnostics)
+(define-key flymake-mode-map (kbd "M-g e") #'flymake-show-buffer-diagnostics)
+(define-key flymake-mode-map (kbd "M-g n") #'flymake-goto-next-error)  ; default
+(define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)  ; default
 
 
 ;;; LISP LANGUAGES ____________________________________________________________
