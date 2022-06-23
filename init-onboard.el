@@ -1181,10 +1181,9 @@ or `system-configuration' directly."
 ;;; SYNTAX CHECK ______________________________________________________________
 
 
-;; Check syntax?
-;; There are several syntax-checkers already built-in, but additional ones
-;; can be installed as 3rd-party packages "M-x package-install <RET> flymake-"
-
+;; There are various syntax-checkers coming with the built-in Flymake mode,
+;; and additional checkers can be installed as 3rd-party packages via
+;; "M-x package-install <RET> flymake-" or `onb-ensure-packages'
 
 (require 'flymake)
 
