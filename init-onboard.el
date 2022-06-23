@@ -561,7 +561,7 @@ or `system-configuration' directly."
 
 ;; Improve completion by remembering frequently used commands
 ;; --> recommended 3rd-party package 'amx'
-;; If you would like to install the 3rd-party package(s), change 'no into 'yes
+;; If you would like to install the 3rd-party package(s), change 'no to 'yes
 ;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
 (onb-ensure-packages 'no '(amx))
 (when (fboundp #'amx)
