@@ -184,7 +184,7 @@ or `system-configuration' directly."
   (interactive)
   (find-file user-init-file))
 
-;; Open to the '~/.emacs.d' directory in the Dired file manager
+;; Open the '~/.emacs.d' directory in the Dired file manager
 (defun onb-user-emacs-directory ()
   "Open the Emacs directory in Dired."
   (interactive)
