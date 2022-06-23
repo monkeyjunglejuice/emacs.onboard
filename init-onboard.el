@@ -864,7 +864,7 @@ or `system-configuration' directly."
       image-dired-thumb-relief 0)
 
 
-;; Linux/Unix only
+;; Linux/Unix only: hit "M-RET" to open files in desktop app
 (when (onb-linosp)
   (defun onb-dired-xdg-open ()
     "Open files and folders with the default desktop app."
