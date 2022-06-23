@@ -1203,8 +1203,7 @@ or `system-configuration' directly."
 ;;; LISP LANGUAGES ____________________________________________________________
 
 
-;; Basic support for lispy languages. For extended support via
-;; 3rd-party-packages see https://github.com/monkeyjunglejuice/emacs.ontop
+;; Basic support for lispy languages
 
 
 (defun onb-setup-lisp-buffer ()
