@@ -104,7 +104,7 @@
             (hl-line-mode 1)))
 
 
-;; Helper function to install 3rd-party packages
+;; Helper function to install 3rd-party packages declaratively
 (defun onb-ensure-packages (toggle package-list)
   "PACKAGE-LIST will be installed if 'yes is passed as an argument to TOGGLE.
 When TOGGLE receives any other argument – eg. 'no or 'nope, then nothing will
@@ -122,8 +122,13 @@ packages will be present on your system."
 
 ;; Example: You can install suggested 3rd-party packages from within this file
 ;; with single expressions like this:
+;;
 ;; (onb-ensure-packages 'yes '(the-matrix-theme))  ; <-- installs the package
 ;; (onb-ensure-packages 'no '(the-matrix-theme))   ; <-- does nothing (default)
+;;
+;; The actual installation will be performed when you restart Emacs
+;; or evaluate the function manually – eg. via pressing "C-M-x"
+;; while the cursor is placed somewhere inside the function.
 
 
 ;;; SYSTEM ____________________________________________________________________
