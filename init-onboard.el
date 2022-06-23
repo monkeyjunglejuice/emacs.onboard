@@ -1078,6 +1078,25 @@ or `system-configuration' directly."
 (define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
 
 
+;;; TEXT MODES / WRITING ______________________________________________________
+
+
+;; Visual word wrapping
+(add-hook 'text-mode-hook #'visual-line-mode)
+
+;; Sentences end with a single space
+(setq sentence-end-double-space nil)
+
+
+;; Indicate trailing whitespace in "text" modes?
+(add-hook 'text-mode-hook
+          (lambda ()
+            (setq show-trailing-whitespace t)))
+
+;; Cleanup trailing whitespace in "text" modes
+(define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
+
+
 ;;; GENERAL EDITING ___________________________________________________________
 
 
@@ -1107,26 +1126,7 @@ or `system-configuration' directly."
 (global-set-key (kbd "M-z") #'zap-up-to-char)
 
 
-;;; TEXT MODES / WRITING ______________________________________________________
-
-
-;; Visual word wrapping
-(add-hook 'text-mode-hook #'visual-line-mode)
-
-;; Sentences end with a single space
-(setq sentence-end-double-space nil)
-
-
-;; Indicate trailing whitespace in "text" modes?
-(add-hook 'text-mode-hook
-          (lambda ()
-            (setq show-trailing-whitespace t)))
-
-;; Cleanup trailing whitespace in "text" modes
-(define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
-
-
-;;; LINE-NUMBERS ______________________________________________________________
+;;; LINE NUMBERS ______________________________________________________________
 
 
 ;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode"
