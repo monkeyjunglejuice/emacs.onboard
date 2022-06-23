@@ -159,19 +159,19 @@ packages will be present on your system."
 
 ;; Helpers to simplify writing operating system specific code
 
-(defun onb-linp ()
+(defun onb-linosp ()
   "True if `system-type' is Linux or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "gnu/linux" "berkeley-unix" "gnu" "gnu/kfreebsd")))
 
-(defun onb-winp ()
+(defun onb-winosp ()
   "True if `system-type' is Windows or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "windows-nt" "cygwin" "ms-dos")))
 
-(defun onb-macp ()
+(defun onb-macosp ()
   "True if `system-type' is MacOS or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
@@ -865,15 +865,15 @@ or `system-configuration' directly."
 
 
 ;; Linux/Unix only
-(defun onb-dired-xdg-open ()
-  "Open files and folders with the default desktop app."
-  (interactive)
-  (let* ((file (dired-get-filename nil t)))
-    (message "Opening %s..." file)
-    (call-process "xdg-open" nil 0 nil file)
-    (message "Opening %s done" file)))
-
-(define-key dired-mode-map (kbd "M-RET") #'onb-dired-xdg-open)
+(when (onb-linosp)
+  (defun onb-dired-xdg-open ()
+    "Open files and folders with the default desktop app."
+    (interactive)
+    (let* ((file (dired-get-filename nil t)))
+      (message "Opening %s..." file)
+      (call-process "xdg-open" nil 0 nil file)
+      (message "Opening %s done" file)))
+  (define-key dired-mode-map (kbd "M-RET") #'onb-dired-xdg-open))
 
 
 ;; Go to home directory
