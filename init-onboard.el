@@ -1250,7 +1250,7 @@ or `system-configuration' directly."
 (add-hook 'inferior-scheme-mode-hook #'onb-setup-lisp-repl)
 
 
-;; Additional keybinding to resemble other S-expression related keybindings
+;; Additional keybinding resembling other S-expression related keybindings
 ;; who usually begin with "C-M". Also useful editing non-lisp languages
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
