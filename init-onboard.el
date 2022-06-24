@@ -1189,18 +1189,21 @@ or `system-configuration' directly."
 ;;; SYNTAX CHECK ______________________________________________________________
 
 
+(require 'flymake)
+
 ;; There are various syntax-checkers coming with the built-in Flymake mode,
 ;; and additional checkers can be installed as 3rd-party packages via
 ;; "M-x package-install <RET> flymake-" or `onb-ensure-packages'
 
-(require 'flymake)
-
 ;; Disable the legacy backend
 (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
 
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (flymake-mode 1)))
+;; Style the Flymake widget in the modeline
+(setq flymake-mode-line-format
+      '(" " "FlyM" flymake-mode-line-exception flymake-mode-line-counters))
+
+;; Stop when first/last error is reached
+(setq flymake-wrap-around nil)
 
 (define-key flymake-mode-map (kbd "M-g E") #'flymake-show-project-diagnostics)
 (define-key flymake-mode-map (kbd "M-g e") #'flymake-show-buffer-diagnostics)
