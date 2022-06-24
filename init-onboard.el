@@ -1281,6 +1281,30 @@ or `system-configuration' directly."
 (setq css-indent-offset 2)
 
 
+;;; EMACS ONTOP _______________________________________________________________
+
+
+;; Emacs ONTOP is an extension for Emacs ONBOARD.
+;; Get it here: https://github.com/monkeyjunglejuice/emacs.ontop#install
+;; Then adapt the line below according to this example:
+;; "~/path/to/.emacs.onboard"
+
+;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+(defvar ont-root-directory
+  (expand-file-name
+   "~/.emacs.ontop") ; <-- Adapt this directory path and restart Emacs
+  "Directory where init-ontop.el resides.")
+
+;; ////////////////////////////////////////////////////////////////////////////
+
+
+;; Important: init-ontop.el must be loaded from here, *after* init-onboard.el
+;; has been fully evaluated, because Emacs ONTOP depends on and also overrides
+;; certain values that have been set by init-onboard.el before.
+(load (concat ont-root-directory "/init-ontop.el"))  ; dont change this
+
+
 ;;; ___________________________________________________________________________
 (provide 'init-onboard)
 ;;; init-onboard.el ends here
