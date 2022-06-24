@@ -891,6 +891,17 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x C-d") #'dired)
 
 
+;; Reuse buffers – don't create a new one for each directory visited
+
+(put 'dired-find-alternate-file 'disabled nil)
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+
+(define-key dired-mode-map (kbd "^")
+  (lambda ()
+    (interactive)
+    (find-alternate-file "..")))
+
+
 ;;; COMINT ____________________________________________________________________
 
 
