@@ -839,7 +839,9 @@ or `system-configuration' directly."
 
 ;; Auto refresh dired when contents of a directory change
 (require 'autorevert)
+
 (setq auto-revert-verbose nil)
+
 (add-hook 'dired-mode-hook #'auto-revert-mode)
 
 
