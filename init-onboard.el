@@ -829,6 +829,9 @@ or `system-configuration' directly."
 ;; Copying files/directories
 (setq dired-recursive-copies 'always)
 
+;; Create directories if they don't exist
+(setq dired-create-destination-dirs 'ask)
+
 
 ;; Rename files/directories like normal text via `wdired-mode'
 (define-key dired-mode-map (kbd "r") #'wdired-change-to-wdired-mode)
