@@ -1163,7 +1163,7 @@ or `system-configuration' directly."
 ;;; BRACKETS / PARENTHESIS ____________________________________________________
 
 
-;; How to display matching parens?
+;; How to display matching parens, using `show-paren-mode'?
 (setq show-paren-style 'parenthesis
       show-paren-delay 0.00)
 
