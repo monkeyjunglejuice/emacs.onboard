@@ -1,4 +1,4 @@
-;;; init-onboard.el --- Emacs ONBOARD Starter Kit  -*- lexical-binding: t; -*-
+;;; onboard.el --- Emacs ONBOARD Starter Kit  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021–2022 Dan Dee
 
@@ -92,7 +92,7 @@
 (package-initialize)
 
 
-;; GNU TLS connection issue workaround for Emacs 26.3
+;; GNU TLS connection issue workaround for Emacs before version 26.3
 (require 'gnutls)
 (if (and (version< emacs-version "26.3") (>= libgnutls-version 30604))
     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
@@ -104,17 +104,17 @@
             (hl-line-mode 1)))
 
 
-;; Helper function to install 3rd-party packages declaratively
-(defun onb-ensure-packages (toggle package-list)
-  "PACKAGE-LIST will be installed if 'yes is passed as an argument to TOGGLE.
-When TOGGLE receives any other argument – eg. 'no or 'nope, then nothing will
+(defun onb-ensure-packages (activated package-list)
+  "Helper function to install 3rd-party packages declaratively.
+PACKAGE-LIST will be installed if 'yes is passed as an argument to ACTIVATED.
+When ACTIVATED receives any other argument – eg. 'no or 'nope, then nothing will
 happen. The purpose of this function is to make sure that certain Emacs Lisp
-packages will be present on your system."
-  (when (eq toggle 'yes)
+packages will be present on your system, if you choose."
+  (when (eq activated 'yes)
     (mapc #'(lambda (package)
               (unless (package-installed-p package)
                 (package-refresh-contents)
-                (package-install package)))
+                (package-install package nil)))
           package-list)))
 
 (defalias 'ont-ensure-packages 'onb-ensure-packages
@@ -126,7 +126,7 @@ packages will be present on your system."
 ;; (onb-ensure-packages 'yes '(the-matrix-theme))  ; <-- installs the package
 ;; (onb-ensure-packages 'no '(the-matrix-theme))   ; <-- does nothing (default)
 ;;
-;; The actual installation will be performed when you restart Emacs
+;; The installation will be performed when you restart Emacs
 ;; or evaluate the function manually – eg. via pressing "C-M-x"
 ;; while the cursor is placed somewhere inside the function.
 
@@ -134,9 +134,12 @@ packages will be present on your system."
 ;;; SYSTEM ____________________________________________________________________
 
 
+;; Break the default "C-z" key binding to make it an additional prefix key
+;; in the same way as "C-x" and "C-c"
+(global-unset-key (kbd "C-z"))
+
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files
 (setq load-prefer-newer t)
-
 
 ;; Increase warning threshold
 (setq large-file-warning-threshold (* 64 1000000))
@@ -159,19 +162,19 @@ packages will be present on your system."
 
 ;; Helpers to simplify writing operating system specific code
 
-(defun onb-linosp ()
+(defun onb-linp ()
   "True if `system-type' is Linux or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "gnu/linux" "berkeley-unix" "gnu" "gnu/kfreebsd")))
 
-(defun onb-winosp ()
+(defun onb-winp ()
   "True if `system-type' is Windows or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "windows-nt" "cygwin" "ms-dos")))
 
-(defun onb-macosp ()
+(defun onb-macp ()
   "True if `system-type' is MacOS or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
@@ -264,9 +267,9 @@ or `system-configuration' directly."
                       :height 150))
 
 
-;; Set the modeline fonts. This function will be called later to have an effect:
-;; Uncomment `onb-load-after-theme-light-hook' and `onb-load-after-theme-light-hook'
-;; further down under "Theme configuration".
+;; Set the modeline fonts. This function will be called later
+;; to have an effect: Uncomment `onb-load-after-theme-light-hook' and
+;; `onb-load-after-theme-light-hook' further down under "Theme configuration"
 
 (defun onb-modeline ()
   "Custom modeline styling."
@@ -366,6 +369,7 @@ or `system-configuration' directly."
    (t (message
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
+
 ;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 ;;; THEME CONFIG
@@ -404,6 +408,7 @@ or `system-configuration' directly."
 
 ;; ////////////////////////////////////////////////////////////////////////////
 
+
 ;; Load the theme eventually
 (onb-load-theme-default)
 
@@ -421,7 +426,7 @@ or `system-configuration' directly."
 (add-to-list 'default-frame-alist '(width . 80))
 
 ;; … and set the default height of the Emacs frame in lines
-(add-to-list 'default-frame-alist '(height . 24))
+(add-to-list 'default-frame-alist '(height . 20))
 
 ;; Horizontal position: set the distance from the left screen edge in pixels
 ;; (add-to-list 'default-frame-alist '(left . 0))
@@ -433,12 +438,10 @@ or `system-configuration' directly."
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
 ;; Set the cursor type
-;; To learn about available cursors, place your cursor behind 'cursor-type' in the
-;; code below and hit "C-h o" or "M-x describe-symbol" <RET> cursor-type <RET>
-
-;; Uncomment the next expression to change the curser to a blinking bar
+;; To learn about available cursors, place your cursor behind 'cursor-type'
+;; in the code below or do "M-x describe-symbol" <RET> cursor-type <RET>
+;; Uncomment the following expression to change the curser to a vertical bar
 ;; (add-to-list 'default-frame-alist '(cursor-type . (bar . 2)))
-
 
 ;; Turn on/off cursor blinking by default?
 (blink-cursor-mode -1) ; 1 means 'on' / -1 means 'off'
@@ -452,7 +455,6 @@ or `system-configuration' directly."
 ;; Make sure to highlight the current line only in the active window.
 (setq hl-line-sticky-flag nil)
 
-
 ;; Turn the menu bar on/off by default?
 (menu-bar-mode 1)
 
@@ -464,18 +466,14 @@ or `system-configuration' directly."
 (if (fboundp 'tool-bar-mode) ; Emacs 26.1 compatibility
     (tool-bar-mode -1))
 
-
 ;; Enable/disable tooltips?
 (tooltip-mode -1)
-
 
 ;; Turn off the startup screen?
 (setq inhibit-startup-screen t)
 
-
 ;; Turn off alarms?
 (setq ring-bell-function 'ignore)
-
 
 ;; Smooth scrolling
 (setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))
@@ -485,7 +483,6 @@ or `system-configuration' directly."
               scroll-step 1
               scroll-margin 0  ; leave n lines on both screen ends
               scroll-preserve-screen-position 1)
-
 
 ;; Pinentry
 (require 'epg-config)
@@ -564,6 +561,7 @@ or `system-configuration' directly."
 ;; If you would like to install the 3rd-party package(s), change 'no to 'yes
 ;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
 (onb-ensure-packages 'no '(amx))
+
 (when (fboundp #'amx)
   (global-set-key (kbd "M-x") #'amx)
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
@@ -572,9 +570,9 @@ or `system-configuration' directly."
 ;;; WINDOW MANAGEMENT _________________________________________________________
 
 
-;; Emacs often opens buffers in new windows. Let's make window splitting
-;; and placement more predictable. For the default windows behavior,
-;; comment out the following expression and restart Emacs
+;; Emacs often opens buffers in new windows. Let's make window splitting and
+;; placement more predictable. For the default window behavior,
+;; comment the following expression and restart Emacs
 (setq display-buffer-base-action
       '((display-buffer-reuse-window
          display-buffer-reuse-mode-window
@@ -599,12 +597,13 @@ or `system-configuration' directly."
 ;; Display-buffer: avoid resizing
 (setq even-window-sizes nil)
 
-;; Focus follows mouse
+
+;; Focus follows mouse?
 (setq mouse-autoselect-window nil
       focus-follows-mouse nil)
 
 
-;; Undo/redo window configurations
+;; Undo/redo window layouts
 (require 'winner)
 (winner-mode 1)
 (define-key winner-mode-map (kbd "C-x 4 u") #'winner-undo)
@@ -626,7 +625,7 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
-;; Uniquify buffer names for identically-named files
+;; Uniquify buffer names for buffers that would have identical names
 (setq uniquify-buffer-name-style 'forward)
 
 
@@ -681,7 +680,7 @@ or `system-configuration' directly."
  select-enable-clipboard t
  ;; Use primary selection: mark=copy / middle-click=paste
  select-enable-primary t
- ;; When one selects something in another program to paste it into Emacs,
+ ;; When one selects something in another program to pastes it into Emacs,
  ;; but kills something in Emacs before actually pasting it,
  ;; this selection is gone unless this variable is non-nil
  save-interprogram-paste-before-kill t
@@ -692,9 +691,10 @@ or `system-configuration' directly."
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
-;; If you would like to install the 3rd-party package(s), change 'no into 'yes
+;; If you would like to install the 3rd-party package, change 'no into 'yes
 ;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
 (onb-ensure-packages 'no '(xclip))
+
 (if (fboundp #'xclip-mode) (xclip-mode 1))
 
 
@@ -720,6 +720,37 @@ or `system-configuration' directly."
   (insert (completing-read "Yank: " kill-ring nil t)))
 
 (global-set-key (kbd "M-y") #'onb-insert-kill-ring-item)
+
+
+;; Copy & paste between Windows and Emacs that runs within WSL
+;; (Windows Subsysten for Linux), which is technically a Linux
+
+(if (onb-linp)
+    ;; Copy text from an Emacs buffer to paste it into Windows apps
+    (defun onb-wsl-copy (start end)
+      "Copy currently selected text into the Windows clipboard."
+      (interactive "r")
+      (let ((default-directory "/mnt/c/"))
+        (shell-command-on-region start end "clip.exe")))
+
+  (global-set-key (kbd "C-z C-w") 'onb-wsl-copy)
+
+  ;; Paste (yank) text into Emacs that has been copied from a Windows app
+  (defun onb-wsl-paste ()
+    "Paste contents from the Windows clipboard into the Emacs buffer."
+    (interactive)
+    (let ((coding-system-for-read 'dos)
+          (default-directory "/mnt/c/"))
+      (insert
+       (substring
+        (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
+        0  -1))))
+
+  (global-set-key (kbd "C-z C-y") 'onb-wsl-paste))
+
+
+;; Redraw screen -- useful when running Emacs in a Windows terminal emulator
+(global-set-key (kbd "C-c r d") #'redraw-display)
 
 
 ;;; BACKUP ____________________________________________________________________
@@ -834,7 +865,7 @@ or `system-configuration' directly."
 
 
 ;; Rename files/directories like normal text via `wdired-mode'
-(define-key dired-mode-map (kbd "r") #'wdired-change-to-wdired-mode)
+(define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)
 
 
 ;; Auto refresh dired when contents of a directory change
@@ -870,7 +901,7 @@ or `system-configuration' directly."
 
 
 ;; Linux/Unix only: hit "M-RET" to open files in desktop app
-(when (onb-linosp)
+(when (onb-linp)
   (defun onb-dired-xdg-open ()
     "Open files and folders with the default desktop app."
     (interactive)
@@ -989,17 +1020,17 @@ or `system-configuration' directly."
 ;; but also a text-mode web browser within Emacs.
 
 
-;; Set Emacs' `browse-url' function to use:
-
+;; PRIMARY: Set Emacs' `browse-url' function to …
 ;; … the system-wide default browser
 (setq browse-url-browser-function #'browse-url-default-browser)
-
 ;; … or set Firefox explicitly
 ;; (setq browse-url-browser-function #'browse-url-firefox)
 
-
 ;; Keybinding to browse an URL
 (global-set-key (kbd "C-c w w") #'browse-url)
+
+;; SECONDARY:
+(setq browse-url-secondary-browser-function #'browse-web)
 
 
 ;;; EMAIL HANDLING ____________________________________________________________
@@ -1150,8 +1181,8 @@ or `system-configuration' directly."
 ;;; LINE NUMBERS ______________________________________________________________
 
 
-;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode"
-;; Goto line: "M-g M-g"
+;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode" or
+;; set it here for all programming modes. Goto line: "M-g M-g"
 (add-hook 'prog-mode-hook
           (lambda ()
             (display-line-numbers-mode -1)))
@@ -1163,12 +1194,10 @@ or `system-configuration' directly."
 (setq-default indent-tabs-mode nil ; don't use tabs but spaces
               tab-width 2)         ; set display width for tab characters
 
-;; Indent automatically?
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (electric-indent-mode 1)))
+;; Re-indent automatically?
+(add-hook 'prog-mode-hook #'electric-indent-mode)
 
-;; Delete the whole indentation instead of one-by-one with <backspace>
+;; Delete the whole indentation instead spaces one-by-one via <backspace>?
 ;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode')
 (setq backward-delete-char-untabify-method 'hungry)
 
@@ -1176,15 +1205,12 @@ or `system-configuration' directly."
 ;;; BRACKETS / PARENTHESIS ____________________________________________________
 
 
-;; How to display matching parens, using `show-paren-mode'?
+;; How to display matching parens? General `show-paren-mode' configuration
 (setq show-paren-style 'parenthesis
       show-paren-delay 0.00)
 
-
 ;; Auto-close parens, brackets and quotes?
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (electric-pair-mode 1)))
+;; (add-hook 'prog-mode-hook #'electric-pair-mode)
 
 
 ;;; WHITESPACE ________________________________________________________________
@@ -1227,49 +1253,27 @@ or `system-configuration' directly."
 ;;; LISP LANGUAGES ____________________________________________________________
 
 
-;; Basic support for lispy languages
-
-
-(defun onb-setup-lisp-buffer ()
-  "Basic buffer setup for lispy languages."
-  (flymake-mode 1)
-  (electric-indent-mode 1)
-  (electric-pair-mode 1)
+(defun onb-setup-lisp-languages ()
+  "Basic support for languages from the Lisp family."
   (setq-local show-paren-style 'expression)
-  (show-paren-mode 1))
-
-(defun onb-setup-lisp-interaction ()
-  "Basic interaction-buffer setup for lispy languages."
-  (flymake-mode -1)
-  (electric-indent-mode 1)
-  (electric-pair-mode 1)
-  (setq-local show-paren-style 'expression)
-  (show-paren-mode 1))
-
-(defun onb-setup-lisp-repl ()
-  "Basic REPL setup for lispy languages."
-  (flymake-mode -1)
-  (electric-indent-mode 1)
-  (electric-pair-mode 1)
-  (setq-local show-paren-style 'expression)
-  (show-paren-mode 1))
-
+  (show-paren-local-mode 1)
+  (electric-pair-local-mode 1)
+  (electric-indent-mode 1))
 
 ;; Emacs Lisp
-(add-hook 'emacs-lisp-mode-hook #'onb-setup-lisp-buffer)
-(add-hook 'lisp-interaction-mode-hook #'onb-setup-lisp-interaction)
-(add-hook 'ielm-mode-hook #'onb-setup-lisp-repl)
-
+(add-hook 'emacs-lisp-mode-hook #'onb-setup-lisp-languages)
+(add-hook 'emacs-lisp-mode-hook #'flymake-mode)
+(add-hook 'lisp-interaction-mode-hook #'onb-setup-lisp-languages)
+(add-hook 'ielm-mode-hook #'onb-setup-lisp-languages)
 ;; Lisp
-(add-hook 'lisp-mode-hook #'onb-setup-lisp-buffer)
-(add-hook 'inferior-lisp-mode-hook #'onb-setup-lisp-repl)
-
+(add-hook 'lisp-mode-hook #'onb-setup-lisp-languages)
+(add-hook 'inferior-lisp-mode-hook #'onb-setup-lisp-languages)
 ;; Scheme
-(add-hook 'scheme-mode-hook #'onb-setup-lisp-buffer)
-(add-hook 'inferior-scheme-mode-hook #'onb-setup-lisp-repl)
+(add-hook 'scheme-mode-hook #'onb-setup-lisp-languages)
+(add-hook 'inferior-scheme-mode-hook #'onb-setup-lisp-languages)
 
 
-;; Additional keybinding resembling other S-expression related keybindings
+;; Additional keybinding resembling other sexp-related keybindings
 ;; who usually begin with "C-M". Also useful editing non-lisp languages
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
@@ -1277,34 +1281,32 @@ or `system-configuration' directly."
 ;;; HTML/CSS __________________________________________________________________
 
 
-(require 'css-mode)
 (setq css-indent-offset 2)
 
 
-;;; EMACS ONTOP _______________________________________________________________
+;;; LOAD EMACS ONTOP __________________________________________________________
 
 
-;; Emacs ONTOP is an extension for Emacs ONBOARD.
-;; Get it here: https://github.com/monkeyjunglejuice/emacs.ontop#install
-;; Then adapt the line below according to this example:
-;; "~/path/to/.emacs.onboard"
+;; Emacs ONTOP is an extension for Emacs ONBOARD, utilizing 3rd-party packages.
+;; --> Get it here: https://github.com/monkeyjunglejuice/emacs.ontop
+
+
+(defvar ont-directory "~/.emacs.ontop"  ; initialization — don't change
+  "Absolute path to the directory where ontop.el resides.")
 
 ;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-(defvar ont-root-directory
-  (expand-file-name
-   "~/.emacs.ontop") ; <-- Adapt this directory path and restart Emacs
-  "Directory where init-ontop.el resides.")
+;; When neccessary, adapt the path of the directory here and restart Emacs:
+(setq ont-directory "~/.emacs.ontop")
 
 ;; ////////////////////////////////////////////////////////////////////////////
 
-
-;; Important: init-ontop.el must be loaded from here, *after* init-onboard.el
-;; has been fully evaluated, because Emacs ONTOP depends on and also overrides
-;; certain values that have been set by init-onboard.el before.
-(load (concat ont-root-directory "/init-ontop.el"))  ; dont change this
+(let ((ont-initfile "/ontop.el"))
+  (if (file-exists-p (expand-file-name (concat ont-directory ont-initfile)))
+      (load-file (expand-file-name (concat ont-directory ont-initfile)))
+    (message "The `ont-directory' has not been found...skipped.")))
 
 
 ;;; ___________________________________________________________________________
-(provide 'init-onboard)
-;;; init-onboard.el ends here
+(provide 'onboard)
+;;; onboard.el ends here
