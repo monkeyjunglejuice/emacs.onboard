@@ -423,7 +423,7 @@ or `system-configuration' directly."
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; … or set the default width of the Emacs frame in characters
-(add-to-list 'default-frame-alist '(width . 80))
+(add-to-list 'default-frame-alist '(width . 90))
 
 ;; … and set the default height of the Emacs frame in lines
 (add-to-list 'default-frame-alist '(height . 20))
