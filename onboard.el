@@ -1282,7 +1282,7 @@ or `system-configuration' directly."
 ;; --> Get it here: https://github.com/monkeyjunglejuice/emacs.ontop
 
 
-(defvar ont-directory "~/.emacs.ontop"  ; initialization — don't change
+(defvar ont-directory "~/.emacs.ontop"  ; initialization — don't change here
   "Absolute path to the directory where ontop.el resides.")
 
 ;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
