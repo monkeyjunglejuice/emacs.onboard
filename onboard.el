@@ -1207,8 +1207,8 @@ or `system-configuration' directly."
 (define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
 
 
-;; Set the Org paths
-
+;; Set a default location to look for Org files, but there
+;; is no need to put your files into this directory
 (setq org-directory (expand-file-name "~/Org/"))
 
 (defun onb-org-directory ()
@@ -1219,14 +1219,22 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c o d") #'onb-org-directory)
 
 
+;; Default target for storing notes
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
 (defun onb-org-notes ()
-  "Visit the Org main file."
+  "Visit the Org notes file."
   (interactive)
   (find-file (concat org-directory "notes.org")))
 
 (global-set-key (kbd "C-c o o") #'onb-org-notes)
+
+
+;; Literate programming
+
+;; Activate code blocks via Babel languages.
+;; Further languages are configured within their specific "onboard-*.el" files
+(org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)))
 
 
 ;; Insert snippets
@@ -1237,14 +1245,6 @@ or `system-configuration' directly."
   (insert "#+caption: "))
 
 (define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
-
-
-;; Literate programming
-
-;; Activate code blocks via Babel languages
-;; Further languages are configured within their specific "onboard-*.el" files
-(org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t)))
 
 
 ;;; LISP LANGUAGES ____________________________________________________________
