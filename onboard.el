@@ -107,31 +107,32 @@
              (hl-line-mode 1)))
 
 
-(defun onb-ensure-packages (activated package-list)
+;; You can use this function to install packages declaratively within
+;; an Emacs Lisp file – eg. directly here in this file
+(defun onb-package (action package-list)
   "Helper function to install 3rd-party packages declaratively.
-PACKAGE-LIST will be installed if 'yes is passed as an argument to ACTIVATED.
-When ACTIVATED receives any other argument – eg. 'no or 'nope, then nothing will
-happen. The purpose of this function is to make sure that certain Emacs Lisp
-packages will be present on your system, if you choose."
-  (when (eq activated 'yes)
+PACKAGE-LIST will be installed if 'install is passed as an argument to ACTION.
+When ACTION receives 'ignore, then nothing will happen. Use it if you want
+to make sure that certain Emacs Lisp packages will be present on your system."
+  (when (eq action 'install)
     (mapc #'(lambda (package)
               (unless (package-installed-p package)
                 (package-refresh-contents)
                 (package-install package nil)))
-          package-list)))
+            package-list)))
 
-(defalias 'ont-ensure-packages 'onb-ensure-packages
-  "Alias for the function 'onb-ensure-packages' from Emacs ONBOARD.")
+(defalias 'ont-package 'onb-package
+  "Alias for the function 'onb-package' from Emacs ONBOARD.")
 
 ;; Example: You can install suggested 3rd-party packages from within this file
-;; with single expressions like this:
+;; with single function calls like so:
 ;;
-;; (onb-ensure-packages 'yes '(the-matrix-theme))  ; <-- installs the package
-;; (onb-ensure-packages 'no '(the-matrix-theme))   ; <-- does nothing (default)
+;; (onb-package 'install '(the-matrix-theme))  ; installs the package
+;; (onb-package 'ignore '(the-matrix-theme))   ; does nothing (default)
 ;;
 ;; The installation will be performed when you restart Emacs
 ;; or evaluate the function manually – eg. via pressing "C-M-x"
-;; while the cursor is placed somewhere inside the function.
+;; while the cursor is placed somewhere inside a function call.
 
 
 ;;; SYSTEM ____________________________________________________________________
@@ -556,7 +557,7 @@ or `system-configuration' directly."
 ;; --> recommended 3rd-party package 'amx'
 ;; If you would like to install the 3rd-party package(s), change 'no to 'yes
 ;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
-(onb-ensure-packages 'no '(amx))
+(onb-package 'ignore '(amx))
 (when (fboundp #'amx)
   (global-set-key (kbd "M-x") #'amx)
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
@@ -688,7 +689,7 @@ or `system-configuration' directly."
 ;; --> recommended 3rd-party package 'xclip'
 ;; If you would like to install the 3rd-party package, change 'no into 'yes
 ;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
-(onb-ensure-packages 'no '(xclip))
+(onb-package 'ignore '(xclip))
 (if (fboundp #'xclip-mode) (xclip-mode 1))
 
 
@@ -1149,7 +1150,7 @@ or `system-configuration' directly."
 
 ;; There are various syntax-checkers coming with the built-in Flymake mode,
 ;; and additional checkers can be installed as 3rd-party packages via
-;; "M-x package-install <RET> flymake-" or `onb-ensure-packages'
+;; "M-x package-install <RET> flymake-" or `(onb-package 'install '(NAME))'
 
 ;; Disable the legacy backend
 (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
