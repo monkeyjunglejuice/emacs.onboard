@@ -1185,9 +1185,9 @@ or `system-configuration' directly."
 
 (require 'org)
 
+
 ;; Visual word wrapping
 (add-hook 'org-mode-hook #'visual-line-mode)
-
 
 ;; Global todo states
 (setq org-todo-keywords
