@@ -1289,6 +1289,7 @@ or `system-configuration' directly."
 (defvar ont-directory "~/.emacs.ontop"  ; initialization — don't change here
   "Absolute path to the directory where ontop.el resides.")
 
+
 ;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 ;; When neccessary, adapt the path of the directory here and restart Emacs:
@@ -1296,12 +1297,11 @@ or `system-configuration' directly."
 
 ;; ////////////////////////////////////////////////////////////////////////////
 
+
 (let ((ont-initfile "/ontop.el"))
   (if (file-exists-p (expand-file-name (concat ont-directory ont-initfile)))
       (load-file (expand-file-name (concat ont-directory ont-initfile)))
     (message "The `ont-directory' has not been found...skipped.")))
 
-
-;;; ___________________________________________________________________________
 (provide 'onboard)
 ;;; onboard.el ends here
