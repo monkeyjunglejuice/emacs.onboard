@@ -235,52 +235,47 @@ or `system-configuration' directly."
 ;;; FONTS _____________________________________________________________________
 
 
+;;  This function will be called later under "Theme configuration"
+
 (defun onb-fonts ()
   "The height value is in 1/10 pt, so 130 will give 13 pt."
   ;; Set the default monospaced font
   (set-face-attribute 'default nil
-                      ;; :family "IBM Plex Mono"
+                      ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 130)
   ;; Set an alternative monospaced font (optional)
   (set-face-attribute 'fixed-pitch nil
-                      ;; :family "IBM Plex Mono"
+                      ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 130)
   ;; Set another alternative monospaced fonts, preferably with serifs (optional)
   (set-face-attribute 'fixed-pitch-serif nil
-                      ;; :family "IBM Plex Mono"
+                      ;; :family "Iosevka Slab"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 130)
   ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
   (set-face-attribute 'variable-pitch nil
-                      ;; :family "Crimson Pro"
+                      ;; :family "Iosevka Aile"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 150))
-
-
-;; Set the modeline fonts. This function will be called later
-;; to have an effect: Uncomment `onb-load-after-theme-light-hook' and
-;; `onb-load-after-theme-light-hook' further down under "Theme configuration"
-
-(defun onb-modeline ()
-  "Custom modeline styling."
+                      :height 130)
+  ;; Set the modeline fonts
   (set-face-attribute 'mode-line nil
-                      ;; :family "IBM Plex Mono"  ; inherited from `default'
+                      ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 100)
   (set-face-attribute 'mode-line-inactive nil
-                      ;; :family "IBM Plex Mono"  ; inherited from `default'
+                      ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
