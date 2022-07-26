@@ -554,7 +554,6 @@ or `system-configuration' directly."
 ;; If you would like to install the 3rd-party package(s), change 'no to 'yes
 ;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
 (onb-ensure-packages 'no '(amx))
-
 (when (fboundp #'amx)
   (global-set-key (kbd "M-x") #'amx)
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
@@ -687,7 +686,6 @@ or `system-configuration' directly."
 ;; If you would like to install the 3rd-party package, change 'no into 'yes
 ;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
 (onb-ensure-packages 'no '(xclip))
-
 (if (fboundp #'xclip-mode) (xclip-mode 1))
 
 
