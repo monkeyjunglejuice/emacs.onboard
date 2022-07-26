@@ -1008,7 +1008,7 @@ or `system-configuration' directly."
 
 
 ;; This can be any graphical web browser,
-;; but also a text-mode web browser within Emacs.
+;; but also a text-mode web browser within Emacs
 
 
 ;; PRIMARY: Set Emacs' `browse-url' function to …
