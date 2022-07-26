@@ -1063,83 +1063,6 @@ or `system-configuration' directly."
       calendar-weekend-days '(6 0))
 
 
-;;; ORG-MODE __________________________________________________________________
-
-
-(require 'org)
-
-;; Set the Org paths
-(setq org-directory (expand-file-name "~/Org/"))
-
-(defun onb-org-directory ()
-  "Show the Org directory in Dired."
-  (interactive)
-  (dired org-directory))
-
-(global-set-key (kbd "C-c o d") #'onb-org-directory)
-
-
-(setq org-default-notes-file (concat org-directory "notes.org"))
-
-(defun onb-org-notes ()
-  "Visit the Org main file."
-  (interactive)
-  (find-file (concat org-directory "notes.org")))
-
-(global-set-key (kbd "C-c o o") #'onb-org-notes)
-
-
-;; Global todo states
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
-
-;; Capture: put newer entries on top
-(setq org-reverse-note-order t)
-(global-set-key (kbd "C-c o c") #'org-capture)
-
-;; Agenda
-(setq org-agenda-files (list org-directory))
-(global-set-key (kbd "C-c o a") #'org-agenda)
-
-;; Links
-(global-set-key (kbd "C-c l") #'org-store-link)
-(global-set-key (kbd "C-c C-l") #'org-insert-link)
-(define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
-
-
-;; Literate programming – activate code blocks via Babel languages
-(org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t)))
-
-;; Insert snippets
-
-(defun onb-org-insert-caption ()
-  "Insert caption snippet."
-  (interactive)
-  (insert "#+caption: "))
-
-(define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
-
-
-;;; TEXT MODES / WRITING ______________________________________________________
-
-
-;; Visual word wrapping
-(add-hook 'text-mode-hook #'visual-line-mode)
-
-;; Sentences end with a single space
-(setq sentence-end-double-space nil)
-
-
-;; Indicate trailing whitespace in "text" modes?
-(add-hook 'text-mode-hook
-          (lambda ()
-            (setq show-trailing-whitespace t)))
-
-;; Cleanup trailing whitespace in "text" modes
-(define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
-
-
 ;;; GENERAL EDITING ___________________________________________________________
 
 
@@ -1239,6 +1162,89 @@ or `system-configuration' directly."
 (define-key flymake-mode-map (kbd "M-g e") #'flymake-show-buffer-diagnostics)
 (define-key flymake-mode-map (kbd "M-g n") #'flymake-goto-next-error)  ; default
 (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)  ; default
+
+
+;;; TEXT MODES / WRITING ______________________________________________________
+
+
+;; Sentences end with a single space
+(setq sentence-end-double-space nil)
+
+
+;; Indicate trailing whitespace in "text" modes?
+(add-hook 'text-mode-hook
+          (lambda ()
+            (setq show-trailing-whitespace t)))
+
+;; Cleanup trailing whitespace in "text" modes
+(define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
+
+
+;;; ORG-MODE __________________________________________________________________
+
+
+(require 'org)
+
+;; Visual word wrapping
+(add-hook 'org-mode-hook #'visual-line-mode)
+
+
+;; Global todo states
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+
+;; Capture: put newer entries on top
+(setq org-reverse-note-order t)
+(global-set-key (kbd "C-c o c") #'org-capture)
+
+;; Agenda
+(setq org-agenda-files (list org-directory))
+(global-set-key (kbd "C-c o a") #'org-agenda)
+
+;; Links
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c C-l") #'org-insert-link)
+(define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
+
+
+;; Set the Org paths
+
+(setq org-directory (expand-file-name "~/Org/"))
+
+(defun onb-org-directory ()
+  "Show the Org directory in Dired."
+  (interactive)
+  (dired org-directory))
+
+(global-set-key (kbd "C-c o d") #'onb-org-directory)
+
+
+(setq org-default-notes-file (concat org-directory "notes.org"))
+
+(defun onb-org-notes ()
+  "Visit the Org main file."
+  (interactive)
+  (find-file (concat org-directory "notes.org")))
+
+(global-set-key (kbd "C-c o o") #'onb-org-notes)
+
+
+;; Insert snippets
+
+(defun onb-org-insert-caption ()
+  "Insert caption snippet."
+  (interactive)
+  (insert "#+caption: "))
+
+(define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
+
+
+;; Literate programming
+
+;; Activate code blocks via Babel languages
+;; Further languages are configured within their specific "onboard-*.el" files
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((emacs-lisp . t)))
 
 
 ;;; LISP LANGUAGES ____________________________________________________________
