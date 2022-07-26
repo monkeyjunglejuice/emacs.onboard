@@ -1275,12 +1275,6 @@ or `system-configuration' directly."
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
-;;; HTML/CSS __________________________________________________________________
-
-
-(setq css-indent-offset 2)
-
-
 ;;; LOAD EMACS ONTOP __________________________________________________________
 
 
