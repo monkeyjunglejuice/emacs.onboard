@@ -393,13 +393,11 @@ or `system-configuration' directly."
 
 (add-hook 'onb-load-after-theme-light-hook
           (lambda ()
-            (onb-fonts)
-            (onb-modeline)))
+            (onb-fonts)))
 
 (add-hook 'onb-load-after-theme-dark-hook
           (lambda ()
-            (onb-fonts)
-            (onb-modeline)))
+            (onb-fonts)))
 
 ;; ////////////////////////////////////////////////////////////////////////////
 
