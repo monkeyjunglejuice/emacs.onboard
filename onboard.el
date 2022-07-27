@@ -577,7 +577,7 @@ or `system-configuration' directly."
 
 
 ;; Default window navigation – simply switch to the next window in order
-;; Added for convenience; default key binding is "C-x o"
+;; Added for convenience; the default keybinding is "C-x o"
 (global-set-key (kbd "M-SPC") #'other-window)
 
 
@@ -767,8 +767,8 @@ or `system-configuration' directly."
 ;;; LOCKFILES _________________________________________________________________
 
 
-;; Let Emacs keep track of files currently visited
-(setq create-lockfiles nil)
+;; Let Emacs keep track of files currently visited?
+(setq create-lockfiles t)
 
 
 ;;; AUTO-SAVE _________________________________________________________________
@@ -796,6 +796,8 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-S-r") #'isearch-backward)
 
 ;; Search and replace
+;; The 'query-' variant  asks with each string. Confirm with "SPC",
+;; or jump to the next via "n"
 (global-set-key (kbd "M-%") #'query-replace-regexp)
 (global-set-key (kbd "C-M-%") #'replace-regexp)
 
