@@ -65,8 +65,8 @@
 ;; GC pauses, but still have it at a higher value than the default to
 ;; experience less mini-interruptions – eg. while scrolling larger buffers.
 (add-hook 'emacs-startup-hook
-           (lambda ()
-             (setq gc-cons-threshold (* 16 1000000))))
+          (lambda ()
+            (setq gc-cons-threshold (* 16 1000000))))
 
 ;; Show a message when garbage collection happens? Useful while tuning the GC
 (setq garbage-collection-messages nil)
@@ -81,12 +81,12 @@
 
 ;; 1st priority
 (add-to-list 'package-archives
-              '("melpa" . "https://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 
 ;; 2nd priority
 ;; Install form melpa-stable' only if a package from 'melpa' is broken
 (add-to-list 'package-archives
-              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; 3rd priority
 ;; There is also Gnu Elpa, which is implicitly active by default
@@ -103,12 +103,12 @@
 
 ;; Highlight current line in the package manager
 (add-hook 'package-menu-mode-hook
-           (lambda ()
-             (hl-line-mode 1)))
+          (lambda ()
+            (hl-line-mode 1)))
 
 
 ;; You can use this function to install packages declaratively within
-;; an Emacs Lisp file – eg. directly here in this file
+;; an Emacs Lisp file – eg. directly in here
 (defun onb-package (action package-list)
   "Helper function to install 3rd-party packages declaratively.
 PACKAGE-LIST will be installed if 'install is passed as an argument to ACTION.
@@ -119,7 +119,7 @@ to make sure that certain Emacs Lisp packages will be present on your system."
               (unless (package-installed-p package)
                 (package-refresh-contents)
                 (package-install package nil)))
-            package-list)))
+          package-list)))
 
 (defalias 'ont-package 'onb-package
   "Alias for the function 'onb-package' from Emacs ONBOARD.")
@@ -156,12 +156,12 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 
 ;; Diagnostics
 (add-hook 'emacs-startup-hook
-           (lambda ()
-             (message "Emacs started in %s with %d garbage collections."
-                      (format "%.3f seconds"
-                              (float-time
-                               (time-subtract after-init-time before-init-time)))
-                      gcs-done)))
+          (lambda ()
+            (message "Emacs started in %s with %d garbage collections."
+                     (format "%.3f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 
 
 ;; Helpers to simplify writing operating system specific code
@@ -218,14 +218,14 @@ or `system-configuration' directly."
                   (concat " " server-name)))))
 
 (add-hook 'emacs-startup-hook
-           (lambda ()
-             "Run functions after loading init files"
-             (onb-frame-title)))
+          (lambda ()
+            "Run functions after loading init files"
+            (onb-frame-title)))
 
 (add-hook 'server-mode-hook
-           (lambda ()
-             "Run functions after entering or leaving 'server-mode'."
-             (onb-frame-title)))
+          (lambda ()
+            "Run functions after entering or leaving 'server-mode'."
+            (onb-frame-title)))
 
 
 ;; Shutdown Emacs server process
@@ -245,45 +245,45 @@ or `system-configuration' directly."
   "The height value is in 1/10 pt, so 130 will give 13 pt."
   ;; Set the default monospaced font
   (set-face-attribute 'default nil
-                       ;; :family "Iosevka Curly"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 130)
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
   ;; Set an alternative monospaced font (optional)
   (set-face-attribute 'fixed-pitch nil
-                       ;; :family "Iosevka Curly"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 130)
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
   ;; Set another alternative monospaced fonts, preferably with serifs (optional)
   (set-face-attribute 'fixed-pitch-serif nil
-                       ;; :family "Iosevka Slab"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 130)
+                      ;; :family "Iosevka Slab"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
   ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
   (set-face-attribute 'variable-pitch nil
-                       ;; :family "Iosevka Aile"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 130)
+                      ;; :family "Iosevka Aile"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
   ;; Set the modeline fonts
   (set-face-attribute 'mode-line nil
-                       ;; :family "Iosevka Curly"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 100)
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 100)
   (set-face-attribute 'mode-line-inactive nil
-                       ;; :family "Iosevka Curly"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 100))
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 100))
 
 
 ;;; TOGGLE THEME ______________________________________________________________
@@ -396,12 +396,12 @@ or `system-configuration' directly."
 ;; The hooks can also be configured via "M-x customize-group RET toggle-theme"
 
 (add-hook 'onb-load-after-theme-light-hook
-           (lambda ()
-             (onb-fonts)))
+          (lambda ()
+            (onb-fonts)))
 
 (add-hook 'onb-load-after-theme-dark-hook
-           (lambda ()
-             (onb-fonts)))
+          (lambda ()
+            (onb-fonts)))
 
 ;; ////////////////////////////////////////////////////////////////////////////
 
@@ -613,8 +613,8 @@ or `system-configuration' directly."
 (require 'ibuf-ext)
 
 (add-hook 'ibuffer-mode-hook
-           (lambda ()
-             (ibuffer-auto-mode 1)))
+          (lambda ()
+            (ibuffer-auto-mode 1)))
 
 (setq ibuffer-marked-face 'dired-marked)
 
@@ -814,7 +814,7 @@ or `system-configuration' directly."
 ;; Ignore some recently visited files,
 ;; eg. to prevent them from showing up amongst recent files after package upgrades
 (add-to-list 'recentf-exclude
-              (expand-file-name (concat user-emacs-directory "elpa/")))
+             (expand-file-name (concat user-emacs-directory "elpa/")))
 
 
 ;; Use 'completing-read' to choose between recent files
@@ -874,11 +874,11 @@ or `system-configuration' directly."
 ;; Directory listings
 
 (add-hook 'dired-mode-hook
-           (lambda ()
-             ;; Hide details in file listings? Toggle via "S-("
-             (dired-hide-details-mode 1)
-             ;; Highlight current line?
-             (hl-line-mode 1)))
+          (lambda ()
+            ;; Hide details in file listings? Toggle via "S-("
+            (dired-hide-details-mode 1)
+            ;; Highlight current line?
+            (hl-line-mode 1)))
 
 ;; Listing columns; Switch arguments with "C-u s"
 ;; Show all files: -DlhFA and hide backups with -B
@@ -1102,8 +1102,8 @@ or `system-configuration' directly."
 ;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode" or
 ;; set it here for all programming modes. Goto line: "M-g M-g"
 (add-hook 'prog-mode-hook
-           (lambda ()
-             (display-line-numbers-mode -1)))
+          (lambda ()
+            (display-line-numbers-mode -1)))
 
 
 ;;; INDENTATION _______________________________________________________________
@@ -1136,8 +1136,8 @@ or `system-configuration' directly."
 
 ;; Indicate trailing whitespace in programming modes?
 (add-hook 'prog-mode-hook
-           (lambda ()
-             (setq show-trailing-whitespace t)))
+          (lambda ()
+            (setq show-trailing-whitespace t)))
 
 ;; Cleanup trailing whitespace in programming modes
 (define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
@@ -1177,8 +1177,8 @@ or `system-configuration' directly."
 
 ;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
-           (lambda ()
-             (setq show-trailing-whitespace t)))
+          (lambda ()
+            (setq show-trailing-whitespace t)))
 
 ;; Cleanup trailing whitespace in "text" modes
 (define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
