@@ -266,7 +266,7 @@ or `system-configuration' directly."
                       :height 130)
   ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
   (set-face-attribute 'variable-pitch nil
-                      ;; :family "Iosevka Aile"
+                      ;; :family "Iosevka Etoile"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
