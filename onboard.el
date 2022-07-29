@@ -755,7 +755,7 @@ or `system-configuration' directly."
 ;; into 'install and evaluate the expression – either via "C-M-x",
 ;; or simply restart Emacs:
 (onb-package 'ignore '(xclip))
-(if (fboundp #'xclip-mode) (xclip-mode 1))
+(when (fboundp #'xclip-mode) (xclip-mode 1))
 
 
 ;; Copy the full path of the current file
