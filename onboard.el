@@ -1057,11 +1057,11 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
 
 ;; Pretend to be an iPhone
-;; (setq url-user-agent
-;;       "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Mobile/15E148 Safari/604.1")
+(setq url-user-agent
+      "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Mobile/15E148 Safari/604.1")
 
 ;; Or pretend to be the W3m text-mode browser
-(setq url-user-agent "w3m/0.5.3+git20190105")
+;; (setq url-user-agent "w3m/0.5.3+git20190105")
 
 (setq url-privacy-level '(email lastloc os emacs))
 (url-setup-privacy-info)
