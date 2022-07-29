@@ -1,7 +1,5 @@
 ;;; onboard.el --- Emacs ONBOARD Starter Kit  -*- lexical-binding: t; -*-
-
 ;; Copyright (C) 2021–2022 Dan Dee
-
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Version: 0.3.0
