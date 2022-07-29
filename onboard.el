@@ -102,8 +102,8 @@
 
 ;; Highlight current line in the package manager
 (add-hook 'package-menu-mode-hook
-          (lambda ()
-            (hl-line-mode 1)))
+           (lambda ()
+             (hl-line-mode 1)))
 
 
 ;; Install packages declaratively within an Emacs Lisp file
@@ -117,7 +117,7 @@ to make sure that certain Emacs Lisp packages will be present on your system."
               (unless (package-installed-p package)
                 (package-refresh-contents)
                 (package-install package nil)))
-          package-list)))
+            package-list)))
 
 (defalias 'ont-package 'onb-package
   "Alias for the function 'onb-package' from Emacs ONBOARD.")
@@ -253,45 +253,47 @@ or `system-configuration' directly."
   "The height value is in 1/10 pt, so 130 will give 13 pt."
   ;; Set the default monospaced font
   (set-face-attribute 'default nil
-                       ;; :family "Iosevka Curly"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 130)
-  ;; Set an alternative monospaced font (optional)
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
+  ;; Set an alternative monospaced font. Can be the same as above.
+  ;; It should have the same character width as the default font
   (set-face-attribute 'fixed-pitch nil
-                       ;; :family "Iosevka Curly"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 130)
-  ;; Set another alternative monospaced fonts, preferably with serifs (optional)
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
+  ;; Set an alternative monospaced font, preferably with serifs (optional)
+  ;; It should have the same character width as the other two fonts above
   (set-face-attribute 'fixed-pitch-serif nil
-                       ;; :family "Iosevka Slab"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 130)
+                      ;; :family "Iosevka Slab"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
   ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
   (set-face-attribute 'variable-pitch nil
-                       ;; :family "Iosevka Etoile"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 130)
+                      ;; :family "Iosevka Etoile"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 130)
   ;; Set the modeline fonts
   (set-face-attribute 'mode-line nil
-                       ;; :family "Iosevka Curly"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 100)
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 100)
   (set-face-attribute 'mode-line-inactive nil
-                       ;; :family "Iosevka Curly"
-                       :slant  'normal
-                       :weight 'normal
-                       :width  'normal
-                       :height 100))
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 100))
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -409,8 +411,8 @@ or `system-configuration' directly."
             (onb-fonts)))
 
 (add-hook 'onb-load-after-theme-dark-hook
-           (lambda ()
-             (onb-fonts)))
+          (lambda ()
+            (onb-fonts)))
 
 ;; ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
 
@@ -866,7 +868,7 @@ or `system-configuration' directly."
 ;; Ignore some recently visited files,
 ;; eg. to prevent them from showing up amongst recent files after package upgrades
 (add-to-list 'recentf-exclude
-             (expand-file-name (concat user-emacs-directory "elpa/")))
+              (expand-file-name (concat user-emacs-directory "elpa/")))
 
 
 ;; Use 'completing-read' to choose between recent files
@@ -922,11 +924,11 @@ or `system-configuration' directly."
 
 ;; Directory listings
 (add-hook 'dired-mode-hook
-          (lambda ()
-            ;; Hide details in file listings? Toggle via "S-("
-            (dired-hide-details-mode 1)
-            ;; Highlight current line?
-            (hl-line-mode 1)))
+           (lambda ()
+             ;; Hide details in file listings? Toggle via "S-("
+             (dired-hide-details-mode 1)
+             ;; Highlight current line?
+             (hl-line-mode 1)))
 
 ;; Listing columns; Switch arguments with "C-u s"
 ;; Show all files: -DlhFA and hide backups with -B
@@ -1171,8 +1173,8 @@ or `system-configuration' directly."
 ;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode" or
 ;; set it here for all programming modes. Goto line: "M-g M-g"
 (add-hook 'prog-mode-hook
-           (lambda ()
-             (display-line-numbers-mode -1)))
+          (lambda ()
+            (display-line-numbers-mode -1)))
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -1205,17 +1207,15 @@ or `system-configuration' directly."
 
 ;; Indicate trailing whitespace in programming modes?
 (add-hook 'prog-mode-hook
-           (lambda ()
-             (setq show-trailing-whitespace t)))
-
+          (lambda ()
+            (setq show-trailing-whitespace t)))
 ;; Cleanup trailing whitespace in programming modes
 (define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 ;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
-           (lambda ()
-             (setq show-trailing-whitespace t)))
-
+          (lambda ()
+            (setq show-trailing-whitespace t)))
 ;; Cleanup trailing whitespace in "text" modes
 (define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
