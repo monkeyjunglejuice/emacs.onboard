@@ -48,8 +48,9 @@
 ;;; Code:
 
 
-;;; GARBAGE COLLECTION ________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; GARBAGE COLLECTION
+;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
 
 
 ;; Temporarily set a high value of 256 MB to trigger less garbage collections
@@ -67,8 +68,10 @@
 (setq garbage-collection-messages nil)
 
 
-;;; PACKAGE MANAGEMENT ________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; PACKAGE MANAGEMENT
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages>
+;; ... or "M-x info-emacs-manual s packages RET" to read it within Emacs
 
 
 ;; Browse, select and install 3rd-party packages with "M-x list-packages RET"
@@ -131,7 +134,8 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 ;; while the cursor is placed somewhere within a function application form.
 
 
-;;; SYSTEM ____________________________________________________________________
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; SYSTEM
 
 
 ;; Free the default "C-z" key binding to make it an additional prefix key
@@ -160,7 +164,11 @@ to make sure that certain Emacs Lisp packages will be present on your system."
                      gcs-done)))
 
 
-;; Helpers to simplify writing operating system specific code
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;; HELPERS
+
+
+;; Simplify writing operating-system-specific code
 
 (defun onb-linp ()
   "True if `system-type' is Linux or something compatible.
@@ -195,18 +203,19 @@ or `system-configuration' directly."
   (dired user-emacs-directory))
 
 
-;;; SERVER ____________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server
 
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; SERVER
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server>
+;; ... or "M-x info-emacs-manual s server RET" to read it within Emacs
 
-;; Running Emacs as a daemon: "M-x info-emacs-manual" <s> server <RET>
 
 (require 'server)
 
 ;; Display the name of the Emacs server process in the frame title
 ;; to see easily to which server process a client is connected to
 ;; Further information:
-;; --> https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html
+;; <https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html>
 
 (defun onb-frame-title ()
   "Set a custom frame title."
@@ -234,8 +243,9 @@ or `system-configuration' directly."
   (kill-emacs))
 
 
-;;; FONTS _____________________________________________________________________
-;;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; FONTS
+;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
 
 
 ;;  This function will be called later under "Theme configuration"
@@ -285,7 +295,8 @@ or `system-configuration' directly."
                        :height 100))
 
 
-;;; TOGGLE THEME ______________________________________________________________
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; TOGGLE THEME
 
 
 ;; Default/fallback definitions – don't change them here,
@@ -367,8 +378,8 @@ or `system-configuration' directly."
    (t (message
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
-;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+;; ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
 
 ;;; THEME CONFIG
 
@@ -402,14 +413,15 @@ or `system-configuration' directly."
            (lambda ()
              (onb-fonts)))
 
+;; ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
 
-;; ////////////////////////////////////////////////////////////////////////////
 
 ;; Load the theme eventually
 (onb-load-theme-default)
 
 
-;;; USER INTERFACE ____________________________________________________________
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; USER INTERFACE
 
 
 ;; Default frame settings – start with an empty alist
@@ -431,15 +443,20 @@ or `system-configuration' directly."
 ;; (add-to-list 'default-frame-alist '(top . 0))
 
 
-;; Dont' show the fringe on that side
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes
+;; Fringe: choose on which sides (not) to show it
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
 
-;; Set the cursor type
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; CURSOR
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
+
+
 ;; To learn about available cursors, place your cursor behind 'cursor-type'
-;; in the code below or do "M-x describe-symbol" <RET> cursor-type <RET>
+;; in the code below or do "M-x describe-symbol RET cursor-type RET"
+
+;; Set the cursor type
 ;; Uncomment the following expression to change the curser to a vertical bar
 ;; (add-to-list 'default-frame-alist '(cursor-type . (bar . 2)))
 
@@ -476,10 +493,11 @@ or `system-configuration' directly."
 
 ;; Turn off alarms?
 (setq ring-bell-function 'ignore)
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; SMOOTH SCROLLING
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
 
 
-;; Smooth scrolling
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling
 (setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))
               mouse-wheel-progressive-speed t
               mouse-wheel-follow-mouse t
@@ -491,19 +509,19 @@ or `system-configuration' directly."
 
 ;; Redraw screen – useful when running Emacs in a Windows terminal emulator
 (global-set-key (kbd "C-c r d") #'redraw-display)
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; PINENTRY
 
 
-;; Pinentry
 (require 'epg-config)
 (setq epg-pinentry-mode 'loopback)
 
 
-;;; MODELINE / ECHO AREA / MINIBUFFER _________________________________________
-
-
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Echo-Area
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; MODELINE / ECHO AREA / MINIBUFFER
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line>
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Echo-Area>
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer>
 
 
 ;; Show the buffer size in the modeline
@@ -528,16 +546,18 @@ or `system-configuration' directly."
 (fset 'yes-or-no-p 'y-or-n-p)
 
 
-;;; ELDOC _____________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; ELDOC
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 
 
 (setq eldoc-echo-area-use-multiline-p t
       eldoc-minor-mode-string "")
 
 
-;;; COMPLETION ________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; COMPLETION
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete>
 
 
 (require 'icomplete)
@@ -582,8 +602,10 @@ or `system-configuration' directly."
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
 
 
-;;; WINDOW MANAGEMENT _________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; WINDOW MANAGEMENT
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows>
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience>
 
 
 ;; Emacs often opens buffers in new windows. Let's make window splitting and
@@ -607,9 +629,6 @@ or `system-configuration' directly."
 ;; Added for convenience; the default keybinding is "C-x o"
 (global-set-key (kbd "M-SPC") #'other-window)
 
-
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience
-
 ;; Navigate windows by direction instead
 ;; (require 'windmove)
 ;; (setq windmove-wrap-around nil)
@@ -625,8 +644,9 @@ or `system-configuration' directly."
 (define-key winner-mode-map (kbd "C-x 4 r") #'winner-redo)
 
 
-;;; BUFFERS ___________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; BUFFERS
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
 
 ;; Ibuffer – the buffer manager
@@ -666,13 +686,14 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c k") #'bury-buffer)
 
 
-;;; SCRATCH BUFFER ____________________________________________________________
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; SCRATCH BUFFER
 
 
 ;; Set an initial major mode for the *scratch* buffer:
 
-;; Lisp interaction mode – that's the default
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction
+;; Lisp interaction mode – that was the default
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction>
 ;; (setq initial-major-mode #'lisp-interaction-mode)
 
 ;; Org-mode — for general writing and notes and literate programming
@@ -695,9 +716,9 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c s s") #'onb-scratch)
 
 
-;;; CLIPBOARD, COPY & PASTE ___________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; CLIPBOARD, COPY & PASTE
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing>
 
 (require 'select)
 
@@ -773,10 +794,12 @@ or `system-configuration' directly."
   (global-set-key (kbd "C-z C-y") 'onb-wsl-paste))
 
 
-;;; BACKUP ____________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; BACKUP
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup>
 
-;; Make backups of all edited files
+
+;; Make backup before editing
 (setq backup-by-copying t
       kept-new-versions 10
       kept-old-versions 3
@@ -789,32 +812,37 @@ or `system-configuration' directly."
       `(("." . ,(concat user-emacs-directory "backup/"))))
 
 
-;;; LOCKFILES _________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; LOCKFILES
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking>
 
 
 ;; Let Emacs keep track of files currently visited?
 (setq create-lockfiles nil)
 
 
-;;; AUTO-SAVE _________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; AUTO-SAVE
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save>
 
 
 (setq auto-save-default nil
       auto-save-interval 0)
 
 
-;;; HELP ______________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; HELP
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
+
 
 ;; Show all options when running 'apropos' (fulltext search) "C-h a"
 (require 'apropos)
 (setq apropos-do-all t)
 
 
-;;; SEARCH ____________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; SEARCH
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
 
 
 ;; Switch search functions to make regex-search the default
@@ -830,7 +858,8 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-M-%") #'replace-regexp)
 
 
-;;; RECENT FILES ______________________________________________________________
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; RECENT FILES
 
 
 (require 'recentf)
@@ -857,8 +886,9 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x f") #'onb-find-recentf)
 
 
-;;; DIRED _____________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; DIRED
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired>
 
 
 (require 'dired)
@@ -960,8 +990,13 @@ or `system-configuration' directly."
     (find-alternate-file "..")))
 
 
-;;; COMINT ____________________________________________________________________
+;; Set new keybinding resembling "C-x C-f" for visiting files
+;; Added for convenience; default key binding is "C-x d"
+(global-set-key (kbd "C-x C-d") #'dired)
 
+
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; COMINT
 
 (require 'comint)
 
@@ -969,11 +1004,11 @@ or `system-configuration' directly."
       comint-prompt-read-only t)
 
 
-;;; ESHELL ____________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/eshell.html
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; ESHELL
+;; <https://www.gnu.org/software/emacs/manual/html_mono/eshell.html>
 
-
-;; Eshell is *not* a terminal emulator, but a *shell* equivalent to Bash or Fish
+;; Eshell is not a terminal emulator, but a shell equivalent to Bash or Fish
 ;; that runs within Emacs. It is independent from the OS. Eshell looks like
 ;; a Posix shell superficially, but is also a REPL for Emacs Lisp expressions.
 
@@ -989,8 +1024,8 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x x e") #'eshell)
 
 
-;;; SHELL _____________________________________________________________________
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; SHELL
 
 ;; Issue shell commands and display their output
 
@@ -1002,11 +1037,10 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x x s") #'shell)
 
 
-;;; PROCED ____________________________________________________________________
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; PROCED
 
-
-;; Show and manage OS processes
-
+;; Show and manage OS processes, like the command line programs top and htop
 
 (require 'proced)
 
@@ -1016,8 +1050,8 @@ or `system-configuration' directly."
               proced-descend t)
 
 
-;;; NET-UTILS _________________________________________________________________
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; NET-UTILS
 
 (require 'net-utils)
 
@@ -1025,9 +1059,9 @@ or `system-configuration' directly."
       netstat-program-options '("-atupe"))
 
 
-;;; BUILT-IN WEB BROWSER "EWW" ________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; BUILT-IN WEB BROWSER "EWW"
+;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
 
 ;; Pretend to be an iPhone
 ;; (setq url-user-agent
@@ -1040,9 +1074,9 @@ or `system-configuration' directly."
 (url-setup-privacy-info)
 
 
-;;; PRIMARY WEB BROWSER ______________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hyperlinking
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; PRIMARY WEB BROWSER
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hyperlinking>
 
 ;; This can be any graphical web browser, but also a built-in web browser
 
@@ -1062,8 +1096,8 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c w w") #'browse-url)
 
 
-;; SECONDARY WEB BROWSER ______________________________________________________
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;; SECONDARY WEB BROWSER
 
 ;; Set an alternative browser
 (setq browse-url-secondary-browser-function #'browse-web)
@@ -1072,9 +1106,9 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c w W") #'browse-web)
 
 
-;;; EMAIL SENDING _____________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; EMAIL SENDING
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail>
 
 ;; TODO: Send emails directly from Emacs using SMTP – example template
 
@@ -1102,9 +1136,9 @@ or `system-configuration' directly."
 (setq message-kill-buffer-on-exit t)
 
 
-;;; CALENDAR __________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Calendar_002fDiary
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; CALENDAR
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Calendar_002fDiary>
 
 (require 'calendar)
 
@@ -1113,9 +1147,9 @@ or `system-configuration' directly."
       calendar-weekend-days '(6 0))
 
 
-;;; GENERAL EDITING ___________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Basic
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; GENERAL EDITING
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Basic>
 
 ;; UTF-8
 (prefer-coding-system 'utf-8)
@@ -1143,9 +1177,9 @@ or `system-configuration' directly."
 (global-set-key (kbd "M-z") #'zap-up-to-char)
 
 
-;;; LINE NUMBERS ______________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; LINE NUMBERS
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom>
 
 ;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode" or
 ;; set it here for all programming modes. Goto line: "M-g M-g"
@@ -1154,8 +1188,9 @@ or `system-configuration' directly."
              (display-line-numbers-mode -1)))
 
 
-;;; INDENTATION _______________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Indentation
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; INDENTATION
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Indentation>
 
 (setq-default indent-tabs-mode nil ; don't use tabs but spaces
               tab-width 2)         ; set display width for tab characters
@@ -1165,9 +1200,9 @@ or `system-configuration' directly."
 (setq backward-delete-char-untabify-method 'hungry)
 
 
-;;; BRACKETS / PARENTHESIS ____________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; BRACKETS / PARENTHESIS
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses>
 
 ;; How to display matching parens? General `show-paren-mode' configuration
 (setq show-paren-style 'parenthesis
@@ -1177,9 +1212,9 @@ or `system-configuration' directly."
 ;; (add-hook 'prog-mode-hook #'electric-pair-mode)
 
 
-;;; WHITESPACE ________________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Useless-Whitespace
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; WHITESPACE
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Useless-Whitespace>
 
 ;; Indicate trailing whitespace in programming modes?
 (add-hook 'prog-mode-hook
@@ -1199,9 +1234,9 @@ or `system-configuration' directly."
 (define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
-;;; SYNTAX CHECK ______________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Flymake
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; SYNTAX CHECK / LINTER
+;; <https://www.gnu.org/software/emacs/manual/html_mono/flymake.html>
 
 (require 'flymake)
 
@@ -1225,21 +1260,22 @@ or `system-configuration' directly."
 (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)  ; default
 
 
-;;; TEXT MODES / WRITING ______________________________________________________
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; TEXT MODES / WRITING
 
 ;; Sentences end with a single space
 (setq sentence-end-double-space nil)
 
 
-;;; ORG-MODE __________________________________________________________________
-;; --> https://orgmode.org/
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; ORG-MODE
+;; <https://orgmode.org/>
+;; <https://www.gnu.org/software/emacs/manual/html_mono/org.html>
 
 (require 'org)
 
 ;; Visual word wrapping
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
 (add-hook 'org-mode-hook #'visual-line-mode)
 
 ;; Global todo states
@@ -1293,9 +1329,9 @@ or `system-configuration' directly."
 (define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
 
 
-;;; LITERATE PROGRAMMING ______________________________________________________
-;; --> https://orgmode.org/worg/org-contrib/babel/intro.html
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; LITERATE PROGRAMMING
+;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
 ;; Activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)))
@@ -1303,9 +1339,9 @@ or `system-configuration' directly."
 ;; Further languages are configured within their specific "onboard-*.el" files
 
 
-;;; LISP LANGUAGES ____________________________________________________________
-;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp
-
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; LISP LANGUAGES
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
 (defun onb-setup-lisp-languages ()
   "Basic support for languages from the Lisp family."
@@ -1332,6 +1368,6 @@ or `system-configuration' directly."
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
-;; ____________________________________________________________________________
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 (provide 'onboard)
 ;;; onboard.el ends here
