@@ -187,20 +187,33 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type "darwin"))
 
-;; Path of this file
+
+;; Go to home directory
+(defun onb-goto-home-directory ()
+  "Open the home directory in Dired."
+  (interactive)
+  (dired "~/"))
+
+;; Open the '~/.emacs.d' directory in the Dired file manager
+(defun onb-goto-user-emacs-directory ()
+  "Open the Emacs directory in Dired, which is ~/.emacs.d usually."
+  (interactive)
+  (dired user-emacs-directory))
 
 ;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
-(defun onb-user-init-file ()
+(defun onb-goto-user-init-file ()
   "Visit the init file."
   (interactive)
   (find-file user-init-file))
 
-;; Open the '~/.emacs.d' directory in the Dired file manager
-(defun onb-user-emacs-directory ()
-  "Open the Emacs directory in Dired."
-  (interactive)
-  (dired user-emacs-directory))
+;; Full path of this file
+(defvar onb-onboard-file (or load-file-name (buffer-file-name))
+  "Full path of the onboard.el file.")
 
+(defun onb-goto-onboard-file ()
+  "Visit the onboard.el file."
+  (interactive)
+  (find-file onb-onboard-file))
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -247,7 +260,7 @@ or `system-configuration' directly."
 ;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
 
 
-;;  This function will be called later under "Theme configuration"
+;;  This function will be called later under 'THEME CONFIG'
 
 (defun onb-fonts ()
   "The height value is in 1/10 pt, so 130 will give 13 pt."
@@ -448,6 +461,29 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
+;; Menu bar: on/off by default?
+(menu-bar-mode 1)
+
+;; Scroll bar: on/off by default?
+;; (if (fboundp 'scroll-bar-mode) ; Emacs 26.1 compatibility
+;;     (scroll-bar-mode -1))
+
+;; Tool bar: on/off by default?
+(if (fboundp 'tool-bar-mode) ; Emacs 26.1 compatibility
+    (tool-bar-mode -1))
+
+;; Tooltips: enable/disable?
+(tooltip-mode -1)
+
+;; Startup screen: on/off by default?
+(setq inhibit-startup-screen t)
+
+;; Alarms: turn off?
+(setq ring-bell-function 'ignore)
+
+;; Redraw the display – useful when running Emacs in a Windows terminal emulator
+(global-set-key (kbd "C-c r d") #'redraw-display)
+
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; CURSOR
@@ -474,25 +510,6 @@ or `system-configuration' directly."
 (setq hl-line-sticky-flag nil)
 
 
-;; Turn the menu bar on/off by default?
-(menu-bar-mode 1)
-
-;; Turn the scroll bar on/off by default?
-;; (if (fboundp 'scroll-bar-mode) ; Emacs 26.1 compatibility
-;;     (scroll-bar-mode -1))
-
-;; Turn the tool bar on/off by default?
-(if (fboundp 'tool-bar-mode) ; Emacs 26.1 compatibility
-    (tool-bar-mode -1))
-
-;; Enable/disable tooltips?
-(tooltip-mode -1)
-
-;; Turn off the startup screen?
-(setq inhibit-startup-screen t)
-
-;; Turn off alarms?
-(setq ring-bell-function 'ignore)
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; SMOOTH SCROLLING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
@@ -507,8 +524,6 @@ or `system-configuration' directly."
               scroll-preserve-screen-position 1)
 
 
-;; Redraw screen – useful when running Emacs in a Windows terminal emulator
-(global-set-key (kbd "C-c r d") #'redraw-display)
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; PINENTRY
 
@@ -765,18 +780,19 @@ or `system-configuration' directly."
 
 
 ;; Copy & paste between Windows and Emacs running within WSL
-;; (Windows Subsysten for Linux) — which is technically a Linux, not Windows
+;; (Windows Subsysten for Linux) — which is technically a Linux, not ;Window
 
-(if (onb-linp)
-    ;; Copy text from an Emacs buffer for pasting it into a Windows app
-    (defun onb-wsl-copy (start end)
-      "Copy currently selected text into the Windows clipboard."
-      (interactive "r")
-      (let ((default-directory "/mnt/c/"))
-        (shell-command-on-region start end "clip.exe")))
-  (global-set-key (kbd "C-z C-w") 'onb-wsl-copy)
+;; Copy "kill" text from an Emacs buffer for pasting it into a Windows app
+(when (onb-linp)
+  (defun onb-wsl-copy (start end)
+    "Copy selected text into the Windows clipboard."
+    (interactive "r")
+    (let ((default-directory "/mnt/c/"))
+      (shell-command-on-region start end "clip.exe")))
+  (global-set-key (kbd "C-z C-w") 'onb-wsl-copy))
 
-  ;; Paste (yank) text into Emacs that has been copied from a Windows app
+;; Paste "yank" text into Emacs buffer that has been copied from a Windows app
+(when (onb-linp)
   (defun onb-wsl-paste ()
     "Paste contents from the Windows clipboard into the Emacs buffer."
     (interactive)
@@ -955,18 +971,6 @@ or `system-configuration' directly."
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
   (define-key dired-mode-map (kbd "M-RET") #'onb-dired-xdg-open))
-
-
-;; Go to home directory
-(defun onb-home-directory ()
-  "Open the home directory in Dired."
-  (interactive)
-  (dired "~/"))
-
-
-;; Set new keybinding resembling "C-x C-f" for visiting files
-;; Added for convenience; default key binding is "C-x d"
-(global-set-key (kbd "C-x C-d") #'dired)
 
 
 ;; Reuse buffers – don't create a new one for each directory visited
