@@ -13,8 +13,8 @@
 ;;; Commentary:
 ;; The goal of Emacs ONBOARD is to offer a clean slate to build your personal
 ;; Emacs config. It stays as close as possible to vanilla Emacs, but offers some
-;; convenience and a better user experience, while only relying
-;; on built-in packages.
+;; convenience and a better user experience, while only relying on built-in
+;; packages.
 
 ;;; Tested with:
 ;;  [X] Emacs 28.1 from Guix
@@ -48,22 +48,17 @@
 ;;; Code:
 
 
-;;; EARLY INIT ________________________________________________________________
+;;; GARBAGE COLLECTION ________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection
 
-
-;; Code that should run as early as possible and would normally reside
-;; within '~/.emacs.d/early-init.el' for Emacs 27 and higher
-
-
-;; Tune garbage collection
 
 ;; Temporarily set a high value of 256 MB to trigger less garbage collections
 ;; during initialization. The Emacs default is a threshold of 800 KB
 (setq gc-cons-threshold (* 256 1000000))
 
 ;; Then lower the threshold to 16 MB during normal operation to prevent longer
-;; GC pauses, but still have it at a higher value than the default to
-;; experience less mini-interruptions – eg. while scrolling larger buffers.
+;; GC pauses, but still have it at a higher value than the default to experience
+;; less mini-interruptions – eg. while scrolling larger buffers.
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq gc-cons-threshold (* 16 1000000))))
@@ -73,9 +68,10 @@
 
 
 ;;; PACKAGE MANAGEMENT ________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages
 
 
-;; Browse, select and install 3rd-party packages: "M-x list-packages RET"
+;; Browse, select and install 3rd-party packages with "M-x list-packages RET"
 
 (require 'package)
 
@@ -130,15 +126,15 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 ;; (onb-package 'install '(the-matrix-theme))  ; installs the package
 ;; (onb-package 'ignore '(the-matrix-theme))   ; does nothing (default)
 ;;
-;; The installation will be performed when you restart Emacs
-;; or evaluate the function manually – eg. via pressing "C-M-x"
-;; while the cursor is placed somewhere inside a function call.
+;; The installation will be performed when you restart Emacs or
+;; when you evaluate a function manually – eg. via pressing "C-M-x"
+;; while the cursor is placed somewhere within a function application form.
 
 
 ;;; SYSTEM ____________________________________________________________________
 
 
-;; Break the default "C-z" key binding to make it an additional prefix key
+;; Free the default "C-z" key binding to make it an additional prefix key
 ;; in the same way as "C-x" and "C-c"
 (global-unset-key (kbd "C-z"))
 
@@ -184,6 +180,7 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type "darwin"))
 
+;; Path of this file
 
 ;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
 (defun onb-user-init-file ()
@@ -199,6 +196,7 @@ or `system-configuration' directly."
 
 
 ;;; SERVER ____________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server
 
 
 ;; Running Emacs as a daemon: "M-x info-emacs-manual" <s> server <RET>
@@ -208,7 +206,7 @@ or `system-configuration' directly."
 ;; Display the name of the Emacs server process in the frame title
 ;; to see easily to which server process a client is connected to
 ;; Further information:
-;; https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html
+;; --> https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html
 
 (defun onb-frame-title ()
   "Set a custom frame title."
@@ -237,6 +235,7 @@ or `system-configuration' directly."
 
 
 ;;; FONTS _____________________________________________________________________
+;;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts
 
 
 ;;  This function will be called later under "Theme configuration"
@@ -245,45 +244,45 @@ or `system-configuration' directly."
   "The height value is in 1/10 pt, so 130 will give 13 pt."
   ;; Set the default monospaced font
   (set-face-attribute 'default nil
-                      ;; :family "Iosevka Curly"
-                      :slant  'normal
-                      :weight 'normal
-                      :width  'normal
-                      :height 130)
+                       ;; :family "Iosevka Curly"
+                       :slant  'normal
+                       :weight 'normal
+                       :width  'normal
+                       :height 130)
   ;; Set an alternative monospaced font (optional)
   (set-face-attribute 'fixed-pitch nil
-                      ;; :family "Iosevka Curly"
-                      :slant  'normal
-                      :weight 'normal
-                      :width  'normal
-                      :height 130)
+                       ;; :family "Iosevka Curly"
+                       :slant  'normal
+                       :weight 'normal
+                       :width  'normal
+                       :height 130)
   ;; Set another alternative monospaced fonts, preferably with serifs (optional)
   (set-face-attribute 'fixed-pitch-serif nil
-                      ;; :family "Iosevka Slab"
-                      :slant  'normal
-                      :weight 'normal
-                      :width  'normal
-                      :height 130)
+                       ;; :family "Iosevka Slab"
+                       :slant  'normal
+                       :weight 'normal
+                       :width  'normal
+                       :height 130)
   ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
   (set-face-attribute 'variable-pitch nil
-                      ;; :family "Iosevka Etoile"
-                      :slant  'normal
-                      :weight 'normal
-                      :width  'normal
-                      :height 130)
+                       ;; :family "Iosevka Etoile"
+                       :slant  'normal
+                       :weight 'normal
+                       :width  'normal
+                       :height 130)
   ;; Set the modeline fonts
   (set-face-attribute 'mode-line nil
-                      ;; :family "Iosevka Curly"
-                      :slant  'normal
-                      :weight 'normal
-                      :width  'normal
-                      :height 100)
+                       ;; :family "Iosevka Curly"
+                       :slant  'normal
+                       :weight 'normal
+                       :width  'normal
+                       :height 100)
   (set-face-attribute 'mode-line-inactive nil
-                      ;; :family "Iosevka Curly"
-                      :slant  'normal
-                      :weight 'normal
-                      :width  'normal
-                      :height 100))
+                       ;; :family "Iosevka Curly"
+                       :slant  'normal
+                       :weight 'normal
+                       :width  'normal
+                       :height 100))
 
 
 ;;; TOGGLE THEME ______________________________________________________________
@@ -368,8 +367,8 @@ or `system-configuration' directly."
    (t (message
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
-
 ;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 
 ;;; THEME CONFIG
 
@@ -400,11 +399,11 @@ or `system-configuration' directly."
             (onb-fonts)))
 
 (add-hook 'onb-load-after-theme-dark-hook
-          (lambda ()
-            (onb-fonts)))
+           (lambda ()
+             (onb-fonts)))
+
 
 ;; ////////////////////////////////////////////////////////////////////////////
-
 
 ;; Load the theme eventually
 (onb-load-theme-default)
@@ -431,10 +430,14 @@ or `system-configuration' directly."
 ;; Vertical position: set the distance from the top screen edge in pixels
 ;; (add-to-list 'default-frame-alist '(top . 0))
 
+
 ;; Dont' show the fringe on that side
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
+
 ;; Set the cursor type
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display
 ;; To learn about available cursors, place your cursor behind 'cursor-type'
 ;; in the code below or do "M-x describe-symbol" <RET> cursor-type <RET>
 ;; Uncomment the following expression to change the curser to a vertical bar
@@ -449,8 +452,10 @@ or `system-configuration' directly."
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setq visible-cursor nil)
 
+
 ;; Make sure to highlight the current line only in the active window.
 (setq hl-line-sticky-flag nil)
+
 
 ;; Turn the menu bar on/off by default?
 (menu-bar-mode 1)
@@ -472,7 +477,9 @@ or `system-configuration' directly."
 ;; Turn off alarms?
 (setq ring-bell-function 'ignore)
 
+
 ;; Smooth scrolling
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling
 (setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))
               mouse-wheel-progressive-speed t
               mouse-wheel-follow-mouse t
@@ -481,6 +488,11 @@ or `system-configuration' directly."
               scroll-margin 0  ; leave n lines on both screen ends
               scroll-preserve-screen-position 1)
 
+
+;; Redraw screen – useful when running Emacs in a Windows terminal emulator
+(global-set-key (kbd "C-c r d") #'redraw-display)
+
+
 ;; Pinentry
 (require 'epg-config)
 (setq epg-pinentry-mode 'loopback)
@@ -488,6 +500,17 @@ or `system-configuration' directly."
 
 ;;; MODELINE / ECHO AREA / MINIBUFFER _________________________________________
 
+
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Echo-Area
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer
+
+
+;; Show the buffer size in the modeline
+(size-indication-mode 1)
+
+;; Show column number along with line number in modeline
+(column-number-mode 1)
 
 ;; Delete duplicates from the command history
 (setq history-delete-duplicates t)
@@ -504,14 +527,9 @@ or `system-configuration' directly."
 ;; Change all yes/no style questions to y/n style
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Show the buffer size in the modeline
-(size-indication-mode 1)
-
-;; Show column number along with line number in modeline
-(column-number-mode 1)
-
 
 ;;; ELDOC _____________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc
 
 
 (setq eldoc-echo-area-use-multiline-p t
@@ -519,6 +537,7 @@ or `system-configuration' directly."
 
 
 ;;; COMPLETION ________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete
 
 
 (require 'icomplete)
@@ -564,6 +583,7 @@ or `system-configuration' directly."
 
 
 ;;; WINDOW MANAGEMENT _________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows
 
 
 ;; Emacs often opens buffers in new windows. Let's make window splitting and
@@ -575,29 +595,28 @@ or `system-configuration' directly."
          display-buffer-same-window
          display-buffer-in-previous-window)))
 
+;; Display-buffer: avoid resizing
+(setq even-window-sizes nil)
+
+;; Focus follows mouse?
+(setq mouse-autoselect-window nil
+      focus-follows-mouse nil)
+
 
 ;; Default window navigation – simply switch to the next window in order
 ;; Added for convenience; the default keybinding is "C-x o"
 (global-set-key (kbd "M-SPC") #'other-window)
 
 
-;; Navigate windows by direction
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience
+
+;; Navigate windows by direction instead
 ;; (require 'windmove)
 ;; (setq windmove-wrap-around nil)
 ;; (global-set-key (kbd "s-j") #'windmove-down)
 ;; (global-set-key (kbd "s-k") #'windmove-up)
 ;; (global-set-key (kbd "s-h") #'windmove-left)
 ;; (global-set-key (kbd "s-l") #'windmove-right)
-
-
-;; Display-buffer: avoid resizing
-(setq even-window-sizes nil)
-
-
-;; Focus follows mouse?
-(setq mouse-autoselect-window nil
-      focus-follows-mouse nil)
-
 
 ;; Undo/redo window layouts
 (require 'winner)
@@ -607,6 +626,7 @@ or `system-configuration' directly."
 
 
 ;;; BUFFERS ___________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers
 
 
 ;; Ibuffer – the buffer manager
@@ -649,13 +669,22 @@ or `system-configuration' directly."
 ;;; SCRATCH BUFFER ____________________________________________________________
 
 
-;; Empty *scratch* buffer at startup
+;; Set an initial major mode for the *scratch* buffer:
+
+;; Lisp interaction mode – that's the default
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction
+;; (setq initial-major-mode #'lisp-interaction-mode)
+
+;; Org-mode — for general writing and notes and literate programming
+(setq initial-major-mode #'org-mode)
+
+;; Basic text — nothing special
+;; (setq initial-major-mode #'fundamental-mode)
+
+
+;; Should the *scratch* buffer contain some initial content?
 (setq initial-scratch-message "")
 
-;; Set an initial major mode for the *scratch* buffer
-;; (setq initial-major-mode #'lisp-interaction-mode)  ; default
-(setq initial-major-mode #'org-mode)  ; for general writing and notes
-;; (setq initial-major-mode #'fundamental-mode)  ; basic text mode
 
 ;; Quickly jump to the *scratch* buffer
 (defun onb-scratch ()
@@ -667,6 +696,7 @@ or `system-configuration' directly."
 
 
 ;;; CLIPBOARD, COPY & PASTE ___________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing
 
 
 (require 'select)
@@ -674,7 +704,7 @@ or `system-configuration' directly."
 (setq
  ;; Use clipboard
  select-enable-clipboard t
- ;; Use primary selection: mark=copy / middle-click=paste
+ ;; Use primary selection: mark = copy / middle-click = paste
  select-enable-primary t
  ;; When one selects something in another program to pastes it into Emacs,
  ;; but kills something in Emacs before actually pasting it,
@@ -687,16 +717,17 @@ or `system-configuration' directly."
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
-;; If you would like to install the 3rd-party package, change 'no into 'yes
-;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
+;; If you would like to install this 3rd-party package, change 'ignore
+;; into 'install and evaluate the expression – either via "C-M-x",
+;; or simply restart Emacs:
 (onb-package 'ignore '(xclip))
 (if (fboundp #'xclip-mode) (xclip-mode 1))
 
 
-;; Copy the file name (path) of the current file
+;; Copy the full path of the current file
 
 (defun onb-copy-file-name-to-clipboard ()
-  "Copy the current buffer's file name to the clipboard."
+  "Copy the full path of the current buffer's file to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
@@ -707,7 +738,7 @@ or `system-configuration' directly."
                filename))))
 
 
-;; Simple alternative for 'yank-pop'
+;; Simple alternative for 'yank-pop' – present a selection of the kill ring
 
 (defun onb-insert-kill-ring-item ()
   "Select and insert an item from the 'kill-ring'."
@@ -717,17 +748,16 @@ or `system-configuration' directly."
 (global-set-key (kbd "M-y") #'onb-insert-kill-ring-item)
 
 
-;; Copy & paste between Windows and Emacs that runs within WSL
-;; (Windows Subsysten for Linux), which is technically a Linux
+;; Copy & paste between Windows and Emacs running within WSL
+;; (Windows Subsysten for Linux) — which is technically a Linux, not Windows
 
 (if (onb-linp)
-    ;; Copy text from an Emacs buffer to paste it into Windows apps
+    ;; Copy text from an Emacs buffer for pasting it into a Windows app
     (defun onb-wsl-copy (start end)
       "Copy currently selected text into the Windows clipboard."
       (interactive "r")
       (let ((default-directory "/mnt/c/"))
         (shell-command-on-region start end "clip.exe")))
-
   (global-set-key (kbd "C-z C-w") 'onb-wsl-copy)
 
   ;; Paste (yank) text into Emacs that has been copied from a Windows app
@@ -740,31 +770,27 @@ or `system-configuration' directly."
        (substring
         (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
         0  -1))))
-
   (global-set-key (kbd "C-z C-y") 'onb-wsl-paste))
 
 
-;; Redraw screen -- useful when running Emacs in a Windows terminal emulator
-(global-set-key (kbd "C-c r d") #'redraw-display)
-
-
 ;;; BACKUP ____________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup
 
-
-;; Make backups of all edited files before saving them
+;; Make backups of all edited files
 (setq backup-by-copying t
       kept-new-versions 10
       kept-old-versions 3
       delete-old-versions t
       version-control t)
 
-;; Where to save the backups.
+;; Where to save the backups?
 ;; Specify file name/path patterns and directories ("REGEXP" . "DIRECTORY")
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backup/"))))
 
 
 ;;; LOCKFILES _________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking
 
 
 ;; Let Emacs keep track of files currently visited?
@@ -772,6 +798,7 @@ or `system-configuration' directly."
 
 
 ;;; AUTO-SAVE _________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save
 
 
 (setq auto-save-default nil
@@ -779,7 +806,7 @@ or `system-configuration' directly."
 
 
 ;;; HELP ______________________________________________________________________
-
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help
 
 ;; Show all options when running 'apropos' (fulltext search) "C-h a"
 (require 'apropos)
@@ -787,6 +814,7 @@ or `system-configuration' directly."
 
 
 ;;; SEARCH ____________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search
 
 
 ;; Switch search functions to make regex-search the default
@@ -830,10 +858,10 @@ or `system-configuration' directly."
 
 
 ;;; DIRED _____________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired
 
 
 (require 'dired)
-
 
 ;; Use the system trash when deleting files
 
@@ -942,6 +970,7 @@ or `system-configuration' directly."
 
 
 ;;; ESHELL ____________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/eshell.html
 
 
 ;; Eshell is *not* a terminal emulator, but a *shell* equivalent to Bash or Fish
@@ -996,7 +1025,8 @@ or `system-configuration' directly."
       netstat-program-options '("-atupe"))
 
 
-;; BUILT-IN WEB BROWSER "EWW" _________________________________________________
+;;; BUILT-IN WEB BROWSER "EWW" ________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top
 
 
 ;; Pretend to be an iPhone
@@ -1010,27 +1040,40 @@ or `system-configuration' directly."
 (url-setup-privacy-info)
 
 
-;;; STANDARD WEB BROWSER ______________________________________________________
+;;; PRIMARY WEB BROWSER ______________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hyperlinking
 
 
-;; This can be any graphical web browser,
-;; but also a text-mode web browser within Emacs
+;; This can be any graphical web browser, but also a built-in web browser
 
+;; Set Emacs' `browse-url' function …
 
-;; PRIMARY: Set Emacs' `browse-url' function to …
-;; … the system-wide default browser
+;; … to the system-wide default browser
 (setq browse-url-browser-function #'browse-url-default-browser)
-;; … or set Firefox explicitly
+
+;; … to Firefox explicitly
 ;; (setq browse-url-browser-function #'browse-url-firefox)
 
-;; Keybinding to browse an URL
+;; … or to the Nyxt browser https://nyxt.atlas.engineer/
+;; (setq browse-url-generic-program "nyxt")
+;; (setq browse-url-browser-function #'browse-url-generic)
+
+;; Keybinding
 (global-set-key (kbd "C-c w w") #'browse-url)
 
-;; SECONDARY:
+
+;; SECONDARY WEB BROWSER ______________________________________________________
+
+
+;; Set an alternative browser
 (setq browse-url-secondary-browser-function #'browse-web)
 
+;; Keybinding
+(global-set-key (kbd "C-c w W") #'browse-web)
 
-;;; EMAIL HANDLING ____________________________________________________________
+
+;;; EMAIL SENDING _____________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail
 
 
 ;; TODO: Send emails directly from Emacs using SMTP – example template
@@ -1060,6 +1103,7 @@ or `system-configuration' directly."
 
 
 ;;; CALENDAR __________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Calendar_002fDiary
 
 
 (require 'calendar)
@@ -1070,6 +1114,7 @@ or `system-configuration' directly."
 
 
 ;;; GENERAL EDITING ___________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Basic
 
 
 ;; UTF-8
@@ -1099,23 +1144,21 @@ or `system-configuration' directly."
 
 
 ;;; LINE NUMBERS ______________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom
 
 
 ;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode" or
 ;; set it here for all programming modes. Goto line: "M-g M-g"
 (add-hook 'prog-mode-hook
-          (lambda ()
-            (display-line-numbers-mode -1)))
+           (lambda ()
+             (display-line-numbers-mode -1)))
 
 
 ;;; INDENTATION _______________________________________________________________
-
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Indentation
 
 (setq-default indent-tabs-mode nil ; don't use tabs but spaces
               tab-width 2)         ; set display width for tab characters
-
-;; Re-indent automatically?
-(add-hook 'prog-mode-hook #'electric-indent-mode)
 
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
 ;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode')
@@ -1123,6 +1166,7 @@ or `system-configuration' directly."
 
 
 ;;; BRACKETS / PARENTHESIS ____________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses
 
 
 ;; How to display matching parens? General `show-paren-mode' configuration
@@ -1134,18 +1178,29 @@ or `system-configuration' directly."
 
 
 ;;; WHITESPACE ________________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Useless-Whitespace
 
 
 ;; Indicate trailing whitespace in programming modes?
 (add-hook 'prog-mode-hook
-          (lambda ()
-            (setq show-trailing-whitespace t)))
+           (lambda ()
+             (setq show-trailing-whitespace t)))
 
 ;; Cleanup trailing whitespace in programming modes
 (define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
+;; Indicate trailing whitespace in "text" modes?
+(add-hook 'text-mode-hook
+           (lambda ()
+             (setq show-trailing-whitespace t)))
+
+;; Cleanup trailing whitespace in "text" modes
+(define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
+
+
 ;;; SYNTAX CHECK ______________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Flymake
 
 
 (require 'flymake)
@@ -1177,22 +1232,14 @@ or `system-configuration' directly."
 (setq sentence-end-double-space nil)
 
 
-;; Indicate trailing whitespace in "text" modes?
-(add-hook 'text-mode-hook
-          (lambda ()
-            (setq show-trailing-whitespace t)))
-
-;; Cleanup trailing whitespace in "text" modes
-(define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
-
-
 ;;; ORG-MODE __________________________________________________________________
+;; --> https://orgmode.org/
 
 
 (require 'org)
 
-
 ;; Visual word wrapping
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode
 (add-hook 'org-mode-hook #'visual-line-mode)
 
 ;; Global todo states
@@ -1236,13 +1283,6 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c o o") #'onb-org-notes)
 
 
-;; Literate programming
-
-;; Activate code blocks via Babel languages.
-;; Further languages are configured within their specific "onboard-*.el" files
-(org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)))
-
-
 ;; Insert snippets
 
 (defun onb-org-insert-caption ()
@@ -1253,7 +1293,18 @@ or `system-configuration' directly."
 (define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
 
 
+;;; LITERATE PROGRAMMING ______________________________________________________
+;; --> https://orgmode.org/worg/org-contrib/babel/intro.html
+
+
+;; Activate code blocks via Babel languages
+(org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)))
+
+;; Further languages are configured within their specific "onboard-*.el" files
+
+
 ;;; LISP LANGUAGES ____________________________________________________________
+;; --> https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp
 
 
 (defun onb-setup-lisp-languages ()
@@ -1261,7 +1312,7 @@ or `system-configuration' directly."
   (setq-local show-paren-style 'expression)
   (show-paren-local-mode 1)
   (electric-pair-local-mode 1)
-  (electric-indent-mode 1))
+  (electric-indent-local-mode 1))
 
 ;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook #'onb-setup-lisp-languages)
@@ -1281,29 +1332,6 @@ or `system-configuration' directly."
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
-;;; LOAD EMACS ONTOP __________________________________________________________
-
-
-;; Emacs ONTOP is an extension for Emacs ONBOARD, utilizing 3rd-party packages.
-;; --> Get it here: https://github.com/monkeyjunglejuice/emacs.ontop
-
-
-(defvar ont-directory "~/.emacs.ontop"  ; initialization — don't change here
-  "Absolute path to the directory where ontop.el resides.")
-
-
-;; \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-;; When neccessary, adapt the path of the directory here and restart Emacs:
-(setq ont-directory "~/.emacs.ontop")
-
-;; ////////////////////////////////////////////////////////////////////////////
-
-
-(let ((ont-initfile "/ontop.el"))
-  (if (file-exists-p (expand-file-name (concat ont-directory ont-initfile)))
-      (load-file (expand-file-name (concat ont-directory ont-initfile)))
-    (message "The `ont-directory' has not been found...skipped.")))
-
+;; ____________________________________________________________________________
 (provide 'onboard)
 ;;; onboard.el ends here
