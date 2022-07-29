@@ -106,8 +106,7 @@
             (hl-line-mode 1)))
 
 
-;; You can use this function to install packages declaratively within
-;; an Emacs Lisp file – eg. directly in here
+;; Install packages declaratively within an Emacs Lisp file
 (defun onb-package (action package-list)
   "Helper function to install 3rd-party packages declaratively.
 PACKAGE-LIST will be installed if 'install is passed as an argument to ACTION.
@@ -300,7 +299,7 @@ or `system-configuration' directly."
 
 
 ;; Default/fallback definitions – don't change them here,
-;; but scroll further down to "THEME CONFIG"
+;; but scroll further down to 'THEME CONFIG'
 
 (defgroup onb-toggle-theme nil
   "Toggle between light and dark theme with a single key press."
@@ -1088,7 +1087,7 @@ or `system-configuration' directly."
 ;; … to Firefox explicitly
 ;; (setq browse-url-browser-function #'browse-url-firefox)
 
-;; … or to the Nyxt browser https://nyxt.atlas.engineer/
+;; … or to the Nyxt browser <https://nyxt.atlas.engineer/>
 ;; (setq browse-url-generic-program "nyxt")
 ;; (setq browse-url-browser-function #'browse-url-generic)
 
@@ -1099,7 +1098,7 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;; SECONDARY WEB BROWSER
 
-;; Set an alternative browser
+;; Set an alternative browser — currently set to Emacs' built-in EWW
 (setq browse-url-secondary-browser-function #'browse-web)
 
 ;; Keybinding
