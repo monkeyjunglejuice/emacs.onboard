@@ -468,7 +468,6 @@ or `system-configuration' directly."
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setq visible-cursor nil)
 
-
 ;; Make sure to highlight the current line only in the active window.
 (setq hl-line-sticky-flag nil)
 
@@ -636,6 +635,7 @@ or `system-configuration' directly."
 ;; (global-set-key (kbd "s-h") #'windmove-left)
 ;; (global-set-key (kbd "s-l") #'windmove-right)
 
+
 ;; Undo/redo window layouts
 (require 'winner)
 (winner-mode 1)
@@ -670,14 +670,12 @@ or `system-configuration' directly."
 
 
 ;; Kill all buffers at once – equivalent to "close all tabs"
-
 (defun kill-all-buffers ()
   "Close all buffers at once."
   (interactive)
   (save-some-buffers)
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
-
 (global-set-key (kbd "C-x K") 'kill-all-buffers)
 
 
@@ -711,7 +709,6 @@ or `system-configuration' directly."
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
-
 (global-set-key (kbd "C-c s s") #'onb-scratch)
 
 
@@ -745,7 +742,6 @@ or `system-configuration' directly."
 
 
 ;; Copy the full path of the current file
-
 (defun onb-copy-file-name-to-clipboard ()
   "Copy the full path of the current buffer's file to the clipboard."
   (interactive)
@@ -759,12 +755,10 @@ or `system-configuration' directly."
 
 
 ;; Simple alternative for 'yank-pop' – present a selection of the kill ring
-
 (defun onb-insert-kill-ring-item ()
   "Select and insert an item from the 'kill-ring'."
   (interactive)
   (insert (completing-read "Yank: " kill-ring nil t)))
-
 (global-set-key (kbd "M-y") #'onb-insert-kill-ring-item)
 
 
@@ -876,12 +870,10 @@ or `system-configuration' directly."
 
 
 ;; Use 'completing-read' to choose between recent files
-
 (defun onb-find-recentf ()
   "Find recent file via completion in the minibuffer."
   (interactive)
   (find-file (completing-read "Find recent file: " recentf-list nil t) nil))
-
 (global-set-key (kbd "C-x f") #'onb-find-recentf)
 
 
@@ -924,14 +916,11 @@ or `system-configuration' directly."
 
 ;; Auto refresh dired when contents of a directory change
 (require 'autorevert)
-
 (setq auto-revert-verbose nil)
-
 (add-hook 'dired-mode-hook #'auto-revert-mode)
 
 
 ;; Directory listings
-
 (add-hook 'dired-mode-hook
           (lambda ()
             ;; Hide details in file listings? Toggle via "S-("
@@ -1027,7 +1016,6 @@ or `system-configuration' directly."
 ;;; SHELL
 
 ;; Issue shell commands and display their output
-
 
 ;; Set another shell than the default one
 ;; (setq shell-file-name "/usr/bin/bash")
@@ -1222,7 +1210,6 @@ or `system-configuration' directly."
 
 ;; Cleanup trailing whitespace in programming modes
 (define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
-
 
 ;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
