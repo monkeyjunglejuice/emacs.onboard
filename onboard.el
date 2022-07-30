@@ -728,6 +728,17 @@ or `system-configuration' directly."
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; VISITING FILES AT POINT
+
+;; "C-x C-v"       – Visit any ressource under the cursor
+;; "M-x ffap-menu" – Display a list of all ressources mentioned in this buffer
+
+(ffap-bindings)
+
+(global-set-key (kbd "C-x C-.") #'find-file-at-point)
+
+
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; CLIPBOARD, COPY & PASTE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing>
 
