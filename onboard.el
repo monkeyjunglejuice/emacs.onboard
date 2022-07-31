@@ -930,13 +930,6 @@ or `system-configuration' directly."
 (onb-trash-on) ; set the default
 
 
-;; Copying files/directories
-(setq dired-recursive-copies 'always)
-
-;; Create directories if they don't exist
-(setq dired-create-destination-dirs 'ask)
-
-
 ;; Auto refresh dired when contents of a directory change
 (require 'autorevert)
 (setq auto-revert-verbose nil)
@@ -955,6 +948,12 @@ or `system-configuration' directly."
 ;; Show all files: -DlhFA and hide backups with -B
 (setq-default dired-listing-switches "-lhvFA")
 
+
+;; Copying files/directories
+(setq dired-recursive-copies 'always)
+
+;; Create directories if they don't exist
+(setq dired-create-destination-dirs 'ask)
 
 ;; Mimic dual-pane file managers?
 (setq dired-dwim-target t)
