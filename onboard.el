@@ -50,7 +50,6 @@
 ;;; GARBAGE COLLECTION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
 
-
 ;; Temporarily set a high value of 256 MB to trigger less garbage collections
 ;; during initialization. The Emacs default is a threshold of 800 KB
 (setq gc-cons-threshold (* 256 1000000))
@@ -133,7 +132,6 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; SYSTEM
 
-
 ;; Free the default "C-z" key binding to make it an additional prefix key
 ;; in the same way as "C-x" and "C-c"
 (global-unset-key (kbd "C-z"))
@@ -162,7 +160,6 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;; HELPERS
-
 
 ;; Simplify writing of operating-system-specific code
 
@@ -218,7 +215,6 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server>
 ;; ... or do "M-x info-emacs-manual s server RET" to read it within Emacs
 
-
 (require 'server)
 
 ;; Display the name of the Emacs server process in the frame title
@@ -255,7 +251,6 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; FONTS
 ;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
-
 
 ;;  This function will be called later under 'THEME CONFIG'
 
@@ -308,7 +303,6 @@ or `system-configuration' directly."
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; TOGGLE THEME
-
 
 ;; Default/fallback definitions – don't change them here,
 ;; but scroll further down to 'THEME CONFIG'
