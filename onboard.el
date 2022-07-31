@@ -577,33 +577,32 @@ or `system-configuration' directly."
 (require 'icomplete)
 
 (setq icomplete-in-buffer t
-      icomplete-compute-delay 0
+      icomplete-compute-delay 0.05
       icomplete-delay-completions-threshold 1000
       icomplete-show-matches-on-no-input t
       icomplete-hide-common-prefix nil)
 
 ;; Emacs version 28 and later: vertical completion with fido-vertical
-(if (>= emacs-major-version 28)
-    (fido-vertical-mode 1))
+(when (>= emacs-major-version 28)
+  (fido-vertical-mode 1))
 
 ;; Emacs version 27 and below: vertical completion with fido or icomplete
-(if (<= emacs-major-version 27)
-    (progn
-      ;; Display completions vertically, using the newline separator '\n'
-      (setq icomplete-separator "\n")
-      ;; Provide intuitive keybindings
-      (define-key icomplete-minibuffer-map (kbd "<down>")
-        #'icomplete-forward-completions)
-      (define-key icomplete-minibuffer-map (kbd "<up>")
-        #'icomplete-backward-completions)
-      (define-key icomplete-minibuffer-map (kbd "C-n")
-        #'icomplete-forward-completions)
-      (define-key icomplete-minibuffer-map (kbd "C-p")
-        #'icomplete-backward-completions)
-      ;; Turn on fido-mode, if available
-      (if (fboundp #'fido-mode)
-          (fido-mode 1)
-        (icomplete-mode 1))))
+(when (<= emacs-major-version 27)
+  ;; Display completions vertically, using the newline separator '\n'
+  (setq icomplete-separator "\n")
+  ;; Provide intuitive keybindings
+  (define-key icomplete-minibuffer-map (kbd "<down>")
+    #'icomplete-forward-completions)
+  (define-key icomplete-minibuffer-map (kbd "<up>")
+    #'icomplete-backward-completions)
+  (define-key icomplete-minibuffer-map (kbd "C-n")
+    #'icomplete-forward-completions)
+  (define-key icomplete-minibuffer-map (kbd "C-p")
+    #'icomplete-backward-completions)
+  ;; Turn on fido-mode, if available
+  (if (fboundp #'fido-mode)
+      (fido-mode 1)
+    (icomplete-mode 1)))
 
 
 ;; Improve completion by remembering frequently used commands
