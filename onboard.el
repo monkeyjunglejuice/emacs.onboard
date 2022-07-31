@@ -937,10 +937,6 @@ or `system-configuration' directly."
 (setq dired-create-destination-dirs 'ask)
 
 
-;; Rename files/directories like normal text via `wdired-mode'
-(define-key dired-mode-map (kbd "M-r") #'wdired-change-to-wdired-mode)
-
-
 ;; Auto refresh dired when contents of a directory change
 (require 'autorevert)
 (setq auto-revert-verbose nil)
