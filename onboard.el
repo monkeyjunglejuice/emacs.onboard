@@ -317,12 +317,18 @@ or `system-configuration' directly."
   "Toggle between light and dark theme with a single key press."
   :group 'convenience)
 
-(defcustom onb-light-theme-name 'modus-operandi
+(defcustom onb-light-theme-name
+  (cond
+   ((>= emacs-major-version 28) (setq onb-light-theme-name 'modus-operandi))
+   ((<= emacs-major-version 27) (setq onb-light-theme-name 'leuven)))
   "Name of the light theme."
   :group 'toggle-theme
   :type 'symbol)
 
-(defcustom onb-dark-theme-name 'modus-vivendi
+(defcustom onb-dark-theme-name
+  (cond
+   ((>= emacs-major-version 28) (setq onb-dark-theme-name 'modus-vivendi))
+   ((<= emacs-major-version 27) (setq onb-dark-theme-name 'wombat)))
   "Name of the dark theme."
   :group 'toggle-theme
   :type 'symbol)
@@ -395,14 +401,10 @@ or `system-configuration' directly."
 ;;; THEME CONFIG
 
 ;; Set the light theme:
-(cond
- ((>= emacs-major-version 28) (setq onb-light-theme-name 'modus-operandi))
- ((<= emacs-major-version 27) (setq onb-light-theme-name 'leuven)))
+(setq onb-light-theme-name 'modus-operandi)
 
 ;; Set the dark theme:
-(cond
- ((>= emacs-major-version 28) (setq onb-dark-theme-name 'modus-vivendi))
- ((<= emacs-major-version 27) (setq onb-dark-theme-name 'wombat)))
+(setq onb-dark-theme-name 'modus-vivendi)
 
 ;; Set the default variant here, either 'light or 'dark:
 (setq onb-default-theme-variant 'dark)
