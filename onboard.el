@@ -908,7 +908,6 @@ or `system-configuration' directly."
 ;;; DIRED
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired>
 
-
 (require 'dired)
 
 ;; Use the system trash when deleting files
@@ -1347,7 +1346,6 @@ or `system-configuration' directly."
 ;; Scheme
 (add-hook 'scheme-mode-hook #'onb-setup-lisp-languages)
 (add-hook 'inferior-scheme-mode-hook #'onb-setup-lisp-languages)
-
 
 ;; Additional keybinding resembling other sexp-related keybindings
 ;; who usually begin with "C-M". Also useful editing non-lisp languages
