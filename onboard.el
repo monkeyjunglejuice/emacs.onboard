@@ -335,22 +335,22 @@ or `system-configuration' directly."
 (defvar onb-active-theme-variant nil
   "Holds the information about the currently active theme variant.")
 
-(defcustom onb-load-before-theme-light-hook nil
+(defcustom onb-load-before-light-theme-hook nil
   "Run before loading the light theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom onb-load-after-theme-light-hook nil
+(defcustom onb-load-after-light-theme-hook nil
   "Run after loading the light theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom onb-load-before-theme-dark-hook nil
+(defcustom onb-load-before-dark-theme-hook nil
   "Run before loading the dark theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom onb-load-after-theme-dark-hook nil
+(defcustom onb-load-after-dark-theme-hook nil
   "Run after loading the dark theme."
   :group 'toggle-theme
   :type 'hook)
@@ -359,19 +359,19 @@ or `system-configuration' directly."
   "Load the light theme and apply some modifications."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
-  (run-hooks 'load-before-theme-light-hook)
+  (run-hooks 'load-before-light-theme-hook)
   (load-theme onb-light-theme-name t)
   (setq onb-active-theme-variant 'light)
-  (run-hooks 'onb-load-after-theme-light-hook))
+  (run-hooks 'onb-load-after-light-theme-hook))
 
 (defun onb-load-theme-dark ()
   "Load the dark theme and apply some modifications."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
-  (run-hooks 'load-before-theme-dark-hook)
+  (run-hooks 'load-before-dark-theme-hook)
   (load-theme onb-dark-theme-name t)
   (setq onb-active-theme-variant 'dark)
-  (run-hooks 'onb-load-after-theme-dark-hook))
+  (run-hooks 'onb-load-after-dark-theme-hook))
 
 (defun onb-toggle-theme ()
   "Toggle between light and dark theme."
@@ -394,29 +394,31 @@ or `system-configuration' directly."
 
 ;;; THEME CONFIG
 
+;; Either configure the themes here, or "M-x customize-group RET toggle-theme"
+
+
 ;; Set the light theme:
-(setq onb-light-theme-name 'modus-operandi)
+;; (setq onb-light-theme-name 'modus-operandi)
 
 ;; Set the dark theme:
-(setq onb-dark-theme-name 'modus-vivendi)
+;; (setq onb-dark-theme-name 'modus-vivendi)
 
 ;; Set the default variant here, either 'light or 'dark:
-(setq onb-default-theme-variant 'dark)
+;; (setq onb-default-theme-variant 'dark)
 
 ;; Set the keybinding to toggle between light and dark:
 (global-set-key (kbd "<f12>") #'onb-toggle-theme)
 
-;; The hooks can be used to run additional functions before or after loading
-;; the selected light or dark theme. Useful to set variables that otherwise
-;; get overwritten by the themes; for instance the font size of the
-;; modeline, which is often explicitly set by the themes themselves.
-;; The hooks can also be configured via "M-x customize-group RET toggle-theme"
+;; The hooks below can be used to run additional functions before or after
+;; loading the selected light or dark theme. Useful to set variables that
+;; otherwise get overwritten by the themes; for instance the font size of
+;; the modeline, which is often explicitly set by the themes themselves.
 
-(add-hook 'onb-load-after-theme-light-hook
+(add-hook 'onb-load-after-light-theme-hook
           (lambda ()
             (onb-fonts)))
 
-(add-hook 'onb-load-after-theme-dark-hook
+(add-hook 'onb-load-after-dark-theme-hook
           (lambda ()
             (onb-fonts)))
 
