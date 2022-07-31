@@ -69,8 +69,7 @@
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; PACKAGE MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages>
-;; ... or "M-x info-emacs-manual s packages RET" to read it within Emacs
-
+;; ... or do "M-x info-emacs-manual s packages RET" to read it within Emacs
 
 ;; Browse, select and install 3rd-party packages with "M-x list-packages RET"
 
@@ -81,7 +80,7 @@
              '("melpa" . "https://melpa.org/packages/") t)
 
 ;; 2nd priority
-;; Install form melpa-stable' only if a package from 'melpa' is broken
+;; Install form melpa-stable' only when the package from 'melpa' is broken
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
@@ -217,7 +216,7 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; SERVER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server>
-;; ... or "M-x info-emacs-manual s server RET" to read it within Emacs
+;; ... or do "M-x info-emacs-manual s server RET" to read it within Emacs
 
 
 (require 'server)
@@ -245,7 +244,7 @@ or `system-configuration' directly."
             (onb-frame-title)))
 
 
-;; Shutdown Emacs server process
+;; Shutdown the Emacs server process
 (defun onb-server-stop ()
   "Save buffers, quit and shutdown (kill) server."
   (interactive)
@@ -1303,7 +1302,7 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c o d") #'onb-org-directory)
 
 
-;; Default target for storing notes
+;; Set a default target for storing notes
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
 (defun onb-org-notes ()
@@ -1331,7 +1330,9 @@ or `system-configuration' directly."
 ;; Activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)))
 
-;; Further languages are configured within their specific "onboard-*.el" files
+;; In case you're using the Emacs ONTOP extensions, further languages
+;; should be configured not here, but within their specific ONTOP modules
+;; ("onboard-*.el" files)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
