@@ -1269,13 +1269,26 @@ or `system-configuration' directly."
 
 (require 'org)
 
-;; Visual word wrapping
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
-(add-hook 'org-mode-hook #'visual-line-mode)
+;; Set a default location to look for Org files, but there
+;; is no need to put your files into this directory
+(setq org-directory (expand-file-name "~/Org/"))
 
-;; Global todo states
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+(defun onb-org-directory ()
+  "Show the Org directory in Dired."
+  (interactive)
+  (dired org-directory))
+(global-set-key (kbd "C-c o d") #'onb-org-directory)
+
+
+;; Set a default target for storing notes
+(setq org-default-notes-file (concat org-directory "notes.org"))
+
+(defun onb-org-notes ()
+  "Visit the Org notes file."
+  (interactive)
+  (find-file (concat org-directory "notes.org")))
+(global-set-key (kbd "C-c o o") #'onb-org-notes)
+
 
 ;; Capture: put newer entries on top
 (setq org-reverse-note-order t)
@@ -1291,37 +1304,14 @@ or `system-configuration' directly."
 (define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
 
 
-;; Set a default location to look for Org files, but there
-;; is no need to put your files into this directory
-(setq org-directory (expand-file-name "~/Org/"))
-
-(defun onb-org-directory ()
-  "Show the Org directory in Dired."
-  (interactive)
-  (dired org-directory))
-
-(global-set-key (kbd "C-c o d") #'onb-org-directory)
+;; Global todo states
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
 
 
-;; Set a default target for storing notes
-(setq org-default-notes-file (concat org-directory "notes.org"))
-
-(defun onb-org-notes ()
-  "Visit the Org notes file."
-  (interactive)
-  (find-file (concat org-directory "notes.org")))
-
-(global-set-key (kbd "C-c o o") #'onb-org-notes)
-
-
-;; Insert snippets
-
-(defun onb-org-insert-caption ()
-  "Insert caption snippet."
-  (interactive)
-  (insert "#+caption: "))
-
-(define-key org-mode-map (kbd "C-c C-:") #'onb-org-insert-caption)
+;; Visual word wrapping
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
+(add-hook 'org-mode-hook #'visual-line-mode)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
