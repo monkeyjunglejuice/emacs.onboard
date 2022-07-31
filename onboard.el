@@ -910,6 +910,29 @@ or `system-configuration' directly."
 
 (require 'dired)
 
+
+;; The `dired' key binding is "C-x d". This new keybinding is in accordance with
+;; "C-x C-f" for visiting files
+(global-set-key (kbd "C-x C-d") #'dired)
+
+
+;; Don't accumulate useless Dired buffers
+(defun ont-dired-single-buffer (s)
+  "When S is non-nil, prevent superfluous Dired buffers from accumulating.
+Kills the current Dired buffer when selecting a new directory"
+  (when (not (null s))
+    (cond
+     ((version< "28.1" emacs-version)
+      (put 'dired-find-alternate-file 'disabled nil)
+      (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)
+      (define-key dired-mode-map (kbd "^") (lambda ()
+                                             (interactive)
+                                             (find-alternate-file ".."))))
+     (t (setq dired-kill-when-opening-new-dired-buffer t)))))
+
+(ont-dired-single-buffer t)  ; set the default
+
+
 ;; Use the system trash when deleting files
 
 (defun onb-trash-on ()
@@ -974,22 +997,6 @@ or `system-configuration' directly."
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
   (define-key dired-mode-map (kbd "M-RET") #'onb-dired-xdg-open))
-
-
-;; Reuse buffers – don't create a new one for each directory visited
-
-(put 'dired-find-alternate-file 'disabled nil)
-(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-
-(define-key dired-mode-map (kbd "^")
-  (lambda ()
-    (interactive)
-    (find-alternate-file "..")))
-
-
-;; Set new keybinding resembling "C-x C-f" for visiting files
-;; Added for convenience; default key binding is "C-x d"
-(global-set-key (kbd "C-x C-d") #'dired)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
