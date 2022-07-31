@@ -164,7 +164,7 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 ;; HELPERS
 
 
-;; Simplify writing operating-system-specific code
+;; Simplify writing of operating-system-specific code
 
 (defun onb-linp ()
   "True if `system-type' is Linux or something compatible.
