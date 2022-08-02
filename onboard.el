@@ -818,7 +818,6 @@ or `system-configuration' directly."
 ;;; BACKUP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup>
 
-
 ;; Make backup before editing
 (setq backup-by-copying t
       kept-new-versions 10
@@ -836,7 +835,6 @@ or `system-configuration' directly."
 ;;; LOCKFILES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking>
 
-
 ;; Let Emacs keep track of files currently visited?
 (setq create-lockfiles nil)
 
@@ -844,7 +842,6 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; AUTO-SAVE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save>
-
 
 (setq auto-save-default nil
       auto-save-interval 0)
@@ -854,7 +851,6 @@ or `system-configuration' directly."
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
-
 ;; Show all options when running 'apropos' (fulltext search) "C-h a"
 (require 'apropos)
 (setq apropos-do-all t)
@@ -863,7 +859,6 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; SEARCH
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
-
 
 ;; Switch search functions to make regex-search the default
 (global-set-key (kbd "C-s") #'isearch-forward-regexp)
@@ -880,7 +875,6 @@ or `system-configuration' directly."
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; RECENT FILES
-
 
 (require 'recentf)
 
