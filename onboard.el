@@ -32,8 +32,8 @@
 
 ;;; Examples:
 ;;
-;; "M-x onb-"                Show all commands defined in this file
-;; "M-x onb-user-init-file"  Visit main configuration file – .emacs or init.el
+;; "M-x eon-"                Show all commands defined in this file
+;; "M-x eon-user-init-file"  Visit main configuration file – .emacs or init.el
 ;; "M-x check-parens"        Check if all parens match in Emacs Lisp code
 ;; "M-x help"                Reach the ultimate help menu
 ;;
@@ -103,7 +103,7 @@
 
 
 ;; Install packages declaratively within an Emacs Lisp file
-(defun onb-package (action package-list)
+(defun eon-package (action package-list)
   "Helper function to install 3rd-party packages declaratively.
 PACKAGE-LIST will be installed if 'install is passed as an argument to ACTION.
 When ACTION receives 'ignore, then nothing will happen. Use it if you want
@@ -115,14 +115,14 @@ to make sure that certain Emacs Lisp packages will be present on your system."
                 (package-install package nil)))
             package-list)))
 
-(defalias 'ont-package 'onb-package
-  "Alias for the function 'onb-package' from Emacs ONBOARD.")
+(defalias 'ont-package 'eon-package
+  "Alias for the function 'eon-package' from Emacs ONBOARD.")
 
 ;; Example: You can install suggested 3rd-party packages from within this file
 ;; with single function calls like so:
 ;;
-;; (onb-package 'install '(the-matrix-theme))  ; installs the package
-;; (onb-package 'ignore '(the-matrix-theme))   ; does nothing (default)
+;; (eon-package 'install '(the-matrix-theme))  ; installs the package
+;; (eon-package 'ignore '(the-matrix-theme))   ; does nothing (default)
 ;;
 ;; The installation will be performed when you restart Emacs or
 ;; when you evaluate a function manually – eg. via pressing "C-M-x"
@@ -163,19 +163,19 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 
 ;; Simplify writing of operating-system-specific code
 
-(defun onb-linp ()
+(defun eon-linp ()
   "True if `system-type' is Linux or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "gnu/linux" "berkeley-unix" "gnu" "gnu/kfreebsd")))
 
-(defun onb-winp ()
+(defun eon-winp ()
   "True if `system-type' is Windows or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type (or "windows-nt" "cygwin" "ms-dos")))
 
-(defun onb-macp ()
+(defun eon-macp ()
   "True if `system-type' is MacOS or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
@@ -183,31 +183,31 @@ or `system-configuration' directly."
 
 
 ;; Go to home directory
-(defun onb-goto-home-directory ()
+(defun eon-goto-home-directory ()
   "Open the home directory in Dired."
   (interactive)
   (dired "~/"))
 
 ;; Open the '~/.emacs.d' directory in the Dired file manager
-(defun onb-goto-user-emacs-directory ()
+(defun eon-goto-user-emacs-directory ()
   "Open the Emacs directory in Dired, which is ~/.emacs.d usually."
   (interactive)
   (dired user-emacs-directory))
 
 ;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
-(defun onb-goto-user-init-file ()
+(defun eon-goto-user-init-file ()
   "Visit the init file."
   (interactive)
   (find-file user-init-file))
 
 ;; Full path of this file
-(defvar onb-onboard-file (or load-file-name (buffer-file-name))
+(defvar eon-onboard-file (or load-file-name (buffer-file-name))
   "Full path of the onboard.el file.")
 
-(defun onb-goto-onboard-file ()
+(defun eon-goto-onboard-file ()
   "Visit the onboard.el file."
   (interactive)
-  (find-file onb-onboard-file))
+  (find-file eon-onboard-file))
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -222,7 +222,7 @@ or `system-configuration' directly."
 ;; Further information:
 ;; <https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html>
 
-(defun onb-frame-title ()
+(defun eon-frame-title ()
   "Set a custom frame title."
   (setq frame-title-format
         (concat "%b (%f)"
@@ -232,16 +232,16 @@ or `system-configuration' directly."
 (add-hook 'emacs-startup-hook
           (lambda ()
             "Run functions after loading init files"
-            (onb-frame-title)))
+            (eon-frame-title)))
 
 (add-hook 'server-mode-hook
           (lambda ()
             "Run functions after entering or leaving 'server-mode'."
-            (onb-frame-title)))
+            (eon-frame-title)))
 
 
 ;; Shutdown the Emacs server process
-(defun onb-server-stop ()
+(defun eon-server-stop ()
   "Save buffers, quit and shutdown (kill) server."
   (interactive)
   (save-some-buffers)
@@ -254,7 +254,7 @@ or `system-configuration' directly."
 
 ;;  This function will be called later under 'THEME CONFIG'
 
-(defun onb-fonts ()
+(defun eon-fonts ()
   "The height value is in 1/10 pt, so 130 will give 13 pt."
   ;; Set the default monospaced font
   (set-face-attribute 'default nil
@@ -307,85 +307,85 @@ or `system-configuration' directly."
 ;; Default/fallback definitions – don't change them here,
 ;; but scroll further down to 'THEME CONFIG'
 
-(defgroup onb-toggle-theme nil
+(defgroup eon-toggle-theme nil
   "Toggle between light and dark theme with a single key press."
   :group 'convenience)
 
-(defcustom onb-light-theme-name
+(defcustom eon-light-theme-name
   (cond
-   ((>= emacs-major-version 28) (setq onb-light-theme-name 'modus-operandi))
-   ((<= emacs-major-version 27) (setq onb-light-theme-name 'leuven)))
+   ((>= emacs-major-version 28) (setq eon-light-theme-name 'modus-operandi))
+   ((<= emacs-major-version 27) (setq eon-light-theme-name 'leuven)))
   "Name of the light theme."
   :group 'toggle-theme
   :type 'symbol)
 
-(defcustom onb-dark-theme-name
+(defcustom eon-dark-theme-name
   (cond
-   ((>= emacs-major-version 28) (setq onb-dark-theme-name 'modus-vivendi))
-   ((<= emacs-major-version 27) (setq onb-dark-theme-name 'wombat)))
+   ((>= emacs-major-version 28) (setq eon-dark-theme-name 'modus-vivendi))
+   ((<= emacs-major-version 27) (setq eon-dark-theme-name 'wombat)))
   "Name of the dark theme."
   :group 'toggle-theme
   :type 'symbol)
 
-(defcustom onb-default-theme-variant 'dark
+(defcustom eon-default-theme-variant 'dark
   "Load either the 'light or the 'dark theme at startup?"
   :group 'toggle-theme
   :type 'symbol)
 
-(defvar onb-active-theme-variant nil
+(defvar eon-active-theme-variant nil
   "Holds the information about the currently active theme variant.")
 
-(defcustom onb-load-before-light-theme-hook nil
+(defcustom eon-load-before-light-theme-hook nil
   "Run before loading the light theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom onb-load-after-light-theme-hook nil
+(defcustom eon-load-after-light-theme-hook nil
   "Run after loading the light theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom onb-load-before-dark-theme-hook nil
+(defcustom eon-load-before-dark-theme-hook nil
   "Run before loading the dark theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defcustom onb-load-after-dark-theme-hook nil
+(defcustom eon-load-after-dark-theme-hook nil
   "Run after loading the dark theme."
   :group 'toggle-theme
   :type 'hook)
 
-(defun onb-load-theme-light ()
+(defun eon-load-theme-light ()
   "Load the light theme and apply some modifications."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'load-before-light-theme-hook)
-  (load-theme onb-light-theme-name t)
-  (setq onb-active-theme-variant 'light)
-  (run-hooks 'onb-load-after-light-theme-hook))
+  (load-theme eon-light-theme-name t)
+  (setq eon-active-theme-variant 'light)
+  (run-hooks 'eon-load-after-light-theme-hook))
 
-(defun onb-load-theme-dark ()
+(defun eon-load-theme-dark ()
   "Load the dark theme and apply some modifications."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'load-before-dark-theme-hook)
-  (load-theme onb-dark-theme-name t)
-  (setq onb-active-theme-variant 'dark)
-  (run-hooks 'onb-load-after-dark-theme-hook))
+  (load-theme eon-dark-theme-name t)
+  (setq eon-active-theme-variant 'dark)
+  (run-hooks 'eon-load-after-dark-theme-hook))
 
-(defun onb-toggle-theme ()
+(defun eon-toggle-theme ()
   "Toggle between light and dark theme."
   (interactive)
   (cond
-   ((equal onb-active-theme-variant 'light) (onb-load-theme-dark))
-   ((equal onb-active-theme-variant 'dark) (onb-load-theme-light))
+   ((equal eon-active-theme-variant 'light) (eon-load-theme-dark))
+   ((equal eon-active-theme-variant 'dark) (eon-load-theme-light))
    (t (mapc #'disable-theme custom-enabled-themes))))
 
-(defun onb-load-theme-default ()
+(defun eon-load-theme-default ()
   "Load the default theme."
   (cond
-   ((equal onb-default-theme-variant 'light) (onb-load-theme-light))
-   ((equal onb-default-theme-variant 'dark) (onb-load-theme-dark))
+   ((equal eon-default-theme-variant 'light) (eon-load-theme-light))
+   ((equal eon-default-theme-variant 'dark) (eon-load-theme-dark))
    (t (message
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
@@ -398,35 +398,35 @@ or `system-configuration' directly."
 
 
 ;; Set the light theme:
-;; (setq onb-light-theme-name 'modus-operandi)
+;; (setq eon-light-theme-name 'modus-operandi)
 
 ;; Set the dark theme:
-;; (setq onb-dark-theme-name 'modus-vivendi)
+;; (setq eon-dark-theme-name 'modus-vivendi)
 
 ;; Set the default variant here, either 'light or 'dark:
-;; (setq onb-default-theme-variant 'dark)
+;; (setq eon-default-theme-variant 'dark)
 
 ;; Set the keybinding to toggle between light and dark:
-(global-set-key (kbd "<f12>") #'onb-toggle-theme)
+(global-set-key (kbd "<f12>") #'eon-toggle-theme)
 
 ;; The hooks below can be used to run additional functions before or after
 ;; loading the selected light or dark theme. Useful to set variables that
 ;; otherwise get overwritten by the themes; for instance the font size of
 ;; the modeline, which is often explicitly set by the themes themselves.
 
-(add-hook 'onb-load-after-light-theme-hook
+(add-hook 'eon-load-after-light-theme-hook
           (lambda ()
-            (onb-fonts)))
+            (eon-fonts)))
 
-(add-hook 'onb-load-after-dark-theme-hook
+(add-hook 'eon-load-after-dark-theme-hook
           (lambda ()
-            (onb-fonts)))
+            (eon-fonts)))
 
 ;; ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
 
 
 ;; Load the theme eventually
-(onb-load-theme-default)
+(eon-load-theme-default)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -606,7 +606,7 @@ or `system-configuration' directly."
 ;; --> recommended 3rd-party package 'amx'
 ;; If you would like to install the 3rd-party package(s), change 'no to 'yes
 ;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
-(onb-package 'ignore '(amx))
+(eon-package 'ignore '(amx))
 (when (fboundp #'amx)
   (global-set-key (kbd "M-x") #'amx)
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
@@ -714,11 +714,11 @@ or `system-configuration' directly."
 
 
 ;; Quickly jump to the *scratch* buffer
-(defun onb-scratch ()
+(defun eon-scratch ()
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
-(global-set-key (kbd "C-c s s") #'onb-scratch)
+(global-set-key (kbd "C-c s s") #'eon-scratch)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -757,12 +757,12 @@ or `system-configuration' directly."
 ;; If you would like to install this 3rd-party package, change 'ignore
 ;; into 'install and evaluate the expression – either via "C-M-x",
 ;; or simply restart Emacs:
-(onb-package 'ignore '(xclip))
+(eon-package 'ignore '(xclip))
 (when (fboundp #'xclip-mode) (xclip-mode 1))
 
 
 ;; Copy the full path of the current file
-(defun onb-copy-file-name-to-clipboard ()
+(defun eon-copy-file-name-to-clipboard ()
   "Copy the full path of the current buffer's file to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
@@ -775,28 +775,28 @@ or `system-configuration' directly."
 
 
 ;; Simple alternative for 'yank-pop' – present a selection of the kill ring
-(defun onb-insert-kill-ring-item ()
+(defun eon-insert-kill-ring-item ()
   "Select and insert an item from the 'kill-ring'."
   (interactive)
   (insert (completing-read "Yank: " kill-ring nil t)))
-(global-set-key (kbd "M-y") #'onb-insert-kill-ring-item)
+(global-set-key (kbd "M-y") #'eon-insert-kill-ring-item)
 
 
 ;; Copy & paste between Windows and Emacs running within WSL
 ;; (Windows Subsysten for Linux) — which is technically a Linux, not ;Window
 
 ;; Copy "kill" text from an Emacs buffer for pasting it into a Windows app
-(when (onb-linp)
-  (defun onb-wsl-copy (start end)
+(when (eon-linp)
+  (defun eon-wsl-copy (start end)
     "Copy selected text into the Windows clipboard."
     (interactive "r")
     (let ((default-directory "/mnt/c/"))
       (shell-command-on-region start end "clip.exe")))
-  (global-set-key (kbd "C-z C-w") 'onb-wsl-copy))
+  (global-set-key (kbd "C-z C-w") 'eon-wsl-copy))
 
 ;; Paste "yank" text into Emacs buffer that has been copied from a Windows app
-(when (onb-linp)
-  (defun onb-wsl-paste ()
+(when (eon-linp)
+  (defun eon-wsl-paste ()
     "Paste contents from the Windows clipboard into the Emacs buffer."
     (interactive)
     (let ((coding-system-for-read 'dos)
@@ -805,7 +805,7 @@ or `system-configuration' directly."
        (substring
         (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
         0  -1))))
-  (global-set-key (kbd "C-z C-y") 'onb-wsl-paste))
+  (global-set-key (kbd "C-z C-y") 'eon-wsl-paste))
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -885,11 +885,11 @@ or `system-configuration' directly."
 
 
 ;; Use 'completing-read' to choose between recent files
-(defun onb-find-recentf ()
+(defun eon-find-recentf ()
   "Find recent file via completion in the minibuffer."
   (interactive)
   (find-file (completing-read "Find recent file: " recentf-list nil t) nil))
-(global-set-key (kbd "C-x f") #'onb-find-recentf)
+(global-set-key (kbd "C-x f") #'eon-find-recentf)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -923,21 +923,21 @@ Kills the current Dired buffer when selecting a new directory"
 
 ;; Use the system trash when deleting files
 
-(defun onb-trash-on ()
+(defun eon-trash-on ()
   "Delete files by moving to the system trash."
   (interactive)
   (setq delete-by-moving-to-trash t)
   (setq dired-recursive-deletes 'always) ; don't ask when directory not empty
   (message "Trash on: Deleted files will go to system trash."))
 
-(defun onb-trash-off ()
+(defun eon-trash-off ()
   "Delete files immediately."
   (interactive)
   (setq delete-by-moving-to-trash nil)
   (setq dired-recursive-deletes 'top) ; ask when directory not empty
   (message "Trash off: Files will be deleted immediately!"))
 
-(onb-trash-on) ; set the default
+(eon-trash-on) ; set the default
 
 
 ;; Auto refresh dired when contents of a directory change
@@ -976,15 +976,15 @@ Kills the current Dired buffer when selecting a new directory"
 
 
 ;; Linux/Unix only: hit "M-RET" to open files in desktop app
-(when (onb-linp)
-  (defun onb-dired-xdg-open ()
+(when (eon-linp)
+  (defun eon-dired-xdg-open ()
     "Open files and folders with the default desktop app."
     (interactive)
     (let* ((file (dired-get-filename nil t)))
       (message "Opening %s..." file)
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
-  (define-key dired-mode-map (kbd "M-RET") #'onb-dired-xdg-open))
+  (define-key dired-mode-map (kbd "M-RET") #'eon-dired-xdg-open))
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -1232,7 +1232,7 @@ Kills the current Dired buffer when selecting a new directory"
 
 ;; There are various syntax-checkers coming with the built-in Flymake mode,
 ;; and additional checkers can be installed as 3rd-party packages via
-;; "M-x package-install <RET> flymake-" or `(onb-package 'install '(NAME))'
+;; "M-x package-install <RET> flymake-" or `(eon-package 'install '(NAME))'
 
 ;; Disable the legacy backend
 (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
@@ -1268,21 +1268,21 @@ Kills the current Dired buffer when selecting a new directory"
 ;; is no need to put your files into this directory
 (setq org-directory (expand-file-name "~/Org/"))
 
-(defun onb-org-directory ()
+(defun eon-org-directory ()
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
-(global-set-key (kbd "C-c o d") #'onb-org-directory)
+(global-set-key (kbd "C-c o d") #'eon-org-directory)
 
 
 ;; Set a default target for storing notes
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
-(defun onb-org-notes ()
+(defun eon-org-notes ()
   "Visit the Org notes file."
   (interactive)
   (find-file (concat org-directory "notes.org")))
-(global-set-key (kbd "C-c o o") #'onb-org-notes)
+(global-set-key (kbd "C-c o o") #'eon-org-notes)
 
 
 ;; Capture: put newer entries on top
@@ -1325,7 +1325,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;;; LISP LANGUAGES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
-(defun onb-setup-lisp-languages ()
+(defun eon-setup-lisp-languages ()
   "Basic support for languages from the Lisp family."
   (setq-local show-paren-style 'expression)
   (show-paren-local-mode 1)
@@ -1333,16 +1333,16 @@ Kills the current Dired buffer when selecting a new directory"
   (electric-indent-local-mode 1))
 
 ;; Emacs Lisp
-(add-hook 'emacs-lisp-mode-hook #'onb-setup-lisp-languages)
+(add-hook 'emacs-lisp-mode-hook #'eon-setup-lisp-languages)
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
-(add-hook 'lisp-interaction-mode-hook #'onb-setup-lisp-languages)
-(add-hook 'ielm-mode-hook #'onb-setup-lisp-languages)
+(add-hook 'lisp-interaction-mode-hook #'eon-setup-lisp-languages)
+(add-hook 'ielm-mode-hook #'eon-setup-lisp-languages)
 ;; Lisp
-(add-hook 'lisp-mode-hook #'onb-setup-lisp-languages)
-(add-hook 'inferior-lisp-mode-hook #'onb-setup-lisp-languages)
+(add-hook 'lisp-mode-hook #'eon-setup-lisp-languages)
+(add-hook 'inferior-lisp-mode-hook #'eon-setup-lisp-languages)
 ;; Scheme
-(add-hook 'scheme-mode-hook #'onb-setup-lisp-languages)
-(add-hook 'inferior-scheme-mode-hook #'onb-setup-lisp-languages)
+(add-hook 'scheme-mode-hook #'eon-setup-lisp-languages)
+(add-hook 'inferior-scheme-mode-hook #'eon-setup-lisp-languages)
 
 ;; Additional keybinding resembling other sexp-related keybindings
 ;; who usually begin with "C-M". Also useful editing non-lisp languages
