@@ -432,7 +432,6 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; USER INTERFACE
 
-
 ;; Default frame settings – start with an empty alist
 (setq default-frame-alist '())
 
@@ -484,7 +483,6 @@ or `system-configuration' directly."
 ;;; CURSOR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
 
-
 ;; To learn about available cursors, place your cursor behind 'cursor-type'
 ;; in the code below or do "M-x describe-symbol RET cursor-type RET"
 
@@ -509,7 +507,6 @@ or `system-configuration' directly."
 ;;; SMOOTH SCROLLING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
 
-
 (setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))
               mouse-wheel-progressive-speed t
               mouse-wheel-follow-mouse t
@@ -521,7 +518,6 @@ or `system-configuration' directly."
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; PINENTRY
-
 
 (require 'epg-config)
 (setq epg-pinentry-mode 'loopback)
@@ -573,7 +569,6 @@ or `system-configuration' directly."
 ;;; COMPLETION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete>
 
-
 (require 'icomplete)
 
 (setq icomplete-in-buffer t
@@ -620,15 +615,14 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows>
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience>
 
-
 ;; Emacs often opens buffers in new windows. Let's make window splitting and
 ;; placement more predictable. For the default window behavior,
-;; comment the following expression and restart Emacs
-(setq display-buffer-base-action
-      '((display-buffer-reuse-window
-         display-buffer-reuse-mode-window
-         display-buffer-same-window
-         display-buffer-in-previous-window)))
+;; 'quote the following expression and restart Emacs
+'(setq display-buffer-base-action
+       '((display-buffer-reuse-window
+          display-buffer-reuse-mode-window
+          display-buffer-same-window
+          display-buffer-in-previous-window)))
 
 ;; Display-buffer: avoid resizing
 (setq even-window-sizes nil)
@@ -661,7 +655,6 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; BUFFERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
-
 
 ;; Ibuffer – the buffer manager
 (require 'ibuf-ext)
@@ -700,7 +693,6 @@ or `system-configuration' directly."
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; SCRATCH BUFFER
-
 
 ;; Set an initial major mode for the *scratch* buffer:
 
