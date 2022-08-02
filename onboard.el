@@ -98,8 +98,8 @@
 
 ;; Highlight current line in the package manager
 (add-hook 'package-menu-mode-hook
-           (lambda ()
-             (hl-line-mode 1)))
+          (lambda ()
+            (hl-line-mode 1)))
 
 
 ;; Install packages declaratively within an Emacs Lisp file
@@ -881,7 +881,7 @@ or `system-configuration' directly."
 ;; Ignore some recently visited files,
 ;; eg. to prevent them from showing up amongst recent files after package upgrades
 (add-to-list 'recentf-exclude
-              (expand-file-name (concat user-emacs-directory "elpa/")))
+             (expand-file-name (concat user-emacs-directory "elpa/")))
 
 
 ;; Use 'completing-read' to choose between recent files
@@ -948,11 +948,11 @@ Kills the current Dired buffer when selecting a new directory"
 
 ;; Directory listings
 (add-hook 'dired-mode-hook
-           (lambda ()
-             ;; Hide details in file listings? Toggle via "S-("
-             (dired-hide-details-mode 1)
-             ;; Highlight current line?
-             (hl-line-mode 1)))
+          (lambda ()
+            ;; Hide details in file listings? Toggle via "S-("
+            (dired-hide-details-mode 1)
+            ;; Highlight current line?
+            (hl-line-mode 1)))
 
 ;; Listing columns; Switch arguments with "C-u s"
 ;; Show all files: -DlhFA and hide backups with -B
@@ -1060,62 +1060,62 @@ Kills the current Dired buffer when selecting a new directory"
 (setq url-user-agent
       "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Mobile/15E148 Safari/604.1")
 
-                    ;; Or pretend to be the W3m text-mode browser
-                    ;; (setq url-user-agent "w3m/0.5.3+git20190105")
+;; Or pretend to be the W3m text-mode browser
+;; (setq url-user-agent "w3m/0.5.3+git20190105")
 
-                    (setq url-privacy-level '(email lastloc os emacs))
-                    (url-setup-privacy-info)
+(setq url-privacy-level '(email lastloc os emacs))
+(url-setup-privacy-info)
 
 
-                    ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; PRIMARY WEB BROWSER
-                    ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hyperlinking>
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hyperlinking>
 
-                    ;; This can be any graphical web browser, but also a built-in web browser
+;; This can be any graphical web browser, but also a built-in web browser
 
-                    ;; Set Emacs' `browse-url' function …
+;; Set Emacs' `browse-url' function …
 
-                    ;; … to the system-wide default browser
-                    (setq browse-url-browser-function #'browse-url-default-browser)
+;; … to the system-wide default browser
+(setq browse-url-browser-function #'browse-url-default-browser)
 
-                    ;; … to Firefox explicitly
-                    ;; (setq browse-url-browser-function #'browse-url-firefox)
+;; … to Firefox explicitly
+;; (setq browse-url-browser-function #'browse-url-firefox)
 
-                    ;; … or to the Nyxt browser <https://nyxt.atlas.engineer/>
-                    ;; (setq browse-url-generic-program "nyxt")
-                    ;; (setq browse-url-browser-function #'browse-url-generic)
+;; … or to the Nyxt browser <https://nyxt.atlas.engineer/>
+;; (setq browse-url-generic-program "nyxt")
+;; (setq browse-url-browser-function #'browse-url-generic)
 
-                    ;; Keybinding
-                    (global-set-key (kbd "C-c w w") #'browse-url)
-
-
-                    ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                    ;; SECONDARY WEB BROWSER
-
-                    ;; Set an alternative browser — currently set to Emacs' built-in EWW
-                    (setq browse-url-secondary-browser-function #'browse-web)
-
-                    ;; Keybinding
-                    (global-set-key (kbd "C-c w W") #'browse-web)
+;; Keybinding
+(global-set-key (kbd "C-c w w") #'browse-url)
 
 
-                    ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;; SECONDARY WEB BROWSER
+
+;; Set an alternative browser — currently set to Emacs' built-in EWW
+(setq browse-url-secondary-browser-function #'browse-web)
+
+;; Keybinding
+(global-set-key (kbd "C-c w W") #'browse-web)
+
+
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; EMAIL SENDING
-                    ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail>
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail>
 
-                    ;; TODO: Send emails directly from Emacs using SMTP – example template
+;; TODO: Send emails directly from Emacs using SMTP – example template
 
-                    ;; Should be defined first
-                    ;; (setq user-mail-address "mail@example.org")
+;; Should be defined first
+;; (setq user-mail-address "mail@example.org")
 
-                    ;; To avoid typing in the password for each email, specify SMTP account(s)
-                    ;; in '~/.authinfo.gpg'. Here's a content template for authinfo.gpg:
-                    ;; machine mail.example.org port 587 login myuser password mypassword
+;; To avoid typing in the password for each email, specify SMTP account(s)
+;; in '~/.authinfo.gpg'. Here's a content template for authinfo.gpg:
+;; machine mail.example.org port 587 login myuser password mypassword
 
 
-                    ;; Emacs email variables
+;; Emacs email variables
 
-                    (require 'smtpmail)
+(require 'smtpmail)
 (setq send-mail-function 'smtpmail-send-it
       smtpmail-smtp-server "localhost"
       smtpmail-stream-type 'starttls
