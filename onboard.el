@@ -113,10 +113,7 @@ to make sure that certain Emacs Lisp packages will be present on your system."
               (unless (package-installed-p package)
                 (package-refresh-contents)
                 (package-install package nil)))
-            package-list)))
-
-(defalias 'ont-package 'eon-package
-  "Alias for the function 'eon-package' from Emacs ONBOARD.")
+          package-list)))
 
 ;; Example: You can install suggested 3rd-party packages from within this file
 ;; with single function calls like so:
