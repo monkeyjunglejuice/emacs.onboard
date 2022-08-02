@@ -1024,10 +1024,12 @@ Kills the current Dired buffer when selecting a new directory"
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; SHELL
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Shell-Mode>
 
-;; Issue shell commands and display their output
+;; This is also no terminal emulator, but a buffer to issue shell commands
+;; and display their output
 
-;; Set another shell than the default one
+;; Set another shell than your default one?
 ;; (setq shell-file-name "/usr/bin/bash")
 
 ;; To open more than one shell buffer: "C-u C-c x s"
