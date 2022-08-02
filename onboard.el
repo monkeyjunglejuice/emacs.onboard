@@ -538,9 +538,11 @@ or `system-configuration' directly."
 ;;; MINIBUFFER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer>
 
+;; Recursive minibuffers
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Recursive-Edit>
 ;; Allow minibuffer commands while in the minibuffer
 ;; There are two commands to get out of recursive minibuffers:
-;; "C-M-c" `exit-recursive-edit' and "C-]" `abort-recursive-edit'
+;; "C-M-c" exit-recursive-edit and "C-]" abort-recursive-edit
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
 
