@@ -528,11 +528,8 @@ or `system-configuration' directly."
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-;;; MODELINE / ECHO AREA / MINIBUFFER
+;;; MODELINE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line>
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Echo-Area>
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer>
-
 
 ;; Show the buffer size in the modeline
 (size-indication-mode 1)
@@ -540,8 +537,10 @@ or `system-configuration' directly."
 ;; Show column number along with line number in modeline
 (column-number-mode 1)
 
-;; Delete duplicates from the command history
-(setq history-delete-duplicates t)
+
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; MINIBUFFER
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer>
 
 ;; Allow minibuffer commands while in the minibuffer
 ;; There are two commands to get out of recursive minibuffers:
@@ -552,6 +551,12 @@ or `system-configuration' directly."
 ;; Use the minibuffer instead of dialog boxes
 (setq use-dialog-box nil)
 
+;; Grow and shrink the minibuffer according to its content
+(setq resize-mini-windows t)
+
+;; Delete duplicates from the command history
+(setq history-delete-duplicates t)
+
 ;; Change all yes/no style questions to y/n style
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -559,7 +564,6 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
-
 
 (setq eldoc-echo-area-use-multiline-p t
       eldoc-minor-mode-string "")
