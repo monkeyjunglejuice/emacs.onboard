@@ -1262,10 +1262,13 @@ Kills the current Dired buffer when selecting a new directory"
 ;; <https://orgmode.org/>
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/org.html>
 
+;; Org provides functionality far beyond that of computational notebooks
+;; such as Jupyter or R Markdown.
+
 (require 'org)
 
-;; Set a default location to look for Org files, but there
-;; is no need to put your files into this directory
+;; Set a default location to look for Org files, but you can save them
+;; in fact anywhere you like
 (setq org-directory (expand-file-name "~/Org/"))
 
 (defun eon-org-directory ()
