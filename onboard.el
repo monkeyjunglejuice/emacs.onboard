@@ -33,7 +33,7 @@
 ;;; Examples:
 ;;
 ;; "M-x eon-"                Show all commands defined in this file
-;; "M-x eon-user-init-file"  Visit main configuration file – .emacs or init.el
+;; "M-x eon-goto-user-init-file"  Visit main config file: .emacs or init.el
 ;; "M-x check-parens"        Check if all parens match in Emacs Lisp code
 ;; "M-x help"                Reach the ultimate help menu
 ;;
@@ -1268,7 +1268,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;; in fact anywhere you like
 (setq org-directory (expand-file-name "~/Org/"))
 
-(defun eon-org-directory ()
+(defun eon-goto-org-directory ()
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
@@ -1278,7 +1278,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;; Set a default target for storing notes
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
-(defun eon-org-notes ()
+(defun eon-goto-org-notes ()
   "Visit the Org notes file."
   (interactive)
   (find-file (concat org-directory "notes.org")))
