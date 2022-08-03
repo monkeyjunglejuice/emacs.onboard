@@ -64,6 +64,15 @@
 ;; Show a message when garbage collection happens? Useful while tuning the GC
 (setq garbage-collection-messages nil)
 
+;; Diagnostics
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs started in %s with %d garbage collections."
+                     (format "%.3f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; PACKAGE MANAGEMENT
