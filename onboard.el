@@ -138,7 +138,7 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; SYSTEM
 
-;; Free the default "C-z" key binding to make it an additional prefix key
+;; Free the "C-z" key binding to make it an additional prefix key
 ;; in the same way as "C-x" and "C-c"
 (global-unset-key (kbd "C-z"))
 
