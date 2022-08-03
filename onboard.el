@@ -101,8 +101,8 @@
 
 ;; GNU TLS connection issue workaround for Emacs before version 26.3
 (require 'gnutls)
-(if (and (version< emacs-version "26.3") (>= libgnutls-version 30604))
-    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
+(when (and (version< emacs-version "26.3") (>= libgnutls-version 30604))
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 
 ;; Highlight current line in the package manager
