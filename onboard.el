@@ -93,7 +93,7 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; 3rd priority
-;; There is also Gnu Elpa, which is implicitly active by default
+;; There are also Gnu Elpa and Non-Gnu Elpa, which are implicit
 
 ;; Initialize packages
 (package-initialize)
