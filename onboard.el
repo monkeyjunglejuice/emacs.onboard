@@ -154,15 +154,6 @@ to make sure that certain Emacs Lisp packages will be present on your system."
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setq read-process-output-max (* 1024 1024)) ; 1 MB
 
-;; Diagnostics
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs started in %s with %d garbage collections."
-                     (format "%.3f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
-
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;; HELPERS
