@@ -1200,10 +1200,6 @@ Kills the current Dired buffer when selecting a new directory"
           (lambda ()
             (setq-local truncate-lines t)))
 
-;; Turn on visual word wrapping in text modes?
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
-(add-hook 'text-mode-hook #'visual-line-mode)
-
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; BRACKETS / PARENTHESIS
@@ -1289,6 +1285,9 @@ Kills the current Dired buffer when selecting a new directory"
   (dired org-directory))
 (global-set-key (kbd "C-c o d") #'eon-goto-org-directory)
 
+;; Turn on visual word wrapping
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
+(add-hook 'org-mode-hook #'visual-line-mode)
 
 ;;..............................................................................
 ;;; Capture
