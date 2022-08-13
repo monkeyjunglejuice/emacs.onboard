@@ -389,34 +389,35 @@ or `system-configuration' directly."
 ;; ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
 
 ;;; THEME CONFIG
-
 ;; Either configure the themes here, or "M-x customize-group RET toggle-theme"
 
+;; Set the light theme – unquote the expression to make it executable:
+'(setq eon-light-theme-name 'modus-operandi)
 
-;; Set the light theme:
-;; (setq eon-light-theme-name 'modus-operandi)
+;; Set the dark theme – unquote the expression to make it executable:
+'(setq eon-dark-theme-name 'modus-vivendi)
 
-;; Set the dark theme:
-;; (setq eon-dark-theme-name 'modus-vivendi)
+;; Set the default variant here, either 'light or 'dark – also unquote:
+'(setq eon-default-theme-variant 'dark)
 
-;; Set the default variant here, either 'light or 'dark:
-;; (setq eon-default-theme-variant 'dark)
 
 ;; Set the keybinding to toggle between light and dark:
 (global-set-key (kbd "<f12>") #'eon-toggle-theme)
 
 ;; The hooks below can be used to run additional functions before or after
-;; loading the selected light or dark theme. Useful to set variables that
-;; otherwise get overwritten by the themes; for instance the font size of
-;; the modeline, which is often explicitly set by the themes themselves.
+;; loading the selected light and dark theme. That's useful for setting
+;; variables that otherwise would get overwritten by the themes.
+;; Restart Emacs to take effect after changing the hooks.
 
 (add-hook 'eon-load-after-light-theme-hook
           (lambda ()
-            (eon-fonts)))
+            (eon-fonts)
+            ))
 
 (add-hook 'eon-load-after-dark-theme-hook
           (lambda ()
-            (eon-fonts)))
+            (eon-fonts)
+            ))
 
 ;; ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
 
