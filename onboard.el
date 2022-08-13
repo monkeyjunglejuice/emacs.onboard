@@ -1289,8 +1289,15 @@ Kills the current Dired buffer when selecting a new directory"
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
-(global-set-key (kbd "C-c o d") #'eon-org-directory)
+(global-set-key (kbd "C-c o d") #'eon-goto-org-directory)
 
+
+;;..............................................................................
+;;; Capture
+;; <https://orgmode.org/org.html#Capture>
+(global-set-key (kbd "C-c o c") #'org-capture)
+;; Capture: put newer entries on top
+(setq org-reverse-note-order t)
 
 ;; Set a default target for storing notes
 (setq org-default-notes-file (concat org-directory "notes.org"))
@@ -1298,36 +1305,56 @@ Kills the current Dired buffer when selecting a new directory"
 (defun eon-goto-org-notes ()
   "Visit the Org notes file."
   (interactive)
-  (find-file (concat org-directory "notes.org")))
-(global-set-key (kbd "C-c o o") #'eon-org-notes)
+  (find-file org-default-notes-file))
+(global-set-key (kbd "C-c o o") #'eon-goto-org-notes)
 
 
-;; Capture: put newer entries on top
-(setq org-reverse-note-order t)
-(global-set-key (kbd "C-c o c") #'org-capture)
+;;..............................................................................
+;;; Todo
+;; <https://orgmode.org/org.html#TODO-Items>
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
 
-;; Agenda
+
+;;..............................................................................
+;;; Agenda
+;; <https://orgmode.org/org.html#Agenda-Views>
 (setq org-agenda-files (list org-directory))
 (global-set-key (kbd "C-c o a") #'org-agenda)
 
-;; Links
+
+;;..............................................................................
+;;; Links
+;; <https://orgmode.org/org.html#Hyperlinks>
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c C-l") #'org-insert-link)
 (define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
 
 
-;; Global todo states
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+;;..............................................................................
+;;; Publishing
+
+(global-set-key (kbd "C-c o p") 'org-publish)
+
+;; Speed up publishing
+(setq org-publish-list-skipped-files nil)
+
+;; Timestamps
+(setq org-publish-timestamp-directory
+      (concat user-emacs-directory "org-timestamps/"))
+
+(defun eon-org-publish-use-timestamps ()
+  "Toggle wether to re-export unchanged Org files."
+  (interactive)
+  (if (equal org-publish-use-timestamps-flag t)
+      (progn (setq org-publish-use-timestamps-flag nil)
+             (message "Re-export unchanged files"))
+    (progn (setq org-publish-use-timestamps-flag t)
+           (message "Don't re-export unchanged files (default)"))))
 
 
-;; Visual word wrapping
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
-(add-hook 'org-mode-hook #'visual-line-mode)
-
-
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-;;; LITERATE PROGRAMMING
+;;..............................................................................
+;;; Literate Programming
 ;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
 ;; Activate code blocks via Babel languages
