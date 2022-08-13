@@ -1295,6 +1295,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;;..............................................................................
 ;;; Capture
 ;; <https://orgmode.org/org.html#Capture>
+
 (global-set-key (kbd "C-c o c") #'org-capture)
 ;; Capture: put newer entries on top
 (setq org-reverse-note-order t)
@@ -1312,6 +1313,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;;..............................................................................
 ;;; Todo
 ;; <https://orgmode.org/org.html#TODO-Items>
+
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
 
@@ -1319,6 +1321,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;;..............................................................................
 ;;; Agenda
 ;; <https://orgmode.org/org.html#Agenda-Views>
+
 (setq org-agenda-files (list org-directory))
 (global-set-key (kbd "C-c o a") #'org-agenda)
 
@@ -1326,6 +1329,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;;..............................................................................
 ;;; Links
 ;; <https://orgmode.org/org.html#Hyperlinks>
+
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c C-l") #'org-insert-link)
 (define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
