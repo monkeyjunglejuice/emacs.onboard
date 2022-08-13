@@ -1306,14 +1306,12 @@ Kills the current Dired buffer when selecting a new directory"
   (find-file org-default-notes-file))
 (global-set-key (kbd "C-c o o") #'eon-goto-org-notes)
 
-
 ;;..............................................................................
 ;;; Todo
 ;; <https://orgmode.org/org.html#TODO-Items>
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
-
 
 ;;..............................................................................
 ;;; Agenda
@@ -1322,7 +1320,6 @@ Kills the current Dired buffer when selecting a new directory"
 (setq org-agenda-files (list org-directory))
 (global-set-key (kbd "C-c o a") #'org-agenda)
 
-
 ;;..............................................................................
 ;;; Links
 ;; <https://orgmode.org/org.html#Hyperlinks>
@@ -1330,7 +1327,6 @@ Kills the current Dired buffer when selecting a new directory"
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c C-l") #'org-insert-link)
 (define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
-
 
 ;;..............................................................................
 ;;; Publishing
@@ -1354,7 +1350,6 @@ Kills the current Dired buffer when selecting a new directory"
              (message "Re-export unchanged files"))
     (progn (setq org-publish-use-timestamps-flag t)
            (message "Don't re-export unchanged files (default)"))))
-
 
 ;;..............................................................................
 ;;; Literate Programming
