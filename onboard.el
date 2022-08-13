@@ -429,9 +429,6 @@ or `system-configuration' directly."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; USER INTERFACE
 
-;; Default frame settings – start with an empty alist
-(setq default-frame-alist '())
-
 ;; Either start Emacs maximized …
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
