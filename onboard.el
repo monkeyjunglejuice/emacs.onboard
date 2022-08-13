@@ -1190,6 +1190,24 @@ Kills the current Dired buffer when selecting a new directory"
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;; LINE WRAPPING
+
+;; Truncate long lines in programming modes?
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
+;; By default, lines are continued visualy on the next screen-line
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Continuation-Lines>
+;; For default behavior, do "M-x toggle-truncate-lines", or quote the expression
+;; below and restart Emacs to make it permanent.
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq-local truncate-lines t)))
+
+;; Turn on visual word wrapping in text modes?
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
+(add-hook 'text-mode-hook #'visual-line-mode)
+
+
+;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; BRACKETS / PARENTHESIS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses>
 
