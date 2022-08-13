@@ -1274,7 +1274,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; ORG-MODE
 ;; <https://orgmode.org/>
-;; <https://www.gnu.org/software/emacs/manual/html_mono/org.html>
+;; <https://orgmode.org/org.html>
 
 ;; Org provides functionality far beyond that of computational notebooks
 ;; such as Jupyter or R Markdown.
