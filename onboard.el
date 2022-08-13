@@ -1006,8 +1006,8 @@ Kills the current Dired buffer when selecting a new directory"
 (require 'em-dirs)
 (setq  eshell-list-files-after-cd t)
 
-;; To open more than one eshell buffer: "C-u C-c x e"
-(global-set-key (kbd "C-x x e") #'eshell)
+;; To open more than one eshell buffer: "C-u C-c C-x e"
+(global-set-key (kbd "C-c C-x e") #'eshell)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -1020,8 +1020,8 @@ Kills the current Dired buffer when selecting a new directory"
 ;; Set another shell than your default one?
 ;; (setq shell-file-name "/usr/bin/bash")
 
-;; To open more than one shell buffer: "C-u C-c x s"
-(global-set-key (kbd "C-x x s") #'shell)
+;; To open more than one shell buffer: "C-u C-c C-x s"
+(global-set-key (kbd "C-c C-x s") #'shell)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
