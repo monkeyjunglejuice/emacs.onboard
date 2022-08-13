@@ -115,8 +115,7 @@
 (defun eon-package (action package-list)
   "Helper function to install 3rd-party packages declaratively.
 PACKAGE-LIST will be installed if 'install is passed as an argument to ACTION.
-When ACTION receives 'ignore, then nothing will happen. Use it if you want
-to make sure that certain Emacs Lisp packages will be present on your system."
+When ACTION receives 'ignore, then nothing will happen."
   (when (eq action 'install)
     (mapc #'(lambda (package)
               (unless (package-installed-p package)
