@@ -1336,6 +1336,8 @@ Kills the current Dired buffer when selecting a new directory"
 ;;..............................................................................
 ;;; Publishing
 
+(require 'ox-publish)
+
 (global-set-key (kbd "C-c o p") 'org-publish)
 
 ;; Speed up publishing
