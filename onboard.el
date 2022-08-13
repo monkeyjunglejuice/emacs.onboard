@@ -712,7 +712,7 @@ or `system-configuration' directly."
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
-(global-set-key (kbd "C-c s s") #'eon-scratch)
+(global-set-key (kbd "C-c C-s s") #'eon-scratch)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
