@@ -698,7 +698,7 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction>
 ;; (setq initial-major-mode #'lisp-interaction-mode)
 
-;; Org-mode — for general writing and notes and literate programming
+;; Org-mode — for general writing, notes and literate programming
 (setq initial-major-mode #'org-mode)
 
 ;; Basic text — nothing special
