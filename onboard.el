@@ -652,18 +652,6 @@ or `system-configuration' directly."
 ;;; BUFFERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
-;; Ibuffer – the buffer manager
-(require 'ibuf-ext)
-
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-auto-mode 1)))
-
-(setq ibuffer-marked-face 'dired-marked)
-
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-
 ;; Uniquify buffer names for buffers that would have identical names
 (setq uniquify-buffer-name-style 'forward)
 
@@ -685,6 +673,33 @@ or `system-configuration' directly."
 
 ;; Get the buffer out of the way, but let it alive
 (global-set-key (kbd "C-c k") #'bury-buffer)
+
+
+;; Define boring buffers globally
+(defvar eon-boring-buffers '("\\` "
+                             "\\`\\*Echo Area"
+                             "\\`\\*Minibuf"
+                             "\\`\\*scratch"
+                             "\\`\\*Messages"
+                             "\\`\\*Bookmark List"
+                             "\\`\\*Ibuffer")
+  "List of buffer names that specify buffers to hide in certain places.
+The elements are regular expressions.")
+
+
+;; Ibuffer – the buffer manager
+(require 'ibuf-ext)
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-auto-mode 1)))
+
+(setq ibuffer-marked-face 'dired-marked)
+
+;; Don't show the boring buffers in Ibuffer
+(setq ibuffer-never-show-predicates eon-boring-buffers)
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
