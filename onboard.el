@@ -678,13 +678,14 @@ or `system-configuration' directly."
 
 
 ;; Define boring buffers globally
+;; The hidden buffers can be visited by ...
 (defvar eon-boring-buffers '("\\` "
                              "\\`\\*Echo Area"
                              "\\`\\*Minibuf"
-                             "\\`\\*scratch"
-                             "\\`\\*Messages"
-                             "\\`\\*Bookmark List"
-                             "\\`\\*Ibuffer")
+                             "\\`\\*scratch"        ; "C-z s s"
+                             "\\`\\*Messages"       ; "M-h e"
+                             "\\`\\*Bookmark List"  ; "C-x r l"
+                             "\\`\\*Ibuffer")       ; "C-x C-b"
   "List of buffer names that specify buffers to hide in certain places.
 The elements are regular expressions.")
 
