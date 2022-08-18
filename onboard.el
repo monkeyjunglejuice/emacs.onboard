@@ -729,7 +729,7 @@ The elements are regular expressions.")
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
-(global-set-key (kbd "C-c C-s s") #'eon-scratch)
+(global-set-key (kbd "C-z s s") #'eon-scratch)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -1022,7 +1022,7 @@ Kills the current Dired buffer when selecting a new directory"
 (setq  eshell-list-files-after-cd t)
 
 ;; To open more than one eshell buffer: "C-u C-c C-x e"
-(global-set-key (kbd "C-c C-x e") #'eshell)
+(global-set-key (kbd "C-z e e") #'eshell)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -1036,7 +1036,7 @@ Kills the current Dired buffer when selecting a new directory"
 ;; (setq shell-file-name "/usr/bin/bash")
 
 ;; To open more than one shell buffer: "C-u C-c C-x s"
-(global-set-key (kbd "C-c C-x s") #'shell)
+(global-set-key (kbd "C-z e s") #'shell)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
