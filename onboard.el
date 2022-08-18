@@ -656,20 +656,22 @@ or `system-configuration' directly."
 (setq uniquify-buffer-name-style 'forward)
 
 
-;; Kill the current buffer immediately instead of presenting a selection.
+;; Kill the current buffer immediately instead of presenting a selection
 ;; It's the equivalent to "close tab" in a web browser or other editors
 (global-set-key (kbd "C-x k") #'kill-current-buffer)
 
+;; Present the selection
+;; It's the equivalent to "close tab" in a web browser or other editors
+(global-set-key (kbd "C-x K") #'kill-buffer)
 
 ;; Kill all buffers at once – equivalent to "close all tabs"
-(defun kill-all-buffers ()
+(defun eon-kill-all-buffers ()
   "Close all buffers at once."
   (interactive)
   (save-some-buffers)
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
-(global-set-key (kbd "C-x K") 'kill-all-buffers)
-
+(global-set-key (kbd "C-x M-k") 'kill-all-buffers)
 
 ;; Get the buffer out of the way, but let it alive
 (global-set-key (kbd "C-c k") #'bury-buffer)
