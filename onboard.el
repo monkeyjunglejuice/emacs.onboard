@@ -671,7 +671,7 @@ or `system-configuration' directly."
   (save-some-buffers)
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
-(global-set-key (kbd "C-x M-k") 'kill-all-buffers)
+(global-set-key (kbd "C-x M-k") #'eon-kill-all-buffers)
 
 ;; Get the buffer out of the way, but let it alive
 (global-set-key (kbd "C-c k") #'bury-buffer)
