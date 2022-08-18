@@ -719,10 +719,8 @@ The elements are regular expressions.")
 ;; Basic text — nothing special
 ;; (setq initial-major-mode #'fundamental-mode)
 
-
 ;; Should the *scratch* buffer contain some initial content?
 (setq initial-scratch-message "")
-
 
 ;; Quickly jump to the *scratch* buffer
 (defun eon-scratch ()
