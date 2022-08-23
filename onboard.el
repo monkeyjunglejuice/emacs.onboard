@@ -136,8 +136,7 @@ When ACTION receives 'ignore, then nothing will happen."
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;; SYSTEM
 
-;; Free the "C-z" key binding to make it an additional prefix key
-;; in the same way as "C-x" and "C-c"
+;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c"
 (global-unset-key (kbd "C-z"))
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files
