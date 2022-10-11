@@ -1404,7 +1404,6 @@ Kills the current Dired buffer when selecting a new directory"
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
-
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 (provide 'onboard)
 ;;; onboard.el ends here
