@@ -505,7 +505,7 @@ or `system-configuration' directly."
               scroll-conservatively 10000
               scroll-step 1
               scroll-margin 0  ; leave n lines on both screen ends
-              scroll-preserve-screen-position 1)
+              scroll-preserve-screen-position nil)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
