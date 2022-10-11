@@ -1387,13 +1387,14 @@ Kills the current Dired buffer when selecting a new directory"
   (electric-indent-local-mode 1))
 
 (mapc (lambda (h) (add-hook h #'eon-setup-lisp-languages))
-      '( emacs-lisp-mode-hook  lisp-interaction-mode-hook ielm-mode-hook
+      '( emacs-lisp-mode-hook ielm-mode-hook
          lisp-mode-hook inferior-lisp-mode-hook
          scheme-mode-hook inferior-scheme-mode-hook
          eval-expression-minibuffer-setup))
 
-;; Emacs Lisp: Flymake supports it, so let's use it
+;; Emacs Lisp is supported by Flymake, so let's use it
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
+(add-hook 'lisp-interaction-mode-hook (lambda () (flymake-mode -1)))
 
 ;; Emacs Lisp: don't truncate printed lists
 (setq eval-expression-print-length nil)
