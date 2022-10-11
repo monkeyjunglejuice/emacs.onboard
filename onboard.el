@@ -680,8 +680,8 @@ or `system-configuration' directly."
 (defvar eon-boring-buffers '("\\` "
                              "\\`\\*Echo Area"
                              "\\`\\*Minibuf"
-                             "\\`\\*scratch"        ; "C-z s s"
-                             "\\`\\*Messages"       ; "M-h e"
+                             "\\`\\*scratch"        ; "C-z s"
+                             "\\`\\*Messages"       ; "C-h e"
                              "\\`\\*Bookmark List"  ; "C-x r l"
                              "\\`\\*Ibuffer")       ; "C-x C-b"
   "List of buffer names that specify buffers to hide in certain places.
@@ -726,7 +726,7 @@ The elements are regular expressions.")
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
-(global-set-key (kbd "C-z s s") #'eon-scratch)
+(global-set-key (kbd "C-z s") #'eon-scratch)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -1018,8 +1018,8 @@ Kills the current Dired buffer when selecting a new directory"
 (require 'em-dirs)
 (setq  eshell-list-files-after-cd t)
 
-;; To open more than one eshell buffer: "C-u C-c C-x e"
-(global-set-key (kbd "C-z x e") #'eshell)
+;; To open more than one eshell buffer: "C-u C-z e"
+(global-set-key (kbd "C-z e") #'eshell)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -1032,8 +1032,8 @@ Kills the current Dired buffer when selecting a new directory"
 ;; Set another shell than your default one?
 ;; (setq shell-file-name "/usr/bin/bash")
 
-;; To open more than one shell buffer: "C-u C-c C-x s"
-(global-set-key (kbd "C-z x s") #'shell)
+;; To open more than one shell buffer: "C-u C-z E"
+(global-set-key (kbd "C-z E") #'shell)
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
