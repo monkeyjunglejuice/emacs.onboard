@@ -913,7 +913,7 @@ The elements are regular expressions.")
 ;; Don't accumulate useless Dired buffers
 (defun ont-dired-single-buffer (s)
   "When S is non-nil, prevent superfluous Dired buffers from accumulating.
-Kills the current Dired buffer when selecting a new directory"
+Kills the current Dired buffer when entering a new directory"
   (when (not (null s))
     (cond
      ((version< "28.1" emacs-version)
