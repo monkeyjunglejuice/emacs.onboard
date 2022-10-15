@@ -98,6 +98,10 @@
 (package-initialize)
 
 
+;; Natively compile packages immediately after installation
+(setq package-native-compile t)
+
+
 ;; GNU TLS connection issue workaround for Emacs before version 26.3
 (require 'gnutls)
 (when (and (version< emacs-version "26.3") (>= libgnutls-version 30604))
