@@ -977,8 +977,11 @@ Kills the current Dired buffer when selecting a new directory"
 
 ;; Images
 (require 'image-dired)
-(setq image-dired-thumb-margin 0
-      image-dired-thumb-relief 0)
+(setq image-dired-thumb-margin 1
+      image-dired-thumb-relief 0
+      ;; Store thumbnails in the system-wide thumbnail location
+      ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
+      image-dired-thumbnail-storage 'standard-large)
 
 
 ;; Linux/Unix only: hit "M-RET" to open files in desktop app
