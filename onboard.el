@@ -555,8 +555,7 @@ or `system-configuration' directly."
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 
-(setq eldoc-echo-area-use-multiline-p t
-      eldoc-minor-mode-string "")
+(setq eldoc-minor-mode-string "")
 
 
 ;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
