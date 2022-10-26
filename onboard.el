@@ -1403,7 +1403,7 @@ Kills the current Dired buffer when entering a new directory"
   (electric-indent-local-mode 1))
 
 (mapc (lambda (h) (add-hook h #'eon-setup-lisp-languages))
-      '( emacs-lisp-mode-hook ielm-mode-hook
+      '( emacs-lisp-mode-hook lisp-interaction-mode-hook ielm-mode-hook
          lisp-mode-hook inferior-lisp-mode-hook
          scheme-mode-hook inferior-scheme-mode-hook
          eval-expression-minibuffer-setup))
