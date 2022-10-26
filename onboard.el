@@ -451,6 +451,7 @@ or `system-configuration' directly."
 
 ;; Menu bar: on/off by default?
 (menu-bar-mode 1)
+(global-set-key (kbd "M-`") #'menu-bar-mode)
 
 ;; Scroll bar: on/off by default?
 ;; (if (fboundp 'scroll-bar-mode) ; Emacs 26.1 compatibility
