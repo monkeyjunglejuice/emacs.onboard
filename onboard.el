@@ -32,10 +32,10 @@
 
 ;;; Examples:
 ;;
-;; "M-x eon-"                Show all commands defined in this file
+;; "M-x eon-"                     Show all commands defined in this file
 ;; "M-x eon-goto-user-init-file"  Visit main config file: .emacs or init.el
-;; "M-x check-parens"        Check if all parens match in Emacs Lisp code
-;; "M-x help"                Reach the ultimate help menu
+;; "M-x check-parens"             Check if all parens match in Emacs Lisp code
+;; "M-x help"                     Reach the ultimate help menu
 ;;
 ;; "C-h o" Place the cursor behind a keyword, function, variable or other symbol
 ;;         to issue the command `describe-symbol' via keybinding
@@ -284,13 +284,14 @@ or `system-configuration' directly."
                       :weight 'normal
                       :width  'normal
                       :height 130)
-  ;; Set the modeline fonts
+  ;; Set the fonts for the active mode line
   (set-face-attribute 'mode-line nil
                       ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 100)
+  ;; Set the fonts for the inactive mode line
   (set-face-attribute 'mode-line-inactive nil
                       ;; :family "Iosevka Curly"
                       :slant  'normal
@@ -675,7 +676,7 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c k") #'bury-buffer)
 
 
-;; Define boring buffers globally
+;; Define boring buffers globally, so they will be hidden
 ;; The hidden buffers can be visited by ...
 (defvar eon-boring-buffers '("\\` "
                              "\\`\\*Echo Area"
@@ -684,8 +685,8 @@ or `system-configuration' directly."
                              "\\`\\*Messages"       ; "C-h e"
                              "\\`\\*Bookmark List"  ; "C-x r l"
                              "\\`\\*Ibuffer")       ; "C-x C-b"
-  "List of buffer names that specify buffers to hide in certain places.
-The elements are regular expressions.")
+  "List of buffer names that specify buffers to hide on several occasions.
+The elements of the list are regular expressions.")
 
 
 ;; Ibuffer – the buffer manager
@@ -1198,7 +1199,18 @@ Kills the current Dired buffer when entering a new directory"
               tab-width 2)         ; set display width for tab characters
 
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
-;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode')
+;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode'
+
+;; Example: You can install suggested 3rd-party packages from within this file
+;; with single function calls like so:
+;;
+;; (eon-package 'install '(the-matrix-theme))  ; installs the package
+;; (eon-package 'ignore '(the-matrix-theme))   ; does nothing (default)
+;;
+;; The installation will be performed when you restart Emacs or
+;; when you evaluate a function manually – eg. via pressing "C-M-x"
+;; while the cursor is placed somewhere within a function application form.
+
 (setq backward-delete-char-untabify-method 'hungry)
 
 
@@ -1207,7 +1219,7 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Truncate long lines in programming modes?
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
-;; By default, lines are continued visualy on the next screen-line
+;; By default, lines are continued visually on the next screen-line
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Continuation-Lines>
 ;; For default behavior, do "M-x toggle-truncate-lines", or quote the expression
 ;; below and restart Emacs to make it permanent.
@@ -1290,8 +1302,8 @@ Kills the current Dired buffer when entering a new directory"
 
 (require 'org)
 
-;; Set a default location to look for Org files, but you can save them
-;; in fact anywhere you like
+;; Set a default location to look for Org files,
+;; but you can save them in fact anywhere you like
 (setq org-directory (expand-file-name "~/Org/"))
 
 (defun eon-goto-org-directory ()
