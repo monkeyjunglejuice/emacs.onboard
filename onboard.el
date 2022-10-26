@@ -45,7 +45,7 @@
 
 ;;; Code:
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; GARBAGE COLLECTION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
 
@@ -73,7 +73,7 @@
                      gcs-done)))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; PACKAGE MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages>
 ;; ... or do "M-x info-emacs-manual s packages RET" to read it within Emacs
@@ -137,7 +137,7 @@ When ACTION receives 'ignore, then nothing will happen."
 ;; while the cursor is placed somewhere within a function application form.
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; SYSTEM
 
 ;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c"
@@ -156,7 +156,7 @@ When ACTION receives 'ignore, then nothing will happen."
 (setq read-process-output-max (* 1024 1024)) ; 1 MB
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;; HELPERS
 
 ;; Simplify writing of operating-system-specific code
@@ -208,7 +208,7 @@ or `system-configuration' directly."
   (find-file eon-onboard-file))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; SERVER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server>
 ;; ... or do "M-x info-emacs-manual s server RET" to read it within Emacs
@@ -246,7 +246,7 @@ or `system-configuration' directly."
   (kill-emacs))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; FONTS
 ;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
 
@@ -299,7 +299,7 @@ or `system-configuration' directly."
                       :height 100))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; TOGGLE THEME
 
 ;; Default/fallback definitions – don't change them here,
@@ -387,7 +387,6 @@ or `system-configuration' directly."
    (t (message
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
-
 ;; ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
 
 ;;; THEME CONFIG
@@ -423,12 +422,10 @@ or `system-configuration' directly."
 
 ;; ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
 
-
 ;; Load the theme eventually
 (eon-load-theme-default)
 
-
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; USER INTERFACE
 
 ;; Either start Emacs maximized …
@@ -475,7 +472,7 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-c r d") #'redraw-display)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; CURSOR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
 
@@ -499,7 +496,7 @@ or `system-configuration' directly."
 (setq hl-line-sticky-flag nil)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; SMOOTH SCROLLING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
 
@@ -512,14 +509,14 @@ or `system-configuration' directly."
               scroll-preserve-screen-position nil)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; PINENTRY
 
 (require 'epg-config)
 (setq epg-pinentry-mode 'loopback)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; MODELINE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line>
 
@@ -530,7 +527,7 @@ or `system-configuration' directly."
 (column-number-mode 1)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; MINIBUFFER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer>
 
@@ -555,14 +552,14 @@ or `system-configuration' directly."
 (fset 'yes-or-no-p 'y-or-n-p)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 
 (setq eldoc-minor-mode-string "")
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; COMPLETION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete>
 
@@ -607,7 +604,7 @@ or `system-configuration' directly."
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows>
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience>
@@ -649,7 +646,7 @@ or `system-configuration' directly."
 (define-key winner-mode-map (kbd "C-x 4 r") #'winner-redo)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; BUFFERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
@@ -706,7 +703,7 @@ The elements are regular expressions.")
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; SCRATCH BUFFER
 
 ;; Set an initial major mode for the *scratch* buffer:
@@ -732,7 +729,7 @@ The elements are regular expressions.")
 (global-set-key (kbd "C-z s") #'eon-scratch)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; VISITING FILES AT POINT
 
 ;; "C-x C-v"       – Visit any ressource under the cursor
@@ -741,7 +738,7 @@ The elements are regular expressions.")
 (global-set-key (kbd "C-x C-.") #'find-file-at-point)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; CLIPBOARD, COPY & PASTE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing>
 
@@ -817,7 +814,7 @@ The elements are regular expressions.")
   (global-set-key (kbd "C-z C-y") 'eon-wsl-paste))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; BACKUP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup>
 
@@ -834,7 +831,7 @@ The elements are regular expressions.")
       `(("." . ,(concat user-emacs-directory "backup/"))))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; LOCKFILES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking>
 
@@ -842,7 +839,7 @@ The elements are regular expressions.")
 (setq create-lockfiles nil)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; AUTO-SAVE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save>
 
@@ -850,7 +847,7 @@ The elements are regular expressions.")
       auto-save-interval 0)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
@@ -859,7 +856,7 @@ The elements are regular expressions.")
 (setq apropos-do-all t)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; SEARCH
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
 
@@ -876,7 +873,7 @@ The elements are regular expressions.")
 (global-set-key (kbd "C-M-%") #'replace-regexp)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; RECENT FILES
 
 (require 'recentf)
@@ -901,7 +898,7 @@ The elements are regular expressions.")
 (global-set-key (kbd "C-x f") #'eon-find-recentf)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; DIRED
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired>
 
@@ -999,7 +996,7 @@ Kills the current Dired buffer when entering a new directory"
   (define-key dired-mode-map (kbd "M-RET") #'eon-dired-xdg-open))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; COMINT
 
 (require 'comint)
@@ -1008,7 +1005,7 @@ Kills the current Dired buffer when entering a new directory"
       comint-prompt-read-only t)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; ESHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eshell.html>
 
@@ -1028,7 +1025,7 @@ Kills the current Dired buffer when entering a new directory"
 (global-set-key (kbd "C-z e") #'eshell)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; SHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Shell-Mode>
 
@@ -1042,7 +1039,7 @@ Kills the current Dired buffer when entering a new directory"
 (global-set-key (kbd "C-z E") #'shell)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; PROCED
 
 ;; Show and manage OS processes, like the command line programs top and htop
@@ -1055,7 +1052,7 @@ Kills the current Dired buffer when entering a new directory"
               proced-descend t)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; NET-UTILS
 
 (require 'net-utils)
@@ -1064,7 +1061,7 @@ Kills the current Dired buffer when entering a new directory"
       netstat-program-options '("-atupe"))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; BUILT-IN WEB BROWSER "EWW"
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
 
@@ -1079,7 +1076,7 @@ Kills the current Dired buffer when entering a new directory"
 (url-setup-privacy-info)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; PRIMARY WEB BROWSER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hyperlinking>
 
@@ -1101,8 +1098,8 @@ Kills the current Dired buffer when entering a new directory"
 (global-set-key (kbd "C-c w w") #'browse-url)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-;; SECONDARY WEB BROWSER
+;;  ____________________________________________________________________________
+;;; SECONDARY WEB BROWSER
 
 ;; Set an alternative browser — currently set to Emacs' built-in EWW
 (setq browse-url-secondary-browser-function #'browse-web)
@@ -1111,7 +1108,7 @@ Kills the current Dired buffer when entering a new directory"
 (global-set-key (kbd "C-c w W") #'browse-web)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; EMAIL SENDING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail>
 
@@ -1141,7 +1138,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq message-kill-buffer-on-exit t)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; CALENDAR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Calendar_002fDiary>
 
@@ -1152,7 +1149,7 @@ Kills the current Dired buffer when entering a new directory"
       calendar-weekend-days '(6 0))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; GENERAL EDITING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Basic>
 
@@ -1182,7 +1179,7 @@ Kills the current Dired buffer when entering a new directory"
 (global-set-key (kbd "M-z") #'zap-up-to-char)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; LINE NUMBERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom>
 
@@ -1193,7 +1190,7 @@ Kills the current Dired buffer when entering a new directory"
             (display-line-numbers-mode -1)))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; INDENTATION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Indentation>
 
@@ -1205,7 +1202,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq backward-delete-char-untabify-method 'hungry)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; LINE WRAPPING
 
 ;; Truncate long lines in programming modes?
@@ -1219,7 +1216,7 @@ Kills the current Dired buffer when entering a new directory"
             (setq-local truncate-lines t)))
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; BRACKETS / PARENTHESIS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses>
 
@@ -1231,7 +1228,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; (add-hook 'prog-mode-hook #'electric-pair-mode)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; WHITESPACE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Useless-Whitespace>
 
@@ -1250,7 +1247,7 @@ Kills the current Dired buffer when entering a new directory"
 (define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; SYNTAX CHECK / LINTER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/flymake.html>
 
@@ -1276,14 +1273,14 @@ Kills the current Dired buffer when entering a new directory"
 (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)  ; default
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; TEXT MODES / WRITING
 
 ;; Sentences end with a single space
 (setq sentence-end-double-space nil)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; ORG-MODE
 ;; <https://orgmode.org/>
 ;; <https://orgmode.org/org.html>
@@ -1381,7 +1378,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; ("onboard-*.el" files)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 ;;; LISP LANGUAGES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
@@ -1410,6 +1407,6 @@ Kills the current Dired buffer when entering a new directory"
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
 
 
-;;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;;  ____________________________________________________________________________
 (provide 'onboard)
 ;;; onboard.el ends here
