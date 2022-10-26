@@ -97,7 +97,6 @@
 ;; Initialize packages
 (package-initialize)
 
-
 ;; Natively compile packages immediately after installation
 (setq package-native-compile t)
 
@@ -402,7 +401,6 @@ or `system-configuration' directly."
 ;; Set the default variant here, either 'light or 'dark – also unquote:
 '(setq eon-default-theme-variant 'dark)
 
-
 ;; Set the keybinding to toggle between light and dark:
 (global-set-key (kbd "<f12>") #'eon-toggle-theme)
 
@@ -425,6 +423,7 @@ or `system-configuration' directly."
 
 ;; Load the theme eventually
 (eon-load-theme-default)
+
 
 ;;  ____________________________________________________________________________
 ;;; USER INTERFACE
@@ -1317,7 +1316,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
 (add-hook 'org-mode-hook #'visual-line-mode)
 
-;;..............................................................................
+;;  ............................................................................
 ;;; Capture
 ;; <https://orgmode.org/org.html#Capture>
 
@@ -1334,21 +1333,21 @@ Kills the current Dired buffer when entering a new directory"
   (find-file org-default-notes-file))
 (global-set-key (kbd "C-c o o") #'eon-goto-org-notes)
 
-;;..............................................................................
+;;  ............................................................................
 ;;; Todo
 ;; <https://orgmode.org/org.html#TODO-Items>
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
 
-;;..............................................................................
+;;  ............................................................................
 ;;; Agenda
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
 (setq org-agenda-files (list org-directory))
 (global-set-key (kbd "C-c o a") #'org-agenda)
 
-;;..............................................................................
+;;  ............................................................................
 ;;; Links
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
@@ -1356,7 +1355,7 @@ Kills the current Dired buffer when entering a new directory"
 (global-set-key (kbd "C-c C-l") #'org-insert-link)
 (define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
 
-;;..............................................................................
+;;  ............................................................................
 ;;; Publishing
 
 (require 'ox-publish)
@@ -1379,7 +1378,7 @@ Kills the current Dired buffer when entering a new directory"
     (progn (setq org-publish-use-timestamps-flag t)
            (message "Don't re-export unchanged files (default)"))))
 
-;;..............................................................................
+;;  ............................................................................
 ;;; Literate Programming
 ;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
@@ -1423,3 +1422,4 @@ Kills the current Dired buffer when entering a new directory"
 ;;  ____________________________________________________________________________
 (provide 'onboard)
 ;;; onboard.el ends here
+
