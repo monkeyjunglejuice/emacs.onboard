@@ -1238,7 +1238,7 @@ Kills the current Dired buffer when entering a new directory"
       show-paren-delay 0.00)
 
 ;; Auto-close parens, brackets and quotes?
-;; (add-hook 'prog-mode-hook #'electric-pair-mode)
+(add-hook 'prog-mode-hook #'electric-pair-mode)
 
 
 ;;  ____________________________________________________________________________
