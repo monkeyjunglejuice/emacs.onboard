@@ -917,12 +917,12 @@ The elements of the list are regular expressions.")
 Kills the current Dired buffer when entering a new directory"
   (when (not (null s))
     (cond
-     ((version< "28.1" emacs-version)
-      (put 'dired-find-alternate-file 'disabled nil)
-      (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)
-      (define-key dired-mode-map (kbd "^") (lambda ()
-                                             (interactive)
-                                             (find-alternate-file ".."))))
+     ((version< emacs-version "28.1")
+      (progn (put 'dired-find-alternate-file 'disabled nil)
+             (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)
+             (define-key dired-mode-map (kbd "^") (lambda ()
+                                                    (interactive)
+                                                    (find-alternate-file "..")))))
      (t (setq dired-kill-when-opening-new-dired-buffer t)))))
 
 (ont-dired-single-buffer t)  ; set the default
