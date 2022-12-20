@@ -1171,7 +1171,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq require-final-newline t)
 
 ;; Better than the default 'just-one-space' (was M-SPC before)
-(global-set-key (kbd "S-SPC") #'cycle-spacing)
+(global-set-key (kbd "M-S-SPC") #'cycle-spacing)
 
 ;; Count lines, words and chars (buffer or region)
 (global-set-key (kbd "C-x l") #'count-words)
