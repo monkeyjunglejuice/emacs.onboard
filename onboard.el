@@ -325,7 +325,7 @@ or `system-configuration' directly."
   :group 'toggle-theme
   :type 'symbol)
 
-(defcustom eon-default-theme-variant 'dark
+(defcustom eon-default-theme-variant 'light
   "Load either the 'light or the 'dark theme at startup?"
   :group 'toggle-theme
   :type 'symbol)
@@ -399,7 +399,7 @@ or `system-configuration' directly."
 '(setq eon-dark-theme-name 'modus-vivendi)
 
 ;; Set the default variant here, either 'light or 'dark – also unquote:
-'(setq eon-default-theme-variant 'dark)
+'(setq eon-default-theme-variant 'light)
 
 ;; Set the keybinding to toggle between light and dark:
 (global-set-key (kbd "<f12>") #'eon-toggle-theme)
