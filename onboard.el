@@ -435,7 +435,7 @@ or `system-configuration' directly."
 (add-to-list 'default-frame-alist '(width . 80))
 
 ;; … and set the default height of the Emacs frame in lines
-(add-to-list 'default-frame-alist '(height . 20))
+(add-to-list 'default-frame-alist '(height . 24))
 
 ;; Horizontal position: set the distance from the left screen edge in pixels
 ;; (add-to-list 'default-frame-alist '(left . 0))
