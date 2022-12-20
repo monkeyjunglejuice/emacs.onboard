@@ -681,7 +681,7 @@ or `system-configuration' directly."
 (defvar eon-boring-buffers '("\\` "
                              "\\`\\*Echo Area"
                              "\\`\\*Minibuf"
-                             "\\`\\*scratch"        ; "C-z s"
+                             "\\`\\*scratch"        ; "C-z s s"
                              "\\`\\*Messages"       ; "C-h e"
                              "\\`\\*Bookmark List"  ; "C-x r l"
                              "\\`\\*Ibuffer")       ; "C-x C-b"
@@ -727,7 +727,7 @@ The elements of the list are regular expressions.")
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
-(global-set-key (kbd "C-z s") #'eon-scratch)
+(global-set-key (kbd "C-z s s") #'eon-scratch)
 
 
 ;;  ____________________________________________________________________________
