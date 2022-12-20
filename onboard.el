@@ -629,7 +629,7 @@ or `system-configuration' directly."
 
 ;; Default window navigation – simply switch to the next window in order
 ;; Added for convenience; the default keybinding is "C-x o"
-(global-set-key (kbd "M-\\") #'other-window)
+(global-set-key (kbd "M-o") #'other-window)
 
 ;; Navigate windows by direction instead
 ;; (require 'windmove)
