@@ -1022,8 +1022,8 @@ Kills the current Dired buffer when entering a new directory"
 (require 'em-dirs)
 (setq  eshell-list-files-after-cd t)
 
-;; To open more than one eshell buffer: "C-u C-z e"
-(global-set-key (kbd "C-z e") #'eshell)
+;; To open more than one eshell buffer: "C-u C-z e e"
+(global-set-key (kbd "C-z e e") #'eshell)
 
 
 ;;  ____________________________________________________________________________
@@ -1036,8 +1036,8 @@ Kills the current Dired buffer when entering a new directory"
 ;; Set another shell than your default one?
 ;; (setq shell-file-name "/usr/bin/bash")
 
-;; To open more than one shell buffer: "C-u C-z E"
-(global-set-key (kbd "C-z E") #'shell)
+;; To open more than one shell buffer: "C-u C-z e s"
+(global-set-key (kbd "C-z e s") #'shell)
 
 
 ;;  ____________________________________________________________________________
