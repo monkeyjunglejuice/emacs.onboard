@@ -15,6 +15,7 @@
 ;; packages.
 
 ;;; Tested with:
+;;  [X] Emacs 28.2 Guix build
 ;;  [X] Emacs 28.1 Guix build
 ;;  [X] Emacs 27.2 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
