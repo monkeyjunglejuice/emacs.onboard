@@ -852,7 +852,7 @@ The elements of the list are regular expressions.")
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
-;; Show all options when running 'apropos' (fulltext search) "C-h a"
+;; Show all options when running 'apropos' "C-h a" (fulltext search)
 (require 'apropos)
 (setq apropos-do-all t)
 
@@ -885,8 +885,8 @@ The elements of the list are regular expressions.")
 (setq recentf-max-menu-items 10
       recentf-max-saved-items 100)
 
-;; Ignore some recently visited files,
-;; eg. to prevent them from showing up amongst recent files after package upgrades
+;; Ignore some recently visited files, eg. to prevent them from showing up
+;; amongst recent files after package upgrades
 (add-to-list 'recentf-exclude
              (expand-file-name (concat user-emacs-directory "elpa/")))
 
@@ -1157,7 +1157,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; UTF-8
 (prefer-coding-system 'utf-8)
 
-;; In a file buffer, remember the place where the cursor was before
+;; Remember the place where the cursor was last time
 (save-place-mode 1)
 
 ;; Set desired line length in characters
@@ -1386,7 +1386,7 @@ Kills the current Dired buffer when entering a new directory"
 (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)))
 
 ;; In case you're using the Emacs ONTOP extensions, further languages
-;; should be configured not here, but within their specific ONTOP modules
+;; should not be configured here, but within their specific ONTOP modules
 ;; ("onboard-*.el" files)
 
 
@@ -1422,4 +1422,3 @@ Kills the current Dired buffer when entering a new directory"
 ;;  ____________________________________________________________________________
 (provide 'onboard)
 ;;; onboard.el ends here
-
