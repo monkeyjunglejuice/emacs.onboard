@@ -672,7 +672,7 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x M-k") #'eon-kill-all-buffers)
 
 ;; Get the buffer out of the way, but let it alive
-(global-set-key (kbd "C-c k") #'bury-buffer)
+(global-set-key (kbd "C-z k") #'bury-buffer)
 
 
 ;; Define boring buffers globally, so they will be hidden
