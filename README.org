@@ -34,12 +34,12 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 *1.* Clone this repository:
 #+begin_src shell
-git clone https://github.com/monkeyjunglejuice/emacs.onboard.git .emacs.onboard
+git clone https://github.com/monkeyjunglejuice/emacs.onboard.git ~/.emacs.onboard
 #+end_src
 
-*2.* Put this in your Emacs init file (replace "path/to" with your actual path):
+*2.* Put this in your Emacs init file:
 #+begin_src emacs-lisp
-  (load-file (expand-file-name "~/path/to/onboard.el"))
+  (load-file (expand-file-name "~/.emacs.onboard/onboard.el"))
 #+end_src
 
 *3.* (Re)start Emacs
