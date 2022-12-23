@@ -887,7 +887,7 @@ The elements of the list are regular expressions.")
 (recentf-mode 1)
 
 (setq recentf-max-menu-items 10
-      recentf-max-saved-items 100)
+      recentf-max-saved-items 10)
 
 ;; Ignore some recently visited files, eg. to prevent them from showing up
 ;; amongst recent files after package upgrades
