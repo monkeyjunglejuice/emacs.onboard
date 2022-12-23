@@ -683,12 +683,17 @@ or `system-configuration' directly."
                              "\\`\\*scratch"        ; "C-z s s"
                              "\\`\\*Messages"       ; "C-h e"
                              "\\`\\*Bookmark List"  ; "C-x r l"
-                             "\\`\\*Ibuffer")       ; "C-x C-b"
-  "List of buffer names that specify buffers to hide on several occasions.
+                             "\\`\\*Ibuffer"        ; "C-x C-b"
+                             )
+  "List of buffer names of buffers to hide on several occasions.
 The elements of the list are regular expressions.")
 
 
-;; Ibuffer – the buffer manager
+;;  ____________________________________________________________________________
+;;; IBUFFER – the buffer manager
+;; <https://protesilaos.com/codelog/2020-04-02-emacs-intro-ibuffer/>
+
+
 (require 'ibuf-ext)
 
 (add-hook 'ibuffer-mode-hook
