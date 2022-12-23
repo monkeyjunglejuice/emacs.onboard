@@ -28,7 +28,7 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/onboard.el][onboard.el]]
 2. Open a terminal
-3. Run the shell command: ~emacs -q --load \~/path/to/onboard.el~
+3. Run the shell command: ~emacs -q --load ~/path/to/onboard.el~
 
 ** INSTALL
 
