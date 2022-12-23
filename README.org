@@ -32,7 +32,10 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 ** INSTALL
 
-*1.* Clone this repository: ~git clone https://github.com/monkeyjunglejuice/emacs.onboard.git~
+*1.* Clone this repository:
+#+begin_src shell
+git clone https://github.com/monkeyjunglejuice/emacs.onboard.git .emacs.onboard
+#+end_src
 
 *2.* Put this in your Emacs init file (replace "path/to" with your actual path):
 #+begin_src emacs-lisp
