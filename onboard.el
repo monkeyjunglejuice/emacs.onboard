@@ -660,7 +660,7 @@ or `system-configuration' directly."
 (global-set-key (kbd "C-x k") #'kill-current-buffer)
 
 ;; Present the selection first
-(global-set-key (kbd "C-x K") #'kill-buffer)
+(global-set-key (kbd "C-x M-k") #'kill-buffer)
 
 ;; Kill all buffers at once – equivalent to "close all tabs"
 (defun eon-kill-all-buffers ()
@@ -669,9 +669,9 @@ or `system-configuration' directly."
   (save-some-buffers)
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
-(global-set-key (kbd "C-x M-k") #'eon-kill-all-buffers)
+(global-set-key (kbd "C-x K") #'eon-kill-all-buffers)
 
-;; Get the buffer out of the way, but let it alive
+;; Get the buffer out of the way, but let it live
 (global-set-key (kbd "C-z k") #'bury-buffer)
 
 
