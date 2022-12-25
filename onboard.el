@@ -693,7 +693,6 @@ The elements of the list are regular expressions.")
 ;;; IBUFFER – the buffer manager
 ;; <https://protesilaos.com/codelog/2020-04-02-emacs-intro-ibuffer/>
 
-
 (require 'ibuf-ext)
 
 (add-hook 'ibuffer-mode-hook
@@ -737,7 +736,7 @@ The elements of the list are regular expressions.")
 ;;  ____________________________________________________________________________
 ;;; VISITING FILES AT POINT
 
-;; "C-x C-v"       – Visit any ressource under the cursor
+;; "C-x C-v"       – Visit any resource under the cursor
 ;; "M-x ffap-menu" – Display a list of all ressources mentioned in this buffer
 
 (global-set-key (kbd "C-x C-.") #'find-file-at-point)
@@ -910,8 +909,8 @@ The elements of the list are regular expressions.")
 (require 'dired)
 
 
-;; The `dired' key binding is "C-x d". This new keybinding is in accordance with
-;; "C-x C-f" for visiting files
+;; The `dired' keybinding is "C-x d". This new keybinding is in accordance
+;; with "C-x C-f" for visiting files
 (global-set-key (kbd "C-x C-d") #'dired)
 
 
