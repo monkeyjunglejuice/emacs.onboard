@@ -716,11 +716,9 @@ The elements of the list are regular expressions.")
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction>
 ;; (setq initial-major-mode #'lisp-interaction-mode)
 
-;; Org-mode — for general writing, notes and literate programming
+;; We're setting the scratch buffer to Org-mode — for general writing,
+;; which is more useful for quick notes and literate programming
 (setq initial-major-mode #'org-mode)
-
-;; Basic text — nothing special
-;; (setq initial-major-mode #'fundamental-mode)
 
 ;; Should the *scratch* buffer contain some initial content?
 (setq initial-scratch-message "")
