@@ -358,7 +358,7 @@ or `system-configuration' directly."
   "Load the light theme and apply some modifications."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
-  (run-hooks 'load-before-light-theme-hook)
+  (run-hooks 'eon-load-before-light-theme-hook)
   (load-theme eon-light-theme-name t)
   (setq eon-active-theme-variant 'light)
   (run-hooks 'eon-load-after-light-theme-hook))
@@ -367,7 +367,7 @@ or `system-configuration' directly."
   "Load the dark theme and apply some modifications."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
-  (run-hooks 'load-before-dark-theme-hook)
+  (run-hooks 'eon-load-before-dark-theme-hook)
   (load-theme eon-dark-theme-name t)
   (setq eon-active-theme-variant 'dark)
   (run-hooks 'eon-load-after-dark-theme-hook))
