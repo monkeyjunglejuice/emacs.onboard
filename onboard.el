@@ -1228,6 +1228,14 @@ Kills the current Dired buffer when entering a new directory"
           (lambda ()
             (setq-local truncate-lines t)))
 
+;;  ____________________________________________________________________________
+;;; FOLDING
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hideshow>
+
+;; Code folding on or off? Show available commands: "M-x hs-"
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (hs-minor-mode 1)))
 
 ;;  ____________________________________________________________________________
 ;;; BRACKETS / PARENTHESIS
