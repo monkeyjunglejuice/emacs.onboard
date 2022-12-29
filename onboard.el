@@ -1202,18 +1202,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
 ;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode'
 
-;; Example: You can install suggested 3rd-party packages from within this file
-;; with single function calls like so:
-;;
-;; (eon-package 'install '(the-matrix-theme))  ; installs the package
-;; (eon-package 'ignore '(the-matrix-theme))   ; does nothing (default)
-;;
-;; The installation will be performed when you restart Emacs or
-;; when you evaluate a function manually – eg. via pressing "C-M-x"
-;; while the cursor is placed somewhere within a function application form.
-
 (setq backward-delete-char-untabify-method 'hungry)
-
 
 ;;  ____________________________________________________________________________
 ;;; LINE WRAPPING
