@@ -241,13 +241,14 @@ or `system-configuration' directly."
 
 (defun eon-fonts ()
   "The height value is in 1/10 pt, so 130 will give 13 pt."
+  (interactive)
   ;; Set the default monospaced font
   (set-face-attribute 'default nil
                       ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 130)
+                      :height 140)
   ;; Set an alternative monospaced font. Can be the same as above.
   ;; It should have the same character width as the default font
   (set-face-attribute 'fixed-pitch nil
@@ -255,7 +256,7 @@ or `system-configuration' directly."
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 130)
+                      :height 1.0)
   ;; Set an alternative monospaced font, preferably with serifs (optional)
   ;; It should have the same character width as the other two fonts above
   (set-face-attribute 'fixed-pitch-serif nil
@@ -263,29 +264,28 @@ or `system-configuration' directly."
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 130)
+                      :height 1.0)
   ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
   (set-face-attribute 'variable-pitch nil
                       ;; :family "Iosevka Etoile"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 130)
+                      :height 1.0)
   ;; Set the fonts for the active mode line
   (set-face-attribute 'mode-line nil
                       ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 100)
+                      :height 0.8)
   ;; Set the fonts for the inactive mode line
   (set-face-attribute 'mode-line-inactive nil
                       ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 100))
-
+                      :height 0.8))
 
 ;;  ____________________________________________________________________________
 ;;; TOGGLE THEME
