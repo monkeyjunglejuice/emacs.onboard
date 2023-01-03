@@ -135,7 +135,10 @@ When ACTION receives 'ignore, then nothing will happen."
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
 
-;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c"
+;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c".
+;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
+;; begin with the prefix "C-z" instead of "C-c" (with only a few exceptions).
+
 (global-unset-key (kbd "C-z"))
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files
@@ -452,8 +455,7 @@ or `system-configuration' directly."
 (setq ring-bell-function 'ignore)
 
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
-(global-set-key (kbd "C-c r d") #'redraw-display)
-
+(global-set-key (kbd "C-z r d") #'redraw-display)
 
 ;;  ____________________________________________________________________________
 ;;; CURSOR
@@ -703,8 +705,7 @@ The elements of the list are regular expressions.")
 ;; "C-x C-v"       – Visit any resource under the cursor
 ;; "M-x ffap-menu" – Display a list of all ressources mentioned in this buffer
 
-(global-set-key (kbd "C-x C-.") #'find-file-at-point)
-
+(global-set-key (kbd "C-z C-.") #'find-file-at-point)
 
 ;;  ____________________________________________________________________________
 ;;; CLIPBOARD, COPY & PASTE
@@ -1036,8 +1037,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; (setq browse-url-browser-function #'browse-url-generic)
 
 ;; Keybinding
-(global-set-key (kbd "C-c w w") #'browse-url)
-
+(global-set-key (kbd "C-z w w") #'browse-url)
 
 ;;  ____________________________________________________________________________
 ;;; SECONDARY WEB BROWSER
@@ -1046,8 +1046,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq browse-url-secondary-browser-function #'browse-web)
 
 ;; Keybinding
-(global-set-key (kbd "C-c w W") #'browse-web)
-
+(global-set-key (kbd "C-z w W") #'browse-web)
 
 ;;  ____________________________________________________________________________
 ;;; EMAIL SENDING
@@ -1180,15 +1179,14 @@ Kills the current Dired buffer when entering a new directory"
           (lambda ()
             (setq show-trailing-whitespace t)))
 ;; Cleanup trailing whitespace in programming modes
-(define-key prog-mode-map (kbd "C-c w c") #'whitespace-cleanup)
+(define-key prog-mode-map (kbd "C-z c w") #'whitespace-cleanup)
 
 ;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
           (lambda ()
             (setq show-trailing-whitespace t)))
 ;; Cleanup trailing whitespace in "text" modes
-(define-key text-mode-map (kbd "C-c w c") #'whitespace-cleanup)
-
+(define-key text-mode-map (kbd "C-z c w") #'whitespace-cleanup)
 
 ;;  ____________________________________________________________________________
 ;;; SYNTAX CHECK / LINTER
@@ -1239,17 +1237,21 @@ Kills the current Dired buffer when entering a new directory"
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
-(global-set-key (kbd "C-c o d") #'eon-goto-org-directory)
+(global-set-key (kbd "C-z o d") #'eon-goto-org-directory)
 
 ;; Turn on visual word wrapping
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
 (add-hook 'org-mode-hook #'visual-line-mode)
 
+;; Alignment of tags in headlines
+(setq  org-auto-align-tags t
+       org-tags-column 0)
+
 ;;  ............................................................................
 ;;; Capture
 ;; <https://orgmode.org/org.html#Capture>
 
-(global-set-key (kbd "C-c o c") #'org-capture)
+(global-set-key (kbd "C-z o c") #'org-capture)
 ;; Capture: put newer entries on top
 (setq org-reverse-note-order t)
 
@@ -1260,7 +1262,7 @@ Kills the current Dired buffer when entering a new directory"
   "Visit the Org notes file."
   (interactive)
   (find-file org-default-notes-file))
-(global-set-key (kbd "C-c o o") #'eon-goto-org-notes)
+(global-set-key (kbd "C-z o o") #'eon-goto-org-notes)
 
 ;;  ............................................................................
 ;;; Todo
@@ -1274,22 +1276,22 @@ Kills the current Dired buffer when entering a new directory"
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
 (setq org-agenda-files (list org-directory))
-(global-set-key (kbd "C-c o a") #'org-agenda)
+(global-set-key (kbd "C-z o a") #'org-agenda)
 
 ;;  ............................................................................
 ;;; Links
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
-(global-set-key (kbd "C-c l") #'org-store-link)
-(global-set-key (kbd "C-c C-l") #'org-insert-link)
-(define-key org-mode-map (kbd "C-c o l") #'org-toggle-link-display)
+(global-set-key (kbd "C-z o L") #'org-store-link)
+(define-key org-mode-map (kbd "C-z o l") #'org-insert-link)
+(define-key org-mode-map (kbd "C-z C-o C-l") #'org-toggle-link-display)
 
 ;;  ............................................................................
 ;;; Publishing
 
 (require 'ox-publish)
 
-(global-set-key (kbd "C-c o p") 'org-publish)
+(global-set-key (kbd "C-z o p") 'org-publish)
 
 ;; Speed up publishing
 (setq org-publish-list-skipped-files nil)
