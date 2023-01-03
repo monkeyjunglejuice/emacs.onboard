@@ -681,12 +681,12 @@ The elements of the list are regular expressions.")
 
 ;; Set an initial major mode for the *scratch* buffer:
 
-;; Lisp interaction mode – that was the default
+;; Lisp-interaction-mode is the default
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction>
 ;; (setq initial-major-mode #'lisp-interaction-mode)
 
-;; We're setting the scratch buffer to Org-mode — for general writing,
-;; which is more useful for quick notes and literate programming
+;; We're setting the scratch buffer to Org-mode which is more useful
+;; for quick notes, writing and literate programming
 (setq initial-major-mode #'org-mode)
 
 ;; Should the *scratch* buffer contain some initial content?
@@ -1131,8 +1131,8 @@ Kills the current Dired buffer when entering a new directory"
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
 ;; By default, lines are continued visually on the next screen-line
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Continuation-Lines>
-;; For default behavior, do "M-x toggle-truncate-lines", or quote the expression
-;; below and restart Emacs to make it permanent.
+;; For default behavior, do "M-x toggle-truncate-lines", or set the variable to nil
+;; and restart Emacs to make it permanent.
 (add-hook 'prog-mode-hook
           (lambda ()
             (setq-local truncate-lines t)))
