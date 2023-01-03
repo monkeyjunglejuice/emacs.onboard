@@ -73,7 +73,6 @@
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-
 ;;  ____________________________________________________________________________
 ;;; PACKAGE MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages>
@@ -101,18 +100,15 @@
 ;; Natively compile packages immediately after installation?
 (setq package-native-compile nil)
 
-
 ;; GNU TLS connection issue workaround for Emacs before version 26.3
 (require 'gnutls)
 (when (and (version< emacs-version "26.3") (>= libgnutls-version 30604))
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
-
 ;; Highlight current line in the package manager
 (add-hook 'package-menu-mode-hook
           (lambda ()
             (hl-line-mode 1)))
-
 
 ;; Install packages declaratively within an Emacs Lisp file
 (defun eon-package (action package-list)
@@ -136,7 +132,6 @@ When ACTION receives 'ignore, then nothing will happen."
 ;; when you evaluate a function manually – eg. via pressing "C-M-x"
 ;; while the cursor is placed somewhere within a function application form.
 
-
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
 
@@ -154,7 +149,6 @@ When ACTION receives 'ignore, then nothing will happen."
 
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setq read-process-output-max (* 1024 1024)) ; 1 MB
-
 
 ;;  ____________________________________________________________________________
 ;; HELPERS
@@ -179,13 +173,6 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (string= system-type "darwin"))
 
-
-;; Go to home directory
-(defun eon-goto-home-directory ()
-  "Open the home directory in Dired."
-  (interactive)
-  (dired "~/"))
-
 ;; Open the '~/.emacs.d' directory in the Dired file manager
 (defun eon-goto-user-emacs-directory ()
   "Open the Emacs directory in Dired, which is ~/.emacs.d usually."
@@ -206,7 +193,6 @@ or `system-configuration' directly."
   "Visit the onboard.el file."
   (interactive)
   (find-file eon-onboard-file))
-
 
 ;;  ____________________________________________________________________________
 ;;; SERVER
@@ -237,14 +223,12 @@ or `system-configuration' directly."
             "Run functions after entering or leaving 'server-mode'."
             (eon-frame-title)))
 
-
 ;; Shutdown the Emacs server process
 (defun eon-server-stop ()
   "Save buffers, quit and shutdown (kill) server."
   (interactive)
   (save-some-buffers)
   (kill-emacs))
-
 
 ;;  ____________________________________________________________________________
 ;;; FONTS
@@ -421,10 +405,8 @@ or `system-configuration' directly."
             ))
 
 ;; ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑
-
 ;; Load the theme eventually
 (eon-load-theme-default)
-
 
 ;;  ____________________________________________________________________________
 ;;; USER INTERFACE
@@ -443,7 +425,6 @@ or `system-configuration' directly."
 
 ;; Vertical position: set the distance from the top screen edge in pixels
 ;; (add-to-list 'default-frame-alist '(top . 0))
-
 
 ;; Fringe: choose on which sides (not) to show it
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
@@ -497,7 +478,6 @@ or `system-configuration' directly."
 ;; Make sure to highlight the current line only in the active window.
 (setq hl-line-sticky-flag nil)
 
-
 ;;  ____________________________________________________________________________
 ;;; SMOOTH SCROLLING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
@@ -510,13 +490,11 @@ or `system-configuration' directly."
               scroll-margin 0  ; leave n lines on both screen ends
               scroll-preserve-screen-position nil)
 
-
 ;;  ____________________________________________________________________________
 ;;; PINENTRY
 
 (require 'epg-config)
 (setq epg-pinentry-mode 'loopback)
-
 
 ;;  ____________________________________________________________________________
 ;;; MODELINE
@@ -527,7 +505,6 @@ or `system-configuration' directly."
 
 ;; Show column number along with line number in modeline
 (column-number-mode 1)
-
 
 ;;  ____________________________________________________________________________
 ;;; MINIBUFFER
@@ -553,13 +530,11 @@ or `system-configuration' directly."
 ;; Change all yes/no style questions to y/n style
 (fset 'yes-or-no-p 'y-or-n-p)
 
-
 ;;  ____________________________________________________________________________
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 
 (setq eldoc-minor-mode-string "")
-
 
 ;;  ____________________________________________________________________________
 ;;; COMPLETION
@@ -595,7 +570,6 @@ or `system-configuration' directly."
       (fido-mode 1)
     (icomplete-mode 1)))
 
-
 ;; Improve completion by remembering frequently used commands
 ;; --> recommended 3rd-party package 'amx'
 ;; If you would like to install the 3rd-party package(s), change 'no to 'yes
@@ -604,7 +578,6 @@ or `system-configuration' directly."
 (when (fboundp #'amx)
   (global-set-key (kbd "M-x") #'amx)
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
-
 
 ;;  ____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
@@ -627,7 +600,6 @@ or `system-configuration' directly."
 (setq mouse-autoselect-window nil
       focus-follows-mouse nil)
 
-
 ;; Default window navigation – simply switch to the next window in order
 ;; Added for convenience; the default keybinding is "C-x o"
 (global-set-key (kbd "M-o") #'other-window)
@@ -640,13 +612,11 @@ or `system-configuration' directly."
 ;; (global-set-key (kbd "s-h") #'windmove-left)
 ;; (global-set-key (kbd "s-l") #'windmove-right)
 
-
 ;; Undo/redo window layouts
 (require 'winner)
 (winner-mode 1)
 (define-key winner-mode-map (kbd "C-x 4 u") #'winner-undo)
 (define-key winner-mode-map (kbd "C-x 4 r") #'winner-redo)
-
 
 ;;  ____________________________________________________________________________
 ;;; BUFFERS
@@ -674,7 +644,6 @@ or `system-configuration' directly."
 ;; Get the buffer out of the way, but let it live
 (global-set-key (kbd "C-z k") #'bury-buffer)
 
-
 ;; Define boring buffers globally, so they will be hidden
 ;; The hidden buffers can be visited by ...
 (defvar eon-boring-buffers '("\\` "
@@ -687,7 +656,6 @@ or `system-configuration' directly."
                              )
   "List of buffer names of buffers to hide on several occasions.
 The elements of the list are regular expressions.")
-
 
 ;;  ____________________________________________________________________________
 ;;; IBUFFER – the buffer manager
@@ -705,7 +673,6 @@ The elements of the list are regular expressions.")
 (setq ibuffer-never-show-predicates eon-boring-buffers)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-
 
 ;;  ____________________________________________________________________________
 ;;; SCRATCH BUFFER
@@ -729,7 +696,6 @@ The elements of the list are regular expressions.")
   (interactive)
   (switch-to-buffer "*scratch*"))
 (global-set-key (kbd "C-z s s") #'eon-scratch)
-
 
 ;;  ____________________________________________________________________________
 ;;; VISITING FILES AT POINT
@@ -758,7 +724,6 @@ The elements of the list are regular expressions.")
  ;; Mouse yank commands yank at point instead of at click.
  mouse-yank-at-point t)
 
-
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
@@ -767,7 +732,6 @@ The elements of the list are regular expressions.")
 ;; or simply restart Emacs:
 (eon-package 'ignore '(xclip))
 (when (fboundp #'xclip-mode) (xclip-mode 1))
-
 
 ;; Copy the full path of the current file
 (defun eon-copy-file-name-to-clipboard ()
@@ -781,14 +745,12 @@ The elements of the list are regular expressions.")
       (message "Copied buffer file name '%s' to the clipboard."
                filename))))
 
-
 ;; Simple alternative for 'yank-pop' – present a selection of the kill ring
 (defun eon-insert-kill-ring-item ()
   "Select and insert an item from the 'kill-ring'."
   (interactive)
   (insert (completing-read "Yank: " kill-ring nil t)))
 (global-set-key (kbd "M-y") #'eon-insert-kill-ring-item)
-
 
 ;; Copy & paste between Windows and Emacs running within WSL
 ;; (Windows Subsysten for Linux) — which is technically a Linux, not ;Window
@@ -815,7 +777,6 @@ The elements of the list are regular expressions.")
         0  -1))))
   (global-set-key (kbd "C-z C-y") 'eon-wsl-paste))
 
-
 ;;  ____________________________________________________________________________
 ;;; BACKUP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup>
@@ -832,14 +793,12 @@ The elements of the list are regular expressions.")
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backup/"))))
 
-
 ;;  ____________________________________________________________________________
 ;;; LOCKFILES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking>
 
 ;; Let Emacs keep track of files currently visited?
 (setq create-lockfiles nil)
-
 
 ;;  ____________________________________________________________________________
 ;;; AUTO-SAVE
@@ -848,7 +807,6 @@ The elements of the list are regular expressions.")
 (setq auto-save-default nil
       auto-save-interval 0)
 
-
 ;;  ____________________________________________________________________________
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
@@ -856,7 +814,6 @@ The elements of the list are regular expressions.")
 ;; Show all options when running 'apropos' "C-h a" (fulltext search)
 (require 'apropos)
 (setq apropos-do-all t)
-
 
 ;;  ____________________________________________________________________________
 ;;; SEARCH
@@ -874,7 +831,6 @@ The elements of the list are regular expressions.")
 (global-set-key (kbd "M-%") #'query-replace-regexp)
 (global-set-key (kbd "C-M-%") #'replace-regexp)
 
-
 ;;  ____________________________________________________________________________
 ;;; RECENT FILES
 
@@ -891,7 +847,6 @@ The elements of the list are regular expressions.")
 (add-to-list 'recentf-exclude
              (expand-file-name (concat user-emacs-directory "elpa/")))
 
-
 ;; Use 'completing-read' to choose between recent files
 (defun eon-find-recentf ()
   "Find recent file via completion in the minibuffer."
@@ -899,18 +854,15 @@ The elements of the list are regular expressions.")
   (find-file (completing-read "Find recent file: " recentf-list nil t) nil))
 (global-set-key (kbd "C-x f") #'eon-find-recentf)
 
-
 ;;  ____________________________________________________________________________
 ;;; DIRED
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired>
 
 (require 'dired)
 
-
 ;; The `dired' keybinding is "C-x d". This new keybinding is in accordance
 ;; with "C-x C-f" for visiting files
 (global-set-key (kbd "C-x C-d") #'dired)
-
 
 ;; Don't accumulate useless Dired buffers
 (defun ont-dired-single-buffer (s)
@@ -927,7 +879,6 @@ Kills the current Dired buffer when entering a new directory"
      (t (setq dired-kill-when-opening-new-dired-buffer t)))))
 
 (ont-dired-single-buffer t)  ; set the default
-
 
 ;; Use the system trash when deleting files
 
@@ -947,12 +898,10 @@ Kills the current Dired buffer when entering a new directory"
 
 (eon-trash-on) ; set the default
 
-
 ;; Auto refresh dired when contents of a directory change
 (require 'autorevert)
 (setq auto-revert-verbose nil)
 (add-hook 'dired-mode-hook #'auto-revert-mode)
-
 
 ;; Directory listings
 (add-hook 'dired-mode-hook
@@ -966,7 +915,6 @@ Kills the current Dired buffer when entering a new directory"
 ;; Show all files: -DlhFA and hide backups with -B
 (setq-default dired-listing-switches "-lhvFA")
 
-
 ;; Copying files/directories
 (setq dired-recursive-copies 'always)
 
@@ -976,7 +924,6 @@ Kills the current Dired buffer when entering a new directory"
 ;; Mimic dual-pane file managers?
 (setq dired-dwim-target t)
 
-
 ;; Images
 (require 'image-dired)
 (setq image-dired-thumb-margin 1
@@ -984,7 +931,6 @@ Kills the current Dired buffer when entering a new directory"
       ;; Store thumbnails in the system-wide thumbnail location
       ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
       image-dired-thumbnail-storage 'standard-large)
-
 
 ;; Linux/Unix only: hit "M-RET" to open files in desktop app
 (when (eon-linp)
@@ -997,7 +943,6 @@ Kills the current Dired buffer when entering a new directory"
       (message "Opening %s done" file)))
   (define-key dired-mode-map (kbd "M-RET") #'eon-dired-xdg-open))
 
-
 ;;  ____________________________________________________________________________
 ;;; COMINT
 
@@ -1005,7 +950,6 @@ Kills the current Dired buffer when entering a new directory"
 
 (setq comint-input-ignoredups t
       comint-prompt-read-only t)
-
 
 ;;  ____________________________________________________________________________
 ;;; ESHELL
@@ -1026,7 +970,6 @@ Kills the current Dired buffer when entering a new directory"
 ;; To open more than one eshell buffer: "C-u C-z x e"
 (global-set-key (kbd "C-z x e") #'eshell)
 
-
 ;;  ____________________________________________________________________________
 ;;; SHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Shell-Mode>
@@ -1040,7 +983,6 @@ Kills the current Dired buffer when entering a new directory"
 ;; To open more than one shell buffer: "C-u C-z x s"
 (global-set-key (kbd "C-z x s") #'shell)
 
-
 ;;  ____________________________________________________________________________
 ;;; PROCED
 
@@ -1053,7 +995,6 @@ Kills the current Dired buffer when entering a new directory"
 (setq-default proced-auto-update-flag t
               proced-descend t)
 
-
 ;;  ____________________________________________________________________________
 ;;; NET-UTILS
 
@@ -1061,7 +1002,6 @@ Kills the current Dired buffer when entering a new directory"
 
 (setq netstat-program "netstat"
       netstat-program-options '("-atupe"))
-
 
 ;;  ____________________________________________________________________________
 ;;; BUILT-IN WEB BROWSER "EWW"
@@ -1076,7 +1016,6 @@ Kills the current Dired buffer when entering a new directory"
 
 (setq url-privacy-level '(email lastloc os emacs))
 (url-setup-privacy-info)
-
 
 ;;  ____________________________________________________________________________
 ;;; PRIMARY WEB BROWSER
@@ -1123,7 +1062,6 @@ Kills the current Dired buffer when entering a new directory"
 ;; in '~/.authinfo.gpg'. Here's a content template for authinfo.gpg:
 ;; machine mail.example.org port 587 login myuser password mypassword
 
-
 ;; Emacs email variables
 
 (require 'smtpmail)
@@ -1135,10 +1073,8 @@ Kills the current Dired buffer when entering a new directory"
       smtpmail-smtp-user user-mail-address
       smtpmail-debug-info nil)
 
-
 (require 'message)
 (setq message-kill-buffer-on-exit t)
-
 
 ;;  ____________________________________________________________________________
 ;;; CALENDAR
@@ -1149,7 +1085,6 @@ Kills the current Dired buffer when entering a new directory"
 (setq calendar-date-style 'iso
       calendar-week-start-day 1
       calendar-weekend-days '(6 0))
-
 
 ;;  ____________________________________________________________________________
 ;;; GENERAL EDITING
@@ -1179,7 +1114,6 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Kill up to character
 (global-set-key (kbd "M-z") #'zap-up-to-char)
-
 
 ;;  ____________________________________________________________________________
 ;;; LINE NUMBERS
@@ -1281,13 +1215,11 @@ Kills the current Dired buffer when entering a new directory"
 (define-key flymake-mode-map (kbd "M-g n") #'flymake-goto-next-error)  ; default
 (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)  ; default
 
-
 ;;  ____________________________________________________________________________
 ;;; TEXT MODES / WRITING
 
 ;; Sentences end with a single space
 (setq sentence-end-double-space nil)
-
 
 ;;  ____________________________________________________________________________
 ;;; ORG-MODE
@@ -1386,7 +1318,6 @@ Kills the current Dired buffer when entering a new directory"
 ;; should not be configured here, but within their specific ONTOP modules
 ;; ("onboard-*.el" files)
 
-
 ;;  ____________________________________________________________________________
 ;;; LISP LANGUAGES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
@@ -1414,7 +1345,6 @@ Kills the current Dired buffer when entering a new directory"
 ;; Additional keybinding resembling other sexp-related keybindings
 ;; who usually begin with "C-M". Also useful editing non-lisp languages
 (global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
-
 
 ;;  ____________________________________________________________________________
 (provide 'onboard)
