@@ -151,7 +151,7 @@ When ACTION receives 'ignore, then nothing will happen."
 (setq undo-outer-limit (* 64 1000000))
 
 ;; Increase the amount of data which Emacs reads from subprocesses
-(setq read-process-output-max (* 1024 1024)) ; 1 MB
+(setq read-process-output-max (* 1024 1024))  ; 1 MB
 
 ;;  ____________________________________________________________________________
 ;; HELPERS
@@ -438,11 +438,11 @@ or `system-configuration' directly."
 (global-set-key (kbd "M-`") #'menu-bar-mode)
 
 ;; Scroll bar: on/off by default?
-;; (if (fboundp 'scroll-bar-mode) ; Emacs 26.1 compatibility
+;; (if (fboundp 'scroll-bar-mode)  ; Emacs 26.1 compatibility
 ;;     (scroll-bar-mode -1))
 
 ;; Tool bar: on/off by default?
-(if (fboundp 'tool-bar-mode) ; Emacs 26.1 compatibility
+(if (fboundp 'tool-bar-mode)  ; Emacs 26.1 compatibility
     (tool-bar-mode -1))
 
 ;; Tooltips: enable/disable?
@@ -469,7 +469,7 @@ or `system-configuration' directly."
 ;; (add-to-list 'default-frame-alist '(cursor-type . (bar . 2)))
 
 ;; Turn on/off cursor blinking by default?
-(blink-cursor-mode -1) ; 1 means 'on' / -1 means 'off'
+(blink-cursor-mode 1)  ; 1 means 'on' / -1 means 'off'
 
 ;; Cursor blinking interval in seconds
 (setq blink-cursor-interval 0.4)
@@ -754,7 +754,7 @@ The elements of the list are regular expressions.")
 (global-set-key (kbd "M-y") #'eon-insert-kill-ring-item)
 
 ;; Copy & paste between Windows and Emacs running within WSL
-;; (Windows Subsysten for Linux) — which is technically a Linux, not ;Window
+;; (Windows Subsysten for Linux) — which is technically a Linux, not Windows
 
 ;; Copy "kill" text from an Emacs buffer for pasting it into a Windows app
 (when (eon-linp)
@@ -887,17 +887,17 @@ Kills the current Dired buffer when entering a new directory"
   "Delete files by moving to the system trash."
   (interactive)
   (setq delete-by-moving-to-trash t)
-  (setq dired-recursive-deletes 'always) ; don't ask when directory not empty
+  (setq dired-recursive-deletes 'always)  ; don't ask when directory not empty
   (message "Trash on: Deleted files will go to system trash."))
 
 (defun eon-trash-off ()
   "Delete files immediately."
   (interactive)
   (setq delete-by-moving-to-trash nil)
-  (setq dired-recursive-deletes 'top) ; ask when directory not empty
+  (setq dired-recursive-deletes 'top)  ; ask when directory not empty
   (message "Trash off: Files will be deleted immediately!"))
 
-(eon-trash-on) ; set the default
+(eon-trash-on)  ; set the default
 
 ;; Auto refresh dired when contents of a directory change
 (require 'autorevert)
@@ -1067,7 +1067,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq send-mail-function 'smtpmail-send-it
       smtpmail-smtp-server "localhost"
       smtpmail-stream-type 'starttls
-      smtpmail-smtp-service 1025 ; default port: 587
+      smtpmail-smtp-service 1025  ; default port: 587
       smtpmail-queue-dir "~/.mail/queued-mail/"
       smtpmail-smtp-user user-mail-address
       smtpmail-debug-info nil)
