@@ -1164,7 +1164,7 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; How to display matching parens generally?
 (setq show-paren-style 'parenthesis
-      show-paren-delay 0.00)
+      show-paren-delay 0.0)
 
 ;; Auto-close parens, brackets and quotes?
 (electric-pair-mode 1)
