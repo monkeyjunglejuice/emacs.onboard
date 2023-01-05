@@ -1323,18 +1323,23 @@ Kills the current Dired buffer when entering a new directory"
 ;;; LISP LANGUAGES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
-(defun eon-setup-lisp-languages ()
-  "Basic support for languages from the Lisp family."
-  (setq-local show-paren-style 'expression)
-  (show-paren-local-mode 1)
-  (electric-pair-local-mode 1)
-  (electric-indent-local-mode 1))
+(defvar eon-lisp-modes
+  '( emacs-lisp-mode-hook lisp-interaction-mode-hook ielm-mode-hook
+     lisp-mode-hook inferior-lisp-mode-hook
+     scheme-mode-hook inferior-scheme-mode-hook
+     eval-expression-minibuffer-setup))
 
-(mapc (lambda (h) (add-hook h #'eon-setup-lisp-languages))
-      '( emacs-lisp-mode-hook lisp-interaction-mode-hook ielm-mode-hook
-         lisp-mode-hook inferior-lisp-mode-hook
-         scheme-mode-hook inferior-scheme-mode-hook
-         eval-expression-minibuffer-setup))
+;; Auto-close parentheses, brackets, quotes, etc.
+(mapc (lambda (h) (add-hook h #'electric-pair-local-mode))
+      eon-lisp-modes)
+
+;; Highlight matching parens
+(mapc (lambda (h)
+        (add-hook h #'(lambda () (setq-local show-paren-style 'expression))))
+      eon-lisp-modes)
+
+(mapc (lambda (h) (add-hook h #'show-paren-local-mode))
+      eon-lisp-modes)
 
 ;; Emacs Lisp is supported by Flymake, so let's use it
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
