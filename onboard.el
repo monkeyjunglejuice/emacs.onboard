@@ -465,8 +465,8 @@ or `system-configuration' directly."
 ;; in the code below or do "M-x describe-symbol RET cursor-type RET"
 
 ;; Set the cursor type
-;; Uncomment the following expression to change the curser to a vertical bar
-;; (add-to-list 'default-frame-alist '(cursor-type . (bar . 2)))
+;; Comment out the following expression to change the curser into to a box
+(add-to-list 'default-frame-alist '(cursor-type . bar))
 
 ;; Turn on/off cursor blinking by default?
 (blink-cursor-mode 1)  ; 1 means 'on' / -1 means 'off'
