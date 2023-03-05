@@ -599,15 +599,6 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows>
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience>
 
-;; Emacs often opens buffers in new windows. Let's make window splitting and
-;; placement more predictable. For the default window behavior,
-;; 'quote the following expression and restart Emacs
-'(setq display-buffer-base-action
-       '((display-buffer-reuse-window
-          display-buffer-reuse-mode-window
-          display-buffer-same-window
-          display-buffer-in-previous-window)))
-
 ;; Display-buffer: avoid resizing
 (setq even-window-sizes nil)
 
