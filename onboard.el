@@ -502,6 +502,11 @@ or `system-configuration' directly."
 ;;; MODELINE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line>
 
+;; Compress the mode line? If non-nil, repeating spaces are compressed into
+;; a single space. If 'long', this is only done when the mode line is longer
+;; than the current window width (in columns).
+(setq mode-line-compact t)
+
 ;; Show the buffer size in the modeline
 (size-indication-mode 1)
 
