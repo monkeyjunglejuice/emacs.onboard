@@ -438,8 +438,8 @@ or `system-configuration' directly."
 (global-set-key (kbd "M-`") #'menu-bar-mode)
 
 ;; Scroll bar: on/off by default?
-;; (if (fboundp 'scroll-bar-mode)  ; Emacs 26.1 compatibility
-;;     (scroll-bar-mode -1))
+(if (fboundp 'scroll-bar-mode)  ; Emacs 26.1 compatibility
+    (scroll-bar-mode -1))
 
 ;; Tool bar: on/off by default?
 (if (fboundp 'tool-bar-mode)  ; Emacs 26.1 compatibility
