@@ -1361,6 +1361,10 @@ Kills the current Dired buffer when entering a new directory"
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
 (add-hook 'lisp-interaction-mode-hook (lambda () (flymake-mode -1)))
 
+;; Emacs Lisp is supported by Semantic, so let's use this too
+;; <https://www.gnu.org/software/emacs/manual/html_mono/semantic.html>
+(add-hook 'emacs-lisp-mode-hook #'semantic-mode)
+
 ;; Emacs Lisp: don't truncate printed lists
 (setq eval-expression-print-length nil)
 
