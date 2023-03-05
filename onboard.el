@@ -412,7 +412,7 @@ or `system-configuration' directly."
 (eon-load-theme-default)
 
 ;;  ____________________________________________________________________________
-;;; USER INTERFACE
+;;; INITIAL FRAME
 
 ;; Either start Emacs maximized …
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
