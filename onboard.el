@@ -1279,7 +1279,12 @@ Kills the current Dired buffer when entering a new directory"
 ;; <https://orgmode.org/org.html#TODO-Items>
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+      '((sequence "TODO(t)"
+                  "STARTED(s)"
+                  "WAITING(w)"
+                  "|"
+                  "DONE(d)"
+                  "CANCELED(c)")))
 
 ;;  ............................................................................
 ;;; Agenda
