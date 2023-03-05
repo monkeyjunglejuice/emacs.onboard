@@ -541,7 +541,11 @@ or `system-configuration' directly."
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 
-(setq eldoc-minor-mode-string "")
+(setq eldoc-minor-mode-string ""
+      eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
+      eldoc-echo-area-display-truncation-message nil
+      eldoc-echo-area-prefer-doc-buffer t
+      eldoc-echo-area-use-multiline-p t)
 
 ;;  ____________________________________________________________________________
 ;;; COMPLETION
