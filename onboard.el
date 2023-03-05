@@ -1370,7 +1370,7 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Additional keybinding resembling other sexp-related keybindings
 ;; who usually begin with "C-M". Also useful editing non-lisp languages
-(global-set-key (kbd "<C-M-backspace>") #'backward-kill-sexp)
+(global-set-key (kbd "C-M-<backspace>") #'backward-kill-sexp)
 
 ;;  ____________________________________________________________________________
 (provide 'onboard)
