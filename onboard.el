@@ -653,11 +653,15 @@ or `system-configuration' directly."
 ;; Get the buffer out of the way, but let it live
 (global-set-key (kbd "C-z k") #'bury-buffer)
 
-;; Define boring buffers globally, so they will be hidden
-;; The hidden buffers can be visited by ...
+;; Define boring buffers globally, so they can be hidden
 (defvar eon-boring-buffers '("\\` "
                              "\\`\\*Echo Area"
                              "\\`\\*Minibuf"
+                             "\\`\\*Completions"
+                             "\\`\\*Flymake log"
+                             "\\`\\*Semantic SymRef"
+                             "\\`\\*tramp"
+                             ;; Some hidden buffers can be visited by ...
                              "\\`\\*scratch"        ; "C-z s s"
                              "\\`\\*Messages"       ; "C-h e"
                              "\\`\\*Bookmark List"  ; "C-x r l"
