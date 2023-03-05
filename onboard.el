@@ -531,6 +531,9 @@ or `system-configuration' directly."
 ;; Grow and shrink the minibuffer according to its content
 (setq resize-mini-windows t)
 
+;; Save minibuffer history between Emacs sessions
+(savehist-mode 1)
+
 ;; Delete duplicates from the command history
 (setq history-delete-duplicates t)
 
