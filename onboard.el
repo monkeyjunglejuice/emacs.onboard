@@ -1137,9 +1137,9 @@ Kills the current Dired buffer when entering a new directory"
 
 ;;  ____________________________________________________________________________
 ;;; LINE WRAPPING
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
 
 ;; Truncate long lines in programming modes?
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
 ;; By default, lines are continued visually on the next screen-line
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Continuation-Lines>
 ;; For default behavior, do "M-x toggle-truncate-lines", or set the variable to nil
