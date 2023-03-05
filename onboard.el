@@ -1153,9 +1153,9 @@ Kills the current Dired buffer when entering a new directory"
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hideshow>
 
 ;; Code folding on or off? Show available commands: "M-x hs-"
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (hs-minor-mode 1)))
+;; (add-hook 'prog-mode-hook
+;;           (lambda ()
+;;             (hs-minor-mode 1)))
 
 ;;  ____________________________________________________________________________
 ;;; INDENTATION
