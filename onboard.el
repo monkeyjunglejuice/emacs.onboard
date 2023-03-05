@@ -433,6 +433,32 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
+;;  ____________________________________________________________________________
+;;; CURSOR
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
+
+;; To learn about available cursors, place your cursor behind 'cursor-type'
+;; in the code below or do "M-x describe-symbol RET cursor-type RET"
+
+;; Set the cursor type
+;; Comment out the following expression to change the curser into to a bar
+;; (add-to-list 'default-frame-alist '(cursor-type . bar))
+
+;; Turn on/off cursor blinking by default?
+(blink-cursor-mode -1)  ; 1 means 'on' / -1 means 'off'
+
+;; Cursor blinking interval in seconds
+(setq blink-cursor-interval 0.4)
+
+;; Emphasize the cursor when running Emacs in a text terminal?
+(setq visible-cursor nil)
+
+;; Make sure to highlight the current line only in the active window.
+(setq hl-line-sticky-flag nil)
+
+;;  ____________________________________________________________________________
+;;; USER INTERFACE
+
 ;; Menu bar: on/off by default?
 (menu-bar-mode 1)
 (global-set-key (kbd "M-`") #'menu-bar-mode)
@@ -456,29 +482,6 @@ or `system-configuration' directly."
 
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
 (global-set-key (kbd "C-z r d") #'redraw-display)
-
-;;  ____________________________________________________________________________
-;;; CURSOR
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
-
-;; To learn about available cursors, place your cursor behind 'cursor-type'
-;; in the code below or do "M-x describe-symbol RET cursor-type RET"
-
-;; Set the cursor type
-;; Comment out the following expression to change the curser into to a box
-(add-to-list 'default-frame-alist '(cursor-type . bar))
-
-;; Turn on/off cursor blinking by default?
-(blink-cursor-mode 1)  ; 1 means 'on' / -1 means 'off'
-
-;; Cursor blinking interval in seconds
-(setq blink-cursor-interval 0.4)
-
-;; Emphasize the cursor when running Emacs in a text terminal?
-(setq visible-cursor nil)
-
-;; Make sure to highlight the current line only in the active window.
-(setq hl-line-sticky-flag nil)
 
 ;;  ____________________________________________________________________________
 ;;; SMOOTH SCROLLING
