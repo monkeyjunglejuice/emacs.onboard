@@ -586,8 +586,9 @@ or `system-configuration' directly."
 
 ;; Improve completion by remembering frequently used commands
 ;; --> recommended 3rd-party package 'amx'
-;; If you would like to install the 3rd-party package(s), change 'no to 'yes
-;; and evaluate the expression – either via "C-M-x", or simply restart Emacs:
+;; If you would like to install the 3rd-party package(s), change 'ignore
+;; to 'install and evaluate the expression – either via "C-M-x",or simply
+;; restart Emacs:
 (eon-package 'ignore '(amx))
 (when (fboundp #'amx)
   (global-set-key (kbd "M-x") #'amx)
