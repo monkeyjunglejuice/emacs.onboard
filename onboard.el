@@ -300,7 +300,7 @@ or `system-configuration' directly."
 (defcustom eon-light-theme-name
   (cond
    ((>= emacs-major-version 28) (setq eon-light-theme-name 'modus-operandi))
-   ((<= emacs-major-version 27) (setq eon-light-theme-name 'leuven)))
+   ((<= emacs-major-version 27) (setq eon-light-theme-name 'adwaita)))
   "Name of the light theme."
   :group 'toggle-theme
   :type 'symbol)
