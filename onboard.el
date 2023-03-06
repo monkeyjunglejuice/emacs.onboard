@@ -496,12 +496,6 @@ or `system-configuration' directly."
               scroll-preserve-screen-position nil)
 
 ;;  ____________________________________________________________________________
-;;; PINENTRY
-
-(require 'epg-config)
-(setq epg-pinentry-mode 'loopback)
-
-;;  ____________________________________________________________________________
 ;;; MODELINE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line>
 
@@ -544,17 +538,7 @@ or `system-configuration' directly."
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;;  ____________________________________________________________________________
-;;; ELDOC
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
-
-(setq eldoc-minor-mode-string ""
-      eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
-      eldoc-echo-area-display-truncation-message nil
-      eldoc-echo-area-prefer-doc-buffer t
-      eldoc-echo-area-use-multiline-p t)
-
-;;  ____________________________________________________________________________
-;;; COMPLETION
+;;; MINIBUFFER COMPLETION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete>
 
 (require 'icomplete)
@@ -564,10 +548,6 @@ or `system-configuration' directly."
       icomplete-delay-completions-threshold 1000
       icomplete-show-matches-on-no-input t
       icomplete-hide-common-prefix nil)
-
-;; Emacs version 28 and later: vertical completion with fido-vertical
-(when (>= emacs-major-version 28)
-  (fido-vertical-mode 1))
 
 ;; Emacs version 27 and below: vertical completion with fido or icomplete
 (when (<= emacs-major-version 27)
@@ -582,10 +562,15 @@ or `system-configuration' directly."
     #'icomplete-forward-completions)
   (define-key icomplete-minibuffer-map (kbd "C-p")
     #'icomplete-backward-completions)
+
   ;; Turn on fido-mode, if available
   (if (fboundp #'fido-mode)
       (fido-mode 1)
     (icomplete-mode 1)))
+
+;; Emacs version 28 and later: vertical completion with fido-vertical
+(when (>= emacs-major-version 28)
+  (fido-vertical-mode 1))
 
 ;; Improve completion by remembering frequently used commands
 ;; --> recommended 3rd-party package 'amx'
@@ -596,6 +581,22 @@ or `system-configuration' directly."
 (when (fboundp #'amx)
   (global-set-key (kbd "M-x") #'amx)
   (global-set-key (kbd "M-X") #'amx-major-mode-commands))
+
+;;  ____________________________________________________________________________
+;;; ELDOC
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
+
+(setq eldoc-minor-mode-string ""
+      eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
+      eldoc-echo-area-display-truncation-message nil
+      eldoc-echo-area-prefer-doc-buffer t
+      eldoc-echo-area-use-multiline-p t)
+
+;;  ____________________________________________________________________________
+;;; PINENTRY
+
+(require 'epg-config)
+(setq epg-pinentry-mode 'loopback)
 
 ;;  ____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
