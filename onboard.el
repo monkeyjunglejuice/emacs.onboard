@@ -663,6 +663,7 @@ or `system-configuration' directly."
                              "\\`\\*Completions"
                              "\\`\\*Flymake log"
                              "\\`\\*Semantic SymRef"
+                             "\\`\\*Backtrace"
                              "\\`\\*tramp"
                              ;; Some hidden buffers can be visited by ...
                              "\\`\\*scratch"        ; "C-z s s"
