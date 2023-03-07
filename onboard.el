@@ -562,7 +562,6 @@ or `system-configuration' directly."
     #'icomplete-forward-completions)
   (define-key icomplete-minibuffer-map (kbd "C-p")
     #'icomplete-backward-completions)
-
   ;; Turn on fido-mode, if available
   (if (fboundp #'fido-mode)
       (fido-mode 1)
@@ -881,8 +880,11 @@ The elements of the list are regular expressions.")
 ;; with "C-x C-f" for visiting files
 (global-set-key (kbd "C-x C-d") #'dired)
 
+;; Switch to wdired-mode and edit directory content like a text buffer
+(define-key dired-mode-map (kbd "e") #'dired-toggle-read-only)
+
 ;; Don't accumulate useless Dired buffers
-(defun ont-dired-single-buffer (s)
+(defun eon-dired-single-buffer (s)
   "When S is non-nil, prevent superfluous Dired buffers from accumulating.
 Kills the current Dired buffer when entering a new directory"
   (when (not (null s))
@@ -895,7 +897,7 @@ Kills the current Dired buffer when entering a new directory"
                                                     (find-alternate-file "..")))))
      (t (setq dired-kill-when-opening-new-dired-buffer t)))))
 
-(ont-dired-single-buffer t)  ; set the default
+(eon-dired-single-buffer t)  ; set the default
 
 ;; Use the system trash when deleting files
 
