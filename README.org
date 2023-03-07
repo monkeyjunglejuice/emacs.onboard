@@ -2,6 +2,8 @@
 
 /Portable Emacs starter kit without any 3rd-party packages/
 
+[[[[file:misc/emacs-onboard.jpg]]]]
+
 Overwhelmed by the complexity of (excellent) Emacs distributions like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or you don't want to configure Emacs, but … just use it??? 🤯
 
 The ONBOARD Emacs starter is a clean slate to build upon. It's almost vanilla Emacs, but gives you some convenience and a better user experience, without relying on other packages. It's all built-in, all onboard.
