@@ -108,7 +108,7 @@
 (package-initialize)
 
 ;; Natively compile packages immediately after installation?
-(setq package-native-compile nil)
+(setq package-native-compile t)
 
 ;; GNU TLS connection issue workaround for Emacs before version 26.3
 (require 'gnutls)
