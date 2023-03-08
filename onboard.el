@@ -1241,6 +1241,16 @@ Kills the current Dired buffer when entering a new directory"
 (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)  ; default
 
 ;;  ____________________________________________________________________________
+;;; COMPILING
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Building>
+
+;; Keep the compilation buffer in the background, except when there's an error
+(add-to-list
+ 'display-buffer-alist
+ '("\\*.*\\-compilation\\*"
+   (display-buffer-no-window)))
+
+;;  ____________________________________________________________________________
 ;;; TEXT MODES / WRITING
 
 ;; Sentences end with a single space
