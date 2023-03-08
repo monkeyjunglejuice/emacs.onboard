@@ -1,36 +1,36 @@
 ;;; onboard.el --- Emacs ONBOARD Starter Kit  -*- lexical-binding: t; -*-
-;; Copyright (C) 2021–2022 Dan Dee
-;; Author: Dan Dee <monkeyjunglejuice@pm.me>
-;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 0.5
-;; Package-Requires: ((emacs "26.1"))
-;; Keywords: convenience
-;; SPDX-License-Identifier: MIT
-;; This file is not part of GNU Emacs.
-
 ;;░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ;;░░░░█▒█▒█▒░░░█▒░░░░░█▒░█▒█▒█▒█▒░░░░░█▒█▒█▒░░░░░░█▒░░░░█▒█▒█▒█▒░░░░█▒█▒█▒█▒░░░░
-;;░░░█▒░░░░█▒░░█▒█▒░░░█▒░░█▒░░░░░█▒░░█▒░░░░█▒░░░░█▒█▒░░░░█▒░░░░░█▒░░░█▒░░░░█▒░░░
-;;░░█▒░░░░░░█▒░█▒░█▒░░█▒░░█▒░░░░░█▒░█▒░░░░░░█▒░░█▒░░█▒░░░█▒░░░░░█▒░░░█▒░░░░░█▒░░
-;;░░█▒░░░░░░█▒░█▒░░█▒░█▒░░█▒█▒█▒█▒░░█▒░░░░░░█▒░█▒░░░░█▒░░█▒█▒█▒█▒░░░░█▒░░░░░█▒░░
-;;░░█▒░░░░░░█▒░█▒░░░█▒█▒░░█▒░░░░░█▒░█▒░░░░░░█▒░█▒█▒█▒█▒░░█▒░░░█▒░░░░░█▒░░░░░█▒░░
-;;░░░█▒░░░░█▒░░█▒░░░░░█▒░░█▒░░░░░█▒░░█▒░░░░█▒░█▒░░░░░░█▒░█▒░░░░░█▒░░░█▒░░░░█▒░░░
+;;░░░█▒   ░█▒░░█▒█▒░░░█▒░░█▒    ░█▒░░█▒    █▒░░░░█▒█▒░░░░█▒     █▒░░░█▒    █▒░░░
+;;░░█▒      █▒░█▒░█▒░░█▒░░█▒    ░█▒░█▒      █▒░░█▒  █▒░░░█▒     █▒░░░█▒     █▒░░
+;;░░█▒      █▒░█▒░░█▒░█▒░░█▒█▒█▒█▒░░█▒      █▒░█▒    █▒░░█▒█▒█▒█▒░░░░█▒     █▒░░
+;;░░█▒      █▒░█▒░░░█▒█▒░░█▒    ░█▒░█▒      █▒░█▒█▒█▒█▒░░█▒░░░█▒░░░░░█▒     █▒░░
+;;░░░█▒    █▒░░█▒░░░░░█▒░░█▒    ░█▒░░█▒    █▒░█▒░░░░░░█▒░█▒░░░░░█▒░░░█▒    █▒░░░
 ;;░░░░█▒█▒█▒░░█▒░░░░░░█▒░█▒█▒█▒█▒░░░░░█▒█▒█▒░░█▒░░░░░░█▒░█▒░░░░░░█▒░█▒█▒█▒█▒░░░░
 ;;░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
+;;
 ;;; Commentary:
 ;; The goal of Emacs ONBOARD is to offer a clean slate to build your personal
 ;; Emacs config. It stays as close as possible to vanilla Emacs, but offers some
 ;; convenience and a better user experience, while only relying on built-in
 ;; packages.
-
+;;
+;; Copyright (C) 2021–2022 Dan Dee
+;; Author: Dan Dee <monkeyjunglejuice@pm.me>
+;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
+;; Version: 0.5
+;; Package-Requires: ((EMACS "26.1"))
+;; Keywords: convenience
+;; SPDX-License-Identifier: MIT
+;; This file is not part of GNU Emacs.
+;;
 ;;; Tested with:
-;;  [X] Emacs 28.2 Guix build
-;;  [X] Emacs 28.1 Guix build
+;;  [X] Emacs 28.2 Guix
+;;  [X] Emacs 28.1 Guix
 ;;  [X] Emacs 27.2 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
 ;;  [X] Emacs 26.1 on Debian 10.9.0
-
+;;
 ;;; Keybindings:
 ;;
 ;; "M-x"  Show all commands
@@ -40,7 +40,7 @@
 ;; "C-g"  Get out! Press <Ctrl>+<g> to cancel whatever happens – or hit 3x <ESC>
 ;;
 ;; "F12"  Toggle between dark and light theme
-
+;;
 ;;; Examples:
 ;;
 ;; "M-x eon-"                     Show all commands defined by Emacs ONBOARD
@@ -53,7 +53,7 @@
 ;;         and view the symbol's documentation
 ;;
 ;; "M-;"   Comment/uncomment a selected piece of text or code
-
+;;
 ;;; Code:
 
 ;;  ____________________________________________________________________________
