@@ -1247,8 +1247,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; Keep the compilation buffer in the background, except when there's an error
 (add-to-list
  'display-buffer-alist
- '("\\*.*\\-compilation\\*"
-   (display-buffer-no-window)))
+ '("\\*.*compilation\\*" (display-buffer-no-window)))
 
 ;;  ____________________________________________________________________________
 ;;; TEXT MODES / WRITING
