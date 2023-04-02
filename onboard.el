@@ -1343,12 +1343,12 @@ Kills the current Dired buffer when entering a new directory"
 ;; Speed up publishing
 (setq org-publish-list-skipped-files nil)
 
-;; Timestamps
+;; Where to place the directory containing the timestamps
 (setq org-publish-timestamp-directory
       (concat user-emacs-directory "org-timestamps/"))
 
 (defun eon-org-publish-use-timestamps ()
-  "Toggle wether to re-export unchanged Org files."
+  "Toggle wether to re-export Org files that haven't been changed."
   (interactive)
   (if (equal org-publish-use-timestamps-flag t)
       (progn (setq org-publish-use-timestamps-flag nil)
