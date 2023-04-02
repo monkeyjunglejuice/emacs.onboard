@@ -553,8 +553,8 @@ or `system-configuration' directly."
 (require 'icomplete)
 
 (setq icomplete-in-buffer t
-      icomplete-compute-delay 0.05
-      icomplete-delay-completions-threshold 1000
+      icomplete-compute-delay 0.1
+      icomplete-delay-completions-threshold 10000
       icomplete-show-matches-on-no-input t
       icomplete-hide-common-prefix nil)
 
