@@ -1168,7 +1168,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; and restart Emacs to make it permanent.
 (add-hook 'prog-mode-hook
           (lambda ()
-            (setq-local truncate-lines t)))
+            (setq-local truncate-lines nil)))
 
 ;;  ____________________________________________________________________________
 ;;; FOLDING
