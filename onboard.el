@@ -9,10 +9,9 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 ;;
 ;;; Commentary:
-;; The goal of Emacs ONBOARD is to offer a clean slate to build your personal
-;; Emacs config. It stays as close as possible to vanilla Emacs, but offers some
-;; convenience and a better user experience, while only relying on built-in
-;; packages.
+;; Emacs ONBOARD offers a clean slate to build your personal Emacs config.
+;; It stays as close as possible to vanilla Emacs, but offers some convenience
+;; and a better user experience, while only relying on built-in packages.
 ;;
 ;; Copyright (C) 2021–2023 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
