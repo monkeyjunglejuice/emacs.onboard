@@ -1209,14 +1209,15 @@ Kills the current Dired buffer when entering a new directory"
 ;; Indicate trailing whitespace in programming modes?
 (add-hook 'prog-mode-hook
           (lambda ()
-            (setq show-trailing-whitespace t)))
+            (setq show-trailing-whitespace nil)))
+
 ;; Cleanup trailing whitespace in programming modes
 (define-key prog-mode-map (kbd "C-z c w") #'whitespace-cleanup)
 
 ;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
           (lambda ()
-            (setq show-trailing-whitespace t)))
+            (setq show-trailing-whitespace nil)))
 ;; Cleanup trailing whitespace in "text" modes
 (define-key text-mode-map (kbd "C-z c w") #'whitespace-cleanup)
 
