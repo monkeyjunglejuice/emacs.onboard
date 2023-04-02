@@ -641,7 +641,7 @@ or `system-configuration' directly."
 ;;; BUFFERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
-(when (>= emacs-major-version 27)
+(when (version<= "27.1" emacs-version)
   (setq switch-to-buffer-obey-display-actions t))
 
 ;; Uniquify buffer names for buffers that would have identical names
