@@ -947,7 +947,7 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Listing columns; Switch arguments with "C-u s"
 ;; Show all files: -DlhFA and hide backups with -B
-(setq-default dired-listing-switches "-lhvFA")
+(setq-default dired-listing-switches "-lhFA")
 
 ;; Copying files/directories
 (setq dired-recursive-copies 'always)
