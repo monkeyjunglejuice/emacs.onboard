@@ -663,8 +663,13 @@ or `system-configuration' directly."
     (mapc #'kill-buffer (buffer-list))))
 (global-set-key (kbd "C-x K") #'eon-kill-all-buffers)
 
-;; Get the buffer out of the way, but let it live
+;; Get the buffer out of the way, but let it alive
 (global-set-key (kbd "C-z k") #'bury-buffer)
+(global-set-key (kbd "C-z K") #'unbury-buffer)
+
+;; Alternative for "C-x <right>" and "C-x <left>"
+(global-set-key (kbd "C-z n") #'next-buffer)
+(global-set-key (kbd "C-z p") #'previous-buffer)
 
 ;; Define boring buffers globally, so they can be hidden
 (defvar eon-boring-buffers '("\\` "
