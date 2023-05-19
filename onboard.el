@@ -247,7 +247,9 @@ or `system-configuration' directly."
 
 ;;  This function will be called later under 'THEME CONFIG'
 
-(defun eon-fonts ()
+(setq-default eon-font-height 140)
+
+(defun eon-fonts (font-height)
   "The height value is in 1/10 pt, so 130 will give 13 pt."
   (interactive)
   ;; Set the default monospaced font
@@ -256,7 +258,7 @@ or `system-configuration' directly."
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 140)
+                      :height font-height)
   ;; Set an alternative monospaced font. Can be the same as above.
   ;; It should have the same character width as the default font
   (set-face-attribute 'fixed-pitch nil
@@ -407,12 +409,12 @@ or `system-configuration' directly."
 
 (add-hook 'eon-load-after-light-theme-hook
           (lambda ()
-            (eon-fonts)
+            (eon-fonts eon-font-height)
             ))
 
 (add-hook 'eon-load-after-dark-theme-hook
           (lambda ()
-            (eon-fonts)
+            (eon-fonts eon-font-height)
             ))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
