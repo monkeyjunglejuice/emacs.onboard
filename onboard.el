@@ -58,16 +58,16 @@
 ;;; GARBAGE COLLECTION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
 
-;; Temporarily set a high value of 256 MB to trigger less garbage collections
+;; Temporarily set a high value of 1024 MB to trigger less garbage collections
 ;; during initialization. The Emacs default is a threshold of 800 KB
-(setq gc-cons-threshold (* 256 1000000))
+(setq gc-cons-threshold (* 1024 1000000))
 
-;; Then lower the threshold to 16 MB during normal operation to prevent longer
+;; Then lower the threshold to 8 MB during normal operation to prevent longer
 ;; GC pauses, but still have it at a higher value than the default to experience
 ;; less mini-interruptions – eg. while scrolling larger buffers.
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (setq gc-cons-threshold (* 16 1000000))))
+            (setq gc-cons-threshold (* 8 1000000))))
 
 ;; Show a message when garbage collection happens? Useful while tuning the GC
 (setq garbage-collection-messages nil)
@@ -96,11 +96,11 @@
 
 ;; 2nd priority
 ;; Install form melpa-stable' only when the package from 'melpa' is broken
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; 3rd priority
-;; There are also Gnu Elpa and Non-Gnu Elpa, which are implicit
+;; There are also Gnu Elpa and Non-Gnu Elpa, which are enabled by default
 
 ;; Initialize packages
 (package-initialize)
@@ -119,6 +119,7 @@
             (hl-line-mode 1)))
 
 ;; Install packages declaratively within an Emacs Lisp file
+;; Better use `use-package' instead (Emacs >= 29)
 (defun eon-package (action package-list)
   "Helper function to install 3rd-party packages declaratively.
 PACKAGE-LIST will be installed if 'install is passed as an argument to ACTION.
@@ -146,7 +147,6 @@ When ACTION receives 'ignore, then nothing will happen."
 ;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c".
 ;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
 ;; begin with the prefix "C-z" instead of "C-c" (with only a few exceptions).
-
 (global-unset-key (kbd "C-z"))
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files
@@ -164,7 +164,7 @@ When ACTION receives 'ignore, then nothing will happen."
 ;;  ____________________________________________________________________________
 ;; HELPERS
 
-;; Simplify writing of operating-system-specific code
+;; Simplify writing of operating-system-specific Elisp code
 
 (defun eon-linp ()
   "True if `system-type' is Linux or something compatible.
@@ -245,10 +245,12 @@ or `system-configuration' directly."
 ;;; FONTS
 ;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
 
-;;  This function will be called later under 'THEME CONFIG'
+;; You can use this function definition as a template to define your own font
+;; set, then call your personal function via `eon-load-after-light-theme-hook'
+;; and `eon-load-after-light-theme-hook' (under section 'THEME CONFIG').
 
 (defun eon-fonts ()
-  "The height value is in 1/10 pt, so 130 will give 13 pt."
+  "The height value is in 1/10 pt, so 140 will give 140 pt."
   (interactive)
   ;; Set the default monospaced font
   (set-face-attribute 'default nil
@@ -1381,7 +1383,7 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Highlight matching parens
 (mapc (lambda (h)
-        (add-hook h #'(lambda () (setq-local show-paren-style 'expression))))
+        (add-hook h #'(lambda () (setq-local show-paren-style 'mixed))))
       eon-lisp-modes)
 
 (mapc (lambda (h) (add-hook h #'show-paren-local-mode))
