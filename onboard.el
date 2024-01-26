@@ -559,8 +559,13 @@ or `system-configuration' directly."
 ;;; MINIBUFFER COMPLETION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete>
 
-(require 'icomplete)
+;; There are many matching styles available, see `completion-styles-alist'
+;; Below is the standard combo from Emacs 29 plus `orderless'
+(require 'minibuffer
+         (setq completion-styles '(basic partial-completion emacs22 orderless)))
 
+;; Tweaking Icomplete
+(require 'icomplete)
 (setq icomplete-in-buffer t
       icomplete-compute-delay 0.1
       icomplete-delay-completions-threshold 10000
@@ -1226,6 +1231,7 @@ Kills the current Dired buffer when entering a new directory"
 (add-hook 'text-mode-hook
           (lambda ()
             (setq show-trailing-whitespace nil)))
+
 ;; Cleanup trailing whitespace in "text" modes
 (define-key text-mode-map (kbd "C-z c w") #'whitespace-cleanup)
 
