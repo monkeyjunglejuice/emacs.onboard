@@ -422,22 +422,30 @@ or `system-configuration' directly."
 (eon-load-theme-default)
 
 ;;  ____________________________________________________________________________
-;;; INITIAL FRAME
+;;; DEFAULT AND INITIAL FRAME
+;; In Emacs terminology, a "frame" means the ordinary "desktop window";
+;; while "window" refers to tiled panels within an Emacs frame. Why?
+;; Because Emacs had it first, and today's convention what "window" means
+;; appeared later.
+;; In order to define properties generally, add them to `default-frame-alist';
+;; to affect only the first frame created, add them to `initial-frame-alist'.
 
 ;; Either start Emacs maximized …
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; … or set the default width of the Emacs frame in characters
-(add-to-list 'default-frame-alist '(width . 80))
+(add-to-list 'default-frame-alist '(width . 90))
 
 ;; … and set the default height of the Emacs frame in lines
-(add-to-list 'default-frame-alist '(height . 24))
+(add-to-list 'default-frame-alist '(height . 32))
 
 ;; Horizontal position: set the distance from the left screen edge in pixels
-;; (add-to-list 'default-frame-alist '(left . 0))
+;; That way, only the first frame created will get a fixed position:
+;; (add-to-list 'initial-frame-alist '(left . 0))
 
 ;; Vertical position: set the distance from the top screen edge in pixels
-;; (add-to-list 'default-frame-alist '(top . 0))
+;; That way, only the first frame created will get a fixed position:
+;; (add-to-list 'initial-frame-alist '(top . 0))
 
 ;; Fringe: choose on which sides (not) to show it
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
