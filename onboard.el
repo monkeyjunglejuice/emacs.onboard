@@ -502,6 +502,10 @@ or `system-configuration' directly."
               scroll-down-aggressively 0.01
               auto-window-vscroll nil)
 
+;; Enable pixel-based scrolling
+(if (fboundp 'pixel-scroll-precision-mode)
+    (pixel-scroll-precision-mode 1))
+
 ;;  ____________________________________________________________________________
 ;;; MODELINE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line>
