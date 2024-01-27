@@ -565,9 +565,9 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete>
 
 ;; There are many matching styles available, see `completion-styles-alist'
-;; Below is the standard combo from Emacs 29 plus `orderless'
+;; Below is the standard combo from Emacs 29 plus `substring'
 (require 'minibuffer
-         (setq completion-styles '(basic partial-completion emacs22 orderless)))
+         (setq completion-styles '(basic partial-completion emacs22 substring)))
 
 ;; Tweaking Icomplete
 (require 'icomplete)
