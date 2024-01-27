@@ -513,10 +513,13 @@ or `system-configuration' directly."
 (setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))
               mouse-wheel-progressive-speed t
               mouse-wheel-follow-mouse t
-              scroll-conservatively 10000
-              scroll-step 1
-              scroll-margin 0  ; leave n lines on both screen ends
-              scroll-preserve-screen-position nil)
+              scroll-preserve-screen-position t
+              ;; scroll-conservatively 10000
+              ;; scroll-step 1  ; may lock up display in some cases
+              ;; scroll-margin 1  ; leave n lines on both screen ends
+              scroll-up-aggressively 0.01
+              scroll-down-aggressively 0.01
+              auto-window-vscroll nil)
 
 ;;  ____________________________________________________________________________
 ;;; MODELINE
