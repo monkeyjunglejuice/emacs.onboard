@@ -17,17 +17,10 @@
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Version: 0.5
-;; Package-Requires: ((EMACS "26.1"))
+;; Package-Requires: ((EMACS "28.2"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
 ;; This file is not part of GNU Emacs.
-;;
-;;; Tested with:
-;;  [X] Emacs 28.2 Guix
-;;  [X] Emacs 28.1 Guix
-;;  [X] Emacs 27.2 on Ubuntu 20.04 LTS
-;;  [X] Emacs 27.1 on Ubuntu 20.04 LTS
-;;  [X] Emacs 26.1 on Debian 10.9.0
 ;;
 ;;; Keybindings:
 ;;
@@ -107,11 +100,6 @@
 
 ;; Natively compile packages immediately after installation?
 (setq package-native-compile t)
-
-;; GNU TLS connection issue workaround for Emacs before version 26.3
-(require 'gnutls)
-(when (and (version< emacs-version "26.3") (>= libgnutls-version 30604))
-  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 ;; Highlight current line in the package manager
 (add-hook 'package-menu-mode-hook
@@ -313,23 +301,19 @@ or `system-configuration' directly."
   :group 'convenience)
 
 (defcustom eon-light-theme-name
-  (cond
-   ((>= emacs-major-version 28) (setq eon-light-theme-name 'modus-operandi))
-   ((<= emacs-major-version 27) (setq eon-light-theme-name 'dichromacy)))
+  (setq eon-light-theme-name 'leuven)
   "Name of the light theme."
   :group 'toggle-theme
   :type 'symbol)
 
 (defcustom eon-dark-theme-name
-  (cond
-   ((>= emacs-major-version 28) (setq eon-dark-theme-name 'modus-vivendi))
-   ((<= emacs-major-version 27) (setq eon-dark-theme-name 'wombat)))
+  (setq eon-dark-theme-name 'wombat)
   "Name of the dark theme."
   :group 'toggle-theme
   :type 'symbol)
 
 (defcustom eon-default-theme-variant 'light
-  "Load either the 'light or the 'dark theme at startup?"
+  "Load either the light or the dark theme at startup?"
   :group 'toggle-theme
   :type 'symbol)
 
@@ -484,15 +468,12 @@ or `system-configuration' directly."
 
 ;; Menu bar: on/off by default?
 (menu-bar-mode 1)
-(global-set-key (kbd "M-`") #'menu-bar-mode)
 
 ;; Scroll bar: on/off by default?
-(if (fboundp 'scroll-bar-mode)  ; Emacs 26.1 compatibility
-    (scroll-bar-mode -1))
+(scroll-bar-mode -1)
 
 ;; Tool bar: on/off by default?
-(if (fboundp 'tool-bar-mode)  ; Emacs 26.1 compatibility
-    (tool-bar-mode -1))
+(tool-bar-mode -1)
 
 ;; Tooltips: enable/disable?
 (tooltip-mode -1)
@@ -580,24 +561,6 @@ or `system-configuration' directly."
       icomplete-show-matches-on-no-input t
       icomplete-hide-common-prefix nil)
 
-;; Emacs version 27 and below: vertical completion with fido or icomplete
-(when (<= emacs-major-version 27)
-  ;; Display completions vertically, using the newline separator '\n'
-  (setq icomplete-separator "\n")
-  ;; Provide intuitive keybindings
-  (define-key icomplete-minibuffer-map (kbd "<down>")
-    #'icomplete-forward-completions)
-  (define-key icomplete-minibuffer-map (kbd "<up>")
-    #'icomplete-backward-completions)
-  (define-key icomplete-minibuffer-map (kbd "C-n")
-    #'icomplete-forward-completions)
-  (define-key icomplete-minibuffer-map (kbd "C-p")
-    #'icomplete-backward-completions)
-  ;; Turn on fido-mode, if available
-  (if (fboundp #'fido-mode)
-      (fido-mode 1)
-    (icomplete-mode 1)))
-
 ;; Emacs version 28 and later: vertical completion with fido-vertical
 (when (>= emacs-major-version 28)
   (fido-vertical-mode 1))
@@ -652,8 +615,7 @@ or `system-configuration' directly."
 ;;; BUFFERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
-(when (version<= "27.1" emacs-version)
-  (setq switch-to-buffer-obey-display-actions t))
+(setq switch-to-buffer-obey-display-actions nil)
 
 ;; Uniquify buffer names for buffers that would have identical names
 (setq uniquify-buffer-name-style 'forward)
