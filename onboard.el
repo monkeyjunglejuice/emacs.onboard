@@ -142,26 +142,6 @@ When ACTION receives 'ignore, then nothing will happen."
 ;; while the cursor is placed somewhere within a function application form.
 
 ;;  ____________________________________________________________________________
-;;; SYSTEM
-
-;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c".
-;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
-;; begin with the prefix "C-z" instead of "C-c" (with only a few exceptions).
-(global-unset-key (kbd "C-z"))
-
-;; Prevent stale elisp bytecode from shadowing more up-to-date source files
-(setq load-prefer-newer t)
-
-;; Increase warning threshold
-(setq large-file-warning-threshold (* 64 1000000))
-
-;; Set undo limit to 64 MB
-(setq undo-outer-limit (* 64 1000000))
-
-;; Increase the amount of data which Emacs reads from subprocesses
-(setq read-process-output-max (* 1024 1024))  ; 1 MB
-
-;;  ____________________________________________________________________________
 ;; HELPERS
 
 ;; Simplify writing of operating-system-specific Elisp code
@@ -204,6 +184,31 @@ or `system-configuration' directly."
   "Visit the onboard.el file."
   (interactive)
   (find-file eon-onboard-file))
+
+;;  ____________________________________________________________________________
+;;; SYSTEM
+
+;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c".
+;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
+;; begin with the prefix "C-z" instead of "C-c" (with only a few exceptions).
+;; These keybindings usually won't work in terminals.
+(global-unset-key (kbd "C-z"))
+
+;; Set the <Ctrl> key to <Command> key on MacOS
+(when (eon-macp)
+  (setq mac-command-modifier 'control))
+
+;; Prevent stale elisp bytecode from shadowing more up-to-date source files
+(setq load-prefer-newer t)
+
+;; Increase warning threshold
+(setq large-file-warning-threshold (* 64 1000000))
+
+;; Set undo limit to 64 MB
+(setq undo-outer-limit (* 64 1000000))
+
+;; Increase the amount of data which Emacs reads from subprocesses
+(setq read-process-output-max (* 1024 1024))  ; 1 MB
 
 ;;  ____________________________________________________________________________
 ;;; SERVER
