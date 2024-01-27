@@ -236,7 +236,7 @@ or `system-configuration' directly."
 
 (add-hook 'server-mode-hook
           (lambda ()
-            "Run functions after entering or leaving 'server-mode'."
+            "Run functions after entering or leaving server-mode."
             (eon-frame-title)))
 
 ;; Shutdown the Emacs server process
@@ -395,14 +395,14 @@ or `system-configuration' directly."
 ;;; THEME CONFIG
 ;; Either configure the themes here, or "M-x customize-group RET toggle-theme"
 
-;; Set the light theme – unquote the expression to make it executable:
-'(setq eon-light-theme-name 'modus-operandi)
+;; Set the light theme:
+;; (setq eon-light-theme-name 'modus-operandi)
 
-;; Set the dark theme – unquote the expression to make it executable:
-'(setq eon-dark-theme-name 'modus-vivendi)
+;; Set the dark theme:
+;; (setq eon-dark-theme-name 'modus-vivendi)
 
-;; Set the default variant here, either 'light or 'dark – also unquote:
-'(setq eon-default-theme-variant 'light)
+;; Set the default variant here:
+;; (setq eon-default-theme-variant 'light)
 
 ;; Set the keybinding to toggle between light and dark:
 (global-set-key (kbd "<f12>") #'eon-toggle-theme)
@@ -525,7 +525,7 @@ or `system-configuration' directly."
 ;; Compress the mode line? If non-nil, repeating spaces are compressed into
 ;; a single space. If 'long', this is only done when the mode line is longer
 ;; than the current window width (in columns).
-(setq mode-line-compact nil)
+(setq mode-line-compact 'long)
 
 ;; Show the buffer size in the modeline
 (size-indication-mode 1)
@@ -549,7 +549,7 @@ or `system-configuration' directly."
 (setq use-dialog-box nil)
 
 ;; Grow and shrink the minibuffer according to its content
-(setq resize-mini-windows t)
+(setq resize-mini-windows 'grow-only)
 
 ;; Save minibuffer history between Emacs sessions
 (savehist-mode 1)
@@ -572,7 +572,7 @@ or `system-configuration' directly."
 ;; Tweaking Icomplete
 (require 'icomplete)
 (setq icomplete-in-buffer t
-      icomplete-compute-delay 0.1
+      icomplete-compute-delay 0.01
       icomplete-delay-completions-threshold 10000
       icomplete-show-matches-on-no-input t
       icomplete-hide-common-prefix nil)
@@ -599,25 +599,15 @@ or `system-configuration' directly."
 (when (>= emacs-major-version 28)
   (fido-vertical-mode 1))
 
-;; Improve completion by remembering frequently used commands
-;; --> recommended 3rd-party package 'amx'
-;; If you would like to install the 3rd-party package(s), change 'ignore
-;; to 'install and evaluate the expression – either via "C-M-x",or simply
-;; restart Emacs:
-(eon-package 'ignore '(amx))
-(when (fboundp #'amx)
-  (global-set-key (kbd "M-x") #'amx)
-  (global-set-key (kbd "M-X") #'amx-major-mode-commands))
-
 ;;  ____________________________________________________________________________
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 
-(setq eldoc-minor-mode-string ""
-      eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
-      eldoc-echo-area-display-truncation-message nil
-      eldoc-echo-area-prefer-doc-buffer t
-      eldoc-echo-area-use-multiline-p t)
+(setq eldoc-minor-mode-string nil
+      eldoc-documentation-strategy 'eldoc-documentation-compose
+      eldoc-echo-area-display-truncation-message t
+      eldoc-echo-area-prefer-doc-buffer 'maybe
+      eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
 
 ;;  ____________________________________________________________________________
 ;;; PINENTRY
@@ -634,14 +624,14 @@ or `system-configuration' directly."
 (setq even-window-sizes nil)
 
 ;; Focus follows mouse?
-(setq mouse-autoselect-window nil
-      focus-follows-mouse nil)
+(setq mouse-autoselect-window t
+      focus-follows-mouse t)
 
 ;; Default window navigation – simply switch to the next window in order
 ;; Added for convenience; the default keybinding is "C-x o"
 (global-set-key (kbd "M-o") #'other-window)
 
-;; Navigate windows by direction instead
+;; Navigate windows by direction
 ;; (require 'windmove)
 ;; (setq windmove-wrap-around nil)
 ;; (global-set-key (kbd "s-j") #'windmove-down)
@@ -669,8 +659,9 @@ or `system-configuration' directly."
 ;; It's the equivalent to "close tab" in a web browser or other editors
 (global-set-key (kbd "C-x k") #'kill-current-buffer)
 
-;; Present the selection first
-(global-set-key (kbd "C-x M-k") #'kill-buffer)
+;; Get the buffer out of the way, but let it alive
+(global-set-key (kbd "C-x K") #'bury-buffer)
+(global-set-key (kbd "C-x M-k") #'unbury-buffer)
 
 ;; Kill all buffers at once – equivalent to "close all tabs"
 (defun eon-kill-all-buffers ()
@@ -679,17 +670,13 @@ or `system-configuration' directly."
   (save-some-buffers)
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
-(global-set-key (kbd "C-x K") #'eon-kill-all-buffers)
-
-;; Get the buffer out of the way, but let it alive
-(global-set-key (kbd "C-z k") #'bury-buffer)
-(global-set-key (kbd "C-z K") #'unbury-buffer)
 
 ;; Alternative for "C-x <right>" and "C-x <left>"
-(global-set-key (kbd "C-z n") #'next-buffer)
-(global-set-key (kbd "C-z p") #'previous-buffer)
+(global-set-key (kbd "C-z f") #'next-buffer)
+(global-set-key (kbd "C-z b") #'previous-buffer)
 
-;; Define boring buffers globally, so they can be hidden
+;; Define boring buffers globally, so they can be hidden.
+;; These buffers remain accessible via Ibuffer "C-x C-b".
 (defvar eon-boring-buffers '("\\` "
                              "\\`\\*Echo Area"
                              "\\`\\*Minibuf"
@@ -1214,7 +1201,7 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; How to display matching parens generally?
 (setq show-paren-style 'parenthesis
-      show-paren-delay 0.0)
+      show-paren-delay 0.1)
 
 ;; Auto-close parens, brackets and quotes?
 (electric-pair-mode 1)
