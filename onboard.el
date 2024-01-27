@@ -42,7 +42,7 @@
 ;;; Examples:
 ;;
 ;; "M-x eon-"                     Show all commands defined by Emacs ONBOARD
-;; "M-x eon-goto-user-init-file"  Visit main config file: .emacs or init.el
+;; "M-x eon-visit-user-init-file"  Visit main config file: .emacs or init.el
 ;; "M-x check-parens"             Check if all parens match in Emacs Lisp code
 ;; "M-x help"                     Reach the ultimate help menu
 ;;
@@ -185,13 +185,13 @@ or `system-configuration' directly."
   (string= system-type "darwin"))
 
 ;; Open the '~/.emacs.d' directory in the Dired file manager
-(defun eon-goto-user-emacs-directory ()
+(defun eon-visit-user-emacs-directory ()
   "Open the Emacs directory in Dired, which is ~/.emacs.d usually."
   (interactive)
   (dired user-emacs-directory))
 
 ;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
-(defun eon-goto-user-init-file ()
+(defun eon-visit-user-init-file ()
   "Visit the init file."
   (interactive)
   (find-file user-init-file))
@@ -200,7 +200,7 @@ or `system-configuration' directly."
 (defvar eon-onboard-file (or load-file-name (buffer-file-name))
   "Full path of the onboard.el file.")
 
-(defun eon-goto-onboard-file ()
+(defun eon-visit-onboard-file ()
   "Visit the onboard.el file."
   (interactive)
   (find-file eon-onboard-file))
@@ -1287,13 +1287,13 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Set a default location to look for Org files,
 ;; but you can save them in fact anywhere you like
-(setq org-directory (expand-file-name "~/Org/"))
+(setq org-directory (expand-file-name "~/Documents/org/"))
 
-(defun eon-goto-org-directory ()
+(defun eon-visit-org-directory ()
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
-(global-set-key (kbd "C-z o d") #'eon-goto-org-directory)
+(global-set-key (kbd "C-z o d") #'eon-visit-org-directory)
 
 ;; Turn on visual word wrapping
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
@@ -1314,11 +1314,11 @@ Kills the current Dired buffer when entering a new directory"
 ;; Set a default target for storing notes
 (setq org-default-notes-file (concat org-directory "notes.org"))
 
-(defun eon-goto-org-notes ()
+(defun eon-visit-org-notes ()
   "Visit the Org notes file."
   (interactive)
   (find-file org-default-notes-file))
-(global-set-key (kbd "C-z o o") #'eon-goto-org-notes)
+(global-set-key (kbd "C-z o o") #'eon-visit-org-notes)
 
 ;;  ............................................................................
 ;;; Todo
