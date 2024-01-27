@@ -1201,7 +1201,6 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
 ;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode'
-
 (setq backward-delete-char-untabify-method 'hungry)
 
 ;;  ____________________________________________________________________________
@@ -1303,7 +1302,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq  org-auto-align-tags t
        org-tags-column 0)
 
-;;  ............................................................................
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Capture
 ;; <https://orgmode.org/org.html#Capture>
 
@@ -1320,7 +1319,7 @@ Kills the current Dired buffer when entering a new directory"
   (find-file org-default-notes-file))
 (global-set-key (kbd "C-z o o") #'eon-visit-org-notes)
 
-;;  ............................................................................
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Todo
 ;; <https://orgmode.org/org.html#TODO-Items>
 
@@ -1332,14 +1331,14 @@ Kills the current Dired buffer when entering a new directory"
                   "DONE(d)"
                   "CANCELED(c)")))
 
-;;  ............................................................................
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Agenda
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
 (setq org-agenda-files (list org-directory))
 (global-set-key (kbd "C-z o a") #'org-agenda)
 
-;;  ............................................................................
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Links
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
@@ -1347,7 +1346,7 @@ Kills the current Dired buffer when entering a new directory"
 (define-key org-mode-map (kbd "C-z o l") #'org-insert-link)
 (define-key org-mode-map (kbd "C-z C-o C-l") #'org-toggle-link-display)
 
-;;  ............................................................................
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Publishing
 
 (require 'ox-publish)
@@ -1370,7 +1369,7 @@ Kills the current Dired buffer when entering a new directory"
     (progn (setq org-publish-use-timestamps-flag t)
            (message "Don't re-export unchanged files (default)"))))
 
-;;  ............................................................................
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Literate Programming
 ;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
