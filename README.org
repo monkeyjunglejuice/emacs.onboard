@@ -1,6 +1,6 @@
 * 🚀 ONBOARD --- Emacs Onboarding Made Easy
 
-/Portable Emacs starter kit without any 3rd-party packages/
+/Portable Emacs starter-kit without any 3rd-party packages/
 
 [[file:misc/emacs-onboard.jpg]]
 
