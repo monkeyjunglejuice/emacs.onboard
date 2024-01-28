@@ -6,10 +6,13 @@
 
 Overwhelmed by the complexity of Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or ... I hardly dare to say it ... you don't want to configure Emacs at all? But ... /just use it/??? 🤯
 
-The ONBOARD Emacs starter is your clean slate to build upon. It's almost vanilla Emacs, but gives you convenience and a better user experience, without relying on additional 3rd-party packages. *It's all built-in -- all on board!**
+The ONBOARD Emacs starter is your clean slate to build upon. It's almost vanilla Emacs, but gives you convenience and a better user experience, without relying on additional 3rd-party packages.
+*It's all built-in -- all onboard!**
 
 ✔ One single file
+
 ✔ Only built-in packages
+
 ✔ Beginner-friendly drop-in config
 
 ** Why, oh why? Yet another Emacs starter kit?
@@ -22,7 +25,7 @@ So I stripped out those parts and put it all in one file, and made them my core 
 
 Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
 
-… but this is the 💝 heart piece!
+… but this is the 💝 piece.
 
 ** TRY IT
 
