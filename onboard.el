@@ -1236,7 +1236,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq sentence-end-double-space nil)
 
 ;;  ____________________________________________________________________________
-;;; ORG-MODE
+;;; ORG MODE
 ;; <https://orgmode.org/>
 ;; <https://orgmode.org/org.html>
 
@@ -1264,7 +1264,7 @@ Kills the current Dired buffer when entering a new directory"
        org-tags-column 0)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Capture
+;;; ORG CAPTURE
 ;; <https://orgmode.org/org.html#Capture>
 
 (global-set-key (kbd "C-z o c") #'org-capture)
@@ -1281,7 +1281,7 @@ Kills the current Dired buffer when entering a new directory"
 (global-set-key (kbd "C-z o o") #'eon-visit-org-notes)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Todo
+;;; ORG TODO
 ;; <https://orgmode.org/org.html#TODO-Items>
 
 (setq org-todo-keywords
@@ -1293,14 +1293,14 @@ Kills the current Dired buffer when entering a new directory"
                   "CANCELED(c)")))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Agenda
+;;; ORG AGENDA
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
 (setq org-agenda-files (list org-directory))
 (global-set-key (kbd "C-z o a") #'org-agenda)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Links
+;;; ORG LINKS
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
 (global-set-key (kbd "C-z o L") #'org-store-link)
@@ -1308,7 +1308,7 @@ Kills the current Dired buffer when entering a new directory"
 (define-key org-mode-map (kbd "C-z C-o C-l") #'org-toggle-link-display)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Publishing
+;;; ORG PUBLISH
 
 (require 'ox-publish)
 
@@ -1329,6 +1329,16 @@ Kills the current Dired buffer when entering a new directory"
              (message "Re-export unchanged files"))
     (progn (setq org-publish-use-timestamps-flag t)
            (message "Don't re-export unchanged files (default)"))))
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; ORG EXPORT
+
+;; HTML export
+(require 'ox-html)
+
+(setq org-html-checkbox-type 'unicode
+      org-html-prefer-user-labels t
+      org-html-self-link-headlines t)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Literate Programming
