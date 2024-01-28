@@ -35,17 +35,18 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 ** INSTALL
 
-*1.* Clone this repository:
+*1. Clone this repository:*
 #+begin_src shell
 git clone https://github.com/monkeyjunglejuice/emacs.onboard.git ~/.emacs.onboard
 #+end_src
 
-*2.* Put this in your Emacs init file:
+*2. Put this in your Emacs init file:*
+/(Skip this step if you are about to install [[https://github.com/monkeyjunglejuice/emacs.ontop][Emacs ONTOP]])/
 #+begin_src emacs-lisp
   (load-file (expand-file-name "~/.emacs.onboard/onboard.el"))
 #+end_src
 
-*3.* (Re)start Emacs
+*3. (Re)start Emacs*
 
 /You don't have a init file or don't know where it is? With a freshly installed Emacs there is no init file. But you can ask Emacs where it expects to find the init file:/
 
