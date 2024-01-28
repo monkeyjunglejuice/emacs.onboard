@@ -1,10 +1,10 @@
 * 🚀 ONBOARD --- Emacs Onboarding Made Easy
 
-/Portable Emacs starter-kit without any 3rd-party packages/
+/Portable Emacs starter kit without any 3rd-party packages/
 
 [[file:misc/emacs-onboard.jpg]]
 
-Overwhelmed by the complexity of Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or ... I hardly dare to say it ... you don't want to configure Emacs at all? But ... /just use it/??? 🤯
+Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or you don't want to configure Emacs at all? But ... /just use it/??? 🤯
 
 The ONBOARD Emacs starter is your clean slate to build upon. It's almost vanilla Emacs, but gives you convenience and a better user experience, without relying on additional 3rd-party packages.
 *It's all built-in -- all onboard!**
@@ -97,7 +97,7 @@ Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
 - Documentation is first class; it should be clear why something is in the code.
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable.
 
-** Non-Goals
+** Non-goals
 
 - Providing a whole new experience like Spacemacs or Doom-Emacs.
 - New keybindings. However, they may be useful in certain circumstances.
