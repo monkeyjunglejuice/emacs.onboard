@@ -187,15 +187,6 @@ or `system-configuration' directly."
   (interactive)
   (find-file user-init-file))
 
-;; Full path of this file
-(defvar eon-onboard-file (or load-file-name (buffer-file-name))
-  "Full path of the onboard.el file.")
-
-(defun eon-visit-onboard-file ()
-  "Visit the onboard.el file."
-  (interactive)
-  (find-file eon-onboard-file))
-
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
 
