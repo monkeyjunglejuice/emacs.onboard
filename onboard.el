@@ -51,16 +51,39 @@
 ;;; GARBAGE COLLECTION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
 
-;; Temporarily set a high value of 1024 MB to trigger less garbage collections
-;; during initialization. The Emacs default is a threshold of 800 KB
-(setq gc-cons-threshold (* 1024 1000000))
+;; Set a high value of 1 GB to prevent frequent garbage collections
+;; during initialization.
+(setq gc-cons-threshold #x40000000)  ; default threshold is 800 KB
 
-;; Then lower the threshold to 8 MB during normal operation to prevent longer
-;; GC pauses, but still have it at a higher value than the default to experience
-;; less mini-interruptions – eg. while scrolling larger buffers.
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (* 8 1000000))))
+;; Prevent longer GC pauses and experience less mini-interruptions.
+;; When idle for 15 sec, run the GC no matter what.
+;; This hack was stolen from <https://akrl.sdf.org/>
+(defmacro eon-time (&rest body)
+  "Measure and return the time it takes evaluating BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (float-time (time-since time))))
+
+(defvar eon-gc-timer nil
+  "Timer object for garbage collection monitoring.
+The timer can be canceled with `eon-cancel-gc-timer'.")
+
+(defun eon-start-gc-timer ()
+  "Start the garbage collection timer."
+  (setq eon-gc-timer
+        (run-with-idle-timer 15 t
+                             (lambda ()
+                               (message "Garbage collector has run for %.06fsec"
+                                        (eon-time (garbage-collect)))))))
+
+(defun eon-cancel-gc-timer ()
+  "Cancel the garbage collection timer."
+  (when (timerp eon-gc-timer)
+    (cancel-timer eon-gc-timer)
+    (setq eon-gc-timer nil)))
+
+;; Start the GC Timer from your init file by calling this function
+(eon-start-gc-timer)
 
 ;; Show a message when garbage collection happens? Useful while tuning the GC
 (setq garbage-collection-messages nil)
