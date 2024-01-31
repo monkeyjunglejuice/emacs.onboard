@@ -324,13 +324,13 @@ or `system-configuration' directly."
   :group 'convenience)
 
 (defcustom eon-light-theme-name
-  (setq eon-light-theme-name 'leuven)
+  (setq eon-light-theme-name 'modus-operandi)
   "Name of the light theme."
   :group 'toggle-theme
   :type 'symbol)
 
 (defcustom eon-dark-theme-name
-  (setq eon-dark-theme-name 'wombat)
+  (setq eon-dark-theme-name 'modus-vivendi)
   "Name of the dark theme."
   :group 'toggle-theme
   :type 'symbol)
