@@ -1355,31 +1355,20 @@ Kills the current Dired buffer when entering a new directory"
 ;;; LISP LANGUAGES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
-(defvar eon-lisp-modes
-  '( emacs-lisp-mode-hook lisp-interaction-mode-hook ielm-mode-hook
-     lisp-mode-hook inferior-lisp-mode-hook
-     scheme-mode-hook inferior-scheme-mode-hook
-     eval-expression-minibuffer-setup))
+(defvar eon-lisp-buffer-modes
+  '( emacs-lisp-mode-hook lisp-interaction-mode-hook
+     lisp-mode-hook
+     scheme-mode-hook))
 
-;; Auto-close parentheses, brackets, quotes, etc.
-(mapc (lambda (h) (add-hook h #'electric-pair-local-mode))
-      eon-lisp-modes)
+(defvar eon-lisp-interactive-modes
+  '( lisp-interaction-mode-hook ielm-mode-hook
+     inferior-lisp-mode-hook
+     inferior-scheme-mode-hook
+     eval-expression-minibuffer-setup-hook))
 
-;; Highlight matching parens
-(mapc (lambda (h)
-        (add-hook h #'(lambda () (setq-local show-paren-style 'mixed))))
-      eon-lisp-modes)
-
-(mapc (lambda (h) (add-hook h #'show-paren-local-mode))
-      eon-lisp-modes)
-
-;; Emacs Lisp is supported by Flymake, so let's use it
+;; Emacs Lisp is supported by Flymake, so let's use it per default
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
 (add-hook 'lisp-interaction-mode-hook (lambda () (flymake-mode -1)))
-
-;; Emacs Lisp is supported by Semantic, so let's use this too
-;; <https://www.gnu.org/software/emacs/manual/html_mono/semantic.html>
-(add-hook 'emacs-lisp-mode-hook #'semantic-mode)
 
 ;; Emacs Lisp: don't truncate printed lists
 (setq eval-expression-print-length nil)
