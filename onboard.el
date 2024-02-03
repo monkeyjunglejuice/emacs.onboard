@@ -257,7 +257,7 @@ or `system-configuration' directly."
 ;; and `eon-load-after-light-theme-hook' (under section 'THEME CONFIG').
 
 (defun eon-fonts ()
-  "The height value is in 1/10 pt, so 140 will give 140 pt."
+  "The height value is in 1/10 pt, so 140 will give 14 pt."
   (interactive)
   ;; Set the default monospaced font
   (set-face-attribute 'default nil
