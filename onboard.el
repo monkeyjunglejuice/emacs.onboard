@@ -16,7 +16,7 @@
 ;; Copyright (C) 2021–2024 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.1.1
+;; Version: 1.1.2
 ;; Package-Requires: ((EMACS "28.2"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -1376,7 +1376,7 @@ Kills the current Dired buffer when entering a new directory"
   '( lisp-interaction-mode-hook ielm-mode-hook
      inferior-lisp-mode-hook
      inferior-scheme-mode-hook
-     eval-expression-minibuffer-setup-hook))
+     eval-expression-minibuffer-setup))
 
 ;; Emacs Lisp is supported by Flymake, so let's use it per default
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
