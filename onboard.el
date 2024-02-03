@@ -527,7 +527,7 @@ or `system-configuration' directly."
 ;; Compress the mode line? If non-nil, repeating spaces are compressed into
 ;; a single space. If 'long', this is only done when the mode line is longer
 ;; than the current window width (in columns).
-(setq mode-line-compact 'long)
+(setq mode-line-compact 'nil)
 
 ;; Show the buffer size in the modeline
 (size-indication-mode 1)
