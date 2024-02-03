@@ -13,10 +13,10 @@
 ;; It stays as close as possible to vanilla Emacs, but offers some convenience
 ;; and a better user experience, while only relying on built-in packages.
 ;;
-;; Copyright (C) 2021–2023 Dan Dee
+;; Copyright (C) 2021–2024 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 0.5
+;; Version: 1.1.0
 ;; Package-Requires: ((EMACS "28.2"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
