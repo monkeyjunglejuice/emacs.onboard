@@ -191,7 +191,8 @@ or `system-configuration' directly."
 ;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
 ;; begin with the prefix "C-z" instead of "C-c" (with only a few exceptions).
 ;; These keybindings usually won't work in terminals.
-(global-unset-key (kbd "C-z"))
+(define-prefix-command 'eon-z-map)
+(global-set-key (kbd "C-z") 'eon-z-map)
 
 ;; Set the <Ctrl> key to <Command> key on MacOS
 (when (eon-macp)
