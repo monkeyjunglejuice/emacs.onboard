@@ -185,18 +185,43 @@ or `system-configuration' directly."
   (find-file user-init-file))
 
 ;;  ____________________________________________________________________________
-;;; SYSTEM
+;;; KEYMAPS
 
 ;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c".
 ;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
 ;; begin with the prefix "C-z" instead of "C-c" (with only a few exceptions).
-;; These keybindings usually won't work in terminals.
-(define-prefix-command 'eon-z-map)
-(global-set-key (kbd "C-z") 'eon-z-map)
+;; Keybindings starting with "C-z" may not work in terminals.
+(global-unset-key (kbd "C-z"))
+
+(define-prefix-command 'ctl-z-map)      ; the additional prefix key "C-z"
+(global-set-key (kbd "C-z") 'ctl-z-map)
+
+(define-prefix-command 'ctl-z-c-map)    ; commonly used commands
+(define-key ctl-z-map (kbd "c") 'ctl-z-c-map)
+
+(define-prefix-command 'ctl-z-e-map)    ; Emacs built-in
+(define-key ctl-z-map (kbd "e") 'ctl-z-e-map)
+
+(define-prefix-command 'ctl-z-o-map)    ; org-mode
+(define-key ctl-z-map (kbd "o") 'ctl-z-o-map)
+
+(define-prefix-command 'ctl-z-s-map)    ; scratch buffers
+(define-key ctl-z-map (kbd "s") 'ctl-z-s-map)
+
+(define-prefix-command 'ctl-z-w-map)    ; web-related
+(define-key ctl-z-map (kbd "w") 'ctl-z-w-map)
+
+(define-prefix-command 'ctl-z-x-map)    ; global bindings for REPLs, etc.
+(define-key ctl-z-map (kbd "x") 'ctl-z-x-map)
+
+;;  ____________________________________________________________________________
+;;; KEYBINDINGS
 
 ;; Set the <Ctrl> key to <Command> key on MacOS
-(when (eon-macp)
-  (setq mac-command-modifier 'control))
+(setq mac-command-modifier 'control)
+
+;;  ____________________________________________________________________________
+;;; SYSTEM
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files
 (setq load-prefer-newer t)
@@ -497,7 +522,7 @@ or `system-configuration' directly."
 (setq ring-bell-function 'ignore)
 
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
-(global-set-key (kbd "C-z r d") #'redraw-display)
+(define-key ctl-z-map (kbd "C-r") #'redraw-display)
 
 ;;  ____________________________________________________________________________
 ;;; SMOOTH SCROLLING
@@ -654,8 +679,8 @@ or `system-configuration' directly."
     (mapc #'kill-buffer (buffer-list))))
 
 ;; Alternative for "C-x <right>" and "C-x <left>"
-(global-set-key (kbd "C-z f") #'next-buffer)
-(global-set-key (kbd "C-z b") #'previous-buffer)
+(define-key ctl-z-map (kbd "f") #'next-buffer)
+(define-key ctl-z-map (kbd "b") #'previous-buffer)
 
 ;; Define boring buffers globally, so they can be hidden.
 ;; These buffers remain accessible via Ibuffer "C-x C-b".
@@ -714,7 +739,7 @@ The elements of the list are regular expressions.")
   "Jump to the *scratch* buffer. If it does not exist, create it."
   (interactive)
   (switch-to-buffer "*scratch*"))
-(global-set-key (kbd "C-z s s") #'eon-scratch)
+(define-key ctl-z-s-map (kbd "s") #'eon-scratch)
 
 ;;  ____________________________________________________________________________
 ;;; VISITING FILES AT POINT
@@ -722,7 +747,7 @@ The elements of the list are regular expressions.")
 ;; "C-x C-v"       – Visit any resource under the cursor
 ;; "M-x ffap-menu" – Display a list of all ressources mentioned in this buffer
 
-(global-set-key (kbd "C-z C-.") #'find-file-at-point)
+(define-key ctl-z-map (kbd "C-.") #'find-file-at-point)
 
 ;;  ____________________________________________________________________________
 ;;; CLIPBOARD, COPY & PASTE
@@ -780,7 +805,7 @@ The elements of the list are regular expressions.")
     (interactive "r")
     (let ((default-directory "/mnt/c/"))
       (shell-command-on-region start end "clip.exe")))
-  (global-set-key (kbd "C-z C-w") 'eon-wsl-copy))
+  (define-key ctl-z-map (kbd "C-w") 'eon-wsl-copy))
 
 ;; Paste "yank" text into Emacs buffer that has been copied from a Windows app
 (when (eon-linp)
@@ -793,7 +818,7 @@ The elements of the list are regular expressions.")
        (substring
         (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
         0  -1))))
-  (global-set-key (kbd "C-z C-y") 'eon-wsl-paste))
+  (define-key ctl-z-map (kbd "C-y") 'eon-wsl-paste))
 
 ;;  ____________________________________________________________________________
 ;;; BACKUP
@@ -989,7 +1014,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq  eshell-list-files-after-cd t)
 
 ;; To open more than one eshell buffer: "C-u C-z e e"
-(global-set-key (kbd "C-z e e") #'eshell)
+(define-key ctl-z-e-map (kbd "e") #'eshell)
 
 ;;  ____________________________________________________________________________
 ;;; SHELL
@@ -1002,7 +1027,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; (setq shell-file-name "/usr/bin/bash")
 
 ;; To open more than one shell buffer: "C-u C-z e s"
-(global-set-key (kbd "C-z e s") #'shell)
+(define-key ctl-z-e-map (kbd "s") #'shell)
 
 ;;  ____________________________________________________________________________
 ;;; PROCED
@@ -1057,7 +1082,7 @@ Kills the current Dired buffer when entering a new directory"
 ;; (setq browse-url-browser-function #'browse-url-generic)
 
 ;; Keybinding
-(global-set-key (kbd "C-z w w") #'browse-url)
+(define-key ctl-z-w-map (kbd "w") #'browse-url)
 
 ;;  ____________________________________________________________________________
 ;;; SECONDARY WEB BROWSER
@@ -1066,7 +1091,7 @@ Kills the current Dired buffer when entering a new directory"
 (setq browse-url-secondary-browser-function #'browse-web)
 
 ;; Keybinding
-(global-set-key (kbd "C-z w W") #'browse-web)
+(define-key ctl-z-w-map (kbd "W") #'browse-web)
 
 ;;  ____________________________________________________________________________
 ;;; EMAIL SENDING
@@ -1197,16 +1222,13 @@ Kills the current Dired buffer when entering a new directory"
           (lambda ()
             (setq show-trailing-whitespace nil)))
 
-;; Cleanup trailing whitespace in programming modes
-(define-key prog-mode-map (kbd "C-z c w") #'whitespace-cleanup)
-
 ;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
           (lambda ()
             (setq show-trailing-whitespace nil)))
 
-;; Cleanup trailing whitespace in "text" modes
-(define-key text-mode-map (kbd "C-z c w") #'whitespace-cleanup)
+;; Cleanup trailing whitespace
+(define-key ctl-z-c-map (kbd "w") #'whitespace-cleanup)
 
 ;;  ____________________________________________________________________________
 ;;; SYNTAX CHECK / LINTER
@@ -1266,7 +1288,7 @@ Kills the current Dired buffer when entering a new directory"
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
-(global-set-key (kbd "C-z o d") #'eon-visit-org-directory)
+(define-key ctl-z-o-map (kbd "d") #'eon-visit-org-directory)
 
 ;; Turn on visual word wrapping
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
@@ -1280,7 +1302,7 @@ Kills the current Dired buffer when entering a new directory"
 ;;; ORG CAPTURE
 ;; <https://orgmode.org/org.html#Capture>
 
-(global-set-key (kbd "C-z o c") #'org-capture)
+(define-key ctl-z-o-map (kbd "c") #'org-capture)
 ;; Capture: put newer entries on top
 (setq org-reverse-note-order t)
 
@@ -1291,7 +1313,7 @@ Kills the current Dired buffer when entering a new directory"
   "Visit the Org notes file."
   (interactive)
   (find-file org-default-notes-file))
-(global-set-key (kbd "C-z o o") #'eon-visit-org-notes)
+(define-key ctl-z-o-map (kbd "o") #'eon-visit-org-notes)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG TODO
@@ -1310,22 +1332,22 @@ Kills the current Dired buffer when entering a new directory"
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
 (setq org-agenda-files (list org-directory))
-(global-set-key (kbd "C-z o a") #'org-agenda)
+(define-key ctl-z-o-map (kbd "a") #'org-agenda)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG LINKS
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
-(global-set-key (kbd "C-z o L") #'org-store-link)
-(define-key org-mode-map (kbd "C-z o l") #'org-insert-link)
-(define-key org-mode-map (kbd "C-z C-o C-l") #'org-toggle-link-display)
+(define-key ctl-z-o-map (kbd "L") #'org-store-link)
+(define-key ctl-z-o-map (kbd "l") #'org-insert-link)
+(define-key ctl-z-o-map (kbd "C-l") #'org-toggle-link-display)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG PUBLISH
 
 (require 'ox-publish)
 
-(global-set-key (kbd "C-z o p") 'org-publish)
+(define-key ctl-z-o-map (kbd "p") 'org-publish)
 
 ;; Speed up publishing
 (setq org-publish-list-skipped-files nil)
