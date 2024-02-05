@@ -1,31 +1,19 @@
 * 🚀 ONBOARD --- Emacs Onboarding Made Easy
 
-/Portable Emacs starter kit without any 3rd-party packages/
+Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up? Or you don't want to configure Emacs at all? But ... just use it? Right now? 🤯
 
 [[file:misc/emacs-onboard.jpg]]
 
-Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up, but not overlook those easy-to-miss basics? Or you don't want to configure Emacs at all? But ... /just use it/??? 🤯
-
-The ONBOARD Emacs starter kit is your clean slate to build upon. It's vanilla Emacs, but gives you convenience and a better user experience, without relying on additional 3rd-party packages.
-*It's all built-in -- all onboard!**
+*Emacs ONBOARD is a portable starter-kit for Emacs without any 3rd-party packages.* It's vanilla Emacs, but gives you a better user experience, without relying on additional 3rd-party packages.
+*It's all built-in -- all onboard!*
 
 ✔ One single file
 
+✔ Beginner-friendly
+
 ✔ Only built-in packages
 
-✔ Beginner-friendly drop-in config
-
-** Why, oh why? Yet another Emacs starter kit?
-
-Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in and have a sane Emacs environment in no time.
-
-And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked incredibly well.
-
-So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
-
-Actually I use not only that config file, but have my Emacs config split into several libraries -- e. g. an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
-
-… but this is the 💝 piece.
+✔ Convenient drop-in config
 
 ** TRY IT
 
@@ -43,7 +31,6 @@ git clone https://github.com/monkeyjunglejuice/emacs.onboard.git ~/.emacs.onboar
 #+end_src
 
 *2. Put this in your Emacs init file*
-/(skip this step if you are about to install [[https://github.com/monkeyjunglejuice/emacs.ontop][Emacs ONTOP]])/:
 #+begin_src emacs-lisp
   (load-file (expand-file-name "~/.emacs.onboard/onboard.el"))
 #+end_src
@@ -79,13 +66,25 @@ The seemingly weird keybindings are not what make Emacs. They are in fact second
 - "M-x check-parens" Check if all parens match (within Emacs Lisp code)
 - "M-x help" to reach the ultimate help menu
 
-** Supported Emacs versions (tested with):
+** Why yet another Emacs starter-kit?
+
+Legit question. Well, when I was setting up a VM to test some things, I wished I had a one-file-config that I can simply drop in and have a sane Emacs environment in no time.
+
+And later then, when I was cleaning up my Emacs config, I realized that I haven't touched some parts within the last months or so. They just worked incredibly well.
+
+So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
+
+Actually I use not only that config file, but have my Emacs config split into several modules -- an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
+
+… but this is the 💝 piece.
+
+** Tested with:
 
 - [X] Emacs 29.2 from Homebrew on MacOS Sonoma 14.2.1
 - [X] Emacs 28.1 on Debian Stable
 - [X] Emacs 28.1 from Guix
 
-*Backwards-compatibility* follwos the Emacs version (28.1) in Debian Stable.
+*Backwards-compatibility* follows the Emacs version 28.2 in Debian Stable.
 Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
 
 ** Goals
@@ -94,7 +93,7 @@ Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
 - Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow. Elisp code should be free from errors and warnings.
 - Use only built-in packages and features enabled by the GNU Emacs distribution's default build options.
 - Extendable by 3rd-party packages without interfering or breaking things.
-  Coming soon: Emacs ONTOP extension layer to Emacs ONBOARD)
+  (e.g. with [[https://github.com/monkeyjunglejuice/emacs.ontop][Emacs ONTOP, an extension layer on top of Emacs ONBOARD]])
 - Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, rather an add-on.
 - Documentation is first class; it should be clear why something is in the code.
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable.
@@ -102,8 +101,8 @@ Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
 ** Non-goals
 
 - Providing a whole new experience like Spacemacs or Doom-Emacs.
-- New keybindings. However, they may be useful in certain circumstances.
-- Pre-configure everything and the cat's pillow (if you know cats …).
+- Re-configuring keybindings (with few exceptions).
+- Pre-configure everything and the cat's pillow (if you know cats ...).
 - (Re)creating functionality where a 3rd-party package would be a better fit.
 
 ** Contribute
@@ -111,8 +110,8 @@ Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
 You are welcome! Here's the agenda what's currently important/worked on:
 
 *** Catching up with Emacs 29 features
-- Configuration based on Use-package in Emacs ONBOARD is postponed until Emacs 29 is in the Debian Stable repos; however ist will be [[https://github.com/monkeyjunglejuice/emacs.ontop][available in the Emacs ONTOP extension layer]] (coming soon).
-- It's the same for Eglot. Common tasks are [[id:][preconfigured in Emacs ONTOP]] (coming soon).
+- Configuration based on Use-package in Emacs ONBOARD is postponed until Emacs 29 is in the Debian Stable repos; however ist will be [[https://github.com/monkeyjunglejuice/emacs.ontop][available in the Emacs ONTOP extension layer]].
+- It's the same for Eglot. Common tasks are [[id:][preconfigured in Emacs ONTOP]].
 *** Testing the config on various Emacsen and operating systems
 - Flickering and delayed drawing happened under MacOS Sonoma 14.2.1, maybe due to tweaks for smooth scrolling, e.g. =(setq scroll-step 1=) or similar. Seems fixed.
 *** Ensure portability between various host OS. All features should work in Linux, Windows and Mac equally well.
