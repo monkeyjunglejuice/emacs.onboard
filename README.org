@@ -5,6 +5,7 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 [[file:misc/emacs-onboard.jpg]]
 
 *Emacs ONBOARD is a portable starter-kit for Emacs without any 3rd-party packages.* It's vanilla Emacs, but gives you a better user experience, without relying on additional 3rd-party packages.
+
 *It's all built-in -- all onboard!*
 
 ✔ One single file
