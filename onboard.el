@@ -82,7 +82,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
     (cancel-timer eon-gc-timer)
     (setq eon-gc-timer nil)))
 
-;; Start the GC Timer from your init file by calling this function
+;; Start the GC Timer
 (eon-start-gc-timer)
 
 ;; Show a message when garbage collection happens? Useful while tuning the GC
