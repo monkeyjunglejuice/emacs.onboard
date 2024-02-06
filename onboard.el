@@ -199,7 +199,7 @@ or `system-configuration' directly."
 (define-prefix-command 'ctl-z-c-map)    ; commonly used commands
 (define-key ctl-z-map (kbd "c") 'ctl-z-c-map)
 
-(define-prefix-command 'ctl-z-e-map)    ; Emacs built-in
+(define-prefix-command 'ctl-z-e-map)    ; quick access to Emacs built-in's
 (define-key ctl-z-map (kbd "e") 'ctl-z-e-map)
 
 (define-prefix-command 'ctl-z-o-map)    ; org-mode
