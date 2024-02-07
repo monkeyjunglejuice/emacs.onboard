@@ -217,8 +217,10 @@ or `system-configuration' directly."
 ;;  ____________________________________________________________________________
 ;;; KEYBINDINGS
 
-;; Set the <Ctrl> key to <Command> key on MacOS
+;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
 (setq mac-command-modifier 'control)
+;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
+(setq mac-option-modifier 'meta)
 
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
