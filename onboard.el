@@ -221,6 +221,8 @@ or `system-configuration' directly."
 (setq mac-command-modifier 'control)
 ;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
 (setq mac-option-modifier 'meta)
+;; Don't bypass "C-h ..." keybindings
+(setq mac-pass-command-to-system nil)
 
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
