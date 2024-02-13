@@ -16,7 +16,7 @@
 ;; Copyright (C) 2021–2024 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.2.4
+;; Version: 1.2.5
 ;; Package-Requires: ((EMACS "28.2"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -639,9 +639,12 @@ or `system-configuration' directly."
 (setq mouse-autoselect-window nil
       focus-follows-mouse nil)
 
-;; Default window navigation – simply switch to the next window in order
+;; Default window navigation – simply switch to the next window in order.
 ;; Added for convenience; the default keybinding is "C-x o"
-(global-set-key (kbd "M-o") #'other-window)
+(if (and (eon-macp) (equal mac-command-modifier 'control))
+    (progn (global-set-key (kbd "M-o") #'open-line)
+           (global-set-key (kbd "C-o") #'other-window))
+  (global-set-key (kbd "M-o") #'other-window))
 
 ;; Navigate windows by direction
 ;; (require 'windmove)
