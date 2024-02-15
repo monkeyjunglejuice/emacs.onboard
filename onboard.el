@@ -73,8 +73,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   (setq eon-gc-timer
         (run-with-idle-timer 15 t
                              (lambda ()
-                               (message "Garbage collector has run for %.06fsec"
-                                        (eon-time (garbage-collect)))))))
+                               (eon-time (garbage-collect))))))
 
 (defun eon-cancel-gc-timer ()
   "Cancel the garbage collection timer."
