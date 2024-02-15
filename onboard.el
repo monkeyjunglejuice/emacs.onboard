@@ -681,10 +681,6 @@ or `system-configuration' directly."
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
 
-;; Alternative for "C-x <right>" and "C-x <left>"
-(define-key ctl-z-map (kbd "f") #'next-buffer)
-(define-key ctl-z-map (kbd "b") #'previous-buffer)
-
 ;; Define boring buffers globally, so they can be hidden.
 ;; These buffers remain accessible via Ibuffer "C-x C-b".
 (defvar eon-boring-buffers '("\\` "
@@ -703,6 +699,52 @@ or `system-configuration' directly."
                              )
   "List of buffer names of buffers to hide on several occasions.
 The elements of the list are regular expressions.")
+
+;; Exclude boring buffers from `previous-buffer' and `next-buffer'
+(defun eon-buffer-boring-p (buffer)
+  "Check if BUFFER should be considered boring."
+  (let ((name (buffer-name buffer)))
+    (cl-some (lambda (regexp)
+               (string-match-p regexp name))
+             eon-boring-buffers)))
+
+(defun eon-get-next-buffer (buffers current-boring)
+  "Recursively check BUFFERS to find the next non-boring buffer,
+considering if the current buffer is boring."
+  (when buffers
+    (let ((next (car buffers)))
+      (if (or (eon-buffer-boring-p next)
+              (and current-boring (eq next (current-buffer))))
+          (eon-get-next-buffer (cdr buffers) current-boring)
+        next))))
+
+(defun eon-next-buffer ()
+  "Switch to the next non-boring buffer,
+considering if the current buffer is boring."
+  (interactive)
+  (let* ((current-boring (eon-buffer-boring-p (current-buffer)))
+         (next (eon-get-next-buffer
+                (if current-boring (buffer-list)
+                  (cdr (buffer-list)))
+                current-boring)))
+    (when next (switch-to-buffer next))))
+
+(defun eon-previous-buffer ()
+  "Switch to the previous non-boring buffer, considering if the current
+buffer is boring."
+  (interactive)
+  (let* ((current-boring (eon-buffer-boring-p (current-buffer)))
+         (prev (eon-get-next-buffer
+                (if current-boring (reverse (buffer-list))
+                  (reverse (cdr (buffer-list))))
+                current-boring)))
+    (when prev (switch-to-buffer prev))))
+
+;; Alternative for "C-x <right>" and "C-x <left>"
+(define-key ctl-z-map (kbd "n") #'eon-next-buffer)
+(define-key ctl-z-map (kbd "p") #'eon-previous-buffer)
+(global-set-key (kbd "C->") #'eon-next-buffer)
+(global-set-key (kbd "C-<") #'eon-previous-buffer)
 
 ;;  ____________________________________________________________________________
 ;;; IBUFFER – the buffer manager
