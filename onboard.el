@@ -696,7 +696,7 @@ or `system-configuration' directly."
                              "\\`\\*Backtrace"
                              "\\`\\*tramp"
                              ;; Some hidden buffers can be visited by ...
-                             "\\`\\*scratch"        ; "C-z s s"
+                             ;; "\\`\\*scratch"        ; "C-z s s"
                              "\\`\\*Messages"       ; "C-h e"
                              "\\`\\*Bookmark List"  ; "C-x r l"
                              "\\`\\*Ibuffer"        ; "C-x C-b"
