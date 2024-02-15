@@ -822,7 +822,7 @@ buffer is boring."
 (when (fboundp #'xclip-mode) (xclip-mode 1))
 
 ;; Copy the full path of the current file
-(defun eon-copy-file-name-to-clipboard ()
+(defun eon-copy-file-name ()
   "Copy the full path of the current buffer's file to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
