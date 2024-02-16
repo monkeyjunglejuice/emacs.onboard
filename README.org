@@ -25,7 +25,6 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 - MacOS: make the <Command> key act as <Ctrl> key and the <Option> key act as <Meta> key.
 - More room for your own keybindings: use =C-z ...= as additional prefix key.
 - GC-tuning included: "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
-- Skip "boring" buffers when cycling buffers via =C-S->= and =C-S-<= (accesse boring buffers via iBuffer =C-x C-b= instead).
 - Package manager has been setup with [[https://melpa.org/#/][MELPA]]: install from over 5000 Emacs packages right away.
 - Install Emacs packages declaratively =(eon-package 'install '(the-matrix-theme))=.
 - Template with commprehensive font settings included.
