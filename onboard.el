@@ -712,8 +712,8 @@ The elements of the list are regular expressions.")
 
 (setq ibuffer-marked-face 'dired-marked)
 
-;; Don't show the boring buffers in Ibuffer
-(setq ibuffer-never-show-predicates eon-boring-buffers)
+;; Hide the boring buffers from Ibuffer too?
+;; (setq ibuffer-never-show-predicates eon-boring-buffers)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
