@@ -16,7 +16,7 @@
 ;; Copyright (C) 2021–2024 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.2.6
+;; Version: 1.2.7
 ;; Package-Requires: ((EMACS "28.2"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -691,8 +691,9 @@ or `system-configuration' directly."
                              "\\`\\*Semantic SymRef"
                              "\\`\\*Backtrace"
                              "\\`\\*tramp"
-                             ;; Some hidden buffers can be visited by ...
-                             ;; "\\`\\*scratch"        ; "C-z s s"
+                             "\\`\\*EGLOT"
+                             ;; And some hidden buffers can be visited by ...
+                             "\\`\\*scratch"        ; "C-z s s"
                              "\\`\\*Messages"       ; "C-h e"
                              "\\`\\*Bookmark List"  ; "C-x r l"
                              "\\`\\*Ibuffer"        ; "C-x C-b"
