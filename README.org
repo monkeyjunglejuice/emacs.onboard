@@ -16,35 +16,35 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 
 ✔ Convenient drop-in config
 
-** Features and Improvements
+** Features
+Emacs ONBOARD contains many UX improvements, for instance:
 
 - Vertical completion for commands, files, etc. in the minibuffer
-- Toggle between your light and dark theme via =F12=
-- Smooth (pixel-based) scrolling
-- Comprehensive [[https://orgmode.org][Org mode]] setup
-- MacOS: make the <Command> key act as <Ctrl> key and the <Option> key act as <Meta> key.
+- Toggle between your light and dark theme via =F12=, and you can also run hooks when switching themes, e.g. for adjusting fonts and other personal styling depending on the theme.
+- Smooth (pixel-based) scrolling.
+- Comprehensive [[https://orgmode.org][Org mode]] setup.
+- MacOS: the <Command> key acts as <Ctrl> key, and the <Option> key acts as <Meta> key.
 - More room for your own keybindings: use =C-z ...= as additional prefix key.
-- GC-tuning included: "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
-- Package manager has been setup with [[https://melpa.org/#/][MELPA]]: install from over 5000 Emacs packages right away.
+- Garbage Collector tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
+- Package manager is configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
 - Install Emacs packages declaratively =(eon-package 'install '(the-matrix-theme))=.
-- Template with commprehensive font settings included.
-- Dired, the Emacs filemanager doesn't accumulate used buffers any more.
-- Use system trash instead of deleting files right away in Dired.
+- Makes it easy to set the fonts you like -- all options at one place.
+- The Emacs filemanager Dired doesn't accumulate used buffers any more.
+- Dired uses the system trash instead of deleting files right away.
 - Clean directory listings per default in Dired, toggle via =S-(=.
-- Open files alternatively in desktop apps via =M-RET= (Linux only for now).
-- Kill all buffers at once via =M-x eon-kill-buffers=.
-- Saves minibuffer history between Emacs sessions.
-- Reach the \*scratch\* buffer via =C-z s s=.
-- Open Shell- and Eshell buffer via =C-z e s= and =C-z e e=
-- Visit any URL in a browser of your choice via =M-z w w= (or within Emacs itself).
-- Visit any file path under the cursor via =C-z C-.=.
+- Hide and show hidden files (dotfiles) in Dired simply by typing =.=
 - Clipboard integration works perfectly.
 - Copy the path of the current file to the clipboard via =M-x eon-copy-file-path=.
-- WSL (Windows Subsystem for Linux): copy/paste between Windows apps and Emacs.
 - Browse your kill ring (the Emacs "clipboard") via =M-y= and insert directly.
-- Saves version-controlled backups of your files to =~/.emacs.d/backup/=.
-- Includes an SMTP-template for sending emails directly from Emacs.
-- ... and much, much more little useful improvements.
+- WSL (Windows Subsystem for Linux): copy/paste between Windows apps and Emacs.
+- Open files in desktop apps via =M-RET= (uses xdg-open; Linux only for now).
+- Visit any file when the file name is under the cursor: =C-z C-.=.
+- Kill all buffers at once via =M-x eon-kill-buffers=.
+- Open Shell- and Eshell buffer via =C-z e s= and =C-z e e=
+- Quickly reach the =*scratch*= buffer via =C-z s s=.
+- Visit any URL in your browser via =M-z w w=, and via =M-z w W= in Emacs built-in browser.
+- Emacs saves versioned backups of your files to =~/.emacs.d/backup/= before editing.
+- Sending emails directly from Emacs: includes an SMTP-template for you to get started.
 
 ** TRY IT
 
