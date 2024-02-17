@@ -17,11 +17,11 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 ✔ Convenient drop-in config
 
 ** Features
-Emacs ONBOARD contains many UX improvements, for instance:
+Emacs ONBOARD comes with more than just better defaults, for instance:
 
-- Vertical completion for commands, files, etc. in the minibuffer
-- Toggle between your light and dark theme via =F12=, and you can also run hooks when switching themes, e.g. for adjusting fonts and other personal styling depending on the theme.
-- Smooth (pixel-based) scrolling.
+- Vertical completion for commands, files, etc. in the minibuffer.
+- Toggle between your light/dark theme via =F12=; you can also run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the theme.
+- Smooth, pixel-based scrolling (Emacs doesn't do that by default).
 - Comprehensive [[https://orgmode.org][Org mode]] setup.
 - MacOS: the <Command> key acts as <Ctrl> key, and the <Option> key acts as <Meta> key.
 - More room for your own keybindings: use =C-z ...= as additional prefix key.
