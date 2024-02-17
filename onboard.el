@@ -16,7 +16,7 @@
 ;; Copyright (C) 2021–2024 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.2.7
+;; Version: 1.2.8
 ;; Package-Requires: ((EMACS "28.2"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -1280,21 +1280,23 @@ Kills the current Dired buffer when entering a new directory"
 
 (require 'org)
 
-;; Set a default location to look for Org files,
-;; but you can save them in fact anywhere you like
+;; Set a default location to look for Org files; but you can have
+;; that directory anywhere you like
 (setq org-directory (expand-file-name "~/Documents/org/"))
 
 (defun eon-visit-org-directory ()
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
+
+;; Visit the `org-directory' in Dired via `C-z o d'
 (define-key ctl-z-o-map (kbd "d") #'eon-visit-org-directory)
 
 ;; Turn on visual word wrapping
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
 (add-hook 'org-mode-hook #'visual-line-mode)
 
-;; Alignment of tags in headlines
+;; Alignment of tags at the end of headlines
 (setq  org-auto-align-tags t
        org-tags-column 0)
 
@@ -1302,8 +1304,9 @@ Kills the current Dired buffer when entering a new directory"
 ;;; ORG CAPTURE
 ;; <https://orgmode.org/org.html#Capture>
 
+;; Capture a note via `C-z o c'
 (define-key ctl-z-o-map (kbd "c") #'org-capture)
-;; Capture: put newer entries on top
+;; Put newer notes on top of the file
 (setq org-reverse-note-order t)
 
 ;; Set a default target for storing notes
@@ -1313,12 +1316,15 @@ Kills the current Dired buffer when entering a new directory"
   "Visit the Org notes file."
   (interactive)
   (find-file org-default-notes-file))
+
+;; Visit the default notes file via `C-z o o'
 (define-key ctl-z-o-map (kbd "o") #'eon-visit-org-notes)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG TODO
 ;; <https://orgmode.org/org.html#TODO-Items>
 
+;; Set some sensible default states for todo-items
 (setq org-todo-keywords
       '((sequence "TODO(t)"
                   "STARTED(s)"
@@ -1332,27 +1338,36 @@ Kills the current Dired buffer when entering a new directory"
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
 (setq org-agenda-files (list org-directory))
+
+;; Visit your Org agenda via `C-z o a'
 (define-key ctl-z-o-map (kbd "a") #'org-agenda)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG LINKS
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
+;; Store a link via `C-z o L'
 (define-key ctl-z-o-map (kbd "L") #'org-store-link)
+
+;; Insert a link into an Org file via `C-z o l'
 (define-key ctl-z-o-map (kbd "l") #'org-insert-link)
-(define-key ctl-z-o-map (kbd "C-l") #'org-toggle-link-display)
+
+;; Toggle visible/hidden links via `C-z o M-l'
+(define-key ctl-z-o-map (kbd "M-l") #'org-toggle-link-display)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG PUBLISH
 
 (require 'ox-publish)
 
+;; Select a project to publish a project via `C-z o p';
+;; This can be used to enerate and publish a static blog, ODF documents, etc.
 (define-key ctl-z-o-map (kbd "p") 'org-publish)
 
-;; Speed up publishing
+;; Speed up publishing by skipping files that haven't been changed
 (setq org-publish-list-skipped-files nil)
 
-;; Where to place the directory containing the timestamps
+;; Where to place the directory containing the timestamps about changed files
 (setq org-publish-timestamp-directory
       (concat user-emacs-directory "org-timestamps/"))
 
