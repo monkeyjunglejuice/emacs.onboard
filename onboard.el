@@ -274,6 +274,9 @@ or `system-configuration' directly."
   (save-some-buffers)
   (kill-emacs))
 
+;; Start the server
+(server-start)
+
 ;;  ____________________________________________________________________________
 ;;; FONTS
 ;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
