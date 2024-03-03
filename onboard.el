@@ -668,6 +668,10 @@ or `system-configuration' directly."
 ;; Uniquify buffer names for buffers that would have identical names
 (setq uniquify-buffer-name-style 'forward)
 
+;; Fast buffer switching
+(global-set-key (kbd "M-[") #'previous-buffer)
+(global-set-key (kbd "M-]") #'next-buffer)
+
 ;; Kill the current buffer immediately instead of presenting a selection
 ;; It's the equivalent to "close tab" in a web browser or other editors
 (global-set-key (kbd "C-x k") #'kill-current-buffer)
