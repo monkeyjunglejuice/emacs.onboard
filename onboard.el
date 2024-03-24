@@ -118,7 +118,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; There are also Gnu Elpa and Non-Gnu Elpa, which are enabled by default
 
 ;; Natively compile packages at first use or immediately after installation?
-;; (setq package-native-compile t)
+(setq package-native-compile t)
 
 ;; Highlight current line in the package manager
 (add-hook 'package-menu-mode-hook
