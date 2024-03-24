@@ -216,17 +216,12 @@ or `system-configuration' directly."
 ;;  ____________________________________________________________________________
 ;;; KEYBINDINGS
 
-(when (eon-macp)
-  ;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
-  (setq mac-command-modifier 'control)
-  ;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
-  (setq mac-option-modifier 'meta)
-  ;; Don't bypass "C-h ..." keybindings
-  (setq mac-pass-command-to-system nil)
-
-  ;; Better accessability for `other-window'
-  (global-set-key (kbd "C-o") #'other-window)
-  (global-set-key (kbd "M-o") #'open-line))
+;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
+(setq mac-command-modifier 'control)
+;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
+(setq mac-option-modifier 'meta)
+;; Don't bypass "C-h ..." keybindings
+(setq mac-pass-command-to-system nil)
 
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
