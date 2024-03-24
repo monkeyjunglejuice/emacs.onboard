@@ -275,7 +275,7 @@ or `system-configuration' directly."
   (kill-emacs))
 
 ;; Start the server
-(server-start)
+;; (server-start)
 
 ;;  ____________________________________________________________________________
 ;;; FONTS
