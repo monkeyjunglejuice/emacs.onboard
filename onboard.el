@@ -614,6 +614,12 @@ or `system-configuration' directly."
   (fido-vertical-mode 1))
 
 ;;  ____________________________________________________________________________
+;;; HIPPIE-EXPAND
+;; <https://www.masteringemacs.org/article/text-expansion-hippie-expand>
+
+(global-set-key (kbd "M-/") #'hippie-expand)
+
+;;  ____________________________________________________________________________
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 
