@@ -621,7 +621,7 @@ or `system-configuration' directly."
 
 (setq eldoc-minor-mode-string nil
       eldoc-documentation-strategy 'eldoc-documentation-compose
-      eldoc-echo-area-display-truncation-message t
+      eldoc-echo-area-display-truncation-message nil
       eldoc-echo-area-prefer-doc-buffer 'maybe
       eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
 
