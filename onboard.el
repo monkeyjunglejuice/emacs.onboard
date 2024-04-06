@@ -620,10 +620,10 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 
 (setq eldoc-minor-mode-string nil
-      eldoc-documentation-strategy 'eldoc-documentation-compose
+      eldoc-documentation-strategy 'eldoc-documentation-default
       eldoc-echo-area-display-truncation-message nil
       eldoc-echo-area-prefer-doc-buffer 'maybe
-      eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
+      eldoc-echo-area-use-multiline-p nil)
 
 ;;  ____________________________________________________________________________
 ;;; PINENTRY
