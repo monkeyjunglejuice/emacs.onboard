@@ -1217,8 +1217,8 @@ Kills the current Dired buffer when entering a new directory"
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses>
 
 ;; How to display matching parens generally?
-(setq show-paren-style 'expression
-      show-paren-delay 0.1)
+(setq show-paren-style 'parenthesis
+      show-paren-delay 0.125)
 
 ;; Auto-close parens, brackets and quotes?
 (electric-pair-mode 1)
