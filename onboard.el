@@ -618,9 +618,10 @@ or `system-configuration' directly."
 ;;  ____________________________________________________________________________
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
+;; <https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc>
 
 (setq eldoc-minor-mode-string nil
-      eldoc-documentation-strategy 'eldoc-documentation-compose
+      eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
       eldoc-echo-area-display-truncation-message nil
       eldoc-echo-area-prefer-doc-buffer 'maybe
       eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
