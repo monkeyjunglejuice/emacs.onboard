@@ -16,7 +16,7 @@
 ;; Copyright (C) 2021–2024 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.2.15
+;; Version: 1.2.16
 ;; Package-Requires: ((EMACS "28.2"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -1186,11 +1186,10 @@ Kills the current Dired buffer when entering a new directory"
 ;; Truncate long lines in programming modes?
 ;; By default, lines are continued visually on the next screen-line
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Continuation-Lines>
-;; For default behavior, do "M-x toggle-truncate-lines", or set the variable to nil
-;; and restart Emacs to make it permanent.
+;; For default behavior, do "M-x toggle-truncate-lines", or set the variable to nil.
 (add-hook 'prog-mode-hook
           (lambda ()
-            (setq-local truncate-lines nil)))
+            (setq-local truncate-lines t)))
 
 ;;  ____________________________________________________________________________
 ;;; FOLDING
