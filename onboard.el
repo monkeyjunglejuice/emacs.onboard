@@ -1157,8 +1157,11 @@ Kills the current Dired buffer when entering a new directory"
 ;; the selection with the typed characters (default: -1 = off)
 (delete-selection-mode -1)
 
-;; Save always with a final new line
+;; Save always with a final new line?
 (setq require-final-newline t)
+
+;; Visually indicate unused lines at the end of the buffer?
+(setq indicate-empty-lines t)
 
 ;; Better than the default 'just-one-space' (was M-SPC before)
 (global-set-key (kbd "M-S-SPC") #'cycle-spacing)
