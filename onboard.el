@@ -529,6 +529,9 @@ or `system-configuration' directly."
 ;; Alarms: turn off?
 (setq ring-bell-function 'ignore)
 
+;; Visually indicate unused lines at the end of the buffer?
+(setq-default indicate-empty-lines t)
+
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
 (define-key ctl-z-map (kbd "C-r") #'redraw-display)
 
@@ -1005,7 +1008,8 @@ Kills the current Dired buffer when entering a new directory"
 (require 'comint)
 
 (setq comint-input-ignoredups t
-      comint-prompt-read-only t)
+      comint-prompt-read-only t
+      comint-scroll-to-bottom-on-input 'this)
 
 ;;  ____________________________________________________________________________
 ;;; ESHELL
@@ -1159,9 +1163,6 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Save always with a final new line?
 (setq require-final-newline t)
-
-;; Visually indicate unused lines at the end of the buffer?
-(setq indicate-empty-lines t)
 
 ;; Better than the default 'just-one-space' (was M-SPC before)
 (global-set-key (kbd "M-S-SPC") #'cycle-spacing)
