@@ -530,7 +530,7 @@ or `system-configuration' directly."
 (setq ring-bell-function 'ignore)
 
 ;; Visually indicate unused lines at the end of the buffer?
-(setq-default indicate-empty-lines t)
+(setq-default indicate-empty-lines nil)
 
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
 (define-key ctl-z-map (kbd "C-r") #'redraw-display)
