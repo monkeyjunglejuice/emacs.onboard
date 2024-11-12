@@ -276,7 +276,7 @@ or `system-configuration' directly."
   (save-some-buffers)
   (kill-emacs))
 
-;; Start the server
+;; Start the server?
 ;; (server-start)
 
 ;;  ____________________________________________________________________________
