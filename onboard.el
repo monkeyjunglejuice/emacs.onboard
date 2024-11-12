@@ -386,20 +386,28 @@ or `system-configuration' directly."
   :type 'hook)
 
 (defun eon-load-theme-light ()
-  "Load the light theme and apply some modifications."
+  "Load the light theme and apply some modifications.
+Some themes may come as functions -- wrap these ones in lambdas."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'eon-load-before-light-theme-hook)
-  (load-theme eon-light-theme-name t)
+  (cond ((symbolp eon-light-theme-name)
+         (load-theme eon-light-theme-name t))
+        ((functionp eon-light-theme-name)
+         (funcall eon-light-theme-name)))
   (setq eon-active-theme-variant 'light)
   (run-hooks 'eon-load-after-light-theme-hook))
 
 (defun eon-load-theme-dark ()
-  "Load the dark theme and apply some modifications."
+  "Load the dark theme and apply some modifications.
+Some themes may come as functions -- wrap these ones in lambdas."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'eon-load-before-dark-theme-hook)
-  (load-theme eon-dark-theme-name t)
+  (cond ((symbolp eon-dark-theme-name)
+         (load-theme eon-dark-theme-name t))
+        ((functionp eon-dark-theme-name)
+         (funcall eon-dark-theme-name)))
   (setq eon-active-theme-variant 'dark)
   (run-hooks 'eon-load-after-dark-theme-hook))
 
