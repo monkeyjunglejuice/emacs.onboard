@@ -519,6 +519,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;  ____________________________________________________________________________
 ;;; USER INTERFACE
 
+;; Show a help window with possible keys?
+(when (>= emacs-major-version 30)
+  (which-key-mode 1))
+
 ;; Menu bar: on/off by default?
 (menu-bar-mode 1)
 
