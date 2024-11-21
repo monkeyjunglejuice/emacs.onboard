@@ -1,4 +1,4 @@
-;;; onboard.el --- Emacs ONBOARD Starter Kit  -*- lexical-binding: t; -*-
+;;; onboard.el --- Emacs Onboard Starter Kit  -*- lexical-binding: t; -*-
 ;;
 ;;    ▒░▒░▒░   ▒░     ▒░ ▒░▒░▒░▒░     ▒░▒░▒░      ▒░    ▒░▒░▒░▒░    ▒░▒░▒░▒░
 ;;   ▒░    ▒░  ▒░▒░   ▒░  ▒░     ▒░  ▒░    ▒░    ▒░▒░    ▒░     ▒░   ▒░    ▒░
