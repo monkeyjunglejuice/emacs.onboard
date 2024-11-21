@@ -1351,11 +1351,11 @@ Kills the current Dired buffer when entering a new directory"
 ;; Set some sensible default states for todo-items
 (setq org-todo-keywords
       '((sequence "TODO(t)"
-                  "STARTED(s)"
-                  "WAITING(w)"
-                  "|"
-                  "DONE(d)"
-                  "CANCELED(c)")))
+         "STARTED(s)"
+         "WAITING(w)"
+         "|"
+         "DONE(d)"
+         "CANCELED(c)")))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG AGENDA
