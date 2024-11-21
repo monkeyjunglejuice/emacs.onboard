@@ -131,8 +131,8 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; Better use `use-package' instead (Emacs >= 29)
 (defun eon-package (action package-list)
   "Helper function to install 3rd-party packages declaratively.
-PACKAGE-LIST will be installed if 'install is passed as an argument to ACTION.
-When ACTION receives 'ignore, then nothing will happen."
+PACKAGE-LIST will be installed if \='install is passed as an argument to ACTION.
+When ACTION receives \='ignore, then nothing will happen."
   (when (eq action 'install)
     (mapc #'(lambda (package)
               (unless (package-installed-p package)
@@ -190,29 +190,28 @@ or `system-configuration' directly."
 
 ;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c".
 ;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
-;; begin with the prefix "C-z" instead of "C-c" (with only a few exceptions).
-;; Keybindings starting with "C-z" may not work in terminals.
+;; begin with the prefix "C-z" (with only a few exceptions).
 (global-unset-key (kbd "C-z"))
 
-(define-prefix-command 'ctl-z-map)      ; the additional prefix key "C-z"
+(define-prefix-command 'ctl-z-map nil "Additional prefix key C-z")
 (global-set-key (kbd "C-z") 'ctl-z-map)
 
-(define-prefix-command 'ctl-z-c-map)    ; commonly used commands
+(define-prefix-command 'ctl-z-c-map nil "Commonly used commands")
 (define-key ctl-z-map (kbd "c") 'ctl-z-c-map)
 
-(define-prefix-command 'ctl-z-e-map)    ; quick access to Emacs built-in's
+(define-prefix-command 'ctl-z-e-map nil "Emacs built-ins")
 (define-key ctl-z-map (kbd "e") 'ctl-z-e-map)
 
-(define-prefix-command 'ctl-z-o-map)    ; org-mode
+(define-prefix-command 'ctl-z-o-map nil "Org-mode")
 (define-key ctl-z-map (kbd "o") 'ctl-z-o-map)
 
-(define-prefix-command 'ctl-z-s-map)    ; scratch buffers
+(define-prefix-command 'ctl-z-s-map nil "Scratch buffers")
 (define-key ctl-z-map (kbd "s") 'ctl-z-s-map)
 
-(define-prefix-command 'ctl-z-w-map)    ; web-related
+(define-prefix-command 'ctl-z-w-map nil "Web-related")
 (define-key ctl-z-map (kbd "w") 'ctl-z-w-map)
 
-(define-prefix-command 'ctl-z-x-map)    ; global bindings for REPLs, etc.
+(define-prefix-command 'ctl-z-x-map nil "Global REPL bindings")
 (define-key ctl-z-map (kbd "x") 'ctl-z-x-map)
 
 ;;  ____________________________________________________________________________
@@ -220,7 +219,7 @@ or `system-configuration' directly."
 
 ;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
 (setq mac-command-modifier 'control)
-;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
+;; make the <Option> key on MacOS act as <Meta> key for "M- ..."
 (setq mac-option-modifier 'meta)
 ;; Don't bypass "C-h ..." keybindings
 (setq mac-pass-command-to-system nil)
@@ -589,7 +588,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Recursive-Edit>
 ;; Allow minibuffer commands while in the minibuffer
 ;; There are two commands to get out of recursive minibuffers:
-;; "C-M-c" exit-recursive-edit and "C-]" abort-recursive-edit
+;; "C-z-c" exit-recursive-edit and "C-]" abort-recursive-edit
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
 
@@ -796,7 +795,7 @@ The elements of the list are regular expressions.")
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
 ;; If you would like to install this 3rd-party package, change 'ignore
-;; into 'install and evaluate the expression – either via "C-M-x",
+;; into 'install and evaluate the expression – either via "C-z-x",
 ;; or simply restart Emacs:
 (eon-package 'ignore '(xclip))
 (when (fboundp #'xclip-mode) (xclip-mode 1))
