@@ -27,10 +27,10 @@ Emacs ONBOARD gives you much better defaults, for instance:
 - MacOS: the <Command> key acts as <Ctrl> key, and the <Option> key acts as <Meta> key.
 - More room for your own keybindings: use =C-z ...= as additional prefix key.
 - Garbage Collector tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
-- Package manager is configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
+- Package manager is pre-configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
 - Install Emacs packages declaratively =(eon-package 'install '(the-matrix-theme))=.
 - Makes it easy to set the fonts you like -- all options at one place.
-- The Emacs filemanager Dired doesn't accumulate used buffers any more.
+- The Emacs file-manager Dired doesn't accumulate used buffers any more.
 - Dired uses the system trash instead of deleting files right away.
 - Clean directory listings per default in Dired, toggle via =S-(=.
 - Hide and show hidden files (dotfiles) in Dired simply by typing =.=
@@ -125,7 +125,6 @@ Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
 - Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow. Elisp code should be free from errors and warnings.
 - Use only built-in packages and features enabled by the GNU Emacs distribution's default build options.
 - Extendable by 3rd-party packages without interfering or breaking things.
-  (e.g. with [[https://github.com/monkeyjunglejuice/emacs.ontop][Emacs ONTOP, an extension layer on top of Emacs ONBOARD]])
 - Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, rather an add-on.
 - Documentation is first class; it should be clear why something is in the code.
 - Modular simplicity: Code should not be intertwined, but easily modificable and separately usable.
