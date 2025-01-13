@@ -544,7 +544,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setq ring-bell-function 'ignore)
 
 ;; Visually indicate unused lines at the end of the buffer?
-(setq-default indicate-empty-lines nil)
+(setq-default indicate-empty-lines t)
 
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
 (define-key ctl-z-map (kbd "C-r") #'redraw-display)
@@ -984,9 +984,8 @@ Kills the current Dired buffer when entering a new directory"
             ;; Highlight current line?
             (hl-line-mode 1)))
 
-;; Listing columns; Switch arguments with "C-u s"
-;; Show all files: -DlhFA and hide backups with -B
-(setq-default dired-listing-switches "-lhFA")
+;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
+(setq-default dired-listing-switches "-lhFAv --group-directories-first")
 
 ;; Copying files/directories
 (setq dired-recursive-copies 'always)
