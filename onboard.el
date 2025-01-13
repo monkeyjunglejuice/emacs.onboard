@@ -219,7 +219,7 @@ or `system-configuration' directly."
 
 ;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
 (setq mac-command-modifier 'control)
-;; make the <Option> key on MacOS act as <Meta> key for "M- ..."
+;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
 (setq mac-option-modifier 'meta)
 ;; Don't bypass "C-h ..." keybindings
 (setq mac-pass-command-to-system nil)
@@ -896,7 +896,7 @@ The elements of the list are regular expressions.")
 (global-set-key (kbd "C-S-r") #'isearch-backward)
 
 ;; Search and replace
-;; The 'query-' variant  asks with each string. Confirm with "SPC",
+;; The 'query-' variant asks for each string. Confirm with "SPC",
 ;; or jump to the next via "n"
 (global-set-key (kbd "M-%") #'query-replace-regexp)
 (global-set-key (kbd "C-M-%") #'replace-regexp)
