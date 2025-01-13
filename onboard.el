@@ -1225,8 +1225,8 @@ Kills the current Dired buffer when entering a new directory"
               tab-width 2)          ; set display width for tab characters
 
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
-;; (Possibly shadowed by 3rd-party packages like 'smartparens-mode'
-(setq backward-delete-char-untabify-method 'hungry)
+;; (Possibly shadowed by 3rd-party packages like `smartparens-mode'
+(setq backward-delete-char-untabify-method 'all)
 
 ;;  ____________________________________________________________________________
 ;;; BRACKETS / PARENTHESIS
