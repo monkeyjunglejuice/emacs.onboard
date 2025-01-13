@@ -72,9 +72,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   "Start the garbage collection timer."
   (interactive)
   (setq eon-gc-timer
-        (run-with-idle-timer 15 t
-                             (lambda ()
-                               (eon-time (garbage-collect))))))
+        (run-with-idle-timer 15 t (lambda () (eon-time (garbage-collect))))))
 
 (defun eon-cancel-gc-timer ()
   "Cancel the garbage collection timer."
