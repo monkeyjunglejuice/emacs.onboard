@@ -854,7 +854,7 @@ The elements of the list are regular expressions.")
 ;; Make backup before editing
 (setq backup-by-copying t
       kept-new-versions 10
-      kept-old-versions 3
+      kept-old-versions 5
       delete-old-versions t
       version-control t)
 
@@ -910,7 +910,7 @@ The elements of the list are regular expressions.")
 (recentf-mode 1)
 
 (setq recentf-max-menu-items 10
-      recentf-max-saved-items 10)
+      recentf-max-saved-items 100)
 
 ;; Ignore some recently visited files, eg. to prevent them from showing up
 ;; amongst recent files after package upgrades
