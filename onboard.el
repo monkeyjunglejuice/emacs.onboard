@@ -983,7 +983,7 @@ Kills the current Dired buffer when entering a new directory"
             (hl-line-mode 1)))
 
 ;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
-(setq-default dired-listing-switches "-lhFAv --group-directories-first")
+(setq-default dired-listing-switches "-lhFA -v --group-directories-first")
 
 ;; Copying files/directories
 (setq dired-recursive-copies 'always)
