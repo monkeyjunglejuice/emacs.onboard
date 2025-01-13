@@ -1352,12 +1352,9 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Set some sensible default states for todo-items
 (setq org-todo-keywords
-      '((sequence "TODO(t)"
-         "STARTED(s)"
-         "WAITING(w)"
-         "|"
-         "DONE(d)"
-         "CANCELED(c)")))
+      '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
+        (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+        (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG AGENDA
