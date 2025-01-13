@@ -1400,7 +1400,7 @@ Kills the current Dired buffer when entering a new directory"
 (defun eon-org-publish-use-timestamps ()
   "Toggle wether to re-export Org files that haven't been changed."
   (interactive)
-  (if (equal org-publish-use-timestamps-flag t)
+  (if org-publish-use-timestamps-flag
       (progn (setq org-publish-use-timestamps-flag nil)
              (message "Re-export unchanged files"))
     (progn (setq org-publish-use-timestamps-flag t)
