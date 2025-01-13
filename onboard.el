@@ -1077,47 +1077,44 @@ Kills the current Dired buffer when entering a new directory"
       netstat-program-options '("-atupe"))
 
 ;;  ____________________________________________________________________________
-;;; BUILT-IN WEB BROWSER "EWW"
+;;; WEB BROWSERS
+
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;; EWW BUILT-IN BROWSER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
 
-;; Pretend to be an iPhone
-(setq url-user-agent
-      "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.2 Mobile/15E148 Safari/604.1")
-
-;; Or pretend to be the W3m text-mode browser
-;; (setq url-user-agent "w3m/0.5.3+git20190105")
-
-(setq url-privacy-level '(email lastloc os emacs))
+(setq! url-privacy-level '(email lastloc cookies))
 (url-setup-privacy-info)
 
-;;  ____________________________________________________________________________
-;;; PRIMARY WEB BROWSER
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hyperlinking>
+(defun eon-user-agent (browser-name)
+  (cond
+   ((equal browser-name 'safari-macos)
+    (setq! url-user-agent
+           "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
+   ((equal browser-name 'safari-iphone)
+    (setq! url-user-agent
+           "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
+   ((equal browser-name 'w3m)
+    (setq! url-user-agent
+           "w3m/0.5.3+git2020050"))
+   (t
+    (setq! url-user-agent
+           'default))))
 
-;; This can be any graphical web browser, but also a built-in web browser
+;; Set the user agent for the internal web browser
+(eon-user-agent 'safari-iphone)
 
-;; Set Emacs' `browse-url' function …
+;; Per default, open links with the internal web browser
+(setq! browse-url-browser-function #'eww-browse-url)
 
-;; … to the system-wide default browser
-(setq browse-url-browser-function #'browse-url-default-browser)
+;; Secondary web browser
+(setq! browse-url-secondary-browser-function #'browse-url-default-browser)
+;; (setq! browse-url-browser-function #'browse-url-firefox)
+;; (setq! browse-url-generic-program (executable-find "nyxt")
+;;        browse-url-browser-function #'browse-url-generic)
 
-;; … to Firefox explicitly
-;; (setq browse-url-browser-function #'browse-url-firefox)
-
-;; … or to the Nyxt browser <https://nyxt.atlas.engineer/>
-;; (setq browse-url-generic-program "nyxt")
-;; (setq browse-url-browser-function #'browse-url-generic)
-
-;; Keybinding
+;; Keybindings
 (define-key ctl-z-w-map (kbd "w") #'browse-url)
-
-;;  ____________________________________________________________________________
-;;; SECONDARY WEB BROWSER
-
-;; Set an alternative browser — currently set to Emacs' built-in EWW
-(setq browse-url-secondary-browser-function #'browse-web)
-
-;; Keybinding
 (define-key ctl-z-w-map (kbd "W") #'browse-web)
 
 ;;  ____________________________________________________________________________
