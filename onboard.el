@@ -1081,34 +1081,34 @@ Kills the current Dired buffer when entering a new directory"
 ;; EWW BUILT-IN BROWSER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
 
-(setq! url-privacy-level '(email lastloc cookies))
+(setq url-privacy-level '(email lastloc cookies))
 (url-setup-privacy-info)
 
 (defun eon-user-agent (browser-name)
   (cond
    ((equal browser-name 'safari-macos)
-    (setq! url-user-agent
-           "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
+    (setq url-user-agent
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
    ((equal browser-name 'safari-iphone)
-    (setq! url-user-agent
-           "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
+    (setq url-user-agent
+          "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
    ((equal browser-name 'w3m)
-    (setq! url-user-agent
-           "w3m/0.5.3+git2020050"))
+    (setq url-user-agent
+          "w3m/0.5.3+git2020050"))
    (t
-    (setq! url-user-agent
-           'default))))
+    (setq url-user-agent
+          'default))))
 
 ;; Set the user agent for the internal web browser
 (eon-user-agent 'safari-iphone)
 
 ;; Per default, open links with the internal web browser
-(setq! browse-url-browser-function #'eww-browse-url)
+(setq browse-url-browser-function #'eww-browse-url)
 
 ;; Secondary web browser
-(setq! browse-url-secondary-browser-function #'browse-url-default-browser)
-;; (setq! browse-url-browser-function #'browse-url-firefox)
-;; (setq! browse-url-generic-program (executable-find "nyxt")
+(setq browse-url-secondary-browser-function #'browse-url-default-browser)
+;; (setq browse-url-browser-function #'browse-url-firefox)
+;; (setq browse-url-generic-program (executable-find "nyxt")
 ;;        browse-url-browser-function #'browse-url-generic)
 
 ;; Keybindings
