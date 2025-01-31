@@ -519,7 +519,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Show a help window with possible keys?
 (when (>= emacs-major-version 30)
   (setq which-key-lighter ""
-        which-key-idle-delay 0.0
+        which-key-idle-delay 0.4
         which-key-sort-uppercase-first nil)
   (which-key-mode 1))
 
