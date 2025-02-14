@@ -573,7 +573,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Compress the mode line? If non-nil, repeating spaces are compressed into
 ;; a single space. If 'long', this is only done when the mode line is longer
 ;; than the current window width (in columns).
-(setq mode-line-compact 'nil)
+(setq mode-line-compact nil)
 
 ;; Show the buffer size in the modeline
 (size-indication-mode 1)
@@ -770,7 +770,7 @@ The elements of the list are regular expressions.")
 ;;; VISITING FILES AT POINT
 
 ;; "C-x C-v"       – Visit any resource under the cursor
-;; "M-x ffap-menu" – Display a list of all ressources mentioned in this buffer
+;; "M-x ffap-menu" – Display a list of all resources mentioned in this buffer
 
 (define-key ctl-z-map (kbd "C-.") #'find-file-at-point)
 
@@ -796,7 +796,7 @@ The elements of the list are regular expressions.")
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
 ;; If you would like to install this 3rd-party package, change 'ignore
-;; into 'install and evaluate the expression – either via "C-z-x",
+;; into 'install and evaluate the expression – either via "C-M-x",
 ;; or simply restart Emacs:
 (eon-package 'ignore '(xclip))
 (when (fboundp #'xclip-mode) (xclip-mode 1))
