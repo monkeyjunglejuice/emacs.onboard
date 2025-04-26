@@ -49,11 +49,11 @@ Emacs ONBOARD gives you much better defaults, for instance:
 
 ** TRY IT
 
-1. Download [[https://github.com/monkeyjunglejuice/emacs.onboard/releases/latest/download/onboard.el][onboard.el]]
+1. Download [[https://github.com/monkeyjunglejuice/emacs.onboard/releases/latest/download/eon.el][eon.el]]
 
 2. Open a terminal
 
-3. Run the shell command: ~emacs -q --load ~/path/to/onboard.el~
+3. Run the shell command: ~emacs -q --load ~/path/to/eon.el~
 
 ** INSTALL
 
@@ -64,7 +64,7 @@ git clone https://github.com/monkeyjunglejuice/emacs.onboard.git ~/.emacs.onboar
 
 *2. Put this in your Emacs init file*
 #+begin_src emacs-lisp
-  (load-file (expand-file-name "~/.emacs.onboard/onboard.el"))
+  (load-file (expand-file-name "~/.emacs.onboard/eon.el"))
 #+end_src
 
 *3. (Re)start Emacs*
