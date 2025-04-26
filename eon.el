@@ -1414,7 +1414,7 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; In case you're using the Emacs ONTOP extensions, further languages
 ;; should not be configured here, but within their specific ONTOP modules
-;; ("onboard-*.el" files)
+;; ("eon-*.el" files)
 
 ;;  ____________________________________________________________________________
 ;;; LISP LANGUAGES
