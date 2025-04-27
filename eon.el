@@ -1195,7 +1195,8 @@ Kills the current Dired buffer when entering a new directory"
 ;; Truncate long lines in programming modes?
 ;; By default, lines are continued visually on the next screen-line
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Continuation-Lines>
-;; For default behavior, do "M-x toggle-truncate-lines", or set the variable to nil.
+;; For default behavior, do "M-x toggle-truncate-lines",
+;; or set this variable to nil.
 (add-hook 'prog-mode-hook
           (lambda ()
             (setq-local truncate-lines t)))
