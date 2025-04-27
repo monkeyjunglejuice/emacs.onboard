@@ -149,7 +149,7 @@ When ACTION receives \='ignore, then nothing will happen."
 ;; while the cursor is placed somewhere within the function application form.
 
 ;;  ____________________________________________________________________________
-;; HELPERS
+;;; HELPERS
 
 ;; Simplify writing of operating-system-specific Elisp code
 
