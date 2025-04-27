@@ -129,9 +129,9 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; better use `use-package' instead (Emacs >= 29)
 (defun eon-package (action package-list)
   "Helper function to install 3rd-party packages declaratively.
-PACKAGE-LIST will be installed if \='install is passed as an argument to ACTION.
+PACKAGE-LIST will be installed if \='ensure is passed as an argument to ACTION.
 When ACTION receives \='ignore, then nothing will happen."
-  (when (eq action 'install)
+  (when (eq action 'ensure)
     (mapc #'(lambda (package)
               (unless (package-installed-p package)
                 (package-refresh-contents)
@@ -141,8 +141,8 @@ When ACTION receives \='ignore, then nothing will happen."
 ;; Example: You can install suggested 3rd-party packages from within this file
 ;; with single function calls like so:
 ;;
-;; (eon-package 'install '(the-matrix-theme))  ; installs the package
-;; (eon-package 'ignore '(the-matrix-theme))   ; does nothing (default)
+;; (eon-package 'ensure '(the-matrix-theme))  ; installs the package
+;; (eon-package 'ignore '(the-matrix-theme))  ; does nothing (default)
 ;;
 ;; The installation will be performed when you restart Emacs or
 ;; when you evaluate the function manually – eg. via pressing "C-M-x"
