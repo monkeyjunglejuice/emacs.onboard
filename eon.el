@@ -1218,7 +1218,7 @@ Kills the current Dired buffer when entering a new directory"
 
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
 ;; (Possibly shadowed by 3rd-party packages like `smartparens-mode'
-(setq backward-delete-char-untabify-method 'all)
+(setq backward-delete-char-untabify-method 'hungry)
 
 ;;  ____________________________________________________________________________
 ;;; BRACKETS / PARENTHESIS
