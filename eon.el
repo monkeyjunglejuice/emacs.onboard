@@ -561,7 +561,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
               auto-window-vscroll nil)
 
 ;; Enable pixel-based scrolling
-(if (fboundp 'pixel-scroll-precision-mode)
+(if (fboundp #'pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode 1))
 
 ;;  ____________________________________________________________________________
@@ -738,7 +738,7 @@ The elements of the list are regular expressions.")
 ;; Hide the boring buffers from Ibuffer too?
 ;; (setq ibuffer-never-show-predicates eon-boring-buffers)
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-b") #'ibuffer)
 
 ;;  ____________________________________________________________________________
 ;;; SCRATCH BUFFER
@@ -827,7 +827,7 @@ The elements of the list are regular expressions.")
     (interactive "r")
     (let ((default-directory "/mnt/c/"))
       (shell-command-on-region start end "clip.exe")))
-  (define-key ctl-z-map (kbd "C-w") 'eon-wsl-copy))
+  (define-key ctl-z-map (kbd "C-w") #'eon-wsl-copy))
 
 ;; Paste "yank" text into Emacs buffer that has been copied from a Windows app
 (when (eon-linp)
@@ -840,7 +840,7 @@ The elements of the list are regular expressions.")
        (substring
         (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
         0  -1))))
-  (define-key ctl-z-map (kbd "C-y") 'eon-wsl-paste))
+  (define-key ctl-z-map (kbd "C-y") #'eon-wsl-paste))
 
 ;;  ____________________________________________________________________________
 ;;; BACKUP
