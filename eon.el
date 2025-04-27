@@ -541,9 +541,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Alarms: turn off?
 (setq ring-bell-function 'ignore)
 
-;; Visually indicate unused lines at the end of the buffer?
-(setq-default indicate-empty-lines t)
-
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
 (define-key ctl-z-map (kbd "C-r") #'redraw-display)
 
