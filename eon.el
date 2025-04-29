@@ -677,8 +677,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; BUFFERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
-(setq switch-to-buffer-obey-display-actions t)
-
 ;; Uniquify buffer names for buffers that would have identical names
 (setq uniquify-buffer-name-style 'forward)
 
