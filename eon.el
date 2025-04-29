@@ -103,6 +103,10 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 
 ;; Browse, select and install 3rd-party packages with "M-x list-packages RET"
 
+;; The package setup respects when `package-enable-at-setup' is set to nil
+;; in `early-init-el', so that you can use other package managers like Straight
+;; or Elpaca without issues.
+
 (when package-enable-at-startup
   (require 'package)
 
