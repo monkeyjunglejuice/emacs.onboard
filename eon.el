@@ -499,6 +499,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
+;; Bring frame to the front
+(select-frame-set-input-focus (selected-frame))
+
 ;;  ____________________________________________________________________________
 ;;; CURSOR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
