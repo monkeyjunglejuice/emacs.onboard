@@ -622,8 +622,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; There are many matching styles available, see `completion-styles-alist'
 ;; <https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html>
 ;; Below is the standard combo from Emacs 29 plus `substring'
-(require 'minibuffer
-         (setq completion-styles '(basic partial-completion emacs22 substring)))
+(require 'minibuffer)
+(setq completion-styles '(basic partial-completion emacs22 substring))
 
 ;; Tweaking Icomplete
 (require 'icomplete)
