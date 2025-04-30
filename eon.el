@@ -130,9 +130,6 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
             (lambda ()
               (hl-line-mode 1)))
 
-  ;; DEPRECATED Will be removed when Emacs 29 becomes the minimum version,
-  ;; because `use-package' provides that functionality and much more.
-  ;;
   ;; Install packages declaratively within an Emacs Lisp file.
   ;;
   ;; Example: You can install suggested 3rd-party packages from within this file
@@ -144,6 +141,9 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   ;; The installation will be performed when you restart Emacs or
   ;; when you evaluate the function manually – eg. via pressing "C-M-x"
   ;; while the cursor is placed somewhere within the function application form.
+  ;;
+  ;; DEPRECATED Will be removed when Emacs 29 becomes the minimum version,
+  ;; because `use-package' provides that functionality and much more.
   (defun eon-package (action package-list)
     "Helper function to install 3rd-party packages declaratively.
 PACKAGE-LIST will be installed if \='ensure is passed as an argument to ACTION.
