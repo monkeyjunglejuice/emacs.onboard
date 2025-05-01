@@ -257,7 +257,6 @@ or `system-configuration' directly."
 ;; to see easily to which server process a client is connected to
 ;; Further information:
 ;; <https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html>
-
 (defun eon-frame-title ()
   "Set a custom frame title."
   (setq frame-title-format
@@ -847,7 +846,7 @@ The elements of the list are regular expressions.")
       (insert
        (substring
         (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
-        0  -1))))
+        0 -1))))
   (define-key ctl-z-map (kbd "C-y") #'eon-wsl-paste))
 
 ;;  ____________________________________________________________________________
