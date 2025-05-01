@@ -1327,6 +1327,13 @@ Kills the current Dired buffer when entering a new directory"
 (setq  org-auto-align-tags t
        org-tags-column 0)
 
+;; Toggle indicator for headlines
+(setq org-ellipsis " ▼ ")
+
+;; Don't add leading indentation to code blocks, remove them during export
+(setq org-edit-src-content-indentation 0
+      org-src-preserve-indentation nil)
+
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG CAPTURE
 ;; <https://orgmode.org/org.html#Capture>
