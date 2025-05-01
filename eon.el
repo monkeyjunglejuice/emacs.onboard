@@ -629,7 +629,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (require 'icomplete)
 (setq icomplete-in-buffer t
       icomplete-compute-delay 0.01
-      icomplete-delay-completions-threshold 10000
+      icomplete-delay-completions-threshold 5000
       icomplete-show-matches-on-no-input t
       icomplete-hide-common-prefix nil)
 
