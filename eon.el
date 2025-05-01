@@ -1117,8 +1117,8 @@ Kills the current Dired buffer when entering a new directory"
 ;;        browse-url-browser-function #'browse-url-generic)
 
 ;; Keybindings
-(define-key ctl-z-w-map (kbd "w") #'browse-url)
-(define-key ctl-z-w-map (kbd "W") #'browse-web)
+(define-key ctl-z-w-map (kbd "W") #'browse-url)
+(define-key ctl-z-w-map (kbd "w") #'browse-web)
 
 ;;  ____________________________________________________________________________
 ;;; EMAIL SENDING
