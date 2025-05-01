@@ -351,13 +351,13 @@ or `system-configuration' directly."
   :group 'convenience)
 
 (defcustom eon-light-theme-name
-  (setq eon-light-theme-name 'modus-operandi-tinted)
+  (setq eon-light-theme-name 'modus-operandi)
   "Name of the light theme."
   :group 'toggle-theme
   :type 'symbol)
 
 (defcustom eon-dark-theme-name
-  (setq eon-dark-theme-name 'modus-vivendi-tinted)
+  (setq eon-dark-theme-name 'modus-vivendi)
   "Name of the dark theme."
   :group 'toggle-theme
   :type 'symbol)
@@ -437,14 +437,22 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; THEME CONFIG
 ;; Either configure the themes here, or "M-x customize-group RET toggle-theme"
 
-;; Set the light theme:
-;; (setq eon-light-theme-name 'modus-operandi)
+;; Set some defaults for the Modus themes; doesn't affect other themes
+(setq modus-themes-bold-constructs t
+      modus-themes-italic-constructs nil
+      modus-themes-mixed-fonts t)
+(setq modus-themes-common-palette-overrides
+      '((border-mode-line-active bg-mode-line-active)
+        (border-mode-line-inactive bg-mode-line-inactive)))
 
-;; Set the dark theme:
-;; (setq eon-dark-theme-name 'modus-vivendi)
+;; Set your light theme:
+(setq eon-light-theme-name 'modus-operandi-tinted)
 
-;; Set the default variant here:
-;; (setq eon-default-theme-variant 'light)
+;; Set your dark theme:
+(setq eon-dark-theme-name 'modus-vivendi-tinted)
+
+;; Set your default variant here - 'light or 'dark
+(setq eon-default-theme-variant 'light)
 
 ;; Set the keybinding to toggle between light and dark:
 (global-set-key (kbd "<f12>") #'eon-toggle-theme)
