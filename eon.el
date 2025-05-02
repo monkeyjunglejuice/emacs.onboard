@@ -1467,6 +1467,11 @@ The elements of the list are regular expressions.")
 ;; Visit your Org agenda via `C-z o a'
 (define-key ctl-z-o-map (kbd "a") #'org-agenda)
 
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+            ;; Highlight current line in Org agenda?
+            (hl-line-mode 1)))
+
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG LINKS
 ;; <https://orgmode.org/org.html#Hyperlinks>
