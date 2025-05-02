@@ -1491,7 +1491,7 @@ The elements of the list are regular expressions.")
 (require 'ox-publish)
 
 ;; Select a project to publish a project via `C-z o p';
-;; This can be used to enerate and publish a static blog, ODF documents, etc.
+;; This can be used to enerate and publish a static blog, ebooks, etc.
 (define-key ctl-z-o-map (kbd "p") 'org-publish)
 
 ;; Speed up publishing by skipping files that haven't been changed
