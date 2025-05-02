@@ -237,6 +237,14 @@ or `system-configuration' directly."
 ;; Don't bypass "C-h ..." keybindings
 (setq mac-pass-command-to-system nil)
 
+;; Show a help window with possible key bindings?
+(when (>= emacs-major-version 30)
+  (setq which-key-lighter ""
+        which-key-idle-delay 1.5
+        which-key-idle-secondary-delay 0.0
+        which-key-sort-uppercase-first nil)
+  (which-key-mode 1))
+
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
 
@@ -540,14 +548,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;;  ____________________________________________________________________________
 ;;; USER INTERFACE
-
-;; Show a help window with possible key bindings?
-(when (>= emacs-major-version 30)
-  (setq which-key-lighter ""
-        which-key-idle-delay 1.5
-        which-key-idle-secondary-delay 0.0
-        which-key-sort-uppercase-first nil)
-  (which-key-mode 1))
 
 ;; Menu bar: on/off by default?
 (menu-bar-mode 1)
