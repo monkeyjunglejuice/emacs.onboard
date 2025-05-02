@@ -1006,29 +1006,6 @@ The elements of the list are regular expressions.")
 (define-key dired-mode-map (kbd "e") #'dired-toggle-read-only)
 
 ;; Don't accumulate useless Dired buffers
-
-;; Use the system trash when deleting files
-
-(defun eon-trash-on ()
-  "Delete files by moving to the system trash."
-  (interactive)
-  (setq delete-by-moving-to-trash t)
-  (setq dired-recursive-deletes 'always)  ; don't ask when directory not empty
-  (message "Trash on: Deleted files will go to system trash."))
-
-(defun eon-trash-off ()
-  "Delete files immediately."
-  (interactive)
-  (setq delete-by-moving-to-trash nil)
-  (setq dired-recursive-deletes 'top)  ; ask when directory not empty
-  (message "Trash off: Files will be deleted immediately!"))
-
-(eon-trash-on)  ; set the default
-
-;; Auto refresh dired when contents of a directory change
-(require 'autorevert)
-(setq auto-revert-verbose nil)
-(add-hook 'dired-mode-hook #'auto-revert-mode)
 (setq dired-kill-when-opening-new-dired-buffer t)
 
 ;; Directory listings
@@ -1069,6 +1046,42 @@ The elements of the list are regular expressions.")
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
   (define-key dired-mode-map (kbd "M-RET") #'eon-dired-xdg-open))
+
+;;  ____________________________________________________________________________
+;;; FILE HANDLING
+
+(defun eon-trash-on ()
+  "Delete files by moving to the system trash."
+  (interactive)
+  (setq delete-by-moving-to-trash t)
+  (setq dired-recursive-deletes 'always)  ; don't ask when directory not empty
+  (message "Trash on: Deleted files will go to system trash."))
+
+(defun eon-trash-off ()
+  "Delete files immediately."
+  (interactive)
+  (setq delete-by-moving-to-trash nil)
+  (setq dired-recursive-deletes 'top)  ; ask when directory not empty
+  (message "Trash off: Files will be deleted immediately!"))
+
+(eon-trash-on)  ; set the default
+
+;; Use the system trash when deleting files
+(setq remote-file-name-inhibit-delete-by-moving-to-trash t)
+
+;; Resolve symlinks so that operations are conducted from the file's directory
+(setq find-file-visit-truename t
+      vc-follow-symlinks t)
+
+;; Auto refresh dired (and others) when contents change
+(require 'autorevert)
+(setq global-auto-revert-non-file-buffers t
+      auto-revert-stop-on-user-input nil
+      auto-revert-verbose t)
+
+;; Configure Ediff to use a single frame and split windows horizontally
+(setq ediff-window-setup-function 'ediff-setup-windows-plain
+      ediff-split-window-function 'split-window-horizontally)
 
 ;;  ____________________________________________________________________________
 ;;; COMINT
