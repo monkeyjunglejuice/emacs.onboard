@@ -1292,7 +1292,7 @@ The elements of the list are regular expressions.")
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Indentation>
 
 (setq-default indent-tabs-mode nil  ; don't use tabs but spaces
-              tab-width 2)          ; set display width for tab characters
+              tab-width 4)          ; set display width for tab characters
 
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
 ;; (Possibly shadowed by 3rd-party packages like `smartparens-mode'
