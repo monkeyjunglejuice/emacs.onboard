@@ -1501,7 +1501,7 @@ The elements of the list are regular expressions.")
 (setq org-publish-timestamp-directory
       (concat user-emacs-directory "org-timestamps/"))
 
-(defun eon-org-publish-use-timestamps ()
+(defun eon-org-publish-unchanged-files-toggle ()
   "Toggle wether to re-export Org files that haven't been changed."
   (interactive)
   (if org-publish-use-timestamps-flag
