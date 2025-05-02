@@ -820,6 +820,9 @@ The elements of the list are regular expressions.")
 ;;; CLIPBOARD, COPY & PASTE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing>
 
+;; Prevent duplicates to avoid cluttering the kill ring
+(setq kill-do-not-save-duplicates t)
+
 (require 'select)
 
 (setq
