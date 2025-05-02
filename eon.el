@@ -1267,14 +1267,16 @@ The elements of the list are regular expressions.")
 ;;; LINE WRAPPING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
 
-;; Truncate long lines in programming modes?
-;; By default, lines are continued visually on the next screen-line
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Continuation-Lines>
-;; For default behavior, do "M-x toggle-truncate-lines",
-;; or set this variable to nil.
+;; Truncate long lines in programming modes by default.
 (add-hook 'prog-mode-hook
           (lambda ()
             (setq-local truncate-lines t)))
+
+;; If you prefer to see all text within a window in programming modes, enable
+;; visual line breaks, a.k.a soft wrapping
+;; (add-hook 'prog-mode-hook
+;;           (lambda ()
+;;             (visual-line-mode 1)))
 
 ;;  ____________________________________________________________________________
 ;;; FOLDING
