@@ -1550,8 +1550,9 @@ The elements of the list are regular expressions.")
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
 (add-hook 'lisp-interaction-mode-hook (lambda () (flymake-mode -1)))
 
-;; Emacs Lisp: don't truncate printed lists
-(setq eval-expression-print-length nil)
+;; Emacs Lisp evaluation: don't truncate printed lists
+(setq eval-expression-print-length nil
+      eval-expression-print-level nil)
 
 ;; Additional keybinding resembling other sexp-related keybindings
 ;; who usually begin with "C-M". Also useful editing non-lisp languages
