@@ -1314,7 +1314,9 @@ The elements of the list are regular expressions.")
 
 ;; How to display matching parens generally?
 (setq show-paren-style 'parenthesis
-      show-paren-delay 0.125)
+      show-paren-delay 0.125
+      show-paren-when-point-inside-paren t
+      show-paren-when-point-in-periphery t)
 
 ;; Auto-close parens, brackets and quotes?
 (electric-pair-mode 1)
