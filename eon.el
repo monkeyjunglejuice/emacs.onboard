@@ -982,7 +982,8 @@ The elements of the list are regular expressions.")
 ;; Ignore some recently visited files, eg. to prevent them from showing up
 ;; amongst recent files after package upgrades
 (add-to-list 'recentf-exclude
-             (expand-file-name (concat user-emacs-directory "elpa/")))
+             (expand-file-name (concat user-emacs-directory "elpa/"))
+             "^/\\(?:ssh\\|su\\|sudo\\)?:")
 
 ;; Use 'completing-read' to choose between recent files
 (defun eon-find-recentf ()
