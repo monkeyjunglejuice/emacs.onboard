@@ -641,13 +641,17 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setq resize-mini-windows 'grow-only)
 
 ;; Save minibuffer history between Emacs sessions?
+(setq history-length 300)
 (savehist-mode 1)
 
 ;; Delete duplicates from the command history?
 (setq history-delete-duplicates t)
 
-;; Change all yes/no style questions to y/n style?
-(fset 'yes-or-no-p 'y-or-n-p)
+;; Allow for shorter responses? "y" for "yes" and "n" for "no"
+(setq read-answer-short t)
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (advice-add 'yes-or-no-p :override #'y-or-n-p))
 
 ;;  ____________________________________________________________________________
 ;;; MINIBUFFER COMPLETION
