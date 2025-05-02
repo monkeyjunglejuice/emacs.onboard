@@ -894,17 +894,26 @@ The elements of the list are regular expressions.")
 ;;; BACKUP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup>
 
-;; Make backup before editing
+;; Make backup before editing?
+(setq make-backup-files t)
+
+;; Backup settings
 (setq backup-by-copying t
+      backup-by-copying-when-linked t
       kept-new-versions 5
       kept-old-versions 5
       delete-old-versions t
-      version-control t)
+      version-control t
+      vc-make-backup-files t)
 
 ;; Where to save the backups?
 ;; Specify file name/path patterns and directories ("REGEXP" . "DIRECTORY")
 (setq backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backup/"))))
+
+;; Apply the same backup policy for Tramp files on their hosts like the
+;; policy for local files
+(setq tramp-backup-directory-alist backup-directory-alist)
 
 ;;  ____________________________________________________________________________
 ;;; LOCKFILES
