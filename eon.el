@@ -1377,6 +1377,12 @@ The elements of the list are regular expressions.")
  'display-buffer-alist
  '("\\*.*compilation\\*" (display-buffer-no-window)))
 
+;; Scroll to the first error
+(setq compilation-scroll-output 'first-error)
+
+;; Recenter to the middle of the window for `compile-goto-error'
+(setq next-error-recenter '(4))
+
 ;;  ____________________________________________________________________________
 ;;; TEXT MODES / WRITING
 
