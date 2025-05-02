@@ -1298,6 +1298,16 @@ The elements of the list are regular expressions.")
 ;; (Possibly shadowed by 3rd-party packages like `smartparens-mode'
 (setq backward-delete-char-untabify-method 'hungry)
 
+;; Enable indentation and completion using the TAB key
+(setq-default tab-always-indent 'complete)
+
+;;  ____________________________________________________________________________
+;;; COMMENTING
+
+;; Enable multi-line commenting to ensure that `comment-indent-new-line'
+;; properly continues comments onto new lines.
+(setq comment-multi-line t)
+
 ;;  ____________________________________________________________________________
 ;;; BRACKETS / PARENTHESIS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses>
