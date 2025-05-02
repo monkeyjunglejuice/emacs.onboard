@@ -1384,10 +1384,12 @@ The elements of the list are regular expressions.")
 (setq next-error-recenter '(4))
 
 ;;  ____________________________________________________________________________
-;;; TEXT MODES / WRITING
+;;; TEXT MODES / WRITING PROSE
 
 ;; Sentences end with a single space
 (setq sentence-end-double-space nil)
+
+;; TODO Add Flyspell / Ispell presets here
 
 ;;  ____________________________________________________________________________
 ;;; ORG MODE
