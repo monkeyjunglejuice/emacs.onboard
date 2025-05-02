@@ -254,8 +254,10 @@ or `system-configuration' directly."
 ;; Increase warning threshold
 (setq large-file-warning-threshold (* 64 1000000))
 
-;; Set undo limit to 64 MB
-(setq undo-outer-limit (* 64 1000000))
+;; Increase undo limit
+(setq undo-limit 67108864          ; 64mb
+      undo-strong-limit 100663296  ; 96mb
+      undo-outer-limit 1006632960) ; 960mb
 
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setq read-process-output-max (* 1024 1024))  ; 1 MB
