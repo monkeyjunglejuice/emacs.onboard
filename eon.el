@@ -122,9 +122,6 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   ;; 3rd priority
   ;; There are also Gnu Elpa and Non-Gnu Elpa, which are enabled by default
 
-  ;; Natively compile packages at first use or immediately after installation?
-  (setq package-native-compile t)
-
   ;; Highlight current line in the package manager
   (add-hook 'package-menu-mode-hook
             (lambda ()
@@ -154,6 +151,15 @@ When ACTION receives \='ignore, then nothing will happen."
                   (package-refresh-contents)
                   (package-install package nil)))
             package-list))))
+
+;;  ____________________________________________________________________________
+;;; NATIVE ELISP COMPILATION
+
+;; Natively compile packages at first use or immediately after installation?
+(setq package-native-compile t)
+
+;; Ask whether to terminate asynchronous compilations on exit
+(setq native-comp-async-query-on-exit t)
 
 ;;  ____________________________________________________________________________
 ;;; HELPERS
