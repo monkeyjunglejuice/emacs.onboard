@@ -52,7 +52,7 @@
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
 
 ;; Set a high value of 1 GB to prevent frequent garbage collections
-;; during initialization.
+;; during initialization
 (setq gc-cons-threshold #x40000000)  ; default threshold is 800 KB
 
 ;; Prevent longer GC pauses and experience less mini-interruptions.
