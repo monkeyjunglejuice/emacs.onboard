@@ -993,7 +993,7 @@ The elements of the list are regular expressions.")
 (global-set-key (kbd "C-x f") #'eon-find-recentf)
 
 ;;  ____________________________________________________________________________
-;;; DIRED
+;;; DIRED / FILES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired>
 
 (require 'dired)
