@@ -1230,7 +1230,8 @@ The elements of the list are regular expressions.")
 ;; UTF-8
 (prefer-coding-system 'utf-8)
 
-;; Remember the place where the cursor was last time
+;; Remember the place where the cursor was last time?
+(setq save-place-limit 500)
 (save-place-mode 1)
 
 ;; Set desired line length in characters
