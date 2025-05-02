@@ -926,8 +926,23 @@ The elements of the list are regular expressions.")
 ;;; AUTO-SAVE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save>
 
-(setq auto-save-default nil
-      auto-save-interval 0)
+;; Enable auto-save to safeguard against data loss. The
+;; `recover-file' or `recover-session' functions can be used
+;; to restore auto-saved data
+(setq auto-save-default nil)
+(setq auto-save-no-message t)
+
+;; Do not auto-disable auto-save after deleting large chunks of text
+(setq auto-save-include-big-deletions t)
+
+;; Auto-save locations
+(setq auto-save-list-file-prefix
+      (expand-file-name "autosave/" user-emacs-directory))
+(setq tramp-auto-save-directory
+      (expand-file-name "autosave-tramp/" user-emacs-directory))
+
+;; Auto save options
+(setq kill-buffer-delete-auto-save-files t)
 
 ;;  ____________________________________________________________________________
 ;;; HELP
