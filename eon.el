@@ -540,13 +540,26 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (blink-cursor-mode -1)
 
 ;; Cursor blinking interval in seconds
-(setq blink-cursor-interval 0.4)
+(setq blink-cursor-interval 0.3)
+
+;; Blink cursor that often before going into solid state
+(setq blink-cursor-blinks 3)
 
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setq visible-cursor nil)
 
+;; Keep cursor outside of any cursor-intangible text property
+(cursor-intangible-mode 1)
+
 ;; Make sure to highlight the current line only in the active window.
 (setq hl-line-sticky-flag nil)
+(add-hook 'special-mode-hook
+          (lambda ()
+            ;; Highlight current line in special modes?
+            (hl-line-mode 1)))
+
+;; Render cursors or regions in non-focused windows?
+(setq-default cursor-in-non-selected-windows nil)
 
 ;;  ____________________________________________________________________________
 ;;; USER INTERFACE
