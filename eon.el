@@ -1006,20 +1006,6 @@ The elements of the list are regular expressions.")
 (define-key dired-mode-map (kbd "e") #'dired-toggle-read-only)
 
 ;; Don't accumulate useless Dired buffers
-(defun eon-dired-single-buffer (s)
-  "When S is non-nil, prevent superfluous Dired buffers from accumulating.
-Kills the current Dired buffer when entering a new directory"
-  (when (not (null s))
-    (cond
-     ((version< emacs-version "28.1")
-      (progn (put 'dired-find-alternate-file 'disabled nil)
-             (define-key dired-mode-map (kbd "RET") #'dired-find-alternate-file)
-             (define-key dired-mode-map (kbd "^") (lambda ()
-                                                    (interactive)
-                                                    (find-alternate-file "..")))))
-     (t (setq dired-kill-when-opening-new-dired-buffer t)))))
-
-(eon-dired-single-buffer t)  ; set the default
 
 ;; Use the system trash when deleting files
 
@@ -1043,6 +1029,7 @@ Kills the current Dired buffer when entering a new directory"
 (require 'autorevert)
 (setq auto-revert-verbose nil)
 (add-hook 'dired-mode-hook #'auto-revert-mode)
+(setq dired-kill-when-opening-new-dired-buffer t)
 
 ;; Directory listings
 (add-hook 'dired-mode-hook
