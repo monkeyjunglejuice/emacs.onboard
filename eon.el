@@ -1090,6 +1090,7 @@ The elements of the list are regular expressions.")
 
 (setq comint-input-ignoredups t
       comint-prompt-read-only t
+      comint-buffer-maximum-size 2048
       comint-scroll-to-bottom-on-input 'this)
 
 ;;  ____________________________________________________________________________
