@@ -1364,6 +1364,11 @@ The elements of the list are regular expressions.")
 (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)  ; default
 
 ;;  ____________________________________________________________________________
+;;; LANGUAGE SERVER (EGLOT)
+
+;; TODO Will be included here with Emacs 29 minimum compatibility
+
+;;  ____________________________________________________________________________
 ;;; COMPILING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Building>
 
