@@ -586,17 +586,22 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (define-key ctl-z-map (kbd "C-r") #'redraw-display)
 
 ;;  ____________________________________________________________________________
-;;; SMOOTH SCROLLING
+;;; SCROLLING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
 
 (setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))
               mouse-wheel-progressive-speed t
-              mouse-wheel-follow-mouse t
-              scroll-preserve-screen-position t
-              scroll-margin 1  ; leave n lines on both screen ends
+              mouse-wheel-follow-mouse t)
+
+(setq-default scroll-preserve-screen-position t
+              scroll-margin 1
               scroll-up-aggressively 0.01
-              scroll-down-aggressively 0.01
-              auto-window-vscroll nil)
+              scroll-down-aggressively 0.01)
+
+;; Horizontal scrolling
+(setq auto-window-vscroll nil
+      hscroll-margin 1
+      hscroll-step 1)
 
 ;; Enable pixel-based scrolling
 (if (fboundp #'pixel-scroll-precision-mode)
