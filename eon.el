@@ -155,6 +155,9 @@ When ACTION receives \='ignore, then nothing will happen."
 ;;  ____________________________________________________________________________
 ;;; NATIVE ELISP COMPILATION
 
+;; Prevent stale elisp bytecode from shadowing more up-to-date source files
+(setq load-prefer-newer t)
+
 ;; Natively compile packages at first use or immediately after installation?
 (setq package-native-compile t)
 
@@ -247,9 +250,6 @@ or `system-configuration' directly."
 
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
-
-;; Prevent stale elisp bytecode from shadowing more up-to-date source files
-(setq load-prefer-newer t)
 
 ;; Increase warning threshold
 (setq large-file-warning-threshold (* 64 1000000))
