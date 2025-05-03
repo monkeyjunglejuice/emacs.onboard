@@ -839,15 +839,15 @@ The elements of the list are regular expressions.")
 (when (fboundp #'xclip-mode) (xclip-mode 1))
 
 ;; Copy the full path of the current file
-(defun eon-copy-file-name ()
-  "Copy the full path of the current buffer's file to the clipboard."
+(defun eon-copy-file-path ()
+  "Copy the full path of the current buffer's file to the kill ring."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
                     (buffer-file-name))))
     (when filename
       (kill-new filename)
-      (message "Copied buffer file name '%s' to the clipboard."
+      (message "Copied buffer file name '%s' to the kill ring."
                filename))))
 
 ;; Simple alternative for 'yank-pop' – present a selection of the kill ring
