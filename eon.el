@@ -1,4 +1,4 @@
-;;; eon.el --- Emacs Onboard Starter Kit  -*- lexical-binding: t; -*-
+;;; eon.el --- Emacs Onboard Starter Kit -*- lexical-binding: t; no-byte-compile: t; -*-
 ;;
 ;;    ▒░▒░▒░   ▒░     ▒░ ▒░▒░▒░▒░     ▒░▒░▒░      ▒░    ▒░▒░▒░▒░    ▒░▒░▒░▒░
 ;;   ▒░    ▒░  ▒░▒░   ▒░  ▒░     ▒░  ▒░    ▒░    ▒░▒░    ▒░     ▒░   ▒░    ▒░
