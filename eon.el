@@ -833,7 +833,7 @@ The elements of the list are regular expressions.")
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
 ;; If you would like to install this 3rd-party package, change 'ignore
-;; into 'install and evaluate the expression – either via "C-M-x",
+;; to 'ensure and evaluate the expression – either via "C-M-x",
 ;; or simply restart Emacs:
 (eon-package 'ignore '(xclip))
 (when (fboundp #'xclip-mode) (xclip-mode 1))
