@@ -139,8 +139,8 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   ;; when you evaluate the function manually – eg. via pressing "C-M-x"
   ;; while the cursor is placed somewhere within the function application form.
   ;;
-  ;; DEPRECATED Will be removed when Emacs 29 becomes the minimum version,
-  ;; because `use-package' provides that functionality and much more.
+  ;; DEPRECATED Will be removed when Emacs 29 becomes the minimal required
+  ;; version, because `use-package' provides that functionality and much more.
   (defun eon-package (action package-list)
     "Helper function to install 3rd-party packages declaratively.
 PACKAGE-LIST will be installed if \='ensure is passed as an argument to ACTION.
