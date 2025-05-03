@@ -1324,9 +1324,6 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; and additional checkers can be installed as 3rd-party packages via
 ;; "M-x package-install <RET> flymake-" or `(eon-package 'install '(NAME))'
 
-;; Disable the legacy backend
-(remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake)
-
 ;; Style the Flymake widget in the modeline
 (setq flymake-mode-line-format
       '(" " "FlyM" flymake-mode-line-exception flymake-mode-line-counters))
