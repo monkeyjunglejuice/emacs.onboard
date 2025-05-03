@@ -1135,6 +1135,9 @@ The elements of the list are regular expressions.")
 (url-setup-privacy-info)
 
 (defun eon-user-agent (browser-name)
+  "Accepts a symbol in order to return a pre-defined user-agent string.
+BROWSER-NAME can be either `safari-macos', `safari-iphone', `w3m' or t,
+which sets the default `eww' user-agent according to `url-privacy-level'."
   (cond
    ((equal browser-name 'safari-macos)
     (setq url-user-agent
