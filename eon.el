@@ -267,35 +267,35 @@ or `system-configuration' directly."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server>
 ;; ... or do "M-x info-emacs-manual s server RET" to read it within Emacs
 
-(require 'server)
-
 ;; Display the name of the Emacs server process in the frame title
 ;; to see easily to which server process a client is connected to
 ;; Further information:
 ;; <https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html>
-(defun eon-frame-title ()
-  "Set a custom frame title."
-  (setq frame-title-format
-        (concat "%b (%f)"
-                (when (server-running-p)
-                  (concat " " server-name)))))
+(with-eval-after-load 'server
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            "Run functions after loading init files"
-            (eon-frame-title)))
+  (defun eon-frame-title ()
+    "Set a custom frame title."
+    (setq frame-title-format
+          (concat "%b (%f)"
+                  (when (server-running-p)
+                    (concat " " server-name)))))
 
-(add-hook 'server-mode-hook
-          (lambda ()
-            "Run functions after entering or leaving server-mode."
-            (eon-frame-title)))
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              "Run functions after loading init files"
+              (eon-frame-title)))
 
-;; Shutdown the Emacs server process
-(defun eon-server-stop ()
-  "Save buffers, quit and shutdown (kill) server."
-  (interactive)
-  (save-some-buffers)
-  (kill-emacs))
+  (add-hook 'server-mode-hook
+            (lambda ()
+              "Run functions after entering or leaving server-mode."
+              (eon-frame-title)))
+
+  ;; Shutdown the Emacs server process
+  (defun eon-server-stop ()
+    "Save buffers, quit and shutdown (kill) server."
+    (interactive)
+    (save-some-buffers)
+    (kill-emacs)))
 
 ;; Start the server?
 ;; (server-start)
@@ -660,16 +660,15 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; There are many matching styles available, see `completion-styles-alist'
 ;; <https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html>
 ;; Below is the standard combo from Emacs 29 plus `substring'
-(require 'minibuffer)
 (setq completion-styles '(basic partial-completion emacs22 substring))
 
 ;; Tweaking Icomplete
-(require 'icomplete)
-(setq icomplete-in-buffer t
-      icomplete-compute-delay 0.01
-      icomplete-delay-completions-threshold 5000
-      icomplete-show-matches-on-no-input t
-      icomplete-hide-common-prefix nil)
+(with-eval-after-load 'icomplete
+  (setq icomplete-in-buffer t
+        icomplete-compute-delay 0.01
+        icomplete-delay-completions-threshold 5000
+        icomplete-show-matches-on-no-input t
+        icomplete-hide-common-prefix nil))
 
 ;; Vertical completion with `fido-vertical' (Emacs version 28 and later)
 (fido-vertical-mode 1)
@@ -688,7 +687,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;  ____________________________________________________________________________
 ;;; PINENTRY
 
-(require 'epg-config)
 (setq epg-pinentry-mode 'loopback)
 
 ;;  ____________________________________________________________________________
@@ -708,7 +706,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (global-set-key (kbd "M-o") #'other-window)
 
 ;; Navigate windows by direction
-;; (require 'windmove)
 ;; (setq windmove-wrap-around nil)
 ;; (global-set-key (kbd "s-j") #'windmove-down)
 ;; (global-set-key (kbd "s-k") #'windmove-up)
@@ -716,7 +713,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; (global-set-key (kbd "s-l") #'windmove-right)
 
 ;; Undo/redo window layouts
-(require 'winner)
 (winner-mode 1)
 (define-key winner-mode-map (kbd "C-x 4 u") #'winner-undo)
 (define-key winner-mode-map (kbd "C-x 4 r") #'winner-redo)
@@ -772,8 +768,6 @@ The elements of the list are regular expressions.")
 ;;; IBUFFER – the buffer manager
 ;; <https://protesilaos.com/codelog/2020-04-02-emacs-intro-ibuffer/>
 
-(require 'ibuf-ext)
-
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-auto-mode 1)))
@@ -822,8 +816,6 @@ The elements of the list are regular expressions.")
 
 ;; Prevent duplicates to avoid cluttering the kill ring
 (setq kill-do-not-save-duplicates t)
-
-(require 'select)
 
 (setq
  ;; Use clipboard
@@ -949,7 +941,6 @@ The elements of the list are regular expressions.")
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
 ;; Show all options when running 'apropos' "C-h a" (fulltext search)
-(require 'apropos)
 (setq apropos-do-all t)
 
 ;;  ____________________________________________________________________________
@@ -971,8 +962,6 @@ The elements of the list are regular expressions.")
 ;;  ____________________________________________________________________________
 ;;; RECENT FILES
 
-(require 'recentf)
-
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
 
@@ -993,17 +982,16 @@ The elements of the list are regular expressions.")
 (global-set-key (kbd "C-x f") #'eon-find-recentf)
 
 ;;  ____________________________________________________________________________
-;;; DIRED / FILES
+;;; DIRED
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired>
-
-(require 'dired)
 
 ;; The `dired' keybinding is "C-x d". This new keybinding is in accordance
 ;; with "C-x C-f" for visiting files
 (global-set-key (kbd "C-x C-d") #'dired)
 
 ;; Switch to wdired-mode and edit directory content like a text buffer
-(define-key dired-mode-map (kbd "e") #'dired-toggle-read-only)
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "e") #'dired-toggle-read-only))
 
 ;; Don't accumulate useless Dired buffers
 (setq dired-kill-when-opening-new-dired-buffer t)
@@ -1029,7 +1017,6 @@ The elements of the list are regular expressions.")
 (setq dired-dwim-target t)
 
 ;; Images
-(require 'image-dired)
 (setq image-dired-thumb-margin 1
       image-dired-thumb-relief 0
       ;; Store thumbnails in the system-wide thumbnail location
@@ -1045,7 +1032,8 @@ The elements of the list are regular expressions.")
       (message "Opening %s..." file)
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
-  (define-key dired-mode-map (kbd "M-RET") #'eon-dired-xdg-open))
+  (with-eval-after-load 'dired
+    (define-key dired-mode-map (kbd "M-RET") #'eon-dired-xdg-open)))
 
 ;;  ____________________________________________________________________________
 ;;; FILE HANDLING
@@ -1074,7 +1062,6 @@ The elements of the list are regular expressions.")
       vc-follow-symlinks t)
 
 ;; Auto refresh dired (and others) when contents change
-(require 'autorevert)
 (setq global-auto-revert-non-file-buffers t
       auto-revert-stop-on-user-input nil
       auto-revert-verbose t)
@@ -1085,8 +1072,6 @@ The elements of the list are regular expressions.")
 
 ;;  ____________________________________________________________________________
 ;;; COMINT
-
-(require 'comint)
 
 (setq comint-input-ignoredups t
       comint-prompt-read-only t
@@ -1102,11 +1087,9 @@ The elements of the list are regular expressions.")
 ;; a Posix shell superficially, but is also a REPL for Emacs Lisp expressions.
 
 ;; Get rid of the Eshell startup message
-(require 'em-banner)
 (setq eshell-banner-message "")
 
 ;; List directory content after changing into it
-(require 'em-dirs)
 (setq  eshell-list-files-after-cd t)
 
 ;; To open more than one eshell buffer: "C-u C-z e e"
@@ -1130,8 +1113,6 @@ The elements of the list are regular expressions.")
 
 ;; Show and manage OS processes, like the command line programs top and htop
 
-(require 'proced)
-
 (setq proced-auto-update-interval 1)
 
 (setq-default proced-auto-update-flag t
@@ -1139,8 +1120,6 @@ The elements of the list are regular expressions.")
 
 ;;  ____________________________________________________________________________
 ;;; NET-UTILS
-
-(require 'net-utils)
 
 (setq netstat-program "netstat"
       netstat-program-options '("-atupe"))
@@ -1200,24 +1179,20 @@ The elements of the list are regular expressions.")
 ;; machine mail.example.org port 587 login myuser password mypassword
 
 ;; Emacs email variables
+(with-eval-after-load 'smtpmail
+  (setq send-mail-function #'smtpmail-send-it
+        smtpmail-smtp-server "localhost"
+        smtpmail-stream-type 'starttls
+        smtpmail-smtp-service 1025      ; default port: 587
+        smtpmail-queue-dir "~/.mail/queued-mail/"
+        smtpmail-smtp-user user-mail-address
+        smtpmail-debug-info nil))
 
-(require 'smtpmail)
-(setq send-mail-function 'smtpmail-send-it
-      smtpmail-smtp-server "localhost"
-      smtpmail-stream-type 'starttls
-      smtpmail-smtp-service 1025  ; default port: 587
-      smtpmail-queue-dir "~/.mail/queued-mail/"
-      smtpmail-smtp-user user-mail-address
-      smtpmail-debug-info nil)
-
-(require 'message)
 (setq message-kill-buffer-on-exit t)
 
 ;;  ____________________________________________________________________________
 ;;; CALENDAR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Calendar_002fDiary>
-
-(require 'calendar)
 
 (setq calendar-date-style 'iso
       calendar-week-start-day 1
@@ -1342,8 +1317,6 @@ The elements of the list are regular expressions.")
 ;;; SYNTAX CHECK / LINTER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/flymake.html>
 
-(require 'flymake)
-
 ;; There are various syntax-checkers coming with the built-in Flymake mode,
 ;; and additional checkers can be installed as 3rd-party packages via
 ;; "M-x package-install <RET> flymake-" or `(eon-package 'install '(NAME))'
@@ -1358,10 +1331,11 @@ The elements of the list are regular expressions.")
 ;; Stop when first/last error is reached
 (setq flymake-wrap-around nil)
 
-(define-key flymake-mode-map (kbd "M-g E") #'flymake-show-project-diagnostics)
-(define-key flymake-mode-map (kbd "M-g e") #'flymake-show-buffer-diagnostics)
-(define-key flymake-mode-map (kbd "M-g n") #'flymake-goto-next-error)  ; default
-(define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error)  ; default
+(with-eval-after-load 'flymake
+  (define-key flymake-mode-map (kbd "M-g E") #'flymake-show-project-diagnostics)
+  (define-key flymake-mode-map (kbd "M-g e") #'flymake-show-buffer-diagnostics)
+  (define-key flymake-mode-map (kbd "M-g n") #'flymake-goto-next-error) ; default
+  (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error))  ; default
 
 ;;  ____________________________________________________________________________
 ;;; LANGUAGE SERVER (EGLOT)
@@ -1398,8 +1372,6 @@ The elements of the list are regular expressions.")
 
 ;; Org provides functionality far beyond that of computational notebooks
 ;; such as Jupyter or R Markdown.
-
-(require 'org)
 
 ;; Set a default location to look for Org files; but you can have
 ;; that directory anywhere you like
@@ -1488,8 +1460,6 @@ The elements of the list are regular expressions.")
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG PUBLISH
 
-(require 'ox-publish)
-
 ;; Select a project to publish a project via `C-z o p';
 ;; This can be used to enerate and publish a static blog, ebooks, etc.
 (define-key ctl-z-o-map (kbd "p") 'org-publish)
@@ -1514,8 +1484,6 @@ The elements of the list are regular expressions.")
 ;;; ORG EXPORT
 
 ;; HTML export
-(require 'ox-html)
-
 (setq org-html-checkbox-type 'unicode
       org-html-prefer-user-labels t
       org-html-self-link-headlines t)
