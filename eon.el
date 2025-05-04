@@ -369,18 +369,18 @@ or `system-configuration' directly."
 (defcustom eon-light-theme-name
   (setq eon-light-theme-name 'modus-operandi)
   "Name of the light theme."
-  :group 'toggle-theme
+  :group 'eon-toggle-theme
   :type 'symbol)
 
 (defcustom eon-dark-theme-name
   (setq eon-dark-theme-name 'modus-vivendi)
   "Name of the dark theme."
-  :group 'toggle-theme
+  :group 'eon-toggle-theme
   :type 'symbol)
 
 (defcustom eon-default-theme-variant 'light
   "Load either the light or the dark theme at startup?"
-  :group 'toggle-theme
+  :group 'eon-toggle-theme
   :type 'symbol)
 
 (defvar eon-active-theme-variant nil
@@ -388,22 +388,22 @@ or `system-configuration' directly."
 
 (defcustom eon-load-before-light-theme-hook nil
   "Run before loading the light theme."
-  :group 'toggle-theme
+  :group 'eon-toggle-theme
   :type 'hook)
 
 (defcustom eon-load-after-light-theme-hook nil
   "Run after loading the light theme."
-  :group 'toggle-theme
+  :group 'eon-toggle-theme
   :type 'hook)
 
 (defcustom eon-load-before-dark-theme-hook nil
   "Run before loading the dark theme."
-  :group 'toggle-theme
+  :group 'eon-toggle-theme
   :type 'hook)
 
 (defcustom eon-load-after-dark-theme-hook nil
   "Run after loading the dark theme."
-  :group 'toggle-theme
+  :group 'eon-toggle-theme
   :type 'hook)
 
 (defun eon-load-theme-light ()
