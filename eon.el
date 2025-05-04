@@ -1472,7 +1472,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (setq org-publish-timestamp-directory
       (concat user-emacs-directory "org-timestamps/"))
 
-(defun eon-org-publish-unchanged-files-toggle ()
+(defun org-publish-unchanged-files-toggle ()
   "Toggle wether to re-export Org files that haven't been changed."
   (interactive)
   (if org-publish-use-timestamps-flag
