@@ -453,7 +453,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; THEME CONFIG
 ;; Either configure the themes here, or "M-x customize-group RET toggle-theme"
 
-;; Set some defaults for the Modus themes; doesn't affect other themes
+;; Set some defaults for the Modus themes; doesn't affect other themes.
+;; These variables must be set before loading the themes.
 (setq modus-themes-bold-constructs t
       modus-themes-italic-constructs nil
       modus-themes-mixed-fonts t)
