@@ -155,13 +155,13 @@ When ACTION receives \='ignore, then nothing will happen."
 ;;  ____________________________________________________________________________
 ;;; NATIVE ELISP COMPILATION
 
-;; Prevent stale elisp bytecode from shadowing more up-to-date source files
+;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
 (setq load-prefer-newer t)
 
 ;; Natively compile packages at first use or immediately after installation?
 (setq package-native-compile t)
 
-;; Ask whether to terminate asynchronous compilations on exit
+;; Ask whether to terminate asynchronous compilations on exit?
 (setq native-comp-async-query-on-exit t)
 
 ;;  ____________________________________________________________________________
