@@ -919,8 +919,8 @@ The elements of the list are regular expressions.")
 ;;; AUTO-SAVE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save>
 
-;; Enable auto-save to safeguard against data loss. The
-;; `recover-file' or `recover-session' functions can be used
+;; Enable auto-save to safeguard against data loss.
+;; The `recover-file' or `recover-session' functions can be used
 ;; to restore auto-saved data
 (setq auto-save-default nil)
 (setq auto-save-no-message t)
