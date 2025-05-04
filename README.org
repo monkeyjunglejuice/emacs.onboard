@@ -1,24 +1,22 @@
-* 🚀 ONBOARD --- Emacs Onboarding Made Easy
+* 🚀 Emacs ONboarding made Easy
 
 Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up? Or you don't want to configure Emacs at all? But ... just use it? Right now? 🤯
 
 [[file:misc/emacs-onboard.jpg]]
 
-*Emacs ONBOARD is a portable starter-kit for Emacs without any 3rd-party packages.* It's vanilla Emacs, but gives you a better user experience, without relying on additional 3rd-party packages.
+*Emacs ONboard is a comprehensive, portable starter-kit for Emacs.* It's vanilla Emacs, but gives you a better user experience, without relying on additional 3rd-party packages.
 
-*It's all built-in -- all onboard.*
+*It's all built-in -- all on board.*
 
-✔ One single file
+✔ One single file, ZERO dependencies
 
 ✔ Beginner-friendly
 
-✔ Only built-in packages
+✔ Convenient drop-in config: just load it from your init.el
 
-✔ Convenient drop-in config
+** Emacs ONboard gives you much better defaults
 
-** Features
-
-Emacs ONBOARD gives you much better defaults, for instance:
+Some features ...
 
 - Vertical completion for commands, files, etc. in the minibuffer.
 - Toggle between your light/dark theme via =F12=; you can also run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the theme.
@@ -110,14 +108,8 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 … but this is the 💝 piece.
 
-** Tested with:
-
-- [X] Emacs 29.2 from Homebrew on MacOS Sonoma 14.2.1
-- [X] Emacs 28.1 on Debian Stable
-- [X] Emacs 28.1 from Guix
-
 *Backwards-compatibility* follows the Emacs version 28.2 in Debian Stable.
-Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
+- Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
 
 ** Goals
 
