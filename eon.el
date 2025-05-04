@@ -671,7 +671,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
         icomplete-show-matches-on-no-input t
         icomplete-hide-common-prefix nil))
 
-;; Vertical completion with `fido-vertical' (Emacs version 28 and later)
+;; Vertical completion with `fido-vertical'
 (fido-vertical-mode 1)
 
 ;;  ____________________________________________________________________________
