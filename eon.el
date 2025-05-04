@@ -785,13 +785,17 @@ The elements of the list are regular expressions.")
 
 ;; Set an initial major mode for the *scratch* buffer:
 
-;; Lisp-interaction-mode is the default
+;; Lisp-interaction-mode is the default mode for the scratch buffer
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction>
 ;; (setq initial-major-mode #'lisp-interaction-mode)
 
-;; We're setting the scratch buffer to Org-mode which is more useful
+;; You can set the scratch buffer to Org-mode which is more useful
 ;; for quick notes, writing and literate programming
-(setq initial-major-mode #'org-mode)
+;; (setq initial-major-mode #'org-mode)
+
+;; But for the sake of quick loading, we'll set the scratch buffer
+;; to `fundamental-mode' for now
+(setq initial-major-mode #'fundamental-mode)
 
 ;; Should the *scratch* buffer contain some initial content?
 (setq initial-scratch-message "")
