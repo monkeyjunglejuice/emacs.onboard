@@ -577,10 +577,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (menu-bar-mode 1)
 
 ;; Scroll bar: on/off by default?
-(scroll-bar-mode -1)
+(when (display-graphic-p)
+  (scroll-bar-mode -1))
 
 ;; Tool bar: on/off by default?
-(tool-bar-mode -1)
+(when (display-graphic-p)
+  (tool-bar-mode -1))
 
 ;; Tooltips: enable/disable?
 (tooltip-mode -1)
