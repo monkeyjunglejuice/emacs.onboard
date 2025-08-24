@@ -202,30 +202,38 @@ or `system-configuration' directly."
 ;;  ____________________________________________________________________________
 ;;; KEYMAPS
 
-;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c".
+;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c";
+;; therefore "C-z" acts like kind of a "leader key".
 ;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
 ;; begin with the prefix "C-z" (with only a few exceptions).
+
 (global-unset-key (kbd "C-z"))
 
-(define-prefix-command 'ctl-z-map nil "Additional prefix key C-z")
+(define-prefix-command 'ctl-z-map nil "Leader")
 (global-set-key (kbd "C-z") 'ctl-z-map)
 
-(define-prefix-command 'ctl-z-c-map nil "Commonly used commands")
+(define-prefix-command 'ctl-z-c-map nil "Common")
 (define-key ctl-z-map (kbd "c") 'ctl-z-c-map)
 
 (define-prefix-command 'ctl-z-e-map nil "Emacs built-ins")
 (define-key ctl-z-map (kbd "e") 'ctl-z-e-map)
 
-(define-prefix-command 'ctl-z-o-map nil "Org-mode")
+(define-prefix-command 'ctl-z-g-map nil "Version control")
+(define-key ctl-z-map (kbd "g") 'ctl-z-g-map)
+
+(define-prefix-command 'ctl-z-o-map nil "Org")
 (define-key ctl-z-map (kbd "o") 'ctl-z-o-map)
+
+(define-prefix-command 'ctl-z-p-map nil "Project")
+(define-key ctl-z-map (kbd "p") 'ctl-z-p-map)
 
 (define-prefix-command 'ctl-z-s-map nil "Scratch buffers")
 (define-key ctl-z-map (kbd "s") 'ctl-z-s-map)
 
-(define-prefix-command 'ctl-z-w-map nil "Web-related")
+(define-prefix-command 'ctl-z-w-map nil "Web")
 (define-key ctl-z-map (kbd "w") 'ctl-z-w-map)
 
-(define-prefix-command 'ctl-z-x-map nil "Global REPL bindings")
+(define-prefix-command 'ctl-z-x-map nil "Execute")
 (define-key ctl-z-map (kbd "x") 'ctl-z-x-map)
 
 ;;  ____________________________________________________________________________
