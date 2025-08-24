@@ -1327,9 +1327,51 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error))  ; default
 
 ;;  ____________________________________________________________________________
-;;; LANGUAGE SERVER (EGLOT)
+;;; EGLOT LANGUAGE SERVER
+;; <https://github.com/joaotavora/eglot/blob/master/MANUAL.md/>
 
-;; TODO Will be included here with Emacs 29 minimum compatibility
+(use-package eglot
+  :ensure nil
+  :defer t
+  :custom
+  ;; Shutdown language server after closing last file
+  (eglot-autoshutdown t)
+  ;; Allow edits without confirmation?
+  (eglot-confirm-server-initiated-edits nil)
+  ;; Show code action indicators?
+  (eglot-code-action-indications nil)
+  :bind
+  (:map eglot-mode-map
+        ("C-c c r" . eglot-rename)
+        ("C-c c f" . eglot-format)
+        ("C-c c F" . eglot-format-buffer)
+        ("C-c c a" . eglot-code-actions)
+        ("C-c c h" . eldoc)))
+
+;; Eglot comes with a fairly complete set of associations of major-modes
+;; to popular language servers predefined. If you need to add server
+;; associations to the default list, use add-to-list. For example, you can
+;; add it to the alist like this:
+;;
+;; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs
+;;                '(lua-mode . ("lua-language-server" "--stdio"))))
+;;
+;; This will invoke the program tools with the command-line argument --stdio
+;; in support of editing source files for which Emacs turns on foo-mode, and
+;; will communicate with the program via the standard streams. As usual with
+;; invoking programs, the executable file fools should be in one of the
+;; directories mentioned by the exec-path variable (see Subprocess Creation
+;; in GNU Emacs Lisp Reference Manual), for Eglot to be able to find it.
+;; Sometimes, multiple servers are acceptable alternatives for handling a
+;; given major-mode. In those cases, you may combine the helper function
+;; eglot-alternatives with the functional form of eglot-server-programs.
+;;
+;; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs
+;;                `(lua-mode . ,(eglot-alternatives
+;;                               '(("lua-language-server" "--stdio")
+;;                                 ("lua-lsp" "--stdio"))))))
 
 ;;  ____________________________________________________________________________
 ;;; COMPILING
