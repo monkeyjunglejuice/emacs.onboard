@@ -127,31 +127,6 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
             (lambda ()
               (hl-line-mode 1)))
 
-  ;; Install packages declaratively within an Emacs Lisp file.
-  ;;
-  ;; Example: You can install suggested 3rd-party packages from within this file
-  ;; with single function calls like so:
-  ;;
-  ;; (eon-package 'ensure '(the-matrix-theme))  ; installs the package
-  ;; (eon-package 'ignore '(the-matrix-theme))  ; does nothing (default)
-  ;;
-  ;; The installation will be performed when you restart Emacs or
-  ;; when you evaluate the function manually – eg. via pressing "C-M-x"
-  ;; while the cursor is placed somewhere within the function application form.
-  ;;
-  ;; DEPRECATED Will be removed when Emacs 29 becomes the minimal required
-  ;; version, because `use-package' provides that functionality and much more.
-  (defun eon-package (action package-list)
-    "Helper function to install 3rd-party packages declaratively.
-PACKAGE-LIST will be installed if \='ensure is passed as an argument to ACTION.
-When ACTION receives \='ignore, then nothing will happen."
-    (when (eq action 'ensure)
-      (mapc #'(lambda (package)
-                (unless (package-installed-p package)
-                  (package-refresh-contents)
-                  (package-install package nil)))
-            package-list))))
-
 ;;  ____________________________________________________________________________
 ;;; NATIVE ELISP COMPILATION
 
@@ -847,11 +822,10 @@ The elements of the list are regular expressions.")
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
-;; If you would like to install this 3rd-party package, change 'ignore
-;; to 'ensure and evaluate the expression – either via "C-M-x",
-;; or simply restart Emacs:
-(eon-package 'ignore '(xclip))
-(when (fboundp #'xclip-mode) (xclip-mode 1))
+;; If you would like to install this 3rd-party package, uncomment and evaluate
+;; the following expression – either via "C-M-x", or simply restart Emacs:
+;; (use-package xclip-mode
+;;  :ensure t)
 
 ;; Copy the full path of the current file
 (defun eon-copy-file-path ()
@@ -1337,7 +1311,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; There are various syntax-checkers coming with the built-in Flymake mode,
 ;; and additional checkers can be installed as 3rd-party packages via
-;; "M-x package-install <RET> flymake-" or `(eon-package 'install '(NAME))'
+;; "M-x package-install <RET> flymake-".
 
 ;; Style the Flymake widget in the modeline
 (setq flymake-mode-line-format
