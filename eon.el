@@ -125,7 +125,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   ;; Highlight current line in the package manager
   (add-hook 'package-menu-mode-hook
             (lambda ()
-              (hl-line-mode 1)))
+              (hl-line-mode 1))))
 
 ;;  ____________________________________________________________________________
 ;;; NATIVE ELISP COMPILATION
