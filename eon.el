@@ -778,11 +778,7 @@ The elements of the list are regular expressions.")
 
 ;; You can set the scratch buffer to Org-mode which is more useful
 ;; for quick notes, writing and literate programming
-;; (setq initial-major-mode #'org-mode)
-
-;; But for the sake of quick loading, we'll set the scratch buffer
-;; to `fundamental-mode' for now
-(setq initial-major-mode #'fundamental-mode)
+(setq initial-major-mode #'org-mode)
 
 ;; Should the *scratch* buffer contain some initial content?
 (setq initial-scratch-message "")
