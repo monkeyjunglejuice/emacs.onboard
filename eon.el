@@ -1328,23 +1328,18 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; EGLOT LANGUAGE SERVER
 ;; <https://github.com/joaotavora/eglot/blob/master/MANUAL.md/>
 
-(use-package eglot
-  :ensure nil
-  :defer t
-  :custom
-  ;; Shutdown language server after closing last file
-  (eglot-autoshutdown t)
+(with-eval-after-load 'eglot
+  ;; Shutdown language server after closing last file?
+  (setq eglot-autoshutdown t)
   ;; Allow edits without confirmation?
-  (eglot-confirm-server-initiated-edits nil)
+  (setq eglot-confirm-server-initiated-edits nil)
   ;; Show code action indicators?
-  (eglot-code-action-indications nil)
-  :bind
-  (:map eglot-mode-map
-        ("C-c c r" . eglot-rename)
-        ("C-c c f" . eglot-format)
-        ("C-c c F" . eglot-format-buffer)
-        ("C-c c a" . eglot-code-actions)
-        ("C-c c h" . eldoc)))
+  (setq eglot-code-action-indications nil)
+  ;; Common keybindings
+  (define-key ctl-z-c-map (kbd "r") #'eglot-rename)
+  (define-key ctl-z-c-map (kbd "f") #'eglot-format)
+  (define-key ctl-z-c-map (kbd "F") #'eglot-format-buffer)
+  (define-key ctl-z-c-map (kbd "a") #'eglot-code-actions))
 
 ;; Eglot comes with a fairly complete set of associations of major-modes
 ;; to popular language servers predefined. If you need to add server
