@@ -1528,15 +1528,17 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
 (defvar eon-lisp-buffer-modes
-  '( emacs-lisp-mode-hook lisp-interaction-mode-hook
-     lisp-mode-hook
-     scheme-mode-hook))
+  '(emacs-lisp-mode-hook
+    lisp-interaction-mode-hook
+    lisp-mode-hook
+    scheme-mode-hook))
 
 (defvar eon-lisp-interactive-modes
-  '( lisp-interaction-mode-hook ielm-mode-hook
-     inferior-lisp-mode-hook
-     inferior-scheme-mode-hook
-     eval-expression-minibuffer-setup))
+  '(lisp-interaction-mode-hook
+    ielm-mode-hook
+    inferior-lisp-mode-hook
+    inferior-scheme-mode-hook
+    eval-expression-minibuffer-setup))
 
 ;; Emacs Lisp is supported by Flymake, so let's use it per default
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
