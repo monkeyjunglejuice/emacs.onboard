@@ -1367,6 +1367,133 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;                                 ("lua-lsp" "--stdio"))))))
 
 ;;  ____________________________________________________________________________
+;;; TREE-SITTER
+
+(defvar eon-treesitter-specs
+  '((bash       "https://github.com/tree-sitter/tree-sitter-bash")
+    (c          "https://github.com/tree-sitter/tree-sitter-c")
+    (c-sharp    "https://github.com/tree-sitter/tree-sitter-c-sharp")
+    (cmake      "https://github.com/uyha/tree-sitter-cmake")
+    (cpp        "https://github.com/tree-sitter/tree-sitter-cpp")
+    (css        "https://github.com/tree-sitter/tree-sitter-css")
+    (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
+    (elixir     "https://github.com/elixir-lang/tree-sitter-elixir")
+    (go         "https://github.com/tree-sitter/tree-sitter-go")
+    (gomod      "https://github.com/camdencheek/tree-sitter-go-mod")
+    (heex       "https://github.com/phoenixframework/tree-sitter-heex")
+    (html       "https://github.com/tree-sitter/tree-sitter-html")
+    (java       "https://github.com/tree-sitter/tree-sitter-java")
+    (javascript "https://github.com/tree-sitter/tree-sitter-javascript"
+                "master" "src")
+    (json       "https://github.com/tree-sitter/tree-sitter-json")
+    (lua        "https://github.com/tree-sitter-grammars/tree-sitter-lua")
+    (php        "https://github.com/tree-sitter/tree-sitter-php"
+                nil "php/src")
+    (python     "https://github.com/tree-sitter/tree-sitter-python")
+    (ruby       "https://github.com/tree-sitter/tree-sitter-ruby")
+    (rust       "https://github.com/tree-sitter/tree-sitter-rust")
+    (toml       "https://github.com/tree-sitter/tree-sitter-toml")
+    (tsx        "https://github.com/tree-sitter/tree-sitter-typescript"
+                "master" "tsx/src")
+    (typescript "https://github.com/tree-sitter/tree-sitter-typescript"
+                "master" "typescript/src")
+    (yaml       "https://github.com/tree-sitter-grammars/tree-sitter-yaml"))
+  "Tree-sitter specs: each element is (LANG URL [REVISION] [SOURCE-DIR]).")
+
+;; Helpers
+
+(defun eon-treesitter--spec-p (x)
+  "Return non-nil if X is a spec (LANG URL [REV] [DIR])."
+  (and (consp x) (symbolp (car x)) (stringp (cadr x))))
+
+(defun eon-treesitter--list-of-specs-p (xs)
+  "Return non-nil if XS is a list of specs."
+  (and (listp xs)
+       (catch 'bad
+         (dolist (x xs t)
+           (unless (eon-treesitter--spec-p x) (throw 'bad nil))))))
+
+(defun eon-treesitter--normalize-specs (args)
+  "Accept many specs as ARGS or a single list of specs.
+Return a list of specs, or nil if ARGS is empty."
+  (cond
+   ((null args) nil)
+   ((and (= (length args) 1)
+         (listp (car args))
+         (eon-treesitter--list-of-specs-p (car args)))
+    (car args))
+   (t args)))
+
+(defun eon-treesitter--merge-into-alist (alist specs)
+  "Return ALIST with SPECS merged; later specs overwrite by LANG."
+  (let ((acc alist))
+    (dolist (spec specs acc)
+      (setq acc (cons spec (assq-delete-all (car spec) acc))))))
+
+;; Core API
+
+(defun eon-treesitter-setup-specs (&optional specs)
+  "Merge SPECS into `treesit-language-source-alist', overwriting by LANG.
+If SPECS is nil, use `eon-treesitter-specs'."
+  (setq treesit-language-source-alist
+        (eon-treesitter--merge-into-alist
+         treesit-language-source-alist
+         (or specs eon-treesitter-specs))))
+
+(with-eval-after-load 'treesit
+  (eon-treesitter-setup-specs))
+
+(defun eon-treesitter-add-specs (&rest specs)
+  "Add and merge SPECS into the registry and source alist.
+SPECS can be many specs or a single list of specs.
+Each spec is (LANG URL [REVISION] [SOURCE-DIR]).
+Return the updated `eon-treesitter-specs'."
+  (let ((xs (eon-treesitter--normalize-specs specs)))
+    (setq eon-treesitter-specs
+          (eon-treesitter--merge-into-alist eon-treesitter-specs xs))
+    (eon-treesitter-setup-specs xs)
+    eon-treesitter-specs))
+
+(defun eon-treesitter-ensure-grammar (&rest specs)
+  "Record SPECS and ensure their grammars are installed.
+SPECS can be many specs or a single list of specs.
+Each spec is (LANG URL [REVISION] [SOURCE-DIR]).
+Side effects: updates registry and source alist.
+Return an alist (LANG . STATUS) where STATUS is:
+  present    — already available
+  installed  — built during this call
+  (error . S) — failed with message S"
+  (unless (require 'treesit nil t)
+    (user-error "Tree-sitter not available in this Emacs"))
+  (let ((xs (eon-treesitter--normalize-specs specs)))
+    (when (null xs)
+      (user-error "eon-treesitter-ensure-grammar: No specs provided"))
+    (eon-treesitter-add-specs xs)
+    (let ((merged (eon-treesitter--merge-into-alist
+                   treesit-language-source-alist xs))
+          (results '()))
+      (dolist (spec xs)
+        (let ((lang (car spec)))
+          (condition-case err
+              (let ((had (treesit-language-available-p lang)))
+                (unless had
+                  (let ((treesit-language-source-alist merged))
+                    (treesit-install-language-grammar lang)))
+                (cond
+                 ((treesit-language-available-p lang)
+                  (push (cons lang (if had 'present 'installed)) results))
+                 (t
+                  (push (cons lang
+                              (cons 'error
+                                    "installed but not available"))
+                        results))))
+            (error
+             (push (cons lang
+                         (cons 'error (error-message-string err)))
+                   results)))))
+      (nreverse results))))
+
+;;  ____________________________________________________________________________
 ;;; COMPILING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Building>
 
