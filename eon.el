@@ -670,6 +670,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
       eldoc-echo-area-prefer-doc-buffer nil
       eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
 
+(define-key ctl-z-c-map (kbd "d") #'eldoc)
+
 ;;  ____________________________________________________________________________
 ;;; PINENTRY
 
