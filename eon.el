@@ -187,7 +187,7 @@ or `system-configuration' directly."
 (define-prefix-command 'ctl-z-map nil "Leader")
 (global-set-key (kbd "C-z") 'ctl-z-map)
 
-(define-prefix-command 'ctl-z-c-map nil "Common")
+(define-prefix-command 'ctl-z-c-map nil "Code")
 (define-key ctl-z-map (kbd "c") 'ctl-z-c-map)
 
 (define-prefix-command 'ctl-z-e-map nil "Emacs built-ins")
