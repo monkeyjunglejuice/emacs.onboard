@@ -1,4 +1,4 @@
-;;; eon.el --- Emacs Onboard Starter Kit -*- lexical-binding: t; no-byte-compile: t; -*-
+;;; eon.el --- Emacs Onboard Starter Kit -*- lexical-binding: t; -*-
 ;;
 ;;    ▒░▒░▒░   ▒░     ▒░ ▒░▒░▒░▒░     ▒░▒░▒░      ▒░    ▒░▒░▒░▒░    ▒░▒░▒░▒░
 ;;   ▒░    ▒░  ▒░▒░   ▒░  ▒░     ▒░  ▒░    ▒░    ▒░▒░    ▒░     ▒░   ▒░    ▒░
@@ -16,7 +16,7 @@
 ;; Copyright (C) 2021–2025 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.6.1
+;; Version: 1.6.2
 ;; Package-Requires: ((EMACS "30.1"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -111,16 +111,16 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   (require 'package)
 
   ;; 1st priority
+  ;; Gnu Elpa and Non-Gnu Elpa, which are enabled by default
+
+  ;; 2nd priority
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
 
-  ;; 2nd priority
-  ;; Install form melpa-stable' only when the package from 'melpa' is broken
+  ;; 3rd priority
+  ;; Install from melpa-stable' only when the package from 'melpa' is broken
   ;; (add-to-list 'package-archives
   ;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-
-  ;; 3rd priority
-  ;; There are also Gnu Elpa and Non-Gnu Elpa, which are enabled by default
 
   ;; Highlight current line in the package manager
   (add-hook 'package-menu-mode-hook
@@ -148,19 +148,25 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   "True if `system-type' is Linux or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
-  (string= system-type (or "gnu/linux" "berkeley-unix" "gnu" "gnu/kfreebsd")))
+  (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
 
 (defun eon-winp ()
   "True if `system-type' is Windows or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
-  (string= system-type (or "windows-nt" "cygwin" "ms-dos")))
+  (memq system-type '(windows-nt cygwin ms-dos)))
 
 (defun eon-macp ()
   "True if `system-type' is MacOS or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
-  (string= system-type "darwin"))
+  (eq system-type 'darwin))
+
+(defun eon-androidp ()
+  "True if `system-type' is Android or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (eq system-type 'android))
 
 ;; Open the '~/.emacs.d' directory in the Dired file manager
 (defun eon-visit-user-emacs-directory ()
@@ -179,8 +185,11 @@ or `system-configuration' directly."
 
 ;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c";
 ;; therefore "C-z" acts like kind of a "leader key".
-;; To avoid clashes, new keybindings introduced by Emacs Onboard will usually
+;; To avoid clashes, new keybindings introduced by Emacs ONboard will usually
 ;; begin with the prefix "C-z" (with only a few exceptions).
+;; This is unlikely to work out of the box if you are using Emacs within a
+;; terminal emulator, as terminal emulators are usually configured to suspend
+;; a running command via the C-z keybinding.
 
 (global-unset-key (kbd "C-z"))
 
@@ -224,9 +233,9 @@ or `system-configuration' directly."
 (setq mac-pass-command-to-system nil)
 
 ;; Show a help window with possible key bindings?
-(when (>= emacs-major-version 30)
+(when (fboundp #'which-key-mode)
   (setq which-key-lighter ""
-        which-key-idle-delay 1.5
+        which-key-idle-delay 0.3
         which-key-idle-secondary-delay 0.0
         which-key-sort-uppercase-first nil)
   (which-key-mode 1))
@@ -445,13 +454,13 @@ Some themes may come as functions -- wrap these ones in lambdas."
       '((border-mode-line-active bg-mode-line-active)
         (border-mode-line-inactive bg-mode-line-inactive)))
 
-;; Set your light theme:
+;; ---> Set your light theme:
 (setq eon-light-theme-name 'modus-operandi-tinted)
 
-;; Set your dark theme:
+;; ---> Set your dark theme:
 (setq eon-dark-theme-name 'modus-vivendi-tinted)
 
-;; Set your default variant here - 'light or 'dark
+;; ---> Set your default variant here - 'light or 'dark
 (setq eon-default-theme-variant 'light)
 
 ;; Set the keybinding to toggle between light and dark:
@@ -507,7 +516,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
 ;; Bring frame to the front
-(select-frame-set-input-focus (selected-frame))
+(when (display-graphic-p)
+  (select-frame-set-input-focus (selected-frame)))
 
 ;;  ____________________________________________________________________________
 ;;; CURSOR
@@ -517,7 +527,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; in the code below or do "M-x describe-symbol RET cursor-type RET"
 
 ;; Set the cursor type
-;; Comment out the following expression to change the curser into to a bar
+;; Comment out the following expression to change the cursor into to a bar
 ;; (add-to-list 'default-frame-alist '(cursor-type . bar))
 
 ;; Turn on/off cursor blinking by default? 1 means 'on' and -1 means 'off'
@@ -602,10 +612,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; than the current window width (in columns).
 (setq mode-line-compact nil)
 
-;; Show the buffer size in the modeline
+;; Show the buffer size in the modeline?
 (size-indication-mode 1)
 
-;; Show column number along with line number in modeline
+;; Show column number along with line number in modeline?
 (column-number-mode 1)
 
 ;;  ____________________________________________________________________________
@@ -640,13 +650,14 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (advice-add 'yes-or-no-p :override #'y-or-n-p))
 
 ;;  ____________________________________________________________________________
-;;; MINIBUFFER COMPLETION
+;;; COMPLETION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete>
 
 ;; There are many matching styles available, see `completion-styles-alist'
 ;; <https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html>
-;; Below is the standard combo from Emacs 29 plus `substring'
-(setq completion-styles '(basic partial-completion emacs22 substring))
+;; Below is the standard combo from Emacs 29 plus `substring' and `flex'.
+;; The order within the list determines their priority.
+(setq completion-styles '(basic partial-completion emacs22 substring flex))
 
 ;; Tweaking Icomplete
 (with-eval-after-load 'icomplete
@@ -656,8 +667,30 @@ Some themes may come as functions -- wrap these ones in lambdas."
         icomplete-show-matches-on-no-input t
         icomplete-hide-common-prefix nil))
 
-;; Vertical completion with `fido-vertical'
+;; Show only Icomplete’s in-buffer display,
+;; but don't show the "*Completions*" pop up buffer
+(advice-add 'completion-at-point
+              :after #'minibuffer-hide-completions)
+
+;; Vertical minibuffer completion with `fido-vertical'
 (fido-vertical-mode 1)
+
+;; Show docstrings for completion candidates?
+(setq completions-detailed nil)
+
+;; Preview current in-buffer completion candidate?
+(when (fboundp #'completion-preview-mode)
+  (global-completion-preview-mode 1))
+(define-key completion-preview-active-mode-map (kbd "M-n")
+            #'completion-preview-next-candidate)
+(define-key completion-preview-active-mode-map (kbd "M-p")
+            #'completion-preview-prev-candidate)
+
+;; Dabbrev
+(with-eval-after-load 'dabbrev
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode))
 
 ;;  ____________________________________________________________________________
 ;;; ELDOC
@@ -822,7 +855,7 @@ The elements of the list are regular expressions.")
 ;; --> recommended 3rd-party package 'xclip'
 ;; If you would like to install this 3rd-party package, uncomment and evaluate
 ;; the following expression – either via "C-M-x", or simply restart Emacs:
-;; (use-package xclip-mode
+;; (use-package xclip
 ;;  :ensure t)
 
 ;; Copy the full path of the current file
@@ -845,10 +878,11 @@ The elements of the list are regular expressions.")
 (global-set-key (kbd "M-y") #'eon-insert-kill-ring-item)
 
 ;; Copy & paste between Windows and Emacs running within WSL
-;; (Windows Subsysten for Linux) — which is technically a Linux, not Windows
+;; (Windows Subsystem for Linux) — which is technically a Linux, not Windows
 
 ;; Copy "kill" text from an Emacs buffer for pasting it into a Windows app
-(when (eon-linp)
+(when (and (eon-linp)
+           (file-exists-p "/mnt/c/Windows/System32/clip.exe"))
   (defun eon-wsl-copy (start end)
     "Copy selected text into the Windows clipboard."
     (interactive "r")
@@ -857,7 +891,8 @@ The elements of the list are regular expressions.")
   (define-key ctl-z-map (kbd "C-w") #'eon-wsl-copy))
 
 ;; Paste "yank" text into Emacs buffer that has been copied from a Windows app
-(when (eon-linp)
+(when (and (eon-linp)
+           (file-exists-p "/mnt/c/Windows/System32/clip.exe"))
   (defun eon-wsl-paste ()
     "Paste contents from the Windows clipboard into the Emacs buffer."
     (interactive)
@@ -873,8 +908,23 @@ The elements of the list are regular expressions.")
 ;;; BACKUP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup>
 
+;; CAUTION: This mode makes copies of the files you are editing.
+;; If you're editing files with sensitive data (e.g. on temporally mounted,
+;; encrypted devices), either disable this mode or specify the location
+;; where to save (or not to save) backup copies of these files.
+
 ;; Make backup before editing?
 (setq make-backup-files t)
+
+;; Where to save the backups?
+;; Specify file name/path patterns and directories ("REGEXP" . "DIRECTORY").
+;; Files with sensitive content can be specified (excluded) here, too.
+(setq backup-directory-alist
+      `(("." . ,(concat user-emacs-directory "backup/"))))
+
+;; Apply the same backup policy for Tramp files on their hosts
+;; like the policy for local files
+(setq tramp-backup-directory-alist backup-directory-alist)
 
 ;; Backup settings
 (setq backup-by-copying t
@@ -884,15 +934,6 @@ The elements of the list are regular expressions.")
       delete-old-versions t
       version-control t
       vc-make-backup-files t)
-
-;; Where to save the backups?
-;; Specify file name/path patterns and directories ("REGEXP" . "DIRECTORY")
-(setq backup-directory-alist
-      `(("." . ,(concat user-emacs-directory "backup/"))))
-
-;; Apply the same backup policy for Tramp files on their hosts like the
-;; policy for local files
-(setq tramp-backup-directory-alist backup-directory-alist)
 
 ;;  ____________________________________________________________________________
 ;;; LOCKFILES
@@ -905,10 +946,10 @@ The elements of the list are regular expressions.")
 ;;; AUTO-SAVE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save>
 
-;; Enable auto-save to safeguard against data loss.
+;; Enable auto-save to safeguard against data loss?
 ;; The `recover-file' or `recover-session' functions can be used
 ;; to restore auto-saved data
-(setq auto-save-default nil)
+(setq auto-save-default t)
 (setq auto-save-no-message t)
 
 ;; Do not auto-disable auto-save after deleting large chunks of text
@@ -958,7 +999,8 @@ The elements of the list are regular expressions.")
 ;; Ignore some recently visited files, eg. to prevent them from showing up
 ;; amongst recent files after package upgrades
 (add-to-list 'recentf-exclude
-             (expand-file-name (concat user-emacs-directory "elpa/"))
+             (expand-file-name (concat user-emacs-directory "elpa/")))
+(add-to-list 'recentf-exclude
              "^/\\(?:ssh\\|su\\|sudo\\)?:")
 
 ;; Use 'completing-read' to choose between recent files
@@ -978,7 +1020,7 @@ The elements of the list are regular expressions.")
 
 ;; Switch to wdired-mode and edit directory content like a text buffer
 (with-eval-after-load 'dired
-  (define-key dired-mode-map (kbd "e") #'dired-toggle-read-only))
+  (define-key dired-mode-map (kbd "e") #'wdired-change-to-wdired-mode))
 
 ;; Don't accumulate useless Dired buffers
 (setq dired-kill-when-opening-new-dired-buffer t)
@@ -1048,10 +1090,11 @@ The elements of the list are regular expressions.")
 (setq find-file-visit-truename t
       vc-follow-symlinks t)
 
-;; Auto refresh dired (and others) when contents change
+;; Auto refresh dired (and others) when contents change?
 (setq global-auto-revert-non-file-buffers t
       auto-revert-stop-on-user-input nil
       auto-revert-verbose t)
+(global-auto-revert-mode 1)
 
 ;; Configure Ediff to use a single frame and split windows horizontally
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
@@ -1073,11 +1116,11 @@ The elements of the list are regular expressions.")
 ;; that runs within Emacs. It is independent from the OS. Eshell looks like
 ;; a Posix shell superficially, but is also a REPL for Emacs Lisp expressions.
 
-;; Get rid of the Eshell startup message
+;; Get rid of the Eshell startup message?
 (setq eshell-banner-message "")
 
-;; List directory content after changing into it
-(setq  eshell-list-files-after-cd t)
+;; List directory content after changing into it?
+(setq eshell-list-files-after-cd t)
 
 ;; To open more than one eshell buffer: "C-u C-z e e"
 (define-key ctl-z-e-map (kbd "e") #'eshell)
@@ -1612,7 +1655,7 @@ Return an alist (LANG . STATUS) where STATUS is:
 ;;; ORG PUBLISH
 
 ;; Select a project to publish a project via `C-z o p';
-;; This can be used to enerate and publish a static blog, ebooks, etc.
+;; This can be used to generate and publish a static blog, ebooks, etc.
 (define-key ctl-z-o-map (kbd "p") 'org-publish)
 
 ;; Speed up publishing by skipping files that haven't been changed
@@ -1623,7 +1666,7 @@ Return an alist (LANG . STATUS) where STATUS is:
       (concat user-emacs-directory "org-timestamps/"))
 
 (defun org-publish-unchanged-files-toggle ()
-  "Toggle wether to re-export Org files that haven't been changed."
+  "Toggle whether to re-export Org files that haven't been changed."
   (interactive)
   (if org-publish-use-timestamps-flag
       (progn (setq org-publish-use-timestamps-flag nil)
@@ -1665,7 +1708,7 @@ Return an alist (LANG . STATUS) where STATUS is:
     ielm-mode-hook
     inferior-lisp-mode-hook
     inferior-scheme-mode-hook
-    eval-expression-minibuffer-setup))
+    eval-expression-minibuffer-setup-hook))
 
 ;; Emacs Lisp is supported by Flymake, so let's use it per default
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
