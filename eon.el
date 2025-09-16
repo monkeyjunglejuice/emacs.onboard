@@ -542,9 +542,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setq visible-cursor nil)
 
-;; Keep cursor outside of any cursor-intangible text property
-(cursor-intangible-mode 1)
-
 ;; Make sure to highlight the current line only in the active window.
 (setq hl-line-sticky-flag nil)
 (add-hook 'special-mode-hook
@@ -621,6 +618,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;  ____________________________________________________________________________
 ;;; MINIBUFFER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer>
+
+;; Keep cursor outside of any ‘cursor-intangible’ text property
+(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
 ;; Recursive minibuffers
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Recursive-Edit>
