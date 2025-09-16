@@ -655,26 +655,16 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; There are many matching styles available, see `completion-styles-alist'
 ;; <https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html>
-;; Below is the standard combo from Emacs 29 plus `substring' and `flex'.
 ;; The order within the list determines their priority.
-(setq completion-styles '(basic partial-completion emacs22 substring flex))
+(setq completion-styles '(basic substring initials flex partial-completion))
+(setq completion-category-defaults nil)
+(setq completion-category-overrides
+      '((file (styles . (basic partial-completion initials substring)))))
 
-;; Tweaking Icomplete
-(with-eval-after-load 'icomplete
-  (setq icomplete-in-buffer t
-        icomplete-compute-delay 0.01
-        icomplete-delay-completions-threshold 5000
-        icomplete-show-matches-on-no-input t
-        icomplete-hide-common-prefix nil))
-
-;; Show only Icomplete’s in-buffer display,
-;; but don't show the "*Completions*" pop up buffer
-(advice-add 'completion-at-point
-              :after #'minibuffer-hide-completions)
-
-;; Vertical minibuffer completion with `fido-vertical'
-(fido-vertical-mode 1)
-
+;; Prevent *Completions* buffer from popping up?
+(setq completion-auto-help nil)
+;; Cycle completion candidates instead
+(setq completion-cycle-threshold t)
 ;; Show docstrings for completion candidates?
 (setq completions-detailed nil)
 
@@ -685,6 +675,20 @@ Some themes may come as functions -- wrap these ones in lambdas."
             #'completion-preview-next-candidate)
 (define-key completion-preview-active-mode-map (kbd "M-p")
             #'completion-preview-prev-candidate)
+
+;; Tweaking Icomplete
+(with-eval-after-load 'icomplete
+  (setq icomplete-in-buffer t
+        icomplete-compute-delay 0
+        icomplete-delay-completions-threshold 100
+        icomplete-show-matches-on-no-input t
+        icomplete-hide-common-prefix nil)
+  ;; TAB accepts the current candidate in Fido minibuffers
+  (define-key icomplete-minibuffer-map (kbd "TAB") #'icomplete-force-complete)
+  (define-key icomplete-minibuffer-map (kbd "<tab>") #'icomplete-force-complete))
+
+;; Vertical minibuffer completion with `fido-vertical'
+(fido-vertical-mode 1)
 
 ;; Dabbrev
 (with-eval-after-load 'dabbrev
