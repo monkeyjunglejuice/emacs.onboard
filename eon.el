@@ -16,7 +16,7 @@
 ;; Copyright (C) 2021–2025 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.6.2
+;; Version: 1.6.3
 ;; Package-Requires: ((EMACS "30.1"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -1416,6 +1416,11 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;  ____________________________________________________________________________
 ;;; TREE-SITTER
 
+;; Define grammar specs for ts-modes already built into Emacs.
+;; Grammars can be built and installed via:
+;; - `eon-treesitter-ensure-grammar' (declarative)
+;; - `treesit-install-language-grammar' (interactive, single grammar)
+;; - `eon-treesitter-install-all' (interactive, all grammars)
 (defvar eon-treesitter-specs
   '((bash       "https://github.com/tree-sitter/tree-sitter-bash")
     (c          "https://github.com/tree-sitter/tree-sitter-c")
@@ -1445,39 +1450,129 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
     (typescript "https://github.com/tree-sitter/tree-sitter-typescript"
                 "master" "typescript/src")
     (yaml       "https://github.com/tree-sitter-grammars/tree-sitter-yaml"))
-  "Tree-sitter specs: each element is (LANG URL [REVISION] [SOURCE-DIR]).")
+  "Tree-sitter grammar specs: list of (LANG URL [REVISION] [SOURCE-DIR]).
+Add further specs without building/installing via `eon-treesitter-add-specs'
 
-;; Helpers
+Only LANG and URL are mandatory.
+
+LANG is the language symbol.
+
+URL is the URL of the grammar’s Git repository or a directory
+where the repository has been cloned.
+
+REVISION is the Git tag or branch of the desired version,
+defaulting to the latest default branch.
+
+SOURCE-DIR is the relative subdirectory in the repository in which
+the grammar’s parser.c file resides, defaulting to \"src\".")
+
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;; Internal utilities
 
 (defun eon-treesitter--spec-p (x)
-  "Return non-nil if X is a spec (LANG URL [REV] [DIR])."
-  (and (consp x) (symbolp (car x)) (stringp (cadr x))))
+  "Return non-nil if X is a spec tuple (LANG URL [REV] [DIR])."
+  (pcase x
+    (`(,(and _ (pred symbolp)) ,(and _ (pred stringp)) . ,_) t)
+    (_ nil)))
 
-(defun eon-treesitter--list-of-specs-p (xs)
-  "Return non-nil if XS is a list of specs."
-  (and (listp xs)
-       (catch 'bad
-         (dolist (x xs t)
-           (unless (eon-treesitter--spec-p x) (throw 'bad nil))))))
-
-(defun eon-treesitter--normalize-specs (args)
-  "Accept many specs as ARGS or a single list of specs.
-Return a list of specs, or nil if ARGS is empty."
-  (cond
-   ((null args) nil)
-   ((and (= (length args) 1)
-         (listp (car args))
-         (eon-treesitter--list-of-specs-p (car args)))
-    (car args))
-   (t args)))
+(defun eon-treesitter--normalize-args (args)
+  "Normalize ARGS into a flat list of elements (symbols or spec tuples).
+Accepted forms:
+  - Many args: symbols and/or spec tuples -> returned as-is (copy).
+  - Single list arg:
+      - If it's a single SPEC tuple, wrap it as a one-element list.
+      - If it's a list of symbols/specs (or a mix), return that list.
+  - Single non-list arg: wrap as one-element list."
+  (pcase args
+    ('() nil)
+    (`(,(and x (pred eon-treesitter--spec-p))) (list x)) ; single spec
+    (`(,(and x (pred listp))) (copy-sequence x))         ; list of elems
+    (`(,x) (list x))                                     ; single atom
+    (_ (copy-sequence args))))                           ; many args
 
 (defun eon-treesitter--merge-into-alist (alist specs)
-  "Return ALIST with SPECS merged; later specs overwrite by LANG."
-  (let ((acc alist))
-    (dolist (spec specs acc)
-      (setq acc (cons spec (assq-delete-all (car spec) acc))))))
+  "Return ALIST with SPECS merged; later entries overwrite by LANG."
+  (if (null specs)
+      alist
+    (let ((kill (let ((h (make-hash-table :test 'eq)))
+                  (dolist (s specs) (puthash (car s) t h))
+                  h)))
+      (append
+       (cl-remove-if (lambda (pair) (gethash (car pair) kill)) alist)
+       specs))))
 
-;; Core API
+(defun eon-treesitter--dedupe-specs (specs)
+  "Remove duplicate LANG specs in SPECS, keeping the last occurrence."
+  (let ((seen-langs (make-hash-table :test 'eq))
+        (result '()))
+    (dolist (spec (reverse specs))       ; right-to-left, keep last
+      (let ((lang (car spec)))
+        (unless (gethash lang seen-langs)
+          (puthash lang t seen-langs)
+          (push spec result))))
+    result))
+
+(defconst eon-treesitter--missing-spec-error
+  "Treesitter-spec not available per default.
+Provide full treesitter-spec as a list of (LANG URL [REVISION] [SOURCE-DIR])"
+  "Error message when a default spec is unavailable.")
+
+;; (defun eon-treesitter--resolve-one (x)
+;;   "Resolve X to a spec tuple.
+;; X may be a spec tuple or a symbol LANG present in `eon-treesitter-specs`.
+;; Errors with the mandated message for unknown LANGs or invalid elements."
+;;   (cond
+;;    ((eon-treesitter--spec-p x) x)
+;;    ((and (symbolp x) (not (keywordp x)))
+;;     (or (assq x eon-treesitter-specs)
+;;         (user-error "%s" eon-treesitter--missing-spec-error)))
+;;    ((keywordp x)
+;;     (user-error
+;;      "eon-treesitter-ensure-grammar: Only specs or language symbols accepted"))
+;;    (t
+;;     (user-error
+;;      "eon-treesitter-ensure-grammar: Invalid element %S (expect (LANG URL \
+;; [REV] [DIR]) or a language symbol)" x))))
+
+;; (defun eon-treesitter--resolve-elements (xs)
+;;   "Resolve a list XS of symbols/spec-tuples into a list of spec tuples.
+;; Errors if any LANG symbol is not registered by default."
+;;   (mapcar #'eon-treesitter--resolve-one xs))
+
+(defun eon-treesitter--resolve-one (lang-or-spec)
+  "Resolve LANG-OR-SPEC to the canonical spec tuple (list (LANG URL [REV] [DIR]))
+from `eon-treesitter-specs` when given a LANG symbol; pass tuples through
+unchanged. Signal a user-error if LANG is unknown."
+  (cond
+   ((eon-treesitter--spec-p lang-or-spec) lang-or-spec)
+   ((and (symbolp lang-or-spec) (not (keywordp lang-or-spec)))
+    (or (assq lang-or-spec eon-treesitter-specs)
+        (user-error "%s" eon-treesitter--missing-spec-error)))
+   ((keywordp lang-or-spec)
+    (user-error
+     "eon-treesitter-ensure-grammar: Only specs or language symbols accepted"))
+   (t
+    (user-error
+     "eon-treesitter-ensure-grammar: Invalid element %S (expect (LANG URL \
+[REV] [DIR]) or a language symbol)" lang-or-spec))))
+
+(defun eon-treesitter--resolve-elements (langs-or-specs)
+  "Resolve LANGS-OR-SPECS to a list of canonical spec tuples.
+Each element may be a spec tuple or a LANG symbol registered in
+`eon-treesitter-specs`.  Signal a user-error if any LANG is unknown."
+  (mapcar #'eon-treesitter--resolve-one langs-or-specs))
+
+(defun eon-treesitter--require-toolchain ()
+  "Fail fast with helpful messages if toolchain is missing."
+  (unless (require 'treesit nil t)
+    (user-error
+     "Tree-sitter not available in this Emacs (feature `treesit' missing)"))
+  (unless (executable-find "git")
+    (user-error "tree-sitter: `git` not found on PATH"))
+  (unless (or (executable-find "cc")
+              (executable-find "gcc")
+              (executable-find "clang"))
+    (user-error "tree-sitter: No C compiler found (cc/gcc/clang)")))
 
 (defun eon-treesitter-setup-specs (&optional specs)
   "Merge SPECS into `treesit-language-source-alist', overwriting by LANG.
@@ -1490,55 +1585,118 @@ If SPECS is nil, use `eon-treesitter-specs'."
 (with-eval-after-load 'treesit
   (eon-treesitter-setup-specs))
 
-(defun eon-treesitter-add-specs (&rest specs)
-  "Add and merge SPECS into the registry and source alist.
-SPECS can be many specs or a single list of specs.
-Each spec is (LANG URL [REVISION] [SOURCE-DIR]).
-Return the updated `eon-treesitter-specs'."
-  (let ((xs (eon-treesitter--normalize-specs specs)))
-    (setq eon-treesitter-specs
-          (eon-treesitter--merge-into-alist eon-treesitter-specs xs))
-    (eon-treesitter-setup-specs xs)
-    eon-treesitter-specs))
+(defun eon-treesitter--ensure-impl (specs reinstall)
+  "Core installer for SPECS. If REINSTALL is non-nil, rebuild even if present.
+Return an alist of (LANG . STATUS)."
+  (eon-treesitter--require-toolchain)
+  (pcase-let*
+      ((resolved (eon-treesitter--resolve-elements specs))
+       (to-merge
+        (seq-filter
+         (lambda (spec)
+           (let ((existing (assq (car spec) eon-treesitter-specs)))
+             (not (equal spec existing))))
+         resolved)))
+    ;; Persist any changed specs first (if any)
+    (when to-merge
+      (apply #'eon-treesitter-add-specs to-merge))
+    ;; Ensure source alist is up to date
+    (eon-treesitter-setup-specs)
+    ;; Perform installation per language (preserve order)
+    (mapcar
+     (lambda (spec)
+       (let ((lang (car spec)))
+         (condition-case err
+             (let* ((had   (treesit-language-available-p lang))
+                    (needs (or reinstall (not had))))
+               (when needs
+                 (let ((default-directory (expand-file-name "~")))
+                   (treesit-install-language-grammar lang)))
+               (cons
+                lang
+                (if (treesit-language-available-p lang)
+                    (if had 'present 'installed)
+                  (cons 'error
+                        (format
+                         "Installed but not available; check \
+`treesit-extra-load-path' (currently: %S)"
+                         treesit-extra-load-path)))))
+           (error
+            (cons lang (cons 'error (error-message-string err)))))))
+     (eon-treesitter--dedupe-specs resolved))))
 
-(defun eon-treesitter-ensure-grammar (&rest specs)
-  "Record SPECS and ensure their grammars are installed.
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;; Public API
+
+(defun eon-treesitter-add-specs (&rest specs)
+  "Add SPECS to `eon-treesitter-specs' and merge them into the source alist.
+Use this only if you merely want to register SPECS, but not build/install
+them.
+
 SPECS can be many specs or a single list of specs.
-Each spec is (LANG URL [REVISION] [SOURCE-DIR]).
-Side effects: updates registry and source alist.
-Return an alist (LANG . STATUS) where STATUS is:
-  present    — already available
-  installed  — built during this call
-  (error . S) — failed with message S"
-  (unless (require 'treesit nil t)
-    (user-error "Tree-sitter not available in this Emacs"))
-  (let ((xs (eon-treesitter--normalize-specs specs)))
-    (when (null xs)
+
+Each spec has the form (LANG URL [REVISION] [SOURCE-DIR]).
+
+Only LANG and URL are mandatory.
+
+LANG is the language symbol.
+
+URL is the URL of the grammar’s Git repository or a directory where the
+repository has been cloned.
+
+REVISION is the Git tag or branch of the desired version, defaulting to
+the latest default branch.
+
+SOURCE-DIR is the relative subdirectory in the repository in which the
+grammar’s parser.c file resides, defaulting to \"src\".
+
+Return the updated `eon-treesitter-specs'."
+  (let* ((xs0 (eon-treesitter--normalize-args specs))
+         (bad (seq-find (lambda (x)
+                          (not (eon-treesitter--spec-p x)))
+                        xs0)))
+    (when bad
+      (user-error "eon-treesitter-add-specs: Not a spec: %S" bad))
+    (let ((xs (eon-treesitter--dedupe-specs xs0)))
+      ;; Merge into registry (new specs take precedence)
+      (setq eon-treesitter-specs
+            (eon-treesitter--merge-into-alist eon-treesitter-specs xs))
+      ;; Reflect into treesit-language-source-alist
+      (eon-treesitter-setup-specs xs)
+      eon-treesitter-specs)))
+
+(defun eon-treesitter-ensure-grammar (&rest args)
+  "Ensure that grammar(s) for ARGS are built and installed.
+
+ARGS may be:
+  - Spec tuples: (LANG URL [REVISION] [SOURCE-DIR])
+  - Bare LANG symbols as identifiers for specs in `eon-treesitter-specs'
+  - A single list containing either of the above forms
+
+Rules:
+  - If called with a SPEC tuple whose LANG already exists
+    in `eon-treesitter-specs', the existing entry is compared for exact
+    equality. If different, the new SPEC is added and takes precedence.
+  - If called with bare LANG symbols, they must already exist
+    in `eon-treesitter-specs', otherwise signal an error.
+
+Returns an alist of (LANG . STATUS) where STATUS is one of:
+  present | installed | (error . STRING)."
+  (let ((elems (eon-treesitter--normalize-args args)))
+    (when (null elems)
       (user-error "eon-treesitter-ensure-grammar: No specs provided"))
-    (eon-treesitter-add-specs xs)
-    (let ((merged (eon-treesitter--merge-into-alist
-                   treesit-language-source-alist xs))
-          (results '()))
-      (dolist (spec xs)
-        (let ((lang (car spec)))
-          (condition-case err
-              (let ((had (treesit-language-available-p lang)))
-                (unless had
-                  (let ((treesit-language-source-alist merged))
-                    (treesit-install-language-grammar lang)))
-                (cond
-                 ((treesit-language-available-p lang)
-                  (push (cons lang (if had 'present 'installed)) results))
-                 (t
-                  (push (cons lang
-                              (cons 'error
-                                    "installed but not available"))
-                        results))))
-            (error
-             (push (cons lang
-                         (cons 'error (error-message-string err)))
-                   results)))))
-      (nreverse results))))
+    (eon-treesitter--ensure-impl elems nil)))
+
+(cl-defun eon-treesitter-install-all (&key reinstall)
+  "Install all grammars in `eon-treesitter-specs'.
+
+Accepts keyword arg :REINSTALL (non-nil to rebuild grammar even if present).
+
+When called interactively with a prefix argument, acts like :reinstall t.
+
+Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
+  (interactive (list :reinstall current-prefix-arg))
+  (eon-treesitter--ensure-impl eon-treesitter-specs (and reinstall t)))
 
 ;;  ____________________________________________________________________________
 ;;; COMPILING
