@@ -1515,28 +1515,6 @@ Accepted forms:
 Provide full treesitter-spec as a list of (LANG URL [REVISION] [SOURCE-DIR])"
   "Error message when a default spec is unavailable.")
 
-;; (defun eon-treesitter--resolve-one (x)
-;;   "Resolve X to a spec tuple.
-;; X may be a spec tuple or a symbol LANG present in `eon-treesitter-specs`.
-;; Errors with the mandated message for unknown LANGs or invalid elements."
-;;   (cond
-;;    ((eon-treesitter--spec-p x) x)
-;;    ((and (symbolp x) (not (keywordp x)))
-;;     (or (assq x eon-treesitter-specs)
-;;         (user-error "%s" eon-treesitter--missing-spec-error)))
-;;    ((keywordp x)
-;;     (user-error
-;;      "eon-treesitter-ensure-grammar: Only specs or language symbols accepted"))
-;;    (t
-;;     (user-error
-;;      "eon-treesitter-ensure-grammar: Invalid element %S (expect (LANG URL \
-;; [REV] [DIR]) or a language symbol)" x))))
-
-;; (defun eon-treesitter--resolve-elements (xs)
-;;   "Resolve a list XS of symbols/spec-tuples into a list of spec tuples.
-;; Errors if any LANG symbol is not registered by default."
-;;   (mapcar #'eon-treesitter--resolve-one xs))
-
 (defun eon-treesitter--resolve-one (lang-or-spec)
   "Resolve LANG-OR-SPEC to the canonical spec tuple (list (LANG URL [REV] [DIR]))
 from `eon-treesitter-specs` when given a LANG symbol; pass tuples through
