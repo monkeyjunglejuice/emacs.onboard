@@ -18,6 +18,7 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 
 Some features ...
 
+- Tree-sitter: handle language grammars and build/install them declaratively
 - Vertical completion for commands, files, etc. in the minibuffer.
 - Toggle between your light/dark theme via =F12=; you can also run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the theme.
 - Smooth, pixel-based scrolling (Emacs doesn't do that by default).
