@@ -437,7 +437,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (cond
    ((equal eon-default-theme-variant 'light) (eon-load-theme-light))
    ((equal eon-default-theme-variant 'dark) (eon-load-theme-dark))
-   (t (message
+   (t (error
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
