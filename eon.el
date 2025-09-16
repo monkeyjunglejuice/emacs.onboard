@@ -223,14 +223,14 @@ or `system-configuration' directly."
 ;;  ____________________________________________________________________________
 ;;; KEYBINDINGS
 
-;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
-(setq mac-command-modifier 'control)
-
-;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
-(setq mac-option-modifier 'meta)
-
-;; Don't bypass "C-h ..." keybindings
-(setq mac-pass-command-to-system nil)
+(when (eq system-type 'darwin)
+  (setq
+   ;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
+   mac-command-modifier 'control
+   ;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
+   mac-option-modifier 'meta
+   ;; Don't bypass "C-h ..." keybindings
+   mac-pass-command-to-system nil))
 
 ;; Show a help window with possible key bindings?
 (when (fboundp #'which-key-mode)
