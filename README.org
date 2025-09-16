@@ -27,7 +27,6 @@ Some features ...
 - More room for your own keybindings: use =C-z ...= as additional prefix key.
 - Garbage Collector tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
 - Package manager is pre-configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
-- Install Emacs packages declaratively =(eon-package 'install '(the-matrix-theme))=.
 - Makes it easy to set the fonts you like -- all options at one place.
 - The Emacs file-manager Dired doesn't accumulate used buffers any more.
 - Dired uses the system trash instead of deleting files right away.
