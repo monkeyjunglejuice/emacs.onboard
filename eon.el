@@ -597,8 +597,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
       hscroll-step 1)
 
 ;; Enable pixel-based scrolling
-(if (fboundp #'pixel-scroll-precision-mode)
-    (pixel-scroll-precision-mode 1))
+(when (fboundp #'pixel-scroll-precision-mode)
+  (pixel-scroll-precision-mode 1))
 
 ;;  ____________________________________________________________________________
 ;;; MODELINE
