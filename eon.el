@@ -454,13 +454,13 @@ Some themes may come as functions -- wrap these ones in lambdas."
       '((border-mode-line-active bg-mode-line-active)
         (border-mode-line-inactive bg-mode-line-inactive)))
 
-;; ---> Set your light theme:
+;; --> Set your light theme:
 (setq eon-light-theme-name 'modus-operandi-tinted)
 
-;; ---> Set your dark theme:
+;; --> Set your dark theme:
 (setq eon-dark-theme-name 'modus-vivendi-tinted)
 
-;; ---> Set your default variant here - 'light or 'dark
+;; --> Set your default variant here - 'light or 'dark
 (setq eon-default-theme-variant 'light)
 
 ;; Set the keybinding to toggle between light and dark:
@@ -527,7 +527,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; in the code below or do "M-x describe-symbol RET cursor-type RET"
 
 ;; Set the cursor type
-;; Comment out the following expression to change the cursor into to a bar
+;; Comment out the following expression to change the cursor into a bar
 ;; (add-to-list 'default-frame-alist '(cursor-type . bar))
 
 ;; Turn on/off cursor blinking by default? 1 means 'on' and -1 means 'off'
@@ -809,9 +809,9 @@ The elements of the list are regular expressions.")
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction>
 ;; (setq initial-major-mode #'lisp-interaction-mode)
 
-;; You can set the scratch buffer to Org-mode which is more useful
+;; You can set the scratch buffer to Org-mode which may be more useful
 ;; for quick notes, writing and literate programming
-(setq initial-major-mode #'org-mode)
+;; (setq initial-major-mode #'org-mode)
 
 ;; Should the *scratch* buffer contain some initial content?
 (setq initial-scratch-message "")
@@ -1083,10 +1083,10 @@ The elements of the list are regular expressions.")
 
 (eon-trash-on)  ; set the default
 
-;; Use the system trash when deleting files
+;; Use the system trash when deleting files?
 (setq remote-file-name-inhibit-delete-by-moving-to-trash t)
 
-;; Resolve symlinks so that operations are conducted from the file's directory
+;; Resolve symlinks so that operations are conducted from the file's directory?
 (setq find-file-visit-truename t
       vc-follow-symlinks t)
 
