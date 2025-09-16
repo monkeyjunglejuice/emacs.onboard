@@ -358,14 +358,12 @@ or `system-configuration' directly."
   "Toggle between light and dark theme with a single key press."
   :group 'convenience)
 
-(defcustom eon-light-theme-name
-  (setq eon-light-theme-name 'modus-operandi)
+(defcustom eon-light-theme-name 'modus-operandi
   "Name of the light theme."
   :group 'eon-toggle-theme
   :type 'symbol)
 
-(defcustom eon-dark-theme-name
-  (setq eon-dark-theme-name 'modus-vivendi)
+(defcustom eon-dark-theme-name 'modus-vivendi
   "Name of the dark theme."
   :group 'eon-toggle-theme
   :type 'symbol)
