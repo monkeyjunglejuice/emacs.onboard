@@ -16,7 +16,7 @@
 ;; Copyright (C) 2021–2025 Dan Dee
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.7.0
+;; Version: 1.7.1
 ;; Package-Requires: ((EMACS "30.1"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: MIT
@@ -167,6 +167,27 @@ or `system-configuration' directly."
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'android))
+
+;; Extend `add-to-list' for practical reasons
+(defun eon-add-to-list (list-sym elements &optional append compare-fn)
+  "Like `add-to-list', but ELEMENTS may be a list of items.
+
+LIST-SYM is a quoted variable symbol, just like in `add-to-list'.
+If ELEMENTS is not a list, treat it as a single element.
+
+APPEND and COMPARE-FN are passed through to `add-to-list'.
+Return the new value of LIST-SYM.
+
+Order semantics match `add-to-list':
+- When APPEND is nil (default), new items are *prepended* and the
+  relative order of ELEMENTS is preserved (x y z → x then y then z).
+- When APPEND is non-nil, new items are appended at the end, in order."
+  (let* ((xs (if (listp elements) elements (list elements)))
+         ;; To preserve left-to-right order when prepending, we must
+         ;; feed items to `add-to-list' in reverse (since it conses).
+         (feed (if append xs (reverse xs))))
+    (dolist (elt feed (symbol-value list-sym))
+      (add-to-list list-sym elt append compare-fn))))
 
 ;; Open the '~/.emacs.d' directory in the Dired file manager
 (defun eon-visit-user-emacs-directory ()
@@ -1835,18 +1856,42 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; LISP LANGUAGES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
-(defvar eon-lisp-buffer-modes
-  '(emacs-lisp-mode-hook
-    lisp-interaction-mode-hook
-    lisp-mode-hook
-    scheme-mode-hook))
+(defvar eon-lisp-src-modes-registry
+  '(common-lisp-mode
+    emacs-lisp-mode
+    lisp-mode
+    lisp-data-mode
+    scheme-mode)
+  "Registry of Lisp-related source modes.")
 
-(defvar eon-lisp-interactive-modes
-  '(lisp-interaction-mode-hook
-    ielm-mode-hook
-    inferior-lisp-mode-hook
-    inferior-scheme-mode-hook
-    eval-expression-minibuffer-setup-hook))
+(defvar eon-lisp-repl-modes-registry
+  '(eshell-mode
+    inferior-emacs-lisp-mode
+    inferior-lisp-mode
+    inferior-scheme-mode
+    lisp-interaction-mode)
+  "Registry of Lisp-related REPL modes.")
+
+(defun eon-lisp--modes-transform (modes switch)
+  "Transform MODES according to SWITCH.
+- 'hook returns corresponding -hook symbols"
+  (pcase switch
+    ('hook (mapcar (lambda (m) (intern (format "%s-hook" m))) modes))
+    (_ modes)))
+
+(defun eon-lisp-src-modes (&optional switch)
+  "Return installed Lisp-related source modes from the registry.
+With SWITCH = 'hook, return -hook variables."
+  (eon-lisp--modes-transform
+   (seq-filter #'fboundp eon-lisp-src-modes-registry)
+   switch))
+
+(defun eon-lisp-repl-modes (&optional switch)
+  "Return installed Lisp-related REPL modes from the registry.
+With SWITCH = 'hook, return -hook variables."
+  (eon-lisp--modes-transform
+   (seq-filter #'fboundp eon-lisp-repl-modes-registry)
+   switch))
 
 ;; Emacs Lisp is supported by Flymake, so let's use it per default
 (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
