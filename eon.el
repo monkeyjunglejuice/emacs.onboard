@@ -1842,7 +1842,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
       org-html-self-link-headlines t)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Literate Programming
+;;; LITERATE PROGRAMMING
 ;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
 ;; Activate code blocks via Babel languages
