@@ -136,6 +136,9 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; Natively compile packages at first use or immediately after installation?
 (setq package-native-compile t)
 
+;; Native-compile .elc files asynchronously?
+(setq native-comp-jit-compilation t)
+
 ;; Ask whether to terminate asynchronous compilations on exit?
 (setq native-comp-async-query-on-exit t)
 
