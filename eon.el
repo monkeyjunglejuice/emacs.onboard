@@ -474,13 +474,13 @@ Some themes may come as functions -- wrap these ones in lambdas."
         (border-mode-line-inactive bg-mode-line-inactive)))
 
 ;; --> Set your light theme:
-(setq eon-light-theme-name 'modus-operandi-tinted)
+;; (setq eon-light-theme-name 'modus-operandi-tinted)
 
 ;; --> Set your dark theme:
-(setq eon-dark-theme-name 'modus-vivendi-tinted)
+;; (setq eon-dark-theme-name 'modus-vivendi-tinted)
 
 ;; --> Set your default variant here - 'light or 'dark
-(setq eon-default-theme-variant 'light)
+;; (setq eon-default-theme-variant 'light)
 
 ;; Set the keybinding to toggle between light and dark:
 (global-set-key (kbd "<f12>") #'eon-toggle-theme)
