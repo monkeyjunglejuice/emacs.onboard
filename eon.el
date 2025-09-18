@@ -244,7 +244,7 @@ Order semantics match `add-to-list':
 ;;  ____________________________________________________________________________
 ;;; KEYBINDINGS
 
-(when (eq system-type 'darwin)
+(when (eon-macp)
   (setq
    ;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
    mac-command-modifier 'control
