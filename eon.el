@@ -1856,6 +1856,20 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; LISP LANGUAGES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
+;; Emacs Lisp is supported by Flymake, so let's use it per default
+(add-hook 'emacs-lisp-mode-hook #'flymake-mode)
+(add-hook 'lisp-interaction-mode-hook (lambda () (flymake-mode -1)))
+
+;; Emacs Lisp evaluation: don't truncate printed lists
+(setq eval-expression-print-length nil
+      eval-expression-print-level nil)
+
+;; Additional keybinding resembling other sexp-related keybindings
+(global-set-key (kbd "C-M-<backspace>") #'backward-kill-sexp)
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; HELPERS
+
 (defvar eon-lisp-src-modes-registry
   '(common-lisp-mode
     emacs-lisp-mode
@@ -1892,17 +1906,6 @@ With SWITCH = 'hook, return -hook variables."
   (eon-lisp--modes-transform
    (seq-filter #'fboundp eon-lisp-repl-modes-registry)
    switch))
-
-;; Emacs Lisp is supported by Flymake, so let's use it per default
-(add-hook 'emacs-lisp-mode-hook #'flymake-mode)
-(add-hook 'lisp-interaction-mode-hook (lambda () (flymake-mode -1)))
-
-;; Emacs Lisp evaluation: don't truncate printed lists
-(setq eval-expression-print-length nil
-      eval-expression-print-level nil)
-
-;; Additional keybinding resembling other sexp-related keybindings
-(global-set-key (kbd "C-M-<backspace>") #'backward-kill-sexp)
 
 ;;  ____________________________________________________________________________
 (provide 'eon)
