@@ -331,7 +331,7 @@ When called interactively, also echo the result."
     (kill-emacs)))
 
 ;; Start the server?
-;; (server-start)
+(server-start)
 
 ;;  ____________________________________________________________________________
 ;;; FONTS
