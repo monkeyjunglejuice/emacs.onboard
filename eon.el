@@ -204,6 +204,20 @@ Order semantics match `add-to-list':
   (interactive)
   (find-file user-init-file))
 
+;; Get all the parent major modes
+(defun eon-get-parent-modes ()
+  "Return major-mode and its parents (child first).
+When called interactively, also echo the result."
+  (interactive)
+  (cl-labels ((collect (mode)
+                (if-let ((p (get mode 'derived-mode-parent)))
+                    (cons mode (collect p))
+                  (list mode))))
+    (let ((parents (collect major-mode)))
+      (if (called-interactively-p 'interactive)
+          (message "%S" parents)
+        parents))))
+
 ;;  ____________________________________________________________________________
 ;;; KEYMAPS
 
