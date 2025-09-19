@@ -128,7 +128,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
               (hl-line-mode 1))))
 
 ;;  ____________________________________________________________________________
-;;; NATIVE ELISP COMPILATION
+;;; ELISP NATIVE COMPILATION / BYTECODE
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
 (setq load-prefer-newer t)
