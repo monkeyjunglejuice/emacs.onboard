@@ -252,6 +252,9 @@ When called interactively, also echo the result."
 (define-prefix-command 'ctl-z-s-map nil "Scratch buffers")
 (define-key ctl-z-map (kbd "s") 'ctl-z-s-map)
 
+(define-prefix-command 'ctl-z-t-map nil "Tabs")
+(define-key ctl-z-map (kbd "t") 'ctl-z-t-map)
+
 (define-prefix-command 'ctl-z-w-map nil "Web")
 (define-key ctl-z-map (kbd "w") 'ctl-z-w-map)
 
