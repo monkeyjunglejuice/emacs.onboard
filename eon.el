@@ -53,7 +53,7 @@
 
 ;; Set a high value of 1 GB to prevent frequent garbage collections
 ;; during initialization
-(setq gc-cons-threshold #x40000000)  ; default threshold is 800 KB
+(setopt gc-cons-threshold #x40000000)  ; default threshold is 800 KB
 
 ;; Prevent longer GC pauses and experience less mini-interruptions.
 ;; When idle for 15 sec, run the GC no matter what.
@@ -85,7 +85,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 (eon-start-gc-timer)
 
 ;; Show a message when garbage collection happens? Useful while tuning the GC
-(setq garbage-collection-messages nil)
+(setopt garbage-collection-messages nil)
 
 ;; Diagnostics
 (add-hook 'emacs-startup-hook
@@ -131,16 +131,31 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;;; ELISP NATIVE COMPILATION / BYTECODE
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
-(setq load-prefer-newer t)
+(setopt load-prefer-newer t)
 
 ;; Natively compile packages at first use or immediately after installation?
-(setq package-native-compile t)
+(setopt package-native-compile t)
 
 ;; Native-compile .elc files asynchronously?
-(setq native-comp-jit-compilation t)
+(setopt native-comp-jit-compilation t)
 
 ;; Ask whether to terminate asynchronous compilations on exit?
-(setq native-comp-async-query-on-exit t)
+(setopt native-comp-async-query-on-exit t)
+
+;; When to bring the buffer to the foreground?
+(setopt warning-minimum-level :error)
+
+;; Reduce verbosity
+(setopt byte-compile-verbose nil)
+(setopt byte-compile-warnings '(not
+                                docstrings
+                                docstrings-non-ascii-quotes
+                                docstrings-wide
+                                docstrings-control-chars
+                                obsolete))
+
+(setopt native-comp-async-report-warnings-errors t)
+(setopt native-comp-warning-on-missing-source t)
 
 ;;  ____________________________________________________________________________
 ;;; HELPERS
@@ -265,7 +280,7 @@ When called interactively, also echo the result."
 ;;; KEYBINDINGS
 
 (when (eon-macp)
-  (setq
+  (setopt
    ;; Make the <Command> key on MacOS act as <Ctrl> key: "C- ..."
    mac-command-modifier 'control
    ;; Make the <Option> key on MacOS act as <Meta> key for "M- ..."
@@ -275,25 +290,25 @@ When called interactively, also echo the result."
 
 ;; Show a help window with possible key bindings?
 (when (fboundp #'which-key-mode)
-  (setq which-key-lighter ""
-        which-key-idle-delay 0.3
-        which-key-idle-secondary-delay 0.0
-        which-key-sort-uppercase-first nil)
+  (setopt which-key-lighter ""
+          which-key-idle-delay 0.3
+          which-key-idle-secondary-delay 0.0
+          which-key-sort-uppercase-first nil)
   (which-key-mode 1))
 
 ;;  ____________________________________________________________________________
 ;;; SYSTEM
 
 ;; Increase warning threshold
-(setq large-file-warning-threshold (* 64 1000000))
+(setopt large-file-warning-threshold (* 64 1000000))
 
 ;; Increase undo limit
-(setq undo-limit 67108864          ; 64mb
-      undo-strong-limit 100663296  ; 96mb
-      undo-outer-limit 1006632960) ; 960mb
+(setopt undo-limit 67108864          ; 64mb
+        undo-strong-limit 100663296  ; 96mb
+        undo-outer-limit 1006632960) ; 960mb
 
 ;; Increase the amount of data which Emacs reads from subprocesses
-(setq read-process-output-max (* 1024 1024))  ; 1 MB
+(setopt read-process-output-max (* 1024 1024))  ; 1 MB
 
 ;;  ____________________________________________________________________________
 ;;; SERVER
@@ -486,21 +501,21 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Set some defaults for the Modus themes; doesn't affect other themes.
 ;; These variables must be set before loading the Modus themes.
-(setq modus-themes-bold-constructs t
-      modus-themes-italic-constructs nil
-      modus-themes-mixed-fonts t)
-(setq modus-themes-common-palette-overrides
-      '((border-mode-line-active bg-mode-line-active)
-        (border-mode-line-inactive bg-mode-line-inactive)))
+(setopt modus-themes-bold-constructs t
+        modus-themes-italic-constructs nil
+        modus-themes-mixed-fonts t)
+(setopt modus-themes-common-palette-overrides
+        '((border-mode-line-active bg-mode-line-active)
+          (border-mode-line-inactive bg-mode-line-inactive)))
 
 ;; --> Set your light theme:
-;; (setq eon-light-theme-name 'modus-operandi-tinted)
+;; (setopt eon-light-theme-name 'modus-operandi-tinted)
 
 ;; --> Set your dark theme:
-;; (setq eon-dark-theme-name 'modus-vivendi-tinted)
+;; (setopt eon-dark-theme-name 'modus-vivendi-tinted)
 
 ;; --> Set your default variant here - 'light or 'dark
-;; (setq eon-default-theme-variant 'light)
+;; (setopt eon-default-theme-variant 'light)
 
 ;; Set the keybinding to toggle between light and dark:
 (global-set-key (kbd "<f12>") #'eon-toggle-theme)
@@ -573,23 +588,23 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (blink-cursor-mode -1)
 
 ;; Cursor blinking interval in seconds
-(setq blink-cursor-interval 0.3)
+(setopt blink-cursor-interval 0.3)
 
 ;; Blink cursor that often before going into solid state
-(setq blink-cursor-blinks 3)
+(setopt blink-cursor-blinks 3)
 
 ;; Emphasize the cursor when running Emacs in a text terminal?
-(setq visible-cursor nil)
+(setopt visible-cursor nil)
 
 ;; Make sure to highlight the current line only in the active window.
-(setq hl-line-sticky-flag nil)
+(setopt hl-line-sticky-flag nil)
 (add-hook 'special-mode-hook
           (lambda ()
             ;; Highlight current line in special modes?
             (hl-line-mode 1)))
 
 ;; Render cursors or regions in non-focused windows?
-(setq-default cursor-in-non-selected-windows nil)
+(setopt cursor-in-non-selected-windows nil)
 
 ;;  ____________________________________________________________________________
 ;;; USER INTERFACE
@@ -609,10 +624,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (tooltip-mode -1)
 
 ;; Startup screen: on/off by default?
-(setq inhibit-startup-screen t)
+(setopt inhibit-startup-screen t)
 
 ;; Alarms: turn off?
-(setq ring-bell-function 'ignore)
+(setopt ring-bell-function 'ignore)
 
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
 (define-key ctl-z-map (kbd "C-r") #'redraw-display)
@@ -621,19 +636,19 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; SCROLLING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
 
-(setq-default mouse-wheel-scroll-amount '(1 ((shift) . 1))
-              mouse-wheel-progressive-speed t
-              mouse-wheel-follow-mouse t)
+(setopt mouse-wheel-scroll-amount '(1 ((shift) . 1))
+        mouse-wheel-progressive-speed t
+        mouse-wheel-follow-mouse t)
 
-(setq-default scroll-preserve-screen-position t
-              scroll-margin 1
-              scroll-up-aggressively 0.01
-              scroll-down-aggressively 0.01)
+(setopt scroll-preserve-screen-position t
+        scroll-margin 1
+        scroll-up-aggressively 0.01
+        scroll-down-aggressively 0.01)
 
 ;; Horizontal scrolling
-(setq auto-window-vscroll nil
-      hscroll-margin 1
-      hscroll-step 1)
+(setopt auto-window-vscroll nil
+        hscroll-margin 1
+        hscroll-step 1)
 
 ;; Enable pixel-based scrolling
 (when (fboundp #'pixel-scroll-precision-mode)
@@ -646,7 +661,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Compress the mode line? If non-nil, repeating spaces are compressed into
 ;; a single space. If 'long', this is only done when the mode line is longer
 ;; than the current window width (in columns).
-(setq mode-line-compact nil)
+(setopt mode-line-compact nil)
 
 ;; Show the buffer size in the modeline?
 (size-indication-mode 1)
@@ -666,26 +681,26 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Allow minibuffer commands while in the minibuffer
 ;; There are two commands to get out of recursive minibuffers:
 ;; "C-z-c" exit-recursive-edit and "C-]" abort-recursive-edit
-(setq enable-recursive-minibuffers t)
+(setopt enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
 
 ;; Use the minibuffer instead of dialog boxes?
-(setq use-dialog-box nil)
+(setopt use-dialog-box nil)
 
 ;; Grow and shrink the minibuffer according to its content?
-(setq resize-mini-windows 'grow-only)
+(setopt resize-mini-windows 'grow-only)
 
 ;; Save minibuffer history between Emacs sessions?
-(setq history-length 300)
+(setopt history-length 300)
 (savehist-mode 1)
 
 ;; Delete duplicates from the command history?
-(setq history-delete-duplicates t)
+(setopt history-delete-duplicates t)
 
 ;; Allow for shorter responses? "y" for "yes" and "n" for "no"
-(setq read-answer-short t)
+(setopt read-answer-short t)
 (if (boundp 'use-short-answers)
-    (setq use-short-answers t)
+    (setopt use-short-answers t)
   (advice-add 'yes-or-no-p :override #'y-or-n-p))
 
 ;;  ____________________________________________________________________________
@@ -695,17 +710,17 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; There are many matching styles available, see `completion-styles-alist'
 ;; <https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html>
 ;; The order within the list determines their priority.
-(setq completion-styles '(basic substring initials flex partial-completion))
-(setq completion-category-defaults nil)
-(setq completion-category-overrides
+(setopt completion-styles '(basic substring initials flex partial-completion))
+(setopt completion-category-defaults nil)
+(setopt completion-category-overrides
       '((file (styles . (basic partial-completion initials substring)))))
 
 ;; Prevent *Completions* buffer from popping up?
-(setq completion-auto-help nil)
+(setopt completion-auto-help nil)
 ;; Cycle completion candidates instead
-(setq completion-cycle-threshold t)
+(setopt completion-cycle-threshold t)
 ;; Show docstrings for completion candidates?
-(setq completions-detailed nil)
+(setopt completions-detailed nil)
 
 ;; Preview current in-buffer completion candidate?
 (when (fboundp #'completion-preview-mode)
@@ -717,7 +732,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Tweaking Icomplete
 (with-eval-after-load 'icomplete
-  (setq icomplete-in-buffer t
+  (setopt icomplete-in-buffer t
         icomplete-compute-delay 0
         icomplete-delay-completions-threshold 100
         icomplete-show-matches-on-no-input t
@@ -740,7 +755,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 ;; <https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc>
 
-(setq eldoc-minor-mode-string nil
+(setopt eldoc-minor-mode-string nil
       eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
       eldoc-echo-area-display-truncation-message nil
       eldoc-echo-area-prefer-doc-buffer nil
@@ -751,7 +766,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;  ____________________________________________________________________________
 ;;; PINENTRY
 
-(setq epg-pinentry-mode 'loopback)
+(setopt epg-pinentry-mode 'loopback)
 
 ;;  ____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
@@ -759,10 +774,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience>
 
 ;; Display-buffer: avoid resizing
-(setq even-window-sizes nil)
+(setopt even-window-sizes nil)
 
 ;; Focus follows mouse?
-(setq mouse-autoselect-window nil
+(setopt mouse-autoselect-window nil
       focus-follows-mouse nil)
 
 ;; Default window navigation – simply switch to the next window in order.
@@ -770,7 +785,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (global-set-key (kbd "M-o") #'other-window)
 
 ;; Navigate windows by direction
-;; (setq windmove-wrap-around nil)
+;; (setopt windmove-wrap-around nil)
 ;; (global-set-key (kbd "s-j") #'windmove-down)
 ;; (global-set-key (kbd "s-k") #'windmove-up)
 ;; (global-set-key (kbd "s-h") #'windmove-left)
@@ -786,7 +801,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
 ;; Uniquify buffer names for buffers that would have identical names
-(setq uniquify-buffer-name-style 'forward)
+(setopt uniquify-buffer-name-style 'forward)
 
 ;; Fast buffer switching
 (global-set-key (kbd "M-[") #'previous-buffer)
@@ -836,10 +851,10 @@ The elements of the list are regular expressions.")
           (lambda ()
             (ibuffer-auto-mode 1)))
 
-(setq ibuffer-marked-face 'dired-marked)
+(setopt ibuffer-marked-face 'dired-marked)
 
 ;; Hide the boring buffers from Ibuffer too?
-;; (setq ibuffer-never-show-predicates eon-boring-buffers)
+;; (setopt ibuffer-never-show-predicates eon-boring-buffers)
 
 (global-set-key (kbd "C-x C-b") #'ibuffer)
 
@@ -850,14 +865,14 @@ The elements of the list are regular expressions.")
 
 ;; Lisp-interaction-mode is the default mode for the scratch buffer
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction>
-;; (setq initial-major-mode #'lisp-interaction-mode)
+;; (setopt initial-major-mode #'lisp-interaction-mode)
 
 ;; You can set the scratch buffer to Org-mode which may be more useful
 ;; for quick notes, writing and literate programming
-;; (setq initial-major-mode #'org-mode)
+;; (setopt initial-major-mode #'org-mode)
 
 ;; Should the *scratch* buffer contain some initial content?
-(setq initial-scratch-message "")
+(setopt initial-scratch-message "")
 
 ;; Quickly jump to the *scratch* buffer
 (defun eon-scratch ()
@@ -879,9 +894,9 @@ The elements of the list are regular expressions.")
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing>
 
 ;; Prevent duplicates to avoid cluttering the kill ring
-(setq kill-do-not-save-duplicates t)
+(setopt kill-do-not-save-duplicates t)
 
-(setq
+(setopt
  ;; Use clipboard
  select-enable-clipboard t
  ;; Use primary selection: mark = copy / middle-click = paste
@@ -957,20 +972,20 @@ The elements of the list are regular expressions.")
 ;; where to save (or not to save) backup copies of these files.
 
 ;; Make backup before editing?
-(setq make-backup-files t)
+(setopt make-backup-files t)
 
 ;; Where to save the backups?
 ;; Specify file name/path patterns and directories ("REGEXP" . "DIRECTORY").
 ;; Files with sensitive content can be specified (excluded) here, too.
-(setq backup-directory-alist
+(setopt backup-directory-alist
       `(("." . ,(concat user-emacs-directory "backup/"))))
 
 ;; Apply the same backup policy for Tramp files on their hosts
 ;; like the policy for local files
-(setq tramp-backup-directory-alist backup-directory-alist)
+(setopt tramp-backup-directory-alist backup-directory-alist)
 
 ;; Backup settings
-(setq backup-by-copying t
+(setopt backup-by-copying t
       backup-by-copying-when-linked t
       kept-new-versions 5
       kept-old-versions 5
@@ -983,7 +998,7 @@ The elements of the list are regular expressions.")
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking>
 
 ;; Let Emacs keep track of files currently visited?
-(setq create-lockfiles nil)
+(setopt create-lockfiles nil)
 
 ;;  ____________________________________________________________________________
 ;;; AUTO-SAVE
@@ -992,27 +1007,27 @@ The elements of the list are regular expressions.")
 ;; Enable auto-save to safeguard against data loss?
 ;; The `recover-file' or `recover-session' functions can be used
 ;; to restore auto-saved data
-(setq auto-save-default t)
-(setq auto-save-no-message t)
+(setopt auto-save-default t)
+(setopt auto-save-no-message t)
 
 ;; Do not auto-disable auto-save after deleting large chunks of text
-(setq auto-save-include-big-deletions t)
+(setopt auto-save-include-big-deletions t)
 
 ;; Auto-save locations
-(setq auto-save-list-file-prefix
-      (expand-file-name "autosave/" user-emacs-directory))
-(setq tramp-auto-save-directory
-      (expand-file-name "autosave-tramp/" user-emacs-directory))
+(setopt auto-save-list-file-prefix
+        (expand-file-name "autosave/" user-emacs-directory))
+(setopt tramp-auto-save-directory
+        (expand-file-name "autosave-tramp/" user-emacs-directory))
 
 ;; Auto save options
-(setq kill-buffer-delete-auto-save-files t)
+(setopt kill-buffer-delete-auto-save-files t)
 
 ;;  ____________________________________________________________________________
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
 ;; Show all options when running 'apropos' "C-h a" (fulltext search)
-(setq apropos-do-all t)
+(setopt apropos-do-all t)
 
 ;;  ____________________________________________________________________________
 ;;; SEARCH
@@ -1036,8 +1051,8 @@ The elements of the list are regular expressions.")
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
 
-(setq recentf-max-menu-items 10
-      recentf-max-saved-items 100)
+(setopt recentf-max-menu-items 10
+        recentf-max-saved-items 100)
 
 ;; Ignore some recently visited files, eg. to prevent them from showing up
 ;; amongst recent files after package upgrades
@@ -1066,7 +1081,7 @@ The elements of the list are regular expressions.")
   (define-key dired-mode-map (kbd "e") #'wdired-change-to-wdired-mode))
 
 ;; Don't accumulate useless Dired buffers
-(setq dired-kill-when-opening-new-dired-buffer t)
+(setopt dired-kill-when-opening-new-dired-buffer t)
 
 ;; Directory listings
 (add-hook 'dired-mode-hook
@@ -1077,19 +1092,19 @@ The elements of the list are regular expressions.")
             (hl-line-mode 1)))
 
 ;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
-(setq-default dired-listing-switches "-lhFA -v --group-directories-first")
+(setopt dired-listing-switches "-lhFA -v --group-directories-first")
 
 ;; Copying files/directories
-(setq dired-recursive-copies 'always)
+(setopt dired-recursive-copies 'always)
 
 ;; Create directories if they don't exist
-(setq dired-create-destination-dirs 'ask)
+(setopt dired-create-destination-dirs 'ask)
 
 ;; Mimic dual-pane file managers?
-(setq dired-dwim-target t)
+(setopt dired-dwim-target t)
 
 ;; Images
-(setq image-dired-thumb-margin 1
+(setopt image-dired-thumb-margin 1
       image-dired-thumb-relief 0
       ;; Store thumbnails in the system-wide thumbnail location
       ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
@@ -1113,43 +1128,43 @@ The elements of the list are regular expressions.")
 (defun eon-trash-on ()
   "Delete files by moving to the system trash."
   (interactive)
-  (setq delete-by-moving-to-trash t)
-  (setq dired-recursive-deletes 'always)  ; don't ask when directory not empty
+  (setopt delete-by-moving-to-trash t)
+  (setopt dired-recursive-deletes 'always)  ; don't ask when directory not empty
   (message "Trash on: Deleted files will go to system trash."))
 
 (defun eon-trash-off ()
   "Delete files immediately."
   (interactive)
-  (setq delete-by-moving-to-trash nil)
-  (setq dired-recursive-deletes 'top)  ; ask when directory not empty
+  (setopt delete-by-moving-to-trash nil)
+  (setopt dired-recursive-deletes 'top)  ; ask when directory not empty
   (message "Trash off: Files will be deleted immediately!"))
 
 (eon-trash-on)  ; set the default
 
 ;; Use the system trash when deleting files?
-(setq remote-file-name-inhibit-delete-by-moving-to-trash t)
+(setopt remote-file-name-inhibit-delete-by-moving-to-trash t)
 
 ;; Resolve symlinks so that operations are conducted from the file's directory?
-(setq find-file-visit-truename t
-      vc-follow-symlinks t)
+(setopt find-file-visit-truename t
+        vc-follow-symlinks t)
 
 ;; Auto refresh dired (and others) when contents change?
-(setq global-auto-revert-non-file-buffers t
-      auto-revert-stop-on-user-input nil
-      auto-revert-verbose t)
+(setopt global-auto-revert-non-file-buffers t
+        auto-revert-stop-on-user-input nil
+        auto-revert-verbose t)
 (global-auto-revert-mode 1)
 
 ;; Configure Ediff to use a single frame and split windows horizontally
-(setq ediff-window-setup-function 'ediff-setup-windows-plain
-      ediff-split-window-function 'split-window-horizontally)
+(setopt ediff-window-setup-function 'ediff-setup-windows-plain
+        ediff-split-window-function 'split-window-horizontally)
 
 ;;  ____________________________________________________________________________
 ;;; COMINT
 
-(setq comint-input-ignoredups t
-      comint-prompt-read-only t
-      comint-buffer-maximum-size 2048
-      comint-scroll-to-bottom-on-input 'this)
+(setopt comint-input-ignoredups t
+        comint-prompt-read-only t
+        comint-buffer-maximum-size 2048
+        comint-scroll-to-bottom-on-input 'this)
 
 ;;  ____________________________________________________________________________
 ;;; ESHELL
@@ -1160,10 +1175,10 @@ The elements of the list are regular expressions.")
 ;; a Posix shell superficially, but is also a REPL for Emacs Lisp expressions.
 
 ;; Get rid of the Eshell startup message?
-(setq eshell-banner-message "")
+(setopt eshell-banner-message "")
 
 ;; List directory content after changing into it?
-(setq eshell-list-files-after-cd t)
+(setopt eshell-list-files-after-cd t)
 
 ;; To open more than one eshell buffer: "C-u C-z e e"
 (define-key ctl-z-e-map (kbd "e") #'eshell)
@@ -1176,7 +1191,7 @@ The elements of the list are regular expressions.")
 ;; and display their output
 
 ;; Set another shell than your default one?
-;; (setq shell-file-name "/usr/bin/bash")
+;; (setopt shell-file-name "/usr/bin/bash")
 
 ;; To open more than one shell buffer: "C-u C-z e s"
 (define-key ctl-z-e-map (kbd "s") #'shell)
@@ -1186,15 +1201,15 @@ The elements of the list are regular expressions.")
 
 ;; Show and manage OS processes, like the command line programs top and htop
 
-(setq proced-auto-update-interval 1)
+(setopt proced-auto-update-interval 1)
 
-(setq-default proced-auto-update-flag t
-              proced-descend t)
+(setopt proced-auto-update-flag t
+        proced-descend t)
 
 ;;  ____________________________________________________________________________
 ;;; NET-UTILS
 
-(setq netstat-program "netstat"
+(setopt netstat-program "netstat"
       netstat-program-options '("-atupe"))
 
 ;;  ____________________________________________________________________________
@@ -1204,7 +1219,7 @@ The elements of the list are regular expressions.")
 ;; EWW BUILT-IN BROWSER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
 
-(setq url-privacy-level '(email lastloc cookies))
+(setopt url-privacy-level '(email lastloc cookies))
 (url-setup-privacy-info)
 
 (defun eon-user-agent (browser-name)
@@ -1213,28 +1228,28 @@ BROWSER-NAME can be either `safari-macos', `safari-iphone', `w3m' or t,
 which sets the default `eww' user-agent according to `url-privacy-level'."
   (cond
    ((equal browser-name 'safari-macos)
-    (setq url-user-agent
+    (setopt url-user-agent
           "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
    ((equal browser-name 'safari-iphone)
-    (setq url-user-agent
+    (setopt url-user-agent
           "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
    ((equal browser-name 'w3m)
-    (setq url-user-agent
+    (setopt url-user-agent
           "w3m/0.5.3+git2020050"))
    (t
-    (setq url-user-agent
+    (setopt url-user-agent
           'default))))
 
 ;; Set the user agent for the internal web browser
 (eon-user-agent 'safari-iphone)
 
 ;; Per default, open links with the internal web browser
-(setq browse-url-browser-function #'eww-browse-url)
+(setopt browse-url-browser-function #'eww-browse-url)
 
 ;; Secondary web browser
-(setq browse-url-secondary-browser-function #'browse-url-default-browser)
-;; (setq browse-url-browser-function #'browse-url-firefox)
-;; (setq browse-url-generic-program (executable-find "nyxt")
+(setopt browse-url-secondary-browser-function #'browse-url-default-browser)
+;; (setopt browse-url-browser-function #'browse-url-firefox)
+;; (setopt browse-url-generic-program (executable-find "nyxt")
 ;;        browse-url-browser-function #'browse-url-generic)
 
 ;; Keybindings
@@ -1248,7 +1263,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; TODO: Send emails directly from Emacs using SMTP – example template
 
 ;; Should be defined first
-;; (setq user-mail-address "mail@example.org")
+;; (setopt user-mail-address "mail@example.org")
 
 ;; To avoid typing in the password for each email, specify SMTP account(s)
 ;; in '~/.authinfo.gpg'. Here's a content template for authinfo.gpg:
@@ -1256,23 +1271,23 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Emacs email variables
 (with-eval-after-load 'smtpmail
-  (setq send-mail-function #'smtpmail-send-it
-        smtpmail-smtp-server "localhost"
-        smtpmail-stream-type 'starttls
-        smtpmail-smtp-service 1025      ; default port: 587
-        smtpmail-queue-dir "~/.mail/queued-mail/"
-        smtpmail-smtp-user user-mail-address
-        smtpmail-debug-info nil))
+  (setopt send-mail-function #'smtpmail-send-it
+          smtpmail-smtp-server "localhost"
+          smtpmail-stream-type 'starttls
+          smtpmail-smtp-service 1025      ; default port: 587
+          smtpmail-queue-dir "~/.mail/queued-mail/"
+          smtpmail-smtp-user user-mail-address
+          smtpmail-debug-info nil))
 
-(setq message-kill-buffer-on-exit t)
+(setopt message-kill-buffer-on-exit t)
 
 ;;  ____________________________________________________________________________
 ;;; CALENDAR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Calendar_002fDiary>
 
-(setq calendar-date-style 'iso
-      calendar-week-start-day 1
-      calendar-weekend-days '(6 0))
+(setopt calendar-date-style 'iso
+        calendar-week-start-day 1
+        calendar-weekend-days '(6 0))
 
 ;;  ____________________________________________________________________________
 ;;; GENERAL EDITING
@@ -1282,18 +1297,18 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (prefer-coding-system 'utf-8)
 
 ;; Remember the place where the cursor was last time?
-(setq save-place-limit 500)
+(setopt save-place-limit 500)
 (save-place-mode 1)
 
 ;; Set desired line length in characters
-(setq-default fill-column 80)
+(setopt fill-column 80)
 
 ;; While a text selection is active, typing characters replaces
 ;; the selection with the typed characters (default: -1 = off)
 (delete-selection-mode -1)
 
 ;; Save always with a final new line?
-(setq require-final-newline t)
+(setopt require-final-newline t)
 
 ;; Better than the default 'just-one-space' (was M-SPC before)
 (global-set-key (kbd "M-S-SPC") #'cycle-spacing)
@@ -1342,29 +1357,29 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; INDENTATION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Indentation>
 
-(setq-default indent-tabs-mode nil  ; don't use tabs but spaces
-              tab-width 4)          ; set display width for tab characters
+(setopt indent-tabs-mode nil  ; don't use tabs but spaces
+        tab-width 4)          ; set display width for tab characters
 
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
 ;; (Possibly shadowed by 3rd-party packages like `smartparens-mode'
-(setq backward-delete-char-untabify-method 'hungry)
+(setopt backward-delete-char-untabify-method 'hungry)
 
 ;; Enable indentation and completion using the TAB key
-(setq-default tab-always-indent 'complete)
+(setopt tab-always-indent 'complete)
 
 ;;  ____________________________________________________________________________
 ;;; COMMENTING
 
 ;; Enable multi-line commenting to ensure that `comment-indent-new-line'
 ;; properly continues comments onto new lines.
-(setq comment-multi-line t)
+(setopt comment-multi-line t)
 
 ;;  ____________________________________________________________________________
 ;;; BRACKETS / PARENTHESIS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses>
 
 ;; How to display matching parens generally?
-(setq show-paren-style 'parenthesis
+(setopt show-paren-style 'parenthesis
       show-paren-delay 0.125
       show-paren-when-point-inside-paren t
       show-paren-when-point-in-periphery t)
@@ -1379,12 +1394,12 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; Indicate trailing whitespace in programming modes?
 (add-hook 'prog-mode-hook
           (lambda ()
-            (setq show-trailing-whitespace nil)))
+            (setopt show-trailing-whitespace nil)))
 
 ;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
           (lambda ()
-            (setq show-trailing-whitespace nil)))
+            (setopt show-trailing-whitespace nil)))
 
 ;; Cleanup trailing whitespace
 (define-key ctl-z-c-map (kbd "w") #'whitespace-cleanup)
@@ -1398,11 +1413,11 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; "M-x package-install <RET> flymake-".
 
 ;; Style the Flymake widget in the modeline
-(setq flymake-mode-line-format
+(setopt flymake-mode-line-format
       '(" " "FlyM" flymake-mode-line-exception flymake-mode-line-counters))
 
 ;; Stop when first/last error is reached
-(setq flymake-wrap-around nil)
+(setopt flymake-wrap-around nil)
 
 (with-eval-after-load 'flymake
   (define-key flymake-mode-map (kbd "M-g E") #'flymake-show-project-diagnostics)
@@ -1416,11 +1431,11 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 (with-eval-after-load 'eglot
   ;; Shutdown language server after closing last file?
-  (setq eglot-autoshutdown t)
+  (setopt eglot-autoshutdown t)
   ;; Allow edits without confirmation?
-  (setq eglot-confirm-server-initiated-edits nil)
+  (setopt eglot-confirm-server-initiated-edits nil)
   ;; Show code action indicators?
-  (setq eglot-code-action-indications nil)
+  (setopt eglot-code-action-indications nil)
   ;; Common keybindings
   (define-key ctl-z-c-map (kbd "r") #'eglot-rename)
   (define-key ctl-z-c-map (kbd "f") #'eglot-format)
@@ -1594,7 +1609,7 @@ Each element may be a spec tuple or a LANG symbol registered in
 (defun eon-treesitter-setup-specs (&optional specs)
   "Merge SPECS into `treesit-language-source-alist', overwriting by LANG.
 If SPECS is nil, use `eon-treesitter-specs'."
-  (setq treesit-language-source-alist
+  (setopt treesit-language-source-alist
         (eon-treesitter--merge-into-alist
          treesit-language-source-alist
          (or specs eon-treesitter-specs))))
@@ -1725,16 +1740,16 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
  '("\\*.*compilation\\*" (display-buffer-no-window)))
 
 ;; Scroll to the first error
-(setq compilation-scroll-output 'first-error)
+(setopt compilation-scroll-output 'first-error)
 
 ;; Recenter to the middle of the window for `compile-goto-error'
-(setq next-error-recenter '(4))
+(setopt next-error-recenter '(4))
 
 ;;  ____________________________________________________________________________
 ;;; TEXT MODES / WRITING PROSE
 
 ;; Sentences end with a single space
-(setq sentence-end-double-space nil)
+(setopt sentence-end-double-space nil)
 
 ;; TODO Add Flyspell / Ispell presets here
 
@@ -1748,7 +1763,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 
 ;; Set a default location to look for Org files; but you can have
 ;; that directory anywhere you like
-(setq org-directory (expand-file-name "~/Documents/org/"))
+(setopt org-directory (expand-file-name "~/Documents/org/"))
 
 (defun eon-visit-org-directory ()
   "Show the Org directory in Dired."
@@ -1763,15 +1778,15 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (add-hook 'org-mode-hook #'visual-line-mode)
 
 ;; Alignment of tags at the end of headlines
-(setq  org-auto-align-tags t
+(setopt  org-auto-align-tags t
        org-tags-column 0)
 
 ;; Toggle indicator for headlines
-(setq org-ellipsis " ▼ ")
+(setopt org-ellipsis " ▼ ")
 
 ;; Don't add leading indentation to code blocks, remove them during export
-(setq org-edit-src-content-indentation 0
-      org-src-preserve-indentation nil)
+(setopt org-edit-src-content-indentation 0
+        org-src-preserve-indentation nil)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG CAPTURE
@@ -1780,10 +1795,10 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; Capture a note via `C-z o c'
 (define-key ctl-z-o-map (kbd "c") #'org-capture)
 ;; Put newer notes on top of the file
-(setq org-reverse-note-order t)
+(setopt org-reverse-note-order t)
 
 ;; Set a default target for storing notes
-(setq org-default-notes-file (concat org-directory "notes.org"))
+(setopt org-default-notes-file (concat org-directory "notes.org"))
 
 (defun eon-visit-org-notes ()
   "Visit the Org notes file."
@@ -1798,16 +1813,16 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; <https://orgmode.org/org.html#TODO-Items>
 
 ;; Set some sensible default states for todo-items
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
-        (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
-        (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
+(setopt org-todo-keywords
+        '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
+          (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+          (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG AGENDA
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
-(setq org-agenda-files (list org-directory))
+(setopt org-agenda-files (list org-directory))
 
 ;; Visit your Org agenda via `C-z o a'
 (define-key ctl-z-o-map (kbd "a") #'org-agenda)
@@ -1838,28 +1853,28 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (define-key ctl-z-o-map (kbd "p") 'org-publish)
 
 ;; Speed up publishing by skipping files that haven't been changed
-(setq org-publish-list-skipped-files nil)
+(setopt org-publish-list-skipped-files nil)
 
 ;; Where to place the directory containing the timestamps about changed files
-(setq org-publish-timestamp-directory
-      (concat user-emacs-directory "org-timestamps/"))
+(setopt org-publish-timestamp-directory
+        (concat user-emacs-directory "org-timestamps/"))
 
 (defun org-publish-unchanged-files-toggle ()
   "Toggle whether to re-export Org files that haven't been changed."
   (interactive)
   (if org-publish-use-timestamps-flag
-      (progn (setq org-publish-use-timestamps-flag nil)
+      (progn (setopt org-publish-use-timestamps-flag nil)
              (message "Re-export unchanged files"))
-    (progn (setq org-publish-use-timestamps-flag t)
+    (progn (setopt org-publish-use-timestamps-flag t)
            (message "Don't re-export unchanged files (default)"))))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG EXPORT
 
 ;; HTML export
-(setq org-html-checkbox-type 'unicode
-      org-html-prefer-user-labels t
-      org-html-self-link-headlines t)
+(setopt org-html-checkbox-type 'unicode
+        org-html-prefer-user-labels t
+        org-html-self-link-headlines t)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; LITERATE PROGRAMMING
@@ -1881,8 +1896,8 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (add-hook 'lisp-interaction-mode-hook (lambda () (flymake-mode -1)))
 
 ;; Emacs Lisp evaluation: don't truncate printed lists
-(setq eval-expression-print-length nil
-      eval-expression-print-level nil)
+(setopt eval-expression-print-length nil
+        eval-expression-print-level nil)
 
 ;; Additional keybinding resembling other sexp-related keybindings
 (global-set-key (kbd "C-M-<backspace>") #'backward-kill-sexp)
