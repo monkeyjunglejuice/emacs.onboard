@@ -208,17 +208,17 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (memq system-type '(windows-nt cygwin ms-dos)))
 
-(defun eon-macp ()
-  "True if `system-type' is MacOS or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (eq system-type 'darwin))
-
 (defun eon-androidp ()
   "True if `system-type' is Android or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'android))
+
+(defun eon-macp ()
+  "True if `system-type' is MacOS or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (eq system-type 'darwin))
 
 ;; Extend `add-to-list' for practical reasons
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
@@ -268,50 +268,179 @@ When called interactively, also echo the result."
         parents))))
 
 ;;  ____________________________________________________________________________
-;;; KEYMAPS
+;;; LEADER-KEY / LOCAL LEADER-KEY and KEYMAPS
 
-;; Make "C-z" available as a prefix key in the same manner as "C-x" and "C-c";
-;; therefore "C-z" acts like kind of a "leader key".
 ;; To avoid clashes, new keybindings introduced by Emacs ONboard will usually
-;; begin with the prefix "C-z" (with only a few exceptions).
-;; This is unlikely to work out of the box if you are using Emacs within a
-;; terminal emulator, as terminal emulators are usually configured to suspend
-;; a running command via the C-z keybinding.
+;; live under the leader prefix (with only a few exceptions).
 
-(global-unset-key (kbd "C-z"))
+;; ---> Defaults for graphical Emacs:
+;; "C-," is the leader key, reach the local leader via "C-, C-,"
+;; 
+;; ---> Defaults for Emacs with terminal UI (invoked by "emacs -nw"):
+;; "C-z" is the leader key, reach the local leader via "C-z C-z"
 
-(define-prefix-command 'ctl-z-map nil "Leader")
-(global-set-key (kbd "C-z") 'ctl-z-map)
+;; Terminal note: In `emacs -nw`, "C-z" is normally bound to suspend Emacs.
+;; We rebind it as a leader, so it works in modern terminals (e.g. WezTerm).
+;; If your TTY converts C-z to SIGTSTP before Emacs sees it (rare), disable
+;; the suspend char or move it (see optional snippet below).
+;; (add-hook 'tty-setup-hook
+;;           (lambda ()
+;;             (ignore-errors
+;;               ;; No kernel suspend on ^Z
+;;               (call-process "stty" nil nil nil "susp" "undef")
+;;               ;; No XON/XOFF flow control stealing C-s/C-q
+;;               (call-process "stty" nil nil nil "-ixon" "-ixoff"))))
 
-(define-prefix-command 'ctl-z-c-map nil "Code")
-(define-key ctl-z-map (kbd "c") 'ctl-z-c-map)
+;; Leader key
 
-(define-prefix-command 'ctl-z-e-map nil "Emacs built-ins")
-(define-key ctl-z-map (kbd "e") 'ctl-z-e-map)
+(defun eon--set-leader-key (sym value)
+  (let ((old (and (boundp sym) (symbol-value sym))))
+    (when (and old (> (length old) 0))
+      (keymap-global-unset old t))
+    (set-default sym value)
+    (when (boundp 'ctl-z-map)
+      (keymap-global-set value ctl-z-map))
+    (when (and old (string= eon-localleader-key old))
+      (eon--set-localleader-key 'eon-localleader-key value))))
 
-(define-prefix-command 'ctl-z-g-map nil "Version control")
-(define-key ctl-z-map (kbd "g") 'ctl-z-g-map)
+(defcustom eon-leader-key
+  (if (display-graphic-p) "C-," "C-z")
+  "Leader prefix (GUI → \"C-,\"; TTY → \"C-z\"). Use `setopt' to change."
+  :group 'eon
+  :type 'string
+  :set #'eon--set-leader-key)
 
-(define-prefix-command 'ctl-z-o-map nil "Org")
-(define-key ctl-z-map (kbd "o") 'ctl-z-o-map)
+;; Localleader key
 
-(define-prefix-command 'ctl-z-p-map nil "Project")
-(define-key ctl-z-map (kbd "p") 'ctl-z-p-map)
+(defun eon--set-localleader-label (sym value)
+  (set-default sym value)
+  ;; Refresh which-key title symbol to match the new label
+  (setq eon--localleader-which-key-sym (make-symbol value))
+  ;; Refresh the entry shown under the leader, if the leader map exists
+  (when (boundp 'ctl-z-map)
+    (keymap-set ctl-z-map eon-localleader-key
+                `(,eon-localleader-label . eon-localleader-dispatch))))
 
-(define-prefix-command 'ctl-z-s-map nil "Scratch buffers")
-(define-key ctl-z-map (kbd "s") 'ctl-z-s-map)
+(defcustom eon-localleader-label "Local"
+  "Label shown for the localleader in which-key and the leader menu."
+  :group 'eon
+  :type 'string
+  :set #'eon--set-localleader-label)
 
-(define-prefix-command 'ctl-z-t-map nil "Tabs")
-(define-key ctl-z-map (kbd "t") 'ctl-z-t-map)
+(defun eon--set-localleader-key (sym value)
+  (let ((old (and (boundp sym) (symbol-value sym))))
+    (when (boundp 'ctl-z-map)
+      (when old (keymap-unset ctl-z-map old))
+      (keymap-set ctl-z-map value
+                  `(,eon-localleader-label . eon-localleader-dispatch))))
+  (set-default sym value))
 
-(define-prefix-command 'ctl-z-w-map nil "Web")
-(define-key ctl-z-map (kbd "w") 'ctl-z-w-map)
+(defcustom eon-localleader-key
+  (if (display-graphic-p) "C-," "C-z")
+  "Localleader key (pressed after the leader).
+GUI: leader then \"C-,\" -> localleader (\"C-, C-,\")
+TTY: leader then \"C-z\" -> localleader (\"C-z C-z\")
+Use `setopt' to override."
+  :group 'eon
+  :type 'string
+  :set #'eon--set-localleader-key)
 
-(define-prefix-command 'ctl-z-x-map nil "Execute")
-(define-key ctl-z-map (kbd "x") 'ctl-z-x-map)
+;;; Sub-keymaps under the leader key
+
+(defvar-keymap ctl-z-b-map :doc "Buffer")
+(defvar-keymap ctl-z-c-map :doc "Code")
+(defvar-keymap ctl-z-e-map :doc "Exec")
+(defvar-keymap ctl-z-f-map :doc "File")
+(defvar-keymap ctl-z-g-map :doc "Goto")
+(defvar-keymap ctl-z-h-map :doc "Help")
+(defvar-keymap ctl-z-o-map :doc "Org")
+(defvar-keymap ctl-z-p-map :doc "Project")
+(defvar-keymap ctl-z-q-map :doc "Quit")
+(defvar-keymap ctl-z-s-map :doc "Search")
+(defvar-keymap ctl-z-t-map :doc "Tab/WS")
+(defvar-keymap ctl-z-v-map :doc "VC/Git")
+(defvar-keymap ctl-z-w-map :doc "Window")
+(defvar-keymap ctl-z-x-map :doc "Misc")
+
+(defvar-keymap eon-localleader-global-map
+  :doc "Global localleader map (fallback for all modes)."
+  "/" '("..." . execute-extended-command-for-buffer))
+
+;;; Top-level leader keymap
+
+(defvar-keymap ctl-z-map
+  :doc "Leader (top-level) keymap."
+  "b" `("Buffer"  . ,ctl-z-b-map)
+  "c" `("Code"    . ,ctl-z-c-map)
+  "e" `("Exec"    . ,ctl-z-e-map)
+  "f" `("File"    . ,ctl-z-f-map)
+  "g" `("Goto"    . ,ctl-z-g-map)
+  "h" `("Help"    . ,ctl-z-h-map)
+  "o" `("Org"     . ,ctl-z-o-map)
+  "p" `("Project" . ,ctl-z-p-map)
+  "q" `("Quit"    . ,ctl-z-q-map)
+  "s" `("Search"  . ,ctl-z-s-map)
+  "t" `("Tab/WS"  . ,ctl-z-t-map)
+  "v" `("VC/Git"  . ,ctl-z-v-map)
+  "w" `("Window"  . ,ctl-z-w-map)
+  "x" `("Misc"    . ,ctl-z-x-map)
+  ;; Localleader entry (kept dynamic via :set handler)
+  eon-localleader-key `(,eon-localleader-label . eon-localleader-dispatch)
+  ;; Convenience: M-x under leader
+  "m" #'execute-extended-command)
+
+;; Initial binding of the leader prefix
+(keymap-global-set eon-leader-key ctl-z-map)
+
+;;; Localleader implementation
+
+(defvar-local eon-localleader-map eon-localleader-global-map
+  "Active localleader keymap for the current buffer.")
+
+(defvar eon--localleader-which-key-sym (make-symbol eon-localleader-label))
+
+(defun eon-localleader-dispatch ()
+  (interactive)
+  (let ((effective (if (keymapp eon-localleader-map)
+                       eon-localleader-map
+                     eon-localleader-global-map)))
+    (set eon--localleader-which-key-sym effective)
+    (set-transient-map effective t)
+    (when (fboundp 'which-key-show-keymap)
+      (which-key-show-keymap eon--localleader-which-key-sym t))))
+
+(defmacro eon-localleader-defkeymap (mode map-sym &rest body)
+  "Define arbitrary MAP-SYM for MODE and make it inherit the global localleader.
+Also set `eon-localleader-map' when entering MODE (and immediately if
+already in MODE or a derived mode). BODY is forwarded to `defvar-keymap.'"
+  (declare (indent 2))
+  (let ((hook (intern (format "%s-hook" mode))))
+    `(progn
+       (defvar-keymap ,map-sym ,@body)
+       ;; Ensure inheritance from the global localleader map
+       (set-keymap-parent ,map-sym eon-localleader-global-map)
+       ;; Activate for buffers of this mode
+       (add-hook ',hook (lambda () (setq eon-localleader-map ,map-sym)))
+       ;; If we're already in MODE (or derived), select it now
+       (when (derived-mode-p ',mode)
+         (setq eon-localleader-map ,map-sym)))))
 
 ;;  ____________________________________________________________________________
-;;; KEYBINDINGS
+;;; MISC KEYBINDINGS
+
+;; Which-key: show a menu with available keybindings
+(when (fboundp #'which-key-mode)
+  (setopt which-key-lighter ""
+          which-key-separator " "
+          which-key-idle-delay 0.3
+          which-key-idle-secondary-delay 0.0
+          which-key-sort-uppercase-first nil
+          which-key-sort-order 'which-key-key-order-alpha
+          which-key-allow-evil-operators t
+          which-key-preserve-window-configuration t
+          which-key-show-remaining-keys t
+          which-key-show-transient-maps t)
+  (which-key-mode 1))
 
 (when (eon-macp)
   (setopt
