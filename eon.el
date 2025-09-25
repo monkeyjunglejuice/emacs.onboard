@@ -115,6 +115,47 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
                      gcs-done)))
 
 ;;  ____________________________________________________________________________
+;;; ELISP NATIVE COMPILATION / BYTECODE
+
+;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
+(setopt load-prefer-newer t)
+
+;; Natively compile packages at first use or immediately after installation?
+(setopt package-native-compile t)
+
+;; Native-compile .elc files asynchronously?
+(setopt native-comp-jit-compilation t)
+
+;; Ask whether to terminate asynchronous compilations on exit?
+;; Prevents from interrupted compilations and leftover artifacts.
+(setopt native-comp-async-query-on-exit t)
+
+;; When to bring the buffer to the foreground?
+(setopt warning-minimum-level :error)
+
+;; Reduce bytecode compilation verbosity
+(setopt byte-compile-verbose nil)
+(setopt byte-compile-warnings nil)
+
+;; Reduce native code compilation verbosity
+(setopt native-comp-async-report-warnings-errors nil)
+(setopt native-comp-warning-on-missing-source nil)
+
+;;  ____________________________________________________________________________
+;;; EMACS SYSTEM LIMITS
+
+;; Increase warning threshold
+(setopt large-file-warning-threshold (* 64 1000000))
+
+;; Increase undo limit
+(setopt undo-limit 67108864          ; 64mb
+        undo-strong-limit 100663296  ; 96mb
+        undo-outer-limit 1006632960) ; 960mb
+
+;; Increase the amount of data which Emacs reads from subprocesses
+(setopt read-process-output-max (* 1024 1024))  ; 1 MB
+
+;;  ____________________________________________________________________________
 ;;; PACKAGE MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages>
 ;; ... or do "M-x info-emacs-manual s packages RET" to read it within Emacs
@@ -146,37 +187,12 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
               (hl-line-mode 1))))
 
 ;;  ____________________________________________________________________________
-;;; ELISP NATIVE COMPILATION / BYTECODE
+;;; GLOBAL DEFINITIONS & UTILITIES
 
-;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
-(setopt load-prefer-newer t)
-
-;; Natively compile packages at first use or immediately after installation?
-(setopt package-native-compile t)
-
-;; Native-compile .elc files asynchronously?
-(setopt native-comp-jit-compilation t)
-
-;; Ask whether to terminate asynchronous compilations on exit?
-(setopt native-comp-async-query-on-exit t)
-
-;; When to bring the buffer to the foreground?
-(setopt warning-minimum-level :error)
-
-;; Reduce verbosity
-(setopt byte-compile-verbose nil)
-(setopt byte-compile-warnings '(not
-                                docstrings
-                                docstrings-non-ascii-quotes
-                                docstrings-wide
-                                docstrings-control-chars
-                                obsolete))
-
-(setopt native-comp-async-report-warnings-errors t)
-(setopt native-comp-warning-on-missing-source t)
-
-;;  ____________________________________________________________________________
-;;; HELPERS
+;; Group for customizations
+(defgroup eon nil
+  "Emacs ONboard & Emacs ONtop customization options."
+  :group 'convenience)
 
 ;; Simplify writing of operating-system-specific Elisp code
 
@@ -305,28 +321,6 @@ When called interactively, also echo the result."
    mac-option-modifier 'meta
    ;; Don't bypass "C-h ..." keybindings
    mac-pass-command-to-system nil))
-
-;; Show a help window with possible key bindings?
-(when (fboundp #'which-key-mode)
-  (setopt which-key-lighter ""
-          which-key-idle-delay 0.3
-          which-key-idle-secondary-delay 0.0
-          which-key-sort-uppercase-first nil)
-  (which-key-mode 1))
-
-;;  ____________________________________________________________________________
-;;; SYSTEM
-
-;; Increase warning threshold
-(setopt large-file-warning-threshold (* 64 1000000))
-
-;; Increase undo limit
-(setopt undo-limit 67108864          ; 64mb
-        undo-strong-limit 100663296  ; 96mb
-        undo-outer-limit 1006632960) ; 960mb
-
-;; Increase the amount of data which Emacs reads from subprocesses
-(setopt read-process-output-max (* 1024 1024))  ; 1 MB
 
 ;;  ____________________________________________________________________________
 ;;; SERVER
