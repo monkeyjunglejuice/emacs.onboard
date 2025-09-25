@@ -634,9 +634,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
 ;;; THEME CONFIG
-;; Either configure the themes here, or "M-x customize-group RET toggle-theme"
+;; Either configure the themes here,
+;; or "M-x customize-group RET eon-toggle-theme"
 
 ;; Set some defaults for the Modus themes; doesn't affect other themes.
 ;; These variables must be set before loading the Modus themes.
