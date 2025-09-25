@@ -816,9 +816,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; MINIBUFFER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Minibuffer>
 
-;; Keep cursor outside of any ‘cursor-intangible’ text property
-(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
 ;; Recursive minibuffers
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Recursive-Edit>
 ;; Allow minibuffer commands while in the minibuffer
@@ -826,6 +823,13 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; "C-z-c" exit-recursive-edit and "C-]" abort-recursive-edit
 (setopt enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
+
+;; Do not allow the cursor in the minibuffer prompt
+(setq minibuffer-prompt-properties
+      '( read-only t
+         cursor-intangible t
+         face minibuffer-prompt))
+(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
 ;; Use the minibuffer instead of dialog boxes?
 (setopt use-dialog-box nil)
