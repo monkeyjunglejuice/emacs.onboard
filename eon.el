@@ -868,7 +868,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completion-styles '(basic substring initials flex partial-completion))
 (setopt completion-category-defaults nil)
 (setopt completion-category-overrides
-      '((file (styles . (basic partial-completion initials substring)))))
+        '((file (styles . (basic partial-completion initials substring)))))
 
 ;; Prevent *Completions* buffer from popping up?
 (setopt completion-auto-help nil)
@@ -880,21 +880,21 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Preview current in-buffer completion candidate?
 (when (fboundp #'completion-preview-mode)
   (global-completion-preview-mode 1))
-(define-key completion-preview-active-mode-map (kbd "M-n")
+(keymap-set completion-preview-active-mode-map "M-n"
             #'completion-preview-next-candidate)
-(define-key completion-preview-active-mode-map (kbd "M-p")
+(keymap-set completion-preview-active-mode-map "M-p"
             #'completion-preview-prev-candidate)
 
 ;; Tweaking Icomplete
 (with-eval-after-load 'icomplete
   (setopt icomplete-in-buffer t
-        icomplete-compute-delay 0
-        icomplete-delay-completions-threshold 100
-        icomplete-show-matches-on-no-input t
-        icomplete-hide-common-prefix nil)
+          icomplete-compute-delay 0
+          icomplete-delay-completions-threshold 100
+          icomplete-show-matches-on-no-input t
+          icomplete-hide-common-prefix nil)
   ;; TAB accepts the current candidate in Fido minibuffers
-  (define-key icomplete-minibuffer-map (kbd "TAB") #'icomplete-force-complete)
-  (define-key icomplete-minibuffer-map (kbd "<tab>") #'icomplete-force-complete))
+  (keymap-set icomplete-minibuffer-map "TAB" #'icomplete-force-complete)
+  (keymap-set icomplete-minibuffer-map "<tab>" #'icomplete-force-complete))
 
 ;; Vertical minibuffer completion with `fido-vertical'
 (fido-vertical-mode 1)
@@ -911,10 +911,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc>
 
 (setopt eldoc-minor-mode-string nil
-      eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
-      eldoc-echo-area-display-truncation-message nil
-      eldoc-echo-area-prefer-doc-buffer nil
-      eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
+        eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
+        eldoc-echo-area-display-truncation-message nil
+        eldoc-echo-area-prefer-doc-buffer nil
+        eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
 
 (define-key ctl-z-c-map (kbd "d") #'eldoc)
 
@@ -933,7 +933,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Focus follows mouse?
 (setopt mouse-autoselect-window nil
-      focus-follows-mouse nil)
+        focus-follows-mouse nil)
 
 ;; Default window navigation – simply switch to the next window in order.
 ;; Added for convenience; the default keybinding is "C-x o"
@@ -1133,7 +1133,7 @@ The elements of the list are regular expressions.")
 ;; Specify file name/path patterns and directories ("REGEXP" . "DIRECTORY").
 ;; Files with sensitive content can be specified (excluded) here, too.
 (setopt backup-directory-alist
-      `(("." . ,(concat user-emacs-directory "backup/"))))
+        `(("." . ,(concat user-emacs-directory "backup/"))))
 
 ;; Apply the same backup policy for Tramp files on their hosts
 ;; like the policy for local files
@@ -1141,12 +1141,12 @@ The elements of the list are regular expressions.")
 
 ;; Backup settings
 (setopt backup-by-copying t
-      backup-by-copying-when-linked t
-      kept-new-versions 5
-      kept-old-versions 5
-      delete-old-versions t
-      version-control t
-      vc-make-backup-files t)
+        backup-by-copying-when-linked t
+        kept-new-versions 5
+        kept-old-versions 5
+        delete-old-versions t
+        version-control t
+        vc-make-backup-files t)
 
 ;;  ____________________________________________________________________________
 ;;; LOCKFILES
@@ -1260,10 +1260,10 @@ The elements of the list are regular expressions.")
 
 ;; Images
 (setopt image-dired-thumb-margin 1
-      image-dired-thumb-relief 0
-      ;; Store thumbnails in the system-wide thumbnail location
-      ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
-      image-dired-thumbnail-storage 'standard-large)
+        image-dired-thumb-relief 0
+        ;; Store thumbnails in the system-wide thumbnail location
+        ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
+        image-dired-thumbnail-storage 'standard-large)
 
 ;; Linux/Unix only: hit "M-RET" to open files in desktop app
 (when (eon-linp)
@@ -1365,7 +1365,7 @@ The elements of the list are regular expressions.")
 ;;; NET-UTILS
 
 (setopt netstat-program "netstat"
-      netstat-program-options '("-atupe"))
+        netstat-program-options '("-atupe"))
 
 ;;  ____________________________________________________________________________
 ;;; WEB BROWSERS
@@ -1384,16 +1384,16 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   (cond
    ((equal browser-name 'safari-macos)
     (setopt url-user-agent
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
    ((equal browser-name 'safari-iphone)
     (setopt url-user-agent
-          "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
    ((equal browser-name 'w3m)
     (setopt url-user-agent
-          "w3m/0.5.3+git2020050"))
+            "w3m/0.5.3+git2020050"))
    (t
     (setopt url-user-agent
-          'default))))
+            'default)))
 
 ;; Set the user agent for the internal web browser
 (eon-user-agent 'safari-iphone)
@@ -1405,7 +1405,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (setopt browse-url-secondary-browser-function #'browse-url-default-browser)
 ;; (setopt browse-url-browser-function #'browse-url-firefox)
 ;; (setopt browse-url-generic-program (executable-find "nyxt")
-;;        browse-url-browser-function #'browse-url-generic)
+;;         browse-url-browser-function #'browse-url-generic)
 
 ;; Keybindings
 (define-key ctl-z-w-map (kbd "W") #'browse-url)
@@ -1535,9 +1535,9 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; How to display matching parens generally?
 (setopt show-paren-style 'parenthesis
-      show-paren-delay 0.125
-      show-paren-when-point-inside-paren t
-      show-paren-when-point-in-periphery t)
+        show-paren-delay 0.125
+        show-paren-when-point-inside-paren t
+        show-paren-when-point-in-periphery t)
 
 ;; Auto-close parens, brackets and quotes?
 (electric-pair-mode 1)
@@ -1569,7 +1569,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Style the Flymake widget in the modeline
 (setopt flymake-mode-line-format
-      '(" " "FlyM" flymake-mode-line-exception flymake-mode-line-counters))
+        '(" " "FlyM" flymake-mode-line-exception flymake-mode-line-counters))
 
 ;; Stop when first/last error is reached
 (setopt flymake-wrap-around nil)
@@ -1765,9 +1765,9 @@ Each element may be a spec tuple or a LANG symbol registered in
   "Merge SPECS into `treesit-language-source-alist', overwriting by LANG.
 If SPECS is nil, use `eon-treesitter-specs'."
   (setopt treesit-language-source-alist
-        (eon-treesitter--merge-into-alist
-         treesit-language-source-alist
-         (or specs eon-treesitter-specs))))
+          (eon-treesitter--merge-into-alist
+           treesit-language-source-alist
+           (or specs eon-treesitter-specs))))
 
 (with-eval-after-load 'treesit
   (eon-treesitter-setup-specs))
@@ -1934,7 +1934,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 
 ;; Alignment of tags at the end of headlines
 (setopt  org-auto-align-tags t
-       org-tags-column 0)
+         org-tags-column 0)
 
 ;; Toggle indicator for headlines
 (setopt org-ellipsis " ▼ ")
