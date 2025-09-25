@@ -329,8 +329,6 @@ When called interactively, also echo the result."
 
 ;; Display the name of the Emacs server process in the frame title
 ;; to see easily to which server process a client is connected to
-;; Further information:
-;; <https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html>
 (with-eval-after-load 'server
 
   (defun eon-frame-title ()
