@@ -167,14 +167,14 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 (when package-enable-at-startup
   (require 'package)
 
-  ;; 1st priority
+  ;;; 1st priority
   ;; Gnu Elpa and Non-Gnu Elpa, which are enabled by default
 
-  ;; 2nd priority
+  ;;; 2nd priority
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
 
-  ;; 3rd priority
+  ;;; 3rd priority
   ;; Install from melpa-stable' only when the package from 'melpa' is broken
   ;; (add-to-list 'package-archives
   ;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
