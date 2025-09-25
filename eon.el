@@ -1,5 +1,6 @@
-;;; eon.el --- Emacs Onboard Starter Kit -*- lexical-binding: t; -*-
-;;
+;;; eon.el --- Emacs ONboard Starter Kit -*- lexical-binding: t; -*-
+
+
 ;;    ▒░▒░▒░   ▒░     ▒░ ▒░▒░▒░▒░     ▒░▒░▒░      ▒░    ▒░▒░▒░▒░    ▒░▒░▒░▒░
 ;;   ▒░    ▒░  ▒░▒░   ▒░  ▒░     ▒░  ▒░    ▒░    ▒░▒░    ▒░     ▒░   ▒░    ▒░
 ;;  ▒░      ▒░ ▒░ ▒░  ▒░  ▒░     ▒░ ▒░      ▒░  ▒░  ▒░   ▒░     ▒░   ▒░     ▒░
@@ -31,10 +32,13 @@
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Version: 1.7.1
+;; Package: eon
 ;; Package-Requires: ((EMACS "30.1"))
 ;; Keywords: convenience
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 ;; This file is not part of GNU Emacs.
+
+;;; Commentary:
 ;;
 ;;; Keybindings:
 ;;
