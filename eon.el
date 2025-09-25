@@ -220,9 +220,9 @@ or `system-configuration' directly."
 
 ;; Extend `add-to-list' for practical reasons
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
-  "Like `add-to-list', but ELEMENTS may be a list of items.
+  "Drop-in replacement for `add-to-list', where ELEMENTS may be a list of items.
 
-LIST-SYM is a quoted variable symbol, just like in `add-to-list'.
+LIST-SYM is a symbol naming a list variable, just like in `add-to-list'.
 If ELEMENTS is not a list, treat it as a single element.
 
 APPEND and COMPARE-FN are passed through to `add-to-list'.
