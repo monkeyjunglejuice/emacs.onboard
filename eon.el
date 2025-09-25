@@ -950,9 +950,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; BUFFERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
-;; Uniquify buffer names for buffers that would have identical names
-(setopt uniquify-buffer-name-style 'forward)
-
 ;; Fast buffer switching
 (global-set-key (kbd "M-[") #'previous-buffer)
 (global-set-key (kbd "M-]") #'next-buffer)
@@ -972,6 +969,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (save-some-buffers)
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
+
+;; Uniquify buffer names for buffers that would have identical names
+(setopt uniquify-buffer-name-style 'forward)
 
 ;; Define boring buffers globally, so they can be hidden.
 ;; These buffers remain accessible via Ibuffer "C-x C-b".
