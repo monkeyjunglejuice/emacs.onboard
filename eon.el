@@ -756,12 +756,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (menu-bar-mode 1)
 
 ;; Scroll bar: on/off by default?
-(when (display-graphic-p)
-  (scroll-bar-mode -1))
+(when (display-graphic-p) (scroll-bar-mode -1))
 
 ;; Tool bar: on/off by default?
-(when (display-graphic-p)
-  (tool-bar-mode -1))
+(when (display-graphic-p) (tool-bar-mode -1))
 
 ;; Tooltips: enable/disable?
 (tooltip-mode -1)
@@ -1395,14 +1393,14 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
     (setopt url-user-agent
             'default)))
 
-;; Set the user agent for the internal web browser
-(eon-user-agent 'safari-iphone)
+  ;; Set the user agent for the internal web browser
+  (eon-user-agent 'safari-iphone)
 
-;; Per default, open links with the internal web browser
-(setopt browse-url-browser-function #'eww-browse-url)
+  ;; Per default, open links with the internal web browser
+  (setopt browse-url-browser-function #'eww-browse-url)
 
-;; Secondary web browser
-(setopt browse-url-secondary-browser-function #'browse-url-default-browser)
+  ;; Secondary web browser
+  (setopt browse-url-secondary-browser-function #'browse-url-default-browser))
 ;; (setopt browse-url-browser-function #'browse-url-firefox)
 ;; (setopt browse-url-generic-program (executable-find "nyxt")
 ;;         browse-url-browser-function #'browse-url-generic)
@@ -1912,7 +1910,6 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; ORG MODE
 ;; <https://orgmode.org/>
 ;; <https://orgmode.org/org.html>
-
 ;; Org provides functionality far beyond that of computational notebooks
 ;; such as Jupyter or R Markdown.
 
