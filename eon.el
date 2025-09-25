@@ -833,10 +833,18 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Grow and shrink the minibuffer according to its content?
 (setopt resize-mini-windows 'grow-only)
 
-;; Save minibuffer history between Emacs sessions?
-(setopt history-length 300)
+;; Save histories between Emacs sessions?
 (savehist-mode 1)
+(eon-add-to-list 'savehist-additional-variables
+                 '(kill-ring
+                   register-alist
+                   mark-ring
+                   global-mark-ring
+                   search-ring
+                   regexp-search-ring))
 
+;; History length for various histories
+(setopt history-length 500)
 ;; Delete duplicates from the command history?
 (setopt history-delete-duplicates t)
 
