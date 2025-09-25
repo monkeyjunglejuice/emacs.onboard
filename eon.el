@@ -647,13 +647,17 @@ Some themes may come as functions -- wrap these ones in lambdas."
         '((border-mode-line-active bg-mode-line-active)
           (border-mode-line-inactive bg-mode-line-inactive)))
 
-;; --> Set your light theme:
+;; Do not extend `region' background past the end of the line
+(custom-set-faces
+ '(region ((t :extend nil))))
+
+;;; --> Set your light theme:
 ;; (setopt eon-light-theme-name 'modus-operandi-tinted)
 
-;; --> Set your dark theme:
+;;; --> Set your dark theme:
 ;; (setopt eon-dark-theme-name 'modus-vivendi-tinted)
 
-;; --> Set your default variant here - 'light or 'dark
+;;; --> Set your default variant here - 'light or 'dark
 ;; (setopt eon-default-theme-variant 'light)
 
 ;; Set the keybinding to toggle between light and dark:
