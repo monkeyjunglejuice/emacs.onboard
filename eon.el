@@ -746,9 +746,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
             ;; Highlight current line in special modes?
             (hl-line-mode 1)))
 
-;; Render cursors or regions in non-focused windows?
-(setopt cursor-in-non-selected-windows nil)
-
 ;;  ____________________________________________________________________________
 ;;; USER INTERFACE
 
