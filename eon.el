@@ -932,13 +932,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Added for convenience; the default keybinding is "C-x o"
 (global-set-key (kbd "M-o") #'other-window)
 
-;; Navigate windows by direction
-;; (setopt windmove-wrap-around nil)
-;; (global-set-key (kbd "s-j") #'windmove-down)
-;; (global-set-key (kbd "s-k") #'windmove-up)
-;; (global-set-key (kbd "s-h") #'windmove-left)
-;; (global-set-key (kbd "s-l") #'windmove-right)
-
 ;; Undo/redo window layouts
 (winner-mode 1)
 (define-key winner-mode-map (kbd "C-x 4 u") #'winner-undo)
