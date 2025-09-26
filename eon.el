@@ -870,8 +870,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completions-detailed nil)
 
 ;; Preview current in-buffer completion candidate?
-(when (fboundp #'completion-preview-mode)
-  (global-completion-preview-mode 1))
+(global-completion-preview-mode 1)
 (keymap-set completion-preview-active-mode-map "M-n"
             #'completion-preview-next-candidate)
 (keymap-set completion-preview-active-mode-map "M-p"
