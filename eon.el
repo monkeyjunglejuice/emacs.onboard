@@ -1171,6 +1171,12 @@ The elements of the list are regular expressions.")
 (setopt apropos-do-all t)
 
 ;;  ____________________________________________________________________________
+;;; CUSTOMIZATION UI
+
+;; Don't accumulate customization buffers
+(setopt custom-buffer-done-kill t)
+
+;;  ____________________________________________________________________________
 ;;; SEARCH
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
 
