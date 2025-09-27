@@ -1396,8 +1396,15 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; List directory content after changing into it?
 (setopt eshell-list-files-after-cd t)
 
-;; To open more than one eshell buffer: "C-u C-z e e"
-(define-key ctl-z-e-map (kbd "e") #'eshell)
+(defun eon-eshell-new ()
+  "Open a new eshell instance."
+  (interactive)
+  (eshell 't))
+
+;; Launch an Eshell buffer: "<leader> e e"; re-visit the buffer by repeating
+(keymap-set ctl-z-e-map "e" #'eshell)
+;; Launch a fresh Eshell buffer: "<leader> e E"
+(keymap-set ctl-z-e-map "E" #'eon-eshell-new)
 
 ;; _____________________________________________________________________________
 ;;; SHELL
