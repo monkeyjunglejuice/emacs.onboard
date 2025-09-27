@@ -967,28 +967,32 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Default window navigation – simply switch to the next window in order.
 ;; Added for convenience; the default keybinding is "C-x o"
-(global-set-key (kbd "M-o") #'other-window)
+(keymap-global-set "M-o" #'other-window)
 
 ;; Undo/redo window layouts
+(setopt winner-dont-bind-my-keys t)
+(keymap-set ctl-z-w-map "u" #'winner-undo)
+(keymap-set ctl-z-w-map "r" #'winner-redo)
 (winner-mode 1)
-(define-key winner-mode-map (kbd "C-x 4 u") #'winner-undo)
-(define-key winner-mode-map (kbd "C-x 4 r") #'winner-redo)
 
 ;; _____________________________________________________________________________
 ;;;; BUFFER MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
 ;; Fast buffer switching
-(global-set-key (kbd "M-[") #'previous-buffer)
-(global-set-key (kbd "M-]") #'next-buffer)
+(keymap-global-set "M-[" #'previous-buffer)
+(keymap-global-set "M-]" #'next-buffer)
+(keymap-set ctl-z-b-map "b" #'switch-to-buffer)
 
 ;; Kill the current buffer immediately instead of presenting a selection
 ;; It's the equivalent to "close tab" in a web browser or other editors
-(global-set-key (kbd "C-x k") #'kill-current-buffer)
+(keymap-set ctl-z-map "k" #'kill-current-buffer)
+
+;; Kill the window too
+(keymap-set ctl-z-map "K" #'kill-buffer-and-window)
 
 ;; Get the buffer out of the way, but let it alive
-(global-set-key (kbd "C-x K") #'bury-buffer)
-(global-set-key (kbd "C-x M-k") #'unbury-buffer)
+(keymap-set ctl-z-b-map "k" #'bury-buffer)
 
 ;; Kill all buffers at once – equivalent to "close all tabs"
 (defun eon-kill-all-buffers ()
@@ -1052,7 +1056,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Hide the boring buffers from Ibuffer too?
 ;; (setopt ibuffer-never-show-predicates eon-boring-buffers)
 
-(global-set-key (kbd "C-x C-b") #'ibuffer)
+(keymap-global-set "C-x C-b" #'ibuffer)
+(keymap-set ctl-z-b-map "i" #'ibuffer)
 
 ;; _____________________________________________________________________________
 ;;;; SCRATCH BUFFER
@@ -1080,8 +1085,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;;  ____________________________________________________________________________
 ;;; VISITING FILES AT POINT
 
-;; "C-x C-v"       – Visit any resource under the cursor
-;; "M-x ffap-menu" – Display a list of all resources mentioned in this buffer
+(keymap-set ctl-z-map "z" #'scratch-buffer)
 
 (define-key ctl-z-map (kbd "C-.") #'find-file-at-point)
 ;; _____________________________________________________________________________
@@ -1141,7 +1145,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
     (interactive "r")
     (let ((default-directory "/mnt/c/"))
       (shell-command-on-region start end "clip.exe")))
-  (define-key ctl-z-map (kbd "C-w") #'eon-wsl-copy))
+  (keymap-set ctl-z-map "C-w" #'eon-wsl-copy))
 
 ;; Paste "yank" text into Emacs buffer that has been copied from a Windows app
 (when (and (eon-linp)
@@ -1322,16 +1326,21 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 ;; The `dired' keybinding is "C-x d". This new keybinding is in accordance
 ;; with "C-x C-f" for visiting files
-(global-set-key (kbd "C-x C-d") #'dired)
+(keymap-global-set "C-x C-d" #'dired)
+
+;; Open the Dired file manager from the leader menu: "<leader> d"
+(keymap-set ctl-z-map "d" #'dired)
+;; Open the directory of the currently visited file in Dired: "<leader> f d"
+(keymap-set ctl-z-f-map "d" #'dired-jump)
 
 ;; Switch to wdired-mode and edit directory content like a text buffer
 (with-eval-after-load 'dired
-  (define-key dired-mode-map (kbd "e") #'wdired-change-to-wdired-mode))
+  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode))
 
 ;; Don't accumulate useless Dired buffers
 (setopt dired-kill-when-opening-new-dired-buffer t)
 
-;; Directory listings
+;; Improving directory listings
 (add-hook 'dired-mode-hook
           (lambda ()
             ;; Hide details in file listings? Toggle via "S-("
@@ -1374,6 +1383,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
   (with-eval-after-load 'dired
+    (keymap-global-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
 
 ;; _____________________________________________________________________________
 ;;; COMINT
@@ -2077,21 +2087,21 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; ORG LINKS
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
-;; Store a link via `C-z o L'
-(define-key ctl-z-o-map (kbd "L") #'org-store-link)
+;; Store a link via "<localleader> L"
+(keymap-set eon-localleader-org-mode-map "L" #'org-store-link)
 
-;; Insert a link into an Org file via `C-z o l'
-(define-key ctl-z-o-map (kbd "l") #'org-insert-link)
+;; Insert a link into an Org file via "<localleader> l"
+(keymap-set eon-localleader-org-mode-map "l" #'org-insert-link)
 
-;; Toggle visible/hidden links via `C-z o M-l'
-(define-key ctl-z-o-map (kbd "M-l") #'org-toggle-link-display)
+;; Toggle visible/hidden links via "<localleader> M-l"
+(keymap-set eon-localleader-org-mode-map "M-l" #'org-toggle-link-display)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG PUBLISH
 
-;; Select a project to publish a project via `C-z o p';
+;; Select a project to publish a project via "<localleader> p";
 ;; This can be used to generate and publish a static blog, ebooks, etc.
-(define-key ctl-z-o-map (kbd "p") 'org-publish)
+(keymap-set eon-localleader-org-mode-map "p" #'org-publish)
 
 ;; Speed up publishing by skipping files that haven't been changed
 (setopt org-publish-list-skipped-files nil)
