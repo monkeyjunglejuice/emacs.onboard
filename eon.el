@@ -562,7 +562,7 @@ already in MODE or a derived mode). BODY is forwarded to `defvar-keymap.'"
   :group 'eon-theme
   :type 'symbol)
 
-(defcustom eon-default-theme-variant 'light
+(defcustom eon-default-theme-variant 'dark
   "Load either the light or the dark theme at startup?"
   :group 'eon-theme
   :type 'symbol)
@@ -650,17 +650,17 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (custom-set-faces
  '(region ((t :extend nil))))
 
-;;; --> Set your light theme:
+;;; ---> Set your light theme:
 ;; (setopt eon-light-theme-name 'modus-operandi-tinted)
 
-;;; --> Set your dark theme:
+;;; ---> Set your dark theme:
 ;; (setopt eon-dark-theme-name 'modus-vivendi-tinted)
 
-;;; --> Set your default variant here - 'light or 'dark
+;;; ---> Set your default variant here - 'light or 'dark
 ;; (setopt eon-default-theme-variant 'light)
 
-;; Set the keybinding to toggle between light and dark:
-(global-set-key (kbd "<f12>") #'eon-toggle-theme)
+;; Set the keybinding to toggle between light and dark: "<leader> x t"
+(keymap-set ctl-z-x-map "t" #'eon-toggle-theme)
 
 ;; The hooks below can be used to run additional functions before or after
 ;; loading the selected light and dark theme. That's useful for setting
