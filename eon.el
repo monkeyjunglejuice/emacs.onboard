@@ -30,8 +30,8 @@
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
 ;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Version: 1.7.1
 ;; Created: 28 Apr 2021
+;; Version: 2.0.0
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
 ;; Keywords: config dotemacs convenience
