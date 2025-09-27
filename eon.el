@@ -955,8 +955,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows>
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience>
 
-;; Display-buffer: avoid resizing
-(setopt even-window-sizes nil)
+;; Should `display-buffer' try to even window sizes?
+;; Set to nil to leave the window configuration alone.
+(setopt even-window-sizes 'height-only)
 
 ;; Focus follows mouse?
 (setopt mouse-autoselect-window nil
