@@ -1506,8 +1506,8 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;         browse-url-browser-function #'browse-url-generic)
 
 ;; Keybindings
-(define-key ctl-z-w-map (kbd "W") #'browse-url)
-(define-key ctl-z-w-map (kbd "w") #'browse-web)
+(keymap-set ctl-z-g-map "W" #'browse-url)
+(keymap-set ctl-z-g-map "w" #'browse-web)
 
 ;; _____________________________________________________________________________
 ;;; EMAIL SENDING
@@ -1560,13 +1560,13 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (setopt require-final-newline t)
 
 ;; Better than the default 'just-one-space' (was M-SPC before)
-(global-set-key (kbd "M-S-SPC") #'cycle-spacing)
+(keymap-global-set "M-S-SPC" #'cycle-spacing)
 
 ;; Count lines, words and chars (buffer or region)
-(global-set-key (kbd "C-x l") #'count-words)
+(keymap-global-set "C-x l" #'count-words)
 
 ;; Kill up to character
-(global-set-key (kbd "M-z") #'zap-up-to-char)
+(keymap-global-set "M-z" #'zap-up-to-char)
 
 ;; _____________________________________________________________________________
 ;;; LINE NUMBERS
@@ -1651,7 +1651,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
             (setopt show-trailing-whitespace nil)))
 
 ;; Cleanup trailing whitespace
-(define-key ctl-z-c-map (kbd "w") #'whitespace-cleanup)
+(keymap-set ctl-z-c-map "w" #'whitespace-cleanup)
 
 ;; _____________________________________________________________________________
 ;;; SYNTAX CHECK / LINTER
@@ -1669,10 +1669,10 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (setopt flymake-wrap-around nil)
 
 (with-eval-after-load 'flymake
-  (define-key flymake-mode-map (kbd "M-g E") #'flymake-show-project-diagnostics)
-  (define-key flymake-mode-map (kbd "M-g e") #'flymake-show-buffer-diagnostics)
-  (define-key flymake-mode-map (kbd "M-g n") #'flymake-goto-next-error) ; default
-  (define-key flymake-mode-map (kbd "M-g p") #'flymake-goto-prev-error))  ; default
+  (keymap-set flymake-mode-map "M-g E" #'flymake-show-project-diagnostics)
+  (keymap-set flymake-mode-map "M-g e" #'flymake-show-buffer-diagnostics)
+  (keymap-set flymake-mode-map "M-g n" #'flymake-goto-next-error)  ; default
+  (keymap-set flymake-mode-map "M-g p" #'flymake-goto-prev-error))  ; default
 
 ;; _____________________________________________________________________________
 ;;; EGLOT LANGUAGE SERVER
@@ -1686,10 +1686,10 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   ;; Show code action indicators?
   (setopt eglot-code-action-indications nil)
   ;; Common keybindings
-  (define-key ctl-z-c-map (kbd "r") #'eglot-rename)
-  (define-key ctl-z-c-map (kbd "f") #'eglot-format)
-  (define-key ctl-z-c-map (kbd "F") #'eglot-format-buffer)
-  (define-key ctl-z-c-map (kbd "a") #'eglot-code-actions))
+  (keymap-set ctl-z-c-map "r"   #'eglot-rename)
+  (keymap-set ctl-z-c-map "f"   #'eglot-format)
+  (keymap-set ctl-z-c-map "F b" #'eglot-format-buffer)
+  (keymap-set ctl-z-c-map "a"   #'eglot-code-actions))
 
 ;; Eglot comes with a fairly complete set of associations of major-modes
 ;; to popular language servers predefined. If you need to add server
@@ -2014,7 +2014,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   (dired org-directory))
 
 ;; Visit the `org-directory' in Dired via `C-z o d'
-(define-key ctl-z-o-map (kbd "d") #'eon-visit-org-directory)
+(keymap-set ctl-z-o-map "d" #'eon-visit-org-directory)
 
 ;; Turn on visual word wrapping
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
@@ -2036,7 +2036,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; <https://orgmode.org/org.html#Capture>
 
 ;; Capture a note via `C-z o c'
-(define-key ctl-z-o-map (kbd "c") #'org-capture)
+(keymap-set ctl-z-o-map "c" #'org-capture)
 ;; Put newer notes on top of the file
 (setopt org-reverse-note-order t)
 
@@ -2049,7 +2049,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   (find-file org-default-notes-file))
 
 ;; Visit the default notes file via `C-z o o'
-(define-key ctl-z-o-map (kbd "o") #'eon-visit-org-notes)
+(keymap-set ctl-z-o-map "o" #'eon-visit-org-notes)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG TODO
@@ -2068,7 +2068,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (setopt org-agenda-files (list org-directory))
 
 ;; Visit your Org agenda via `C-z o a'
-(define-key ctl-z-o-map (kbd "a") #'org-agenda)
+(keymap-set ctl-z-o-map "a" #'org-agenda)
 
 (add-hook 'org-agenda-mode-hook
           (lambda ()
@@ -2143,7 +2143,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
         eval-expression-print-level nil)
 
 ;; Additional keybinding resembling other sexp-related keybindings
-(global-set-key (kbd "C-M-<backspace>") #'backward-kill-sexp)
+(keymap-global-set "C-M-<backspace>" #'backward-kill-sexp)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Helpers
