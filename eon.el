@@ -998,6 +998,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
 
+(keymap-set ctl-z-b-map "K" #'eon-kill-all-buffers)
+
 ;; Uniquify buffer names for buffers that would have identical names
 (setopt uniquify-buffer-name-style 'forward)
 
