@@ -28,11 +28,13 @@
 ;; this program. If not, see <https://www.gnu.org/licenses/>.
 
 ;; Author: Dan Dee <monkeyjunglejuice@pm.me>
+;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Version: 1.7.1
+;; Created: 28 Apr 2021
 ;; Package: eon
-;; Package-Requires: ((EMACS "30.1"))
-;; Keywords: convenience
+;; Package-Requires: ((emacs "30.1"))
+;; Keywords: config dotemacs convenience
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 ;; This file is not part of GNU Emacs.
 
