@@ -1439,12 +1439,12 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Show all project keybindings in the selection?
 (setopt project-switch-use-entire-map nil)
 ;; Show these insteads:
-(setopt project-switch-commands '((project-find-file   "File"       ?f)
-                                  (project-find-dir    "Dired"      ?d)
-                                  (project-find-regexp "Grep"       ?g)
-                                  (project-vc-dir      "VersionCtl" ?v)
-                                  (project-eshell      "Eshell"     ?e)
-                                  (project-shell       "Shell"      ?s)))
+(setopt project-switch-commands '((project-find-file   "File"   ?f)
+                                  (project-find-dir    "Dired"  ?d)
+                                  (project-find-regexp "Grep"   ?g)
+                                  (project-vc-dir      "VC/Git" ?v)
+                                  (project-eshell      "Eshell" ?e)
+                                  (project-shell       "Shell"  ?s)))
 
 ;; _____________________________________________________________________________
 ;;; PROCED
