@@ -1081,7 +1081,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 (keymap-set ctl-z-map "z" #'scratch-buffer)
 
-(define-key ctl-z-map (kbd "C-.") #'find-file-at-point)
 ;; _____________________________________________________________________________
 ;;; CLIPBOARD, COPY & PASTE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing>
@@ -1153,7 +1152,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
        (substring
         (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
         0 -1))))
-  (define-key ctl-z-map (kbd "C-y") #'eon-wsl-paste))
   (keymap-set ctl-z-map "C-y" #'eon-wsl-paste))
 
 ;; _____________________________________________________________________________
