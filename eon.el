@@ -2148,9 +2148,11 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;;; EMACS LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
-;; Emacs Lisp is supported by Flymake, so let's use it per default
-(add-hook 'emacs-lisp-mode-hook #'flymake-mode)
-(add-hook 'lisp-interaction-mode-hook (lambda () (flymake-mode -1)))
+;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode.
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (unless (derived-mode-p 'lisp-interaction-mode)
+              (flymake-mode 1))))
 
 ;; Emacs Lisp evaluation: don't truncate printed lists
 (setopt eval-expression-print-length nil
