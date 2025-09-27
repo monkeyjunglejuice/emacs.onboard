@@ -1903,7 +1903,6 @@ Return an alist of (LANG . STATUS)."
             (cons lang (cons 'error (error-message-string err)))))))
      (eon-treesitter--dedupe-specs resolved))))
 
-;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;; Public API
 
 (defun eon-treesitter-add-specs (&rest specs)
