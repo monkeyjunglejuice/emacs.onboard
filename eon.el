@@ -1769,18 +1769,14 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   "Tree-sitter grammar specs: list of (LANG URL [REVISION] [SOURCE-DIR]).
 Add further specs without building/installing via `eon-treesitter-add-specs'
 
-Only LANG and URL are mandatory.
-
-LANG is the language symbol.
-
-URL is the URL of the grammar’s Git repository or a directory
-where the repository has been cloned.
-
-REVISION is the Git tag or branch of the desired version,
-defaulting to the latest default branch.
-
-SOURCE-DIR is the relative subdirectory in the repository in which
-the grammar’s parser.c file resides, defaulting to \"src\".")
+- Only LANG and URL are mandatory.
+- LANG is the language symbol.
+- URL is the URL of the grammar’s Git repository or a directory
+  where the repository has been cloned.
+- REVISION is the Git tag or branch of the desired version,
+  defaulting to the latest default branch.
+- SOURCE-DIR is the relative subdirectory in the repository in which
+  the grammar’s parser.c file resides, defaulting to \"src\".")
 
 ;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;; Internal utilities
