@@ -1030,8 +1030,7 @@ The elements of the list are regular expressions.")
 ;; "M-x ffap-menu" – Display a list of all resources mentioned in this buffer
 
 (define-key ctl-z-map (kbd "C-.") #'find-file-at-point)
-
-;;  ____________________________________________________________________________
+;; _____________________________________________________________________________
 ;;; CLIPBOARD, COPY & PASTE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing>
 
