@@ -1344,8 +1344,14 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Create directories if they don't exist?
 (setopt dired-create-destination-dirs 'ask)
 
+;; Register file renaming in underlying version control system?
+(setopt dired-vc-rename-file t)
+
 ;; Mimic dual-pane file managers?
 (setopt dired-dwim-target t)
+
+;; Check for directory modifications?
+(setopt dired-auto-revert-buffer 'dired-buffer-stale-p)
 
 ;; Images
 (setopt image-dired-thumb-margin 1
