@@ -1617,7 +1617,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; COMMENTING
 
 ;; Enable multi-line commenting to ensure that `comment-indent-new-line'
-;; properly continues comments onto new lines.
+;; continues comments onto new lines?
 (setopt comment-multi-line t)
 
 ;; _____________________________________________________________________________
