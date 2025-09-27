@@ -1076,12 +1076,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (setopt initial-scratch-message "")
 
 ;; Quickly jump to the *scratch* buffer
-(defun eon-scratch ()
-  "Jump to the *scratch* buffer. If it does not exist, create it."
-  (interactive)
-  (switch-to-buffer "*scratch*"))
-(define-key ctl-z-s-map (kbd "s") #'eon-scratch)
-
 ;;  ____________________________________________________________________________
 ;;; VISITING FILES AT POINT
 
