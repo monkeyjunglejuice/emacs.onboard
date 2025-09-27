@@ -2154,6 +2154,9 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
             (unless (derived-mode-p 'lisp-interaction-mode)
               (flymake-mode 1))))
 
+;; Reach eval-expression via "<leader> x"
+(keymap-set ctl-z-e-map "x" #'eval-expression)
+
 ;; Emacs Lisp evaluation: don't truncate printed lists
 (setopt eval-expression-print-length nil
         eval-expression-print-level nil)
