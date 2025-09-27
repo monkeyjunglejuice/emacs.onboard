@@ -114,8 +114,6 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-;;  ____________________________________________________________________________
-;;; ELISP NATIVE COMPILATION / BYTECODE
 ;; _____________________________________________________________________________
 ;;;; PACKAGE MANAGEMENT
 
@@ -149,6 +147,8 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
             (lambda ()
               (hl-line-mode 1))))
 
+;; _____________________________________________________________________________
+;;;; ELISP NATIVE COMPILATION / BYTECODE
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
 (setopt load-prefer-newer t)
