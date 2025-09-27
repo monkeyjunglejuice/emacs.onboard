@@ -896,8 +896,28 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode))
 
-;;  ____________________________________________________________________________
-;;; ELDOC
+;; _____________________________________________________________________________
+;;;; HELP
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
+
+(keymap-set ctl-z-h-map "/" `("..." . ,help-map))
+(keymap-set ctl-z-h-map "e" #'view-echo-area-messages)
+(keymap-set ctl-z-h-map "f" #'describe-function)
+(keymap-set ctl-z-h-map "k" #'describe-key-briefly)
+(keymap-set ctl-z-h-map "o" #'describe-symbol)
+(keymap-set ctl-z-h-map "v" #'describe-variable)
+
+;; Show all options when running 'apropos' "C-h a" (fulltext search)
+(setopt apropos-do-all t)
+
+;; _____________________________________________________________________________
+;;;; CUSTOMIZATION UI
+
+;; Don't accumulate customization buffers
+(setopt custom-buffer-done-kill t)
+
+;; _____________________________________________________________________________
+;;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 ;; <https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc>
 
@@ -907,7 +927,23 @@ Some themes may come as functions -- wrap these ones in lambdas."
         eldoc-echo-area-prefer-doc-buffer nil
         eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
 
-(define-key ctl-z-c-map (kbd "d") #'eldoc)
+(keymap-set ctl-z-c-map "d" #'eldoc)
+
+;; _____________________________________________________________________________
+;;; SEARCH
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
+
+;; Switch search functions to make regex-search the default
+(keymap-global-set "C-s" #'isearch-forward-regexp)
+(keymap-global-set "C-r" #'isearch-backward-regexp)
+(keymap-global-set "C-S-s" #'isearch-forward)
+(keymap-global-set "C-S-r" #'isearch-backward)
+
+;; Search and replace
+;; The 'query-' variant asks for each string. Confirm with "SPC",
+;; or jump to the next via "n"
+(keymap-global-set "M-%" #'query-replace-regexp)
+(keymap-global-set "C-M-%" #'replace-regexp)
 
 ;; _____________________________________________________________________________
 ;;;; PINENTRY
@@ -964,26 +1000,42 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Define boring buffers globally, so they can be hidden.
 ;; These buffers remain accessible via Ibuffer "C-x C-b".
-(defvar eon-boring-buffers '("\\` "
-                             "\\`\\*Echo Area"
-                             "\\`\\*Minibuf"
-                             "\\`\\*Completions"
-                             "\\`\\*Flymake log"
-                             "\\`\\*Semantic SymRef"
-                             "\\`\\*Backtrace"
-                             "\\`\\*tramp"
-                             "\\`\\*EGLOT"
-                             ;; And some hidden buffers can be visited by ...
-                             "\\`\\*scratch"        ; "C-z s s"
-                             "\\`\\*Messages"       ; "C-h e"
-                             "\\`\\*Bookmark List"  ; "C-x r l"
-                             "\\`\\*Ibuffer"        ; "C-x C-b"
-                             )
-  "List of buffer names of buffers to hide on several occasions.
-The elements of the list are regular expressions.")
+(defcustom eon-boring-buffers
+  '("\\` "
+    "\\`\\*Echo Area"
+    "\\`\\*Minibuf"
+    "\\`\\*Completions"
+    "\\`\\*Flymake log"
+    "\\`\\*Semantic SymRef"
+    "\\`\\*Backtrace"
+    "\\`\\*Async-native-compile-log"
+    "\\`\\*tramp"
+    "\\`\\*EGLOT"
+    ;; And some hidden buffers can be visited by ...
+    "\\`\\*Bookmark List"  ; "C-x r l"
+    "\\`\\*Ibuffer"        ; "<leader> b i"
+    "\\`\\*Messages"       ; "<leader> h e"
+    )
+  "List of regexps matching buffers considered uninteresting.
+These buffers may be skipped from navigation commands.
+Use `eon-boring-buffers-add' to extend the list."
+  :type '(repeat regexp)
+  :group 'eon)
 
-;;  ____________________________________________________________________________
-;;; IBUFFER – the buffer manager
+(defun eon-boring-buffers-add (&optional regexp)
+  "Add REGEXP (string or list of strings) to `eon-boring-buffers'.
+Called without argument just syncs `eon-boring-buffers' to other places."
+  (when regexp
+    (eon-add-to-list 'eon-boring-buffers regexp))
+  ;; Define other places where `eon-boring-buffers' are synced to:
+  (setopt switch-to-prev-buffer-skip-regexp eon-boring-buffers
+          switch-to-next-buffer-skip-regexp eon-boring-buffers))
+
+;; Hide boring buffers from `next-buffer' and `prev-buffer'.
+(with-eval-after-load 'window (eon-boring-buffers-add))
+
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;;; IBUFFER – the buffer manager
 ;; <https://protesilaos.com/codelog/2020-04-02-emacs-intro-ibuffer/>
 
 (add-hook 'ibuffer-mode-hook
@@ -1099,6 +1151,105 @@ The elements of the list are regular expressions.")
         (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
         0 -1))))
   (define-key ctl-z-map (kbd "C-y") #'eon-wsl-paste))
+  (keymap-set ctl-z-map "C-y" #'eon-wsl-paste))
+
+;; _____________________________________________________________________________
+;;;; HISTORY
+
+;; Which histories to save between Emacs sessions?
+(savehist-mode 1)
+(eon-add-to-list 'savehist-additional-variables
+                 '(kill-ring
+                   register-alist
+                   mark-ring
+                   global-mark-ring
+                   search-ring
+                   regexp-search-ring))
+
+;; History length for various histories
+(setopt history-length 500)
+;; Delete duplicates from the command history?
+(setopt history-delete-duplicates t)
+
+;; Remember where the cursor was, the last time you visited the file?
+(setopt save-place-limit 500)
+(save-place-mode 1)
+
+;; _____________________________________________________________________________
+;;;; FILE MANAGEMENT
+
+;; Open arbitrary file: "<leader> f f"
+(keymap-set ctl-z-f-map "f" #'find-file)
+;; Open another file that has common file base name: "<leader> f a"
+(keymap-set ctl-z-f-map "a" #'find-alternate-file-other-window)
+;; Open the file you really wanted: "<leader> f A"
+(keymap-set ctl-z-f-map "A" #'find-alternate-file)
+
+;; Open any resource under the cursor: "<leader> f o"
+(keymap-set ctl-z-f-map "o" #'find-file-at-point)
+;; Display a list of all resources mentioned in this buffer: "<leader> f O"
+(keymap-set ctl-z-f-map "O" #'ffap-menu)
+
+;; Save buffer if modified: "<leader> f s"
+(keymap-set ctl-z-f-map "s" #'save-buffer)
+;; Save some modified file-visiting buffers, but ask: "<leader> f S"
+(keymap-set ctl-z-f-map "S" #'save-some-buffers)
+;; Write buffer to file ("save file as ..."): "<leader> f w"
+(keymap-set ctl-z-f-map "w" #'write-file)
+
+;; Deleting files
+
+(defun eon-trash-on ()
+  "Delete files by moving to the system trash."
+  (interactive)
+  (setopt delete-by-moving-to-trash t)
+  (setopt dired-recursive-deletes 'always)  ; don't ask when directory not empty
+  (message "Trash on: Deleted files will go to system trash."))
+
+(defun eon-trash-off ()
+  "Delete files immediately."
+  (interactive)
+  (setopt delete-by-moving-to-trash nil)
+  (setopt dired-recursive-deletes 'top)  ; ask when directory not empty
+  (message "Trash off: Files will be deleted immediately!"))
+
+(eon-trash-on)  ; set the default
+
+;; Use the system trash when deleting files?
+(setopt remote-file-name-inhibit-delete-by-moving-to-trash t)
+
+;; Resolve symlinks so that operations are conducted from the file's directory?
+(setopt find-file-visit-truename t
+        vc-follow-symlinks t)
+
+;; Auto refresh dired (and others) when contents change?
+(setopt global-auto-revert-non-file-buffers t
+        auto-revert-stop-on-user-input nil
+        auto-revert-verbose t)
+(global-auto-revert-mode 1)
+
+;; Configure Ediff to use a single frame and split windows horizontally
+(setopt ediff-window-setup-function 'ediff-setup-windows-plain
+        ediff-split-window-function 'split-window-horizontally)
+
+;; _____________________________________________________________________________
+;;;; RECENT FILES
+
+;; Turn on recent file mode to visit recently edited files
+(recentf-mode 1)
+
+(setopt recentf-max-menu-items 10
+        recentf-max-saved-items 100)
+
+;; Ignore some recently visited files, eg. to prevent them from showing up
+;; amongst recent files after package upgrades
+(add-to-list 'recentf-exclude
+             (expand-file-name (concat user-emacs-directory "elpa/")))
+(add-to-list 'recentf-exclude
+             "^/\\(?:ssh\\|su\\|sudo\\)?:")
+
+(keymap-global-set "C-x f" #'recentf-open)
+(keymap-set ctl-z-f-map "r" #'recentf-open)
 
 ;; _____________________________________________________________________________
 ;;;; BACKUP FILES
@@ -1160,57 +1311,6 @@ The elements of the list are regular expressions.")
 ;; Auto save options
 (setopt kill-buffer-delete-auto-save-files t)
 
-;;  ____________________________________________________________________________
-;;; HELP
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
-
-;; Show all options when running 'apropos' "C-h a" (fulltext search)
-(setopt apropos-do-all t)
-
-;;  ____________________________________________________________________________
-;;; CUSTOMIZATION UI
-
-;; Don't accumulate customization buffers
-(setopt custom-buffer-done-kill t)
-
-;;  ____________________________________________________________________________
-;;; SEARCH
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
-
-;; Switch search functions to make regex-search the default
-(global-set-key (kbd "C-s") #'isearch-forward-regexp)
-(global-set-key (kbd "C-r") #'isearch-backward-regexp)
-(global-set-key (kbd "C-S-s") #'isearch-forward)
-(global-set-key (kbd "C-S-r") #'isearch-backward)
-
-;; Search and replace
-;; The 'query-' variant asks for each string. Confirm with "SPC",
-;; or jump to the next via "n"
-(global-set-key (kbd "M-%") #'query-replace-regexp)
-(global-set-key (kbd "C-M-%") #'replace-regexp)
-
-;;  ____________________________________________________________________________
-;;; RECENT FILES
-
-;; Turn on recent file mode to visit recently edited files
-(recentf-mode 1)
-
-(setopt recentf-max-menu-items 10
-        recentf-max-saved-items 100)
-
-;; Ignore some recently visited files, eg. to prevent them from showing up
-;; amongst recent files after package upgrades
-(add-to-list 'recentf-exclude
-             (expand-file-name (concat user-emacs-directory "elpa/")))
-(add-to-list 'recentf-exclude
-             "^/\\(?:ssh\\|su\\|sudo\\)?:")
-
-;; Use 'completing-read' to choose between recent files
-(defun eon-find-recentf ()
-  "Find recent file via completion in the minibuffer."
-  (interactive)
-  (find-file (completing-read "Find recent file: " recentf-list nil t) nil))
-(global-set-key (kbd "C-x f") #'eon-find-recentf)
 
 ;; _____________________________________________________________________________
 ;;;; DIRED FILE MANAGER
@@ -1264,43 +1364,6 @@ The elements of the list are regular expressions.")
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
   (with-eval-after-load 'dired
-    (define-key dired-mode-map (kbd "M-RET") #'eon-dired-xdg-open)))
-
-;;  ____________________________________________________________________________
-;;; FILE HANDLING
-
-(defun eon-trash-on ()
-  "Delete files by moving to the system trash."
-  (interactive)
-  (setopt delete-by-moving-to-trash t)
-  (setopt dired-recursive-deletes 'always)  ; don't ask when directory not empty
-  (message "Trash on: Deleted files will go to system trash."))
-
-(defun eon-trash-off ()
-  "Delete files immediately."
-  (interactive)
-  (setopt delete-by-moving-to-trash nil)
-  (setopt dired-recursive-deletes 'top)  ; ask when directory not empty
-  (message "Trash off: Files will be deleted immediately!"))
-
-(eon-trash-on)  ; set the default
-
-;; Use the system trash when deleting files?
-(setopt remote-file-name-inhibit-delete-by-moving-to-trash t)
-
-;; Resolve symlinks so that operations are conducted from the file's directory?
-(setopt find-file-visit-truename t
-        vc-follow-symlinks t)
-
-;; Auto refresh dired (and others) when contents change?
-(setopt global-auto-revert-non-file-buffers t
-        auto-revert-stop-on-user-input nil
-        auto-revert-verbose t)
-(global-auto-revert-mode 1)
-
-;; Configure Ediff to use a single frame and split windows horizontally
-(setopt ediff-window-setup-function 'ediff-setup-windows-plain
-        ediff-split-window-function 'split-window-horizontally)
 
 ;; _____________________________________________________________________________
 ;;; COMINT
@@ -1473,10 +1536,6 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; UTF-8
 (prefer-coding-system 'utf-8)
-
-;; Remember the place where the cursor was last time?
-(setopt save-place-limit 500)
-(save-place-mode 1)
 
 ;; Set desired line length in characters
 (setopt fill-column 80)
@@ -1843,22 +1902,16 @@ Return an alist of (LANG . STATUS)."
 Use this only if you merely want to register SPECS, but not build/install
 them.
 
-SPECS can be many specs or a single list of specs.
-
-Each spec has the form (LANG URL [REVISION] [SOURCE-DIR]).
-
-Only LANG and URL are mandatory.
-
-LANG is the language symbol.
-
-URL is the URL of the grammar’s Git repository or a directory where the
-repository has been cloned.
-
-REVISION is the Git tag or branch of the desired version, defaulting to
-the latest default branch.
-
-SOURCE-DIR is the relative subdirectory in the repository in which the
-grammar’s parser.c file resides, defaulting to \"src\".
+- SPECS can be many specs or a single list of specs.
+  Each spec has the form (LANG URL [REVISION] [SOURCE-DIR]).
+- Only LANG and URL are mandatory.
+- LANG is the language symbol.
+- URL is the URL of the grammar’s Git repository or a directory where the
+  repository has been cloned.
+- REVISION is the Git tag or branch of the desired version, defaulting to
+  the latest default branch.
+- SOURCE-DIR is the relative subdirectory in the repository in which the
+  grammar’s parser.c file resides, defaulting to \"src\".
 
 Return the updated `eon-treesitter-specs'."
   (let* ((xs0 (eon-treesitter--normalize-args specs))
@@ -2122,5 +2175,40 @@ With SWITCH = 'hook, return -hook variables."
 
 ;; _____________________________________________________________________________
 ;;;; SERVER
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server>
+;; ... or do "M-x info-emacs-manual s server RET" to read it within Emacs
+
+;; Display the name of the Emacs server process in the frame title
+;; to see easily to which server process a client is connected to
+(with-eval-after-load 'server
+
+  (defun eon-frame-title ()
+    "Set a custom frame title."
+    (setq frame-title-format
+          (concat "%b (%f)"
+                  (when (server-running-p)
+                    (concat " " server-name)))))
+
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              "Run functions after loading init files"
+              (eon-frame-title)))
+
+  (add-hook 'server-mode-hook
+            (lambda ()
+              "Run functions after entering or leaving server-mode."
+              (eon-frame-title)))
+
+  ;; Shutdown the Emacs server process
+  (defun eon-server-stop ()
+    "Save buffers, quit and shutdown (kill) server."
+    (interactive)
+    (save-some-buffers)
+    (kill-emacs)))
+
+;; Start the server?
+(add-hook 'emacs-startup-hook #'server-start)
+
+;; _____________________________________________________________________________
 (provide 'eon)
 ;;; eon.el ends here
