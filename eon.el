@@ -396,6 +396,7 @@ Use `setopt' to override."
 (defvar eon--localleader-which-key-sym (make-symbol eon-localleader-label))
 
 (defun eon-localleader-dispatch ()
+  "Function called by the key bound as localleader."
   (interactive)
   (let ((effective (if (keymapp eon-localleader-map)
                        eon-localleader-map
