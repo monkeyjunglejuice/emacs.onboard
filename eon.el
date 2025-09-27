@@ -1996,6 +1996,8 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; _____________________________________________________________________________
 ;;;; TEXT MODES / WRITING PROSE
 
+;; Visual line wrapping in text mode
+(add-hook 'text-mode-hook #'visual-line-mode)
 
 ;; Sentences end with a single space
 (setopt sentence-end-double-space nil)
