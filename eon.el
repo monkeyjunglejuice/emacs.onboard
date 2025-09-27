@@ -2011,6 +2011,10 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; Org provides functionality far beyond that of computational notebooks
 ;; such as Jupyter or R Markdown.
 
+;; Create the local leader keymap
+(eon-localleader-defkeymap org-mode eon-localleader-org-mode-map
+  :doc "Localleader map for `org-mode'.")
+
 ;; Set a default location to look for Org files; but you can have
 ;; that directory anywhere you like
 (setopt org-directory (expand-file-name "~/Documents/org/"))
