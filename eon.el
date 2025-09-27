@@ -155,36 +155,33 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setopt read-process-output-max (* 1024 1024))  ; 1 MB
 
-;;  ____________________________________________________________________________
-;;; PACKAGE MANAGEMENT
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages>
-;; ... or do "M-x info-emacs-manual s packages RET" to read it within Emacs
+;; _____________________________________________________________________________
+;;;; DEFAULT AND INITIAL FRAME
 
-;; Browse, select and install 3rd-party packages with "M-x list-packages RET"
+;; In Emacs terminology, a "frame" means the ordinary "desktop window";
+;; while "window" refers to tiled panels within an Emacs frame. Why?
+;; Because Emacs had it first, and today's convention what "window" means
+;; appeared later.
+;; In order to define properties generally, add them to `default-frame-alist';
+;; to affect only the first frame created, add them to `initial-frame-alist'.
 
-;; The package setup respects when `package-enable-at-startup' is set to nil in
-;; early-init.el (if there's any), so that you can use other package managers
-;; like Straight or Elpaca without issues.
+;; Either start Emacs maximized …
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(when package-enable-at-startup
-  (require 'package)
+;; … or set the default width of the Emacs frame in characters
+(add-to-list 'default-frame-alist '(width . 80))
 
-  ;;; 1st priority
-  ;; Gnu Elpa and Non-Gnu Elpa, which are enabled by default
+;; … and set the default height of the Emacs frame in lines
+(add-to-list 'default-frame-alist '(height . 32))
 
-  ;;; 2nd priority
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t)
+;; Horizontal position: set the distance from the left screen edge in pixels
+;; That way, only the first frame created will get a fixed position:
+;; (add-to-list 'initial-frame-alist '(left . 0))
 
-  ;;; 3rd priority
-  ;; Install from melpa-stable' only when the package from 'melpa' is broken
-  ;; (add-to-list 'package-archives
-  ;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+;; Vertical position: set the distance from the top screen edge in pixels
+;; That way, only the first frame created will get a fixed position:
+;; (add-to-list 'initial-frame-alist '(top . 0))
 
-  ;; Highlight current line in the package manager
-  (add-hook 'package-menu-mode-hook
-            (lambda ()
-              (hl-line-mode 1))))
 
 ;;  ____________________________________________________________________________
 ;;; GLOBAL DEFINITIONS & UTILITIES
