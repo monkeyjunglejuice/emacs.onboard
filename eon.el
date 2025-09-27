@@ -1565,6 +1565,14 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; Kill up to character
 (keymap-global-set "M-z" #'zap-up-to-char)
 
+;; Define keymap in order to group formatting commands
+(defvar-keymap eon-format-map :doc "Format"
+               "a" #'align
+               "s" #'sort-lines)
+;; Hook the keymap into the "Code" sub-keymap under the leader to make it
+;; available via "<leader> c f"
+(keymap-set ctl-z-c-map "F" `("Format" . ,eon-format-map))
+
 ;; _____________________________________________________________________________
 ;;; LINE NUMBERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom>
