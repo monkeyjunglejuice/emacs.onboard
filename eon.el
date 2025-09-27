@@ -802,6 +802,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (when (fboundp #'pixel-scroll-precision-mode)
   (pixel-scroll-precision-mode 1))
 
+;; Redraw the display – useful when running Emacs in a Windows terminal emulator
+(keymap-set ctl-z-x-map "r" #'redraw-display)
+
 ;; _____________________________________________________________________________
 ;;;; MODE LINE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line>
