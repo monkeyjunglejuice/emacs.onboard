@@ -1337,10 +1337,10 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
 (setopt dired-listing-switches "-lhFA -v --group-directories-first")
 
-;; Copying files/directories
+;; Copying files/directories with sub-directories?
 (setopt dired-recursive-copies 'always)
 
-;; Create directories if they don't exist
+;; Create directories if they don't exist?
 (setopt dired-create-destination-dirs 'ask)
 
 ;; Mimic dual-pane file managers?
@@ -1353,7 +1353,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
         ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
         image-dired-thumbnail-storage 'standard-large)
 
-;; Linux/Unix only: hit "M-RET" to open files in desktop app
+;; Linux/Unix only: hit "M-RET" to open files in the corresponding desktop app
 (when (eon-linp)
   (defun eon-dired-xdg-open ()
     "Open files and folders with the default desktop app."
