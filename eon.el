@@ -215,9 +215,69 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; That way, only the first frame created will get a fixed position:
 ;; (add-to-list 'initial-frame-alist '(top . 0))
 
+;; Fringe: choose on which sides (not) to show it
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
+;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
-;;  ____________________________________________________________________________
-;;; GLOBAL DEFINITIONS & UTILITIES
+;; Bring frame to the front
+(add-hook 'window-setup-hook
+          (lambda ()
+            (when (display-graphic-p)
+              (select-frame-set-input-focus (selected-frame)))))
+
+;; _____________________________________________________________________________
+;;;; USER INTERFACE
+
+;; Menu bar: on/off by default?
+(menu-bar-mode 1)
+
+;; Scroll bar: on/off by default?
+(when (display-graphic-p) (scroll-bar-mode -1))
+
+;; Tool bar: on/off by default?
+(when (display-graphic-p) (tool-bar-mode -1))
+
+;; Tooltips: enable/disable?
+(tooltip-mode -1)
+
+;; Startup screen: on/off by default?
+(setopt inhibit-startup-screen t)
+
+;; Alarms: turn off?
+(setopt ring-bell-function 'ignore)
+
+;; _____________________________________________________________________________
+;;;; CURSOR
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
+
+;; To learn about available cursors, place your cursor behind 'cursor-type'
+;; in the code below or do "M-x describe-symbol RET cursor-type RET"
+
+;; Set the cursor type
+;; Comment out the following expression to change the cursor into a bar
+;; (add-to-list 'default-frame-alist '(cursor-type . bar))
+
+;; Turn on/off cursor blinking by default? 1 means 'on' and -1 means 'off'
+(blink-cursor-mode -1)
+
+;; Cursor blinking interval in seconds
+(setopt blink-cursor-interval 0.3)
+
+;; Blink cursor that often before going into solid state
+(setopt blink-cursor-blinks 3)
+
+;; Emphasize the cursor when running Emacs in a text terminal?
+(setopt visible-cursor nil)
+
+;; Make sure to highlight the current line only in the active window.
+(setopt hl-line-sticky-flag nil)
+(add-hook 'special-mode-hook
+          (lambda ()
+            ;; Highlight current line in special modes?
+            (hl-line-mode 1)))
+
+;; _____________________________________________________________________________
+;;;; GLOBAL DEFINITIONS & UTILITIES
 
 ;; Group for customizations
 (defgroup eon nil
@@ -481,41 +541,6 @@ already in MODE or a derived mode). BODY is forwarded to `defvar-keymap.'"
    ;; Don't bypass "C-h ..." keybindings
    mac-pass-command-to-system nil))
 
-;;  ____________________________________________________________________________
-;;; SERVER
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server>
-;; ... or do "M-x info-emacs-manual s server RET" to read it within Emacs
-
-;; Display the name of the Emacs server process in the frame title
-;; to see easily to which server process a client is connected to
-(with-eval-after-load 'server
-
-  (defun eon-frame-title ()
-    "Set a custom frame title."
-    (setq frame-title-format
-          (concat "%b (%f)"
-                  (when (server-running-p)
-                    (concat " " server-name)))))
-
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              "Run functions after loading init files"
-              (eon-frame-title)))
-
-  (add-hook 'server-mode-hook
-            (lambda ()
-              "Run functions after entering or leaving server-mode."
-              (eon-frame-title)))
-
-  ;; Shutdown the Emacs server process
-  (defun eon-server-stop ()
-    "Save buffers, quit and shutdown (kill) server."
-    (interactive)
-    (save-some-buffers)
-    (kill-emacs)))
-
-;; Start the server?
-(server-start)
 ;; _____________________________________________________________________________
 ;;;; FONTS
 ;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
@@ -711,96 +736,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Load the theme eventually
 (eon-load-theme-default)
 
-;;  ____________________________________________________________________________
-;;; DEFAULT AND INITIAL FRAME
-;; In Emacs terminology, a "frame" means the ordinary "desktop window";
-;; while "window" refers to tiled panels within an Emacs frame. Why?
-;; Because Emacs had it first, and today's convention what "window" means
-;; appeared later.
-;; In order to define properties generally, add them to `default-frame-alist';
-;; to affect only the first frame created, add them to `initial-frame-alist'.
-
-;; Either start Emacs maximized …
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; … or set the default width of the Emacs frame in characters
-(add-to-list 'default-frame-alist '(width . 80))
-
-;; … and set the default height of the Emacs frame in lines
-(add-to-list 'default-frame-alist '(height . 32))
-
-;; Horizontal position: set the distance from the left screen edge in pixels
-;; That way, only the first frame created will get a fixed position:
-;; (add-to-list 'initial-frame-alist '(left . 0))
-
-;; Vertical position: set the distance from the top screen edge in pixels
-;; That way, only the first frame created will get a fixed position:
-;; (add-to-list 'initial-frame-alist '(top . 0))
-
-;; Fringe: choose on which sides (not) to show it
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
-;; (add-to-list 'default-frame-alist '(right-fringe . 0))
-
-;; Bring frame to the front
-(when (display-graphic-p)
-  (select-frame-set-input-focus (selected-frame)))
-
-;;  ____________________________________________________________________________
-;;; CURSOR
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
-
-;; To learn about available cursors, place your cursor behind 'cursor-type'
-;; in the code below or do "M-x describe-symbol RET cursor-type RET"
-
-;; Set the cursor type
-;; Comment out the following expression to change the cursor into a bar
-;; (add-to-list 'default-frame-alist '(cursor-type . bar))
-
-;; Turn on/off cursor blinking by default? 1 means 'on' and -1 means 'off'
-(blink-cursor-mode -1)
-
-;; Cursor blinking interval in seconds
-(setopt blink-cursor-interval 0.3)
-
-;; Blink cursor that often before going into solid state
-(setopt blink-cursor-blinks 3)
-
-;; Emphasize the cursor when running Emacs in a text terminal?
-(setopt visible-cursor nil)
-
-;; Make sure to highlight the current line only in the active window.
-(setopt hl-line-sticky-flag nil)
-(add-hook 'special-mode-hook
-          (lambda ()
-            ;; Highlight current line in special modes?
-            (hl-line-mode 1)))
-
-;;  ____________________________________________________________________________
-;;; USER INTERFACE
-
-;; Menu bar: on/off by default?
-(menu-bar-mode 1)
-
-;; Scroll bar: on/off by default?
-(when (display-graphic-p) (scroll-bar-mode -1))
-
-;; Tool bar: on/off by default?
-(when (display-graphic-p) (tool-bar-mode -1))
-
-;; Tooltips: enable/disable?
-(tooltip-mode -1)
-
-;; Startup screen: on/off by default?
-(setopt inhibit-startup-screen t)
-
-;; Alarms: turn off?
-(setopt ring-bell-function 'ignore)
-
-;; Redraw the display – useful when running Emacs in a Windows terminal emulator
-(define-key ctl-z-map (kbd "C-r") #'redraw-display)
-
-;;  ____________________________________________________________________________
-;;; SCROLLING
 ;; _____________________________________________________________________________
 ;;;; DISPLAY & SCROLLING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
@@ -862,21 +797,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Grow and shrink the minibuffer according to its content?
 (setopt resize-mini-windows 'grow-only)
-
-;; Save histories between Emacs sessions?
-(savehist-mode 1)
-(eon-add-to-list 'savehist-additional-variables
-                 '(kill-ring
-                   register-alist
-                   mark-ring
-                   global-mark-ring
-                   search-ring
-                   regexp-search-ring))
-
-;; History length for various histories
-(setopt history-length 500)
-;; Delete duplicates from the command history?
-(setopt history-delete-duplicates t)
 
 ;; Allow for shorter responses? "y" for "yes" and "n" for "no"
 (setopt read-answer-short t)
