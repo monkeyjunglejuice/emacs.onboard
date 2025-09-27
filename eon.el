@@ -1076,9 +1076,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (setopt initial-scratch-message "")
 
 ;; Quickly jump to the *scratch* buffer
-;;  ____________________________________________________________________________
-;;; VISITING FILES AT POINT
-
 (keymap-set ctl-z-map "z" #'scratch-buffer)
 
 ;; _____________________________________________________________________________
