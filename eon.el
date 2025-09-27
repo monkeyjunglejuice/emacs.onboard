@@ -116,6 +116,39 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 
 ;;  ____________________________________________________________________________
 ;;; ELISP NATIVE COMPILATION / BYTECODE
+;; _____________________________________________________________________________
+;;;; PACKAGE MANAGEMENT
+
+;; Browse, select and install 3rd-party packages with "M-x list-packages RET"
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages>
+;; ... or do "M-x info-emacs-manual s packages RET" to read it within Emacs
+
+;; The package setup respects when `package-enable-at-startup' is set to nil in
+;; early-init.el (if there's any), so that you can use other package managers
+;; like Straight or Elpaca without issues.
+
+(when package-enable-at-startup
+  (require 'package)
+
+  ;;; 1st priority: Gnu Elpa, enabled by default
+
+  ;;; 2nd priority: Non-Gnu Elpa, enabled by default
+
+  ;;; 3rd priority: Melpa
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
+
+  ;;; 4th priority: Melpa stable
+  ;; Install from melpa-stable only when a package from 'melpa' is broken.
+  ;; Most packages there are utterly outdated.
+  ;; (add-to-list 'package-archives
+  ;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+  ;; Highlight current line in the package manager
+  (add-hook 'package-menu-mode-hook
+            (lambda ()
+              (hl-line-mode 1))))
+
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
 (setopt load-prefer-newer t)
