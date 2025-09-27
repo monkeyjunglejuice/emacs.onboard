@@ -311,25 +311,70 @@ or `system-configuration' directly."
   (eq system-type 'darwin))
 
 ;; Extend `add-to-list' for practical reasons
+(defun eon-list-adjoin (cur elements &optional append compare-fn)
+  "Return a new list like CUR with ELEMENTS added once.
+
+ELEMENTS may be an item or a list.  If APPEND is non-nil, append items
+left→right; otherwise prepend while preserving ELEMENTS order.
+COMPARE-FN is the membership predicate (default `equal').  CUR is not
+mutated.
+
+Examples (CUR = (a b)):
+  (eon-list-adjoin '(a b) 'c)                    ⇒ (c a b)
+  (eon-list-adjoin '(a b) '(c a))                ⇒ (c a b)
+  (eon-list-adjoin '(a b) '(d) t)                ⇒ (a b d)
+  (eon-list-adjoin '(a b) '(\"x\" \"x\") nil #'string-equal)
+                                                ⇒ (\"x\" a b)"
+  (let* ((xs   (if (listp elements) elements (list elements)))
+         (test (or compare-fn #'equal)))
+    (cl-labels
+        ((step (res items)
+           (if (null items)
+               res
+             (let* ((x (car items))
+                    (res* (if (cl-find x res :test test)
+                              res
+                            (if append
+                                (append res (list x))
+                              (cons x res)))))
+               (step res* (cdr items))))))
+      (step (copy-sequence cur)
+            (if append xs (reverse xs))))))
+
+;; One-shot Customize wrapper (runs :set/type normalization once)
+(defmacro eon-setopt-add-to-list (var elements &optional append compare-fn)
+  "Set VAR to CUR with ELEMENTS adjoined using a single `setopt' call.
+
+VAR is a symbol naming a list variable.  ELEMENTS may be an item or a
+list.  APPEND/COMPARE-FN as in `eon-list-adjoin'.  If VAR is unbound,
+treat it as nil.
+
+Examples (initial VAR = (a b)):
+  (eon-setopt-add-to-list some-var 'c)
+  (eon-setopt-add-to-list some-var '(c a))
+  (eon-setopt-add-to-list some-var '(d) t)
+  (eon-setopt-add-to-list some-var '(\"x\") nil #'string-equal)"
+  `(setopt ,var
+           (eon-list-adjoin
+            (if (boundp ',var) ,var nil)
+            ,elements ,append ,compare-fn)))
+
+;; Drop-in rebinder (no Customize semantics)
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
-  "Drop-in replacement for `add-to-list', where ELEMENTS may be a list of items.
+  "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
 
-LIST-SYM is a symbol naming a list variable, just like in `add-to-list'.
-If ELEMENTS is not a list, treat it as a single element.
+LIST-SYM is a symbol naming a list variable.  ELEMENTS may be an item or
+a list.  APPEND/COMPARE-FN as in `eon-list-adjoin'.  Returns the new
+value of LIST-SYM.
 
-APPEND and COMPARE-FN are passed through to `add-to-list'.
-Return the new value of LIST-SYM.
-
-Order semantics match `add-to-list':
-- When APPEND is nil (default), new items are *prepended* and the
-  relative order of ELEMENTS is preserved (x y z → x then y then z).
-- When APPEND is non-nil, new items are appended at the end, in order."
-  (let* ((xs (if (listp elements) elements (list elements)))
-         ;; To preserve left-to-right order when prepending, we must
-         ;; feed items to `add-to-list' in reverse (since it conses).
-         (feed (if append xs (reverse xs))))
-    (dolist (elt feed (symbol-value list-sym))
-      (add-to-list list-sym elt append compare-fn))))
+Examples (LIST-SYM value starts as (a b)):
+  (eon-add-to-list 'v 'c)                  ⇒ (c a b)
+  (eon-add-to-list 'v '(c a))              ⇒ (c a b)
+  (eon-add-to-list 'v '(d) t)              ⇒ (a b d)"
+  (set list-sym
+       (eon-list-adjoin
+        (if (boundp list-sym) (symbol-value list-sym) nil)
+        elements append compare-fn)))
 
 ;; Open the '~/.emacs.d' directory in the Dired file manager
 (defun eon-visit-user-emacs-directory ()
