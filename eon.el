@@ -831,6 +831,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; "C-z-c" exit-recursive-edit and "C-]" abort-recursive-edit
 (setopt enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
+;; Get out of recursive minibuffers more easily via "C-g"
+(define-key global-map [remap keyboard-quit] #'keyboard-escape-quit)
 
 ;; Do not allow the cursor in the minibuffer prompt
 (setq minibuffer-prompt-properties
