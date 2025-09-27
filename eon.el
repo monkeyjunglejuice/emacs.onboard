@@ -367,12 +367,15 @@ Use `setopt' to override."
 
 (defvar-keymap ctl-z-map
   :doc "Leader (top-level) keymap."
+  ;; Localleader entry, kept dynamic via :set handler
+  eon-localleader-key `(,eon-localleader-label . eon-localleader-dispatch)
   "b" `("Buffer"  . ,ctl-z-b-map)
   "c" `("Code"    . ,ctl-z-c-map)
   "e" `("Exec"    . ,ctl-z-e-map)
   "f" `("File"    . ,ctl-z-f-map)
   "g" `("Goto"    . ,ctl-z-g-map)
   "h" `("Help"    . ,ctl-z-h-map)
+  "m" #'execute-extended-command  ; bind "M-x" to "m" under the leader
   "o" `("Org"     . ,ctl-z-o-map)
   "p" `("Project" . ,ctl-z-p-map)
   "q" `("Quit"    . ,ctl-z-q-map)
@@ -380,11 +383,7 @@ Use `setopt' to override."
   "t" `("Tab/WS"  . ,ctl-z-t-map)
   "v" `("VC/Git"  . ,ctl-z-v-map)
   "w" `("Window"  . ,ctl-z-w-map)
-  "x" `("Misc"    . ,ctl-z-x-map)
-  ;; Localleader entry (kept dynamic via :set handler)
-  eon-localleader-key `(,eon-localleader-label . eon-localleader-dispatch)
-  ;; Convenience: M-x under leader
-  "m" #'execute-extended-command)
+  "x" `("Misc"    . ,ctl-z-x-map))
 
 ;; Initial binding of the leader prefix
 (keymap-global-set eon-leader-key ctl-z-map)
