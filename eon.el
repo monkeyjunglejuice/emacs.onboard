@@ -1628,6 +1628,9 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; continues comments onto new lines?
 (setopt comment-multi-line t)
 
+;; Also comment empty lines between?
+(setopt comment-empty-lines t)
+
 ;; _____________________________________________________________________________
 ;;; BRACKETS / PARENTHESIS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses>
