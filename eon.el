@@ -777,7 +777,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
             (eon-fonts-default)
             ))
 
-;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;; Load the theme eventually
 (eon-load-theme-default)
 
@@ -1308,7 +1307,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 ;; Auto save options
 (setopt kill-buffer-delete-auto-save-files t)
-
 
 ;; _____________________________________________________________________________
 ;;;; DIRED FILE MANAGER
