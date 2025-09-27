@@ -1650,13 +1650,11 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Indicate trailing whitespace in programming modes?
 (add-hook 'prog-mode-hook
-          (lambda ()
-            (setopt show-trailing-whitespace nil)))
+          (lambda () (setopt show-trailing-whitespace nil)))
 
 ;; Indicate trailing whitespace in "text" modes?
 (add-hook 'text-mode-hook
-          (lambda ()
-            (setopt show-trailing-whitespace nil)))
+          (lambda () (setopt show-trailing-whitespace nil)))
 
 ;; Cleanup trailing whitespace
 (keymap-set ctl-z-c-map "w" #'whitespace-cleanup)
