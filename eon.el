@@ -2148,6 +2148,34 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;;; EMACS LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
+;;; Localleader keymaps
+
+;; Group macro-related commands into a keymap
+(defvar-keymap eon-localleader-elisp-macro-map
+  :doc "Macro/expand commands for Emacs Lisp."
+  "m" #'emacs-lisp-macroexpand
+  "p" #'pp-macroexpand-last-sexp)
+
+;; Group compilaton commands ito a keymap
+(defvar-keymap eon-localleader-elisp-compile-map
+  :doc "Compilation commands for Emacs Lisp."
+  "b" #'elisp-byte-compile-buffer
+  "f" #'elisp-byte-compile-file)
+
+;; Define localleader keymap for `emacs-lisp-mode'
+(eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
+  :doc "Local leader keymap for Emacs Lisp buffers."
+  ;; Hook "compilation" keymap into the localleader keymap for emacs-lisp-mode
+  "c" `("Compile" . ,eon-localleader-elisp-compile-map)
+  "d" #'eval-defun
+  "D" #'edebug-defun
+  "e" #'eval-last-sexp
+  ;; Hook "macro" keymap into the localleader keymap for emacs-lisp-mode
+  "m" `("Macro" . ,eon-localleader-elisp-macro-map)
+  "p" #'pp-eval-last-sexp
+  "P" #'eval-print-last-sexp
+  "r" #'elisp-eval-region-or-buffer)
+
 ;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode.
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
