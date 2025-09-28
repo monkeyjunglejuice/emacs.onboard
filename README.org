@@ -6,7 +6,10 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 
 [[file:misc/emacs-onboard.jpg]]
 
-*Emacs ONboard is a comprehensive, portable starter-kit for Emacs.* It's vanilla Emacs, but gives you a vastly better user experience, without any 3rd-party packages.
+*Emacs ONBOARD is a comprehensive, portable starter-kit for Emacs.*
+It's not supposed to replace your ~init.el~, but loaded from there as a library (see installing instructions down below). Consider it as a "normalize.css", but for Emacs.
+
+Emacs ONNBOARD is vanilla Emacs, but gives you a vastly better user experience, without any 3rd-party packages.
 
 *It's all built-in -- all on board.*
 
@@ -18,10 +21,12 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 
 ** Vastly better defaults
 
-Some features -- without any dependencies:
+Some features -- without any dependencies, and without re-inventing the wheel:
 
-- Ergonomic Leader key / Localleader key menus (super easy to extend).
+- Ergonomic leader key / Localleader key menus (super easy to extend).
   That gives you infinite room for your own keybindings under the leader prefix!
+  - In graphical Emacs, the leader key is "C-,"; reach the local leader via "C-, C-,".
+  - For Emacs running within a terminal emulator, reach the leader via "C-z", and the local leader via "C-z C-z".
 - Vertical completion for commands, files, etc. in the minibuffer.
 - Tree-sitter: handle language grammars and trigger build/install declaratively.
 - Toggle between your light/dark theme via =<leader> x t=; you can also run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the theme variant.
