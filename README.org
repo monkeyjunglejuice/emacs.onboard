@@ -20,11 +20,11 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 
 Some features -- without any dependencies:
 
-- Ergonomic Leader key / Localleader key menus (super easy to extend)
+- Ergonomic Leader key / Localleader key menus (super easy to extend).
   That gives you infinite room for your own keybindings under the leader prefix!
 - Vertical completion for commands, files, etc. in the minibuffer.
-- Tree-sitter: handle language grammars and build/install them declaratively
-- Toggle between your light/dark theme via =F12=; you can also run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the theme.
+- Tree-sitter: handle language grammars and trigger build/install declaratively.
+- Toggle between your light/dark theme via =<leader> x t=; you can also run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the theme variant.
 - Smooth, pixel-based scrolling (Emacs doesn't do that by default).
 - Comprehensive [[https://orgmode.org][Org mode]] setup.
 - MacOS ready: the <Command> key acts as <Ctrl> key, and the <Option> key acts as <Meta> key.
@@ -36,7 +36,7 @@ Some features -- without any dependencies:
 - Clean directory listings per default in Dired, toggle via =(=.
 - Hide and show hidden files (dotfiles) in Dired simply by typing =.=
 - Clipboard integration just works, even on Windows.
-- WSL (Windows Subsystem for Linux): copy/paste between Windows apps and Emacs.
+- WSL (Windows Subsystem for Linux) copy/paste between Windows apps and Emacs.
 - Copy the path of the current file to the clipboard via =M-x eon-copy-file-path=.
 - Browse your kill ring (the Emacs "clipboard") via =M-y= and insert directly.
 - Open files in desktop apps via =M-RET= (uses xdg-open; Linux only for now).
