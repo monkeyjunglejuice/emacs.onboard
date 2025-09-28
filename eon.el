@@ -106,7 +106,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 (setopt garbage-collection-messages nil)
 
 ;; Diagnostics
-(add-hook 'window-setup-hook
+(add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs started in %s with %d garbage collections."
                      (format "%.3f seconds"

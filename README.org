@@ -1,10 +1,12 @@
-* 🚀 Emacs ONboarding made Easy
+* 🚀 Emacs is like an ancient starship from a highly advanced alien civilization, found half-buried in the Amazon jungle.
+
+** This is your human-written launch sequence to get into space.
 
 Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up? Or you don't want to configure Emacs at all? But ... just use it? Right now? 🤯
 
 [[file:misc/emacs-onboard.jpg]]
 
-*Emacs ONboard is a comprehensive, portable starter-kit for Emacs.* It's vanilla Emacs, but gives you a better user experience, without relying on additional 3rd-party packages.
+*Emacs ONboard is a comprehensive, portable starter-kit for Emacs.* It's vanilla Emacs, but gives you a vastly better user experience, without any 3rd-party packages.
 
 *It's all built-in -- all on board.*
 
@@ -14,34 +16,35 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 
 ✔ Convenient drop-in config: just load it from your init.el
 
-** Emacs ONboard gives you much better defaults
+** Vastly better defaults
 
-Some features ...
+Some features -- without any dependencies:
 
-- Tree-sitter: handle language grammars and build/install them declaratively
+- Ergonomic Leader key / Localleader key menus (super easy to extend)
+  That gives you infinite room for your own keybindings under the leader prefix!
 - Vertical completion for commands, files, etc. in the minibuffer.
+- Tree-sitter: handle language grammars and build/install them declaratively
 - Toggle between your light/dark theme via =F12=; you can also run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the theme.
 - Smooth, pixel-based scrolling (Emacs doesn't do that by default).
 - Comprehensive [[https://orgmode.org][Org mode]] setup.
-- MacOS: the <Command> key acts as <Ctrl> key, and the <Option> key acts as <Meta> key.
-- More room for your own keybindings: use =C-z ...= as additional prefix key.
+- MacOS ready: the <Command> key acts as <Ctrl> key, and the <Option> key acts as <Meta> key.
 - Garbage Collector tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
 - Package manager is pre-configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
 - Makes it easy to set the fonts you like -- all options at one place.
-- The Emacs file-manager Dired doesn't accumulate used buffers any more.
+- The Emacs file-manager Dired doesn't accumulate used buffers.
 - Dired uses the system trash instead of deleting files right away.
-- Clean directory listings per default in Dired, toggle via =S-(=.
+- Clean directory listings per default in Dired, toggle via =(=.
 - Hide and show hidden files (dotfiles) in Dired simply by typing =.=
-- Clipboard integration works perfectly.
+- Clipboard integration just works, even on Windows.
+- WSL (Windows Subsystem for Linux): copy/paste between Windows apps and Emacs.
 - Copy the path of the current file to the clipboard via =M-x eon-copy-file-path=.
 - Browse your kill ring (the Emacs "clipboard") via =M-y= and insert directly.
-- WSL (Windows Subsystem for Linux): copy/paste between Windows apps and Emacs.
 - Open files in desktop apps via =M-RET= (uses xdg-open; Linux only for now).
 - Visit any file when the file name is under the cursor: =C-z C-.=.
 - Kill all buffers at once via =M-x eon-kill-buffers=.
 - Open Shell- and Eshell buffer via =C-z e s= and =C-z e e=
 - Quickly reach the =*scratch*= buffer via =C-z s s=.
-- Visit any URL in your browser via =M-z w w=, and via =M-z w W= in Emacs built-in browser.
+- Visit any URL in your browser via =C-z g w=, and via =C-z g W= in Emacs built-in browser.
 - Emacs saves versioned backups of your files to =~/.emacs.d/backup/= before editing.
 - Sending emails directly from Emacs: includes an SMTP-template for you to get started.
 
