@@ -561,7 +561,7 @@ already in MODE or a derived mode). BODY is forwarded to `defvar-keymap.'"
          (setq eon-localleader-map ,map-sym)))))
 
 ;; _____________________________________________________________________________
-;;; KEYBINDING RELATED SETTINGS
+;;;; KEYBINDING RELATED SETTINGS
 
 ;; Which-key: show a menu with available keybindings
 (when (fboundp #'which-key-mode)
@@ -930,7 +930,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-c-map "d" #'eldoc)
 
 ;; _____________________________________________________________________________
-;;; SEARCH
+;;;; SEARCH
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
 
 ;; Switch search functions to make regex-search the default
@@ -1042,7 +1042,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (with-eval-after-load 'window (eon-boring-buffers-add))
 
 ;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;;; IBUFFER – the buffer manager
+;;; IBUFFER – the buffer manager
 ;; <https://protesilaos.com/codelog/2020-04-02-emacs-intro-ibuffer/>
 
 (add-hook 'ibuffer-mode-hook
@@ -1077,7 +1077,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-map "z" #'scratch-buffer)
 
 ;; _____________________________________________________________________________
-;;; CLIPBOARD, COPY & PASTE
+;;;; CLIPBOARD, COPY & PASTE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Killing>
 
 ;; Prevent duplicates to avoid cluttering the kill ring
@@ -1381,7 +1381,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
         comint-scroll-to-bottom-on-input 'this)
 
 ;; _____________________________________________________________________________
-;;; ESHELL
+;;;; ESHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eshell.html>
 
 ;; Eshell is not a terminal emulator, but a shell equivalent to Bash or Fish
@@ -1405,7 +1405,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-e-map "E" #'eon-eshell-new)
 
 ;; _____________________________________________________________________________
-;;; SHELL
+;:;; SHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Shell-Mode>
 
 ;; This is also no terminal emulator, but a buffer to issue shell commands
@@ -1428,7 +1428,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-e-map "S" #'eon-shell-new)
 
 ;; _____________________________________________________________________________
-;;; PROJECT MANAGEMENT
+;;;; PROJECT MANAGEMENT
 ;; Setup for Emacs' built-in project management
 
 ;; Open file in current project
@@ -1452,7 +1452,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
                                   (project-shell       "Shell"  ?s)))
 
 ;; _____________________________________________________________________________
-;;; PROCED
+;;;; PROCED
 
 ;; Show and manage OS processes, like the command line programs top and htop
 
@@ -1462,13 +1462,13 @@ Called without argument just syncs `eon-boring-buffers' to other places."
         proced-descend t)
 
 ;; _____________________________________________________________________________
-;;; NET-UTILS
+;;;; NET-UTILS
 
 (setopt netstat-program "netstat"
         netstat-program-options '("-atupe"))
 
 ;; _____________________________________________________________________________
-;;; WEB BROWSERS
+;;;; WEB BROWSERS
 
 ;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;; EWW BUILT-IN BROWSER
@@ -1512,7 +1512,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (keymap-set ctl-z-g-map "w" #'browse-web)
 
 ;; _____________________________________________________________________________
-;;; EMAIL SENDING
+;;;; EMAIL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail>
 
 ;; TODO: Send emails directly from Emacs using SMTP – example template
@@ -1537,7 +1537,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (setopt message-kill-buffer-on-exit t)
 
 ;; _____________________________________________________________________________
-;;; CALENDAR
+;;;; CALENDAR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Calendar_002fDiary>
 
 (setopt calendar-date-style 'iso
@@ -1545,7 +1545,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
         calendar-weekend-days '(6 0))
 
 ;; _____________________________________________________________________________
-;;; GENERAL EDITING
+;;;; GENERAL EDITING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Basic>
 
 ;; UTF-8
@@ -1579,7 +1579,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (keymap-set ctl-z-c-map "F" `("Format" . ,eon-format-map))
 
 ;; _____________________________________________________________________________
-;;; LINE NUMBERS
+;;;; LINE NUMBERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom>
 
 ;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode" or
@@ -1589,7 +1589,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
             (display-line-numbers-mode -1)))
 
 ;; _____________________________________________________________________________
-;;; LINE WRAPPING
+;;;; LINE WRAPPING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
 
 ;; Truncate long lines in programming modes by default.
@@ -1604,7 +1604,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;             (visual-line-mode 1)))
 
 ;; _____________________________________________________________________________
-;;; FOLDING
+;;;; FOLDING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hideshow>
 
 ;; Code folding on or off? Show available commands: "M-x hs-"
@@ -1613,7 +1613,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;             (hs-minor-mode 1)))
 
 ;; _____________________________________________________________________________
-;;; INDENTATION
+;;;; INDENTATION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Indentation>
 
 (setopt indent-tabs-mode nil  ; don't use tabs but spaces
@@ -1627,7 +1627,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (setopt tab-always-indent 'complete)
 
 ;; _____________________________________________________________________________
-;;; COMMENTING
+;;;; COMMENTS
 
 ;; Enable multi-line commenting to ensure that `comment-indent-new-line'
 ;; continues comments onto new lines?
@@ -1637,7 +1637,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (setopt comment-empty-lines t)
 
 ;; _____________________________________________________________________________
-;;; BRACKETS / PARENTHESIS
+;;;; BRACKETS / PARENTHESIS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Parentheses>
 
 ;; How to display matching parens generally?
@@ -1650,7 +1650,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (electric-pair-mode 1)
 
 ;; _____________________________________________________________________________
-;;; WHITESPACE
+;;;; WHITESPACE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Useless-Whitespace>
 
 ;; Indicate trailing whitespace in programming modes?
@@ -1665,7 +1665,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (keymap-set ctl-z-c-map "w" #'whitespace-cleanup)
 
 ;; _____________________________________________________________________________
-;;; SYNTAX CHECK / LINTER
+;;;; SYNTAX CHECK / LINTER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/flymake.html>
 
 ;; There are various syntax-checkers coming with the built-in Flymake mode,
@@ -1686,7 +1686,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   (keymap-set flymake-mode-map "M-g p" #'flymake-goto-prev-error))  ; default
 
 ;; _____________________________________________________________________________
-;;; EGLOT LANGUAGE SERVER
+;;;; EGLOT LANGUAGE SERVER (LSP)
 ;; <https://github.com/joaotavora/eglot/blob/master/MANUAL.md/>
 
 (with-eval-after-load 'eglot
@@ -1728,7 +1728,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;                                 ("lua-lsp" "--stdio"))))))
 
 ;; _____________________________________________________________________________
-;;; TREE-SITTER
+;;;; TREE-SITTER
 
 ;; Define grammar specs for ts-modes already built into Emacs.
 ;; Grammars can be built and installed via:
@@ -1777,7 +1777,7 @@ Add further specs without building/installing via `eon-treesitter-add-specs'
   the grammar’s parser.c file resides, defaulting to \"src\".")
 
 ;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;; Internal utilities
+;;; Internal utilities
 
 (defun eon-treesitter--spec-p (x)
   "Return non-nil if X is a spec tuple (LANG URL [REV] [DIR])."
@@ -1980,7 +1980,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   (eon-treesitter--ensure-impl eon-treesitter-specs (and reinstall t)))
 
 ;; _____________________________________________________________________________
-;;; COMPILING
+;;;; COMPILING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Building>
 
 ;; Keep the compilation buffer in the background, except when there's an error
