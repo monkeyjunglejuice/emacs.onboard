@@ -633,14 +633,14 @@ already in MODE or a derived mode). BODY is forwarded to `defvar-keymap.'"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 0.9)
+                      :height 0.8)
   ;; Set the fonts for the inactive mode line
   (set-face-attribute 'mode-line-inactive nil
                       ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 0.9))
+                      :height 0.8))
 
 ;; _____________________________________________________________________________
 ;;;; TOGGLE THEME
