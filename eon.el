@@ -1667,6 +1667,9 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; Enable indentation and completion using the TAB key
 (setopt tab-always-indent 'complete)
 
+;; Trigger automatic indentation by newline and DEL/backspace
+(setopt electric-indent-chars '(?\n ?\^?))
+
 ;; _____________________________________________________________________________
 ;;;; COMMENTS
 
