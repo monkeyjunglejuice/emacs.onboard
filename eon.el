@@ -1075,8 +1075,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
           (lambda ()
             (ibuffer-auto-mode 1)))
 
-(setopt ibuffer-marked-face 'dired-marked)
-
 ;; Hide the boring buffers from Ibuffer too?
 ;; (setopt ibuffer-never-show-predicates eon-boring-buffers)
 
