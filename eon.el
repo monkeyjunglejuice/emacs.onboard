@@ -476,8 +476,7 @@ Use `setopt' to override."
   :type 'string
   :set #'eon--set-localleader-key)
 
-;;; Sub-keymaps under the leader key:
-
+;; Sub-keymaps under the leader:
 (defvar-keymap ctl-z-b-map :doc "Buffer")
 (defvar-keymap ctl-z-c-map :doc "Code")
 (defvar-keymap ctl-z-e-map :doc "Exec")
@@ -498,8 +497,7 @@ Use `setopt' to override."
   :doc "Global localleader map (fallback for all modes)."
   "/" '("..." . execute-extended-command-for-buffer))
 
-;;; Top-level leader keymap:
-
+;; Top-level leader keymap:
 (defvar-keymap ctl-z-map
   :doc "Leader (top-level) keymap."
   ;; Localleader entry, kept dynamic via :set handler
