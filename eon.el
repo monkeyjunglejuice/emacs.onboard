@@ -426,7 +426,7 @@ When called interactively, also echo the result."
 
 (defun eon--set-leader-key (sym value)
   (let ((old (and (boundp sym) (symbol-value sym))))
-    (when (and old (> (length old) 0))
+    (when (and old (stringp old) (> (length old) 0))
       (keymap-global-unset old t))
     (set-default sym value)
     (when (boundp 'ctl-z-map)
@@ -443,27 +443,39 @@ When called interactively, also echo the result."
 
 ;; Localleader implementation
 
-(defun eon--set-localleader-label (sym value)
-  (set-default sym value)
-  ;; Refresh which-key title symbol to match the new label
-  (setq eon--localleader-which-key-sym (make-symbol value))
-  ;; Refresh the entry shown under the leader, if the leader map exists
-  (when (boundp 'ctl-z-map)
-    (keymap-set ctl-z-map eon-localleader-key
-                `(,eon-localleader-label . eon-localleader-dispatch))))
+(defvar-keymap eon-localleader-global-map
+  :doc "Global localleader map (fallback for all buffers)."
+  "/" '("..." . execute-extended-command-for-buffer))
 
-(defcustom eon-localleader-label "Local"
-  "Label shown for the localleader in which-key and the leader menu."
-  :group 'eon
-  :type 'string
-  :set #'eon--set-localleader-label)
+(defvar-local eon-localleader-map eon-localleader-global-map
+  "Active localleader keymap for the current buffer.")
+
+(defun eon--localleader--context-window ()
+  "Return the window where the key sequence started."
+  (cond
+   ((and (boundp 'which-key--original-window)
+         (window-live-p which-key--original-window))
+    which-key--original-window)
+   (t (selected-window))))
+
+(defun eon--localleader-effective-map (&optional _)
+  "Return the localleader map for the current context buffer."
+  (let* ((win (eon--localleader--context-window))
+         (buf (and (window-live-p win) (window-buffer win))))
+    (with-current-buffer (or buf (current-buffer))
+      (if (keymapp eon-localleader-map)
+          eon-localleader-map
+        eon-localleader-global-map))))
 
 (defun eon--set-localleader-key (sym value)
+  "Setter for `eon-localleader-key'; rebinds the leader entry."
   (let ((old (and (boundp sym) (symbol-value sym))))
     (when (boundp 'ctl-z-map)
       (when old (keymap-unset ctl-z-map old))
-      (keymap-set ctl-z-map value
-                  `(,eon-localleader-label . eon-localleader-dispatch))))
+      (keymap-set
+       ctl-z-map value
+       ;; No label; :filter supplies the proper (buffer-local) map.
+       '(menu-item "" nil :filter eon--localleader-effective-map))))
   (set-default sym value))
 
 (defcustom eon-localleader-key
@@ -493,67 +505,54 @@ Use `setopt' to override."
 (defvar-keymap ctl-z-x-map :doc "Misc")
 (defvar-keymap ctl-z-ret-map :doc "Bookmark")
 
-(defvar-keymap eon-localleader-global-map
-  :doc "Global localleader map (fallback for all modes)."
-  "/" '("..." . execute-extended-command-for-buffer))
-
 ;; Top-level leader keymap:
 (defvar-keymap ctl-z-map
   :doc "Leader (top-level) keymap."
-  ;; Localleader entry, kept dynamic via :set handler
-  eon-localleader-key `(,eon-localleader-label . eon-localleader-dispatch)
-  "b" `("Buffer"  . ,ctl-z-b-map)
-  "c" `("Code"    . ,ctl-z-c-map)
-  "e" `("Exec"    . ,ctl-z-e-map)
-  "f" `("File"    . ,ctl-z-f-map)
-  "g" `("Goto"    . ,ctl-z-g-map)
-  "h" `("Help"    . ,ctl-z-h-map)
-  "m" #'execute-extended-command  ; bind "M-x" to "m" under the leader
-  "o" `("Org"     . ,ctl-z-o-map)
-  "p" `("Project" . ,ctl-z-p-map)
-  "q" `("Quit"    . ,ctl-z-q-map)
-  "s" `("Search"  . ,ctl-z-s-map)
-  "t" `("Tab/WS"  . ,ctl-z-t-map)
-  "v" `("VC/Git"  . ,ctl-z-v-map)
-  "w" `("Window"  . ,ctl-z-w-map)
-  "x" `("Misc"    . ,ctl-z-x-map))
+  "b" `("Buffer" . ,ctl-z-b-map)
+  "c" `("Code"   . ,ctl-z-c-map)
+  "e" `("Exec"   . ,ctl-z-e-map)
+  "f" `("File"   . ,ctl-z-f-map)
+  "g" `("Goto"   . ,ctl-z-g-map)
+  "h" `("Help"   . ,ctl-z-h-map)
+  "m" #'execute-extended-command
+  "o" `("Org"    . ,ctl-z-o-map)
+  "p" `("Project". ,ctl-z-p-map)
+  "q" `("Quit"   . ,ctl-z-q-map)
+  "s" `("Search" . ,ctl-z-s-map)
+  "t" `("Tab/WS" . ,ctl-z-t-map)
+  "v" `("VC/Git" . ,ctl-z-v-map)
+  "w" `("Window" . ,ctl-z-w-map)
+  "x" `("Misc"   . ,ctl-z-x-map)
+  "RET" `("Bookmark" . ,ctl-z-ret-map)
+  ;; Add dynamic localleader keymap
+  eon-localleader-key
+  '(menu-item "" nil :filter eon--localleader-effective-map))
 
 ;; Initial binding of the leader prefix
 (keymap-global-set eon-leader-key ctl-z-map)
 
-;;; Localleader implementation
-
-(defvar-local eon-localleader-map eon-localleader-global-map
-  "Active localleader keymap for the current buffer.")
-
-(defvar eon--localleader-which-key-sym (make-symbol eon-localleader-label))
-
-(defun eon-localleader-dispatch ()
-  "Function called by the key bound as localleader."
-  (interactive)
-  (let ((effective (if (keymapp eon-localleader-map)
-                       eon-localleader-map
-                     eon-localleader-global-map)))
-    (set eon--localleader-which-key-sym effective)
-    (set-transient-map effective t)
-    (when (fboundp 'which-key-show-keymap)
-      (which-key-show-keymap eon--localleader-which-key-sym t))))
+;; Make the leader available in the minibuffer
+;; If there's a problem with that, please open an issue on Github:
+;; <https://github.com/monkeyjunglejuice/emacs.onboard/issues>
+(add-hook 'minibuffer-setup-hook
+          (lambda ()
+            (when (keymapp (current-local-map))
+              (keymap-set (current-local-map) eon-leader-key ctl-z-map))))
 
 (defmacro eon-localleader-defkeymap (mode map-sym &rest body)
-  "Define arbitrary MAP-SYM for MODE and make it inherit the global localleader.
-Also set `eon-localleader-map' when entering MODE (and immediately if
-already in MODE or a derived mode). BODY is forwarded to `defvar-keymap.'"
+  "Define MAP-SYM for MODE; inherit global localleader and activate it.
+BODY is forwarded to `defvar-keymap'."
   (declare (indent 2))
   (let ((hook (intern (format "%s-hook" mode))))
     `(progn
        (defvar-keymap ,map-sym ,@body)
-       ;; Ensure inheritance from the global localleader map
+       ;; Inherit global entries so globals are always available.
        (set-keymap-parent ,map-sym eon-localleader-global-map)
-       ;; Activate for buffers of this mode
-       (add-hook ',hook (lambda () (setq eon-localleader-map ,map-sym)))
-       ;; If we're already in MODE (or derived), select it now
+       ;; Activate buffer-locally in this mode.
+       (add-hook ',hook (lambda () (setq-local eon-localleader-map ,map-sym)))
+       ;; If we're already in MODE (or derived), select it now.
        (when (derived-mode-p ',mode)
-         (setq eon-localleader-map ,map-sym)))))
+         (setq-local eon-localleader-map ,map-sym)))))
 
 ;; _____________________________________________________________________________
 ;;;; KEYBINDING RELATED SETTINGS
