@@ -765,15 +765,17 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 (add-hook 'eon-load-after-light-theme-hook
           (lambda ()
-            (eon-fonts-default)
+            ;; Your arbitrary non-interactive function here
             ))
 
 (add-hook 'eon-load-after-dark-theme-hook
           (lambda ()
-            (eon-fonts-default)
+            ;; Your arbitrary non-interactive function here
             ))
 
-;; Load the theme eventually
+;; Set the default fontset
+(eon-fonts-default)
+;; Load the theme
 (eon-load-theme-default)
 
 ;; _____________________________________________________________________________
