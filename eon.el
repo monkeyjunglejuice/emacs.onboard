@@ -2231,6 +2231,15 @@ With SWITCH = 'hook, return -hook variables."
    switch))
 
 ;; _____________________________________________________________________________
+;;;; QUIT EMACS
+
+;; The standard way to leave Emacs
+(keymap-set ctl-z-q-map "q" #'save-buffers-kill-terminal)
+
+;; The standard way to leave Emacs
+(keymap-set ctl-z-q-map "r" #'restart-emacs)
+
+;; _____________________________________________________________________________
 ;;;; SERVER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server>
 ;; ... or do "M-x info-emacs-manual s server RET" to read it within Emacs
