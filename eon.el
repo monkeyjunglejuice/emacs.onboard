@@ -1003,8 +1003,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
 ;; Fast buffer switching
-(keymap-global-set "M-[" #'previous-buffer)
-(keymap-global-set "M-]" #'next-buffer)
+(keymap-set ctl-z-b-map "p" #'previous-buffer)
+(keymap-set ctl-z-b-map "n" #'next-buffer)
+
 (keymap-set ctl-z-b-map "b" #'switch-to-buffer)
 
 ;; Kill the current buffer immediately instead of presenting a selection
