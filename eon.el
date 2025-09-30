@@ -52,10 +52,10 @@
 ;;
 ;;; Examples:
 ;;
-;; "M-x eon-"                     Show all commands defined by Emacs ONBOARD
-;; "M-x eon-visit-user-init-file" Visit main config file: .emacs or init.el
-;; "M-x check-parens"             Check if all parens match in Emacs Lisp code
-;; "M-x help"                     Reach the ultimate help menu
+;; "M-x eon-"                      Show all commands defined by Emacs ONBOARD
+;; "M-x eon-visit-user-init-file"  Visit main config file: .emacs or init.el
+;; "M-x check-parens"              Check if all parens match in Emacs Lisp code
+;; "M-x help"                      Reach the ultimate help menu
 ;;
 ;; "C-h o" Place the cursor behind a keyword, function, variable or other symbol
 ;;         to issue the command `describe-symbol' via keybinding
