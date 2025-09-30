@@ -115,7 +115,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
                      gcs-done)))
 
 ;; _____________________________________________________________________________
-;;;; PACKAGE MANAGEMENT
+;;;; PACKAGE MANAGEMENT INIT
 
 ;; Browse, select and install 3rd-party packages with "M-x list-packages RET"
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Packages>
@@ -141,11 +141,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
   ;; Most packages there are utterly outdated.
   ;; (add-to-list 'package-archives
   ;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-
-  ;; Highlight current line in the package manager
-  (add-hook 'package-menu-mode-hook
-            (lambda ()
-              (hl-line-mode 1))))
+  )
 
 ;; _____________________________________________________________________________
 ;;;; ELISP NATIVE COMPILATION / BYTECODE
@@ -909,6 +905,19 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Show all options when running 'apropos' "C-h a" (fulltext search)
 (setopt apropos-do-all t)
+
+;; _____________________________________________________________________________
+;;;; PACKAGE MANAGER UI
+
+(when package-enable-at-startup
+
+  ;; Open the package manager interface: "<leader> x p"
+  (keymap-set ctl-z-x-map "p" #'list-packages)
+
+  ;; Highlight current line in the package manager
+  (add-hook 'package-menu-mode-hook
+            (lambda ()
+              (hl-line-mode 1))))
 
 ;; _____________________________________________________________________________
 ;;;; CUSTOMIZATION UI
