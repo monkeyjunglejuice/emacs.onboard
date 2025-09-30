@@ -1769,7 +1769,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Define grammar specs for ts-modes already built into Emacs.
 ;; Grammars can be built and installed via:
-;; - `eon-treesitter-ensure-grammar' (declarative)
+;; - `eon-treesitter-ensure-grammar' (declarative in your Elisp code)
 ;; - `treesit-install-language-grammar' (interactive, single grammar)
 ;; - `eon-treesitter-install-all' (interactive, all grammars)
 (defvar eon-treesitter-specs
