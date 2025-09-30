@@ -927,6 +927,13 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Don't accumulate customization buffers
 (setopt custom-buffer-done-kill t)
 
+(defun eon-customize-group ()
+  "Set preferences via GUI."
+  (interactive)
+  (customize-group 'eon))
+
+(keymap-set ctl-z-x-map "C" #'eon-customize-group)
+
 ;; _____________________________________________________________________________
 ;;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
