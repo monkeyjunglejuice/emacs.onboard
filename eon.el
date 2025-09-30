@@ -492,6 +492,7 @@ Use `setopt' to override."
 (defvar-keymap ctl-z-v-map :doc "VC/Git")
 (defvar-keymap ctl-z-w-map :doc "Window")
 (defvar-keymap ctl-z-x-map :doc "Misc")
+(defvar-keymap ctl-z-ret-map :doc "Bookmark")
 
 (defvar-keymap eon-localleader-global-map
   :doc "Global localleader map (fallback for all modes)."
