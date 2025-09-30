@@ -166,11 +166,11 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; When to bring the buffer to the foreground?
 (setopt warning-minimum-level :error)
 
-;; Reduce bytecode compilation verbosity
+;; Reduce bytecode compilation verbosity?
 (setopt byte-compile-verbose nil)
 (setopt byte-compile-warnings nil)
 
-;; Reduce native code compilation verbosity
+;; Reduce native code compilation verbosity?
 (setopt native-comp-async-report-warnings-errors nil)
 (setopt native-comp-warning-on-missing-source nil)
 
