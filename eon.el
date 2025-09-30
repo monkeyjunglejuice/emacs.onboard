@@ -985,6 +985,20 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (winner-mode 1)
 
 ;; _____________________________________________________________________________
+;;;; TAB MANAGEMENT
+
+;; Create new tab
+(keymap-set ctl-z-t-map "t" #'tab-new-to)
+
+;; Close tab
+(keymap-set ctl-z-t-map "c" #'tab-close)
+(keymap-set ctl-z-t-map "C" #'tab-close-other)
+
+;; Fast tab switching
+(keymap-set ctl-z-t-map "p" #'tab-previous)
+(keymap-set ctl-z-t-map "n" #'tab-next)
+
+;; _____________________________________________________________________________
 ;;;; BUFFER MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
