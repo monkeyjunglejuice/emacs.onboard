@@ -422,7 +422,7 @@ When called interactively, also echo the result."
 ;;               ;; No XON/XOFF flow control stealing C-s/C-q
 ;;               (call-process "stty" nil nil nil "-ixon" "-ixoff"))))
 
-;; Leader key implementation
+;; Leader implementation
 
 (defun eon--set-leader-key (sym value)
   (let ((old (and (boundp sym) (symbol-value sym))))
@@ -441,7 +441,7 @@ When called interactively, also echo the result."
   :type 'string
   :set #'eon--set-leader-key)
 
-;; Localleader key implementation
+;; Localleader implementation
 
 (defun eon--set-localleader-label (sym value)
   (set-default sym value)
