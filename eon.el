@@ -1399,7 +1399,18 @@ Called without argument just syncs `eon-boring-buffers' to other places."
     (keymap-global-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
 
 ;; _____________________________________________________________________________
-;;; COMINT
+;;;; BOOKMARKS
+
+;; Bind common bookmark commands to the leader menu
+(keymap-set ctl-z-ret-map "RET" #'bookmark-jump)
+(keymap-set ctl-z-ret-map "d" #'bookmark-delete)
+(keymap-set ctl-z-ret-map "l" #'list-bookmarks)
+(keymap-set ctl-z-ret-map "m" #'bookmark-set)
+(keymap-set ctl-z-ret-map "M" #'bookmark-set-no-overwrite)
+(keymap-set ctl-z-ret-map "r" #'bookmark-rename)
+
+;; _____________________________________________________________________________
+;;;; COMINT
 
 (setopt comint-input-ignoredups t
         comint-prompt-read-only t
