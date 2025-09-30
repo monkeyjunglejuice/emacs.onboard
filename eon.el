@@ -2021,9 +2021,8 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Building>
 
 ;; Keep the compilation buffer in the background, except when there's an error
-(add-to-list
- 'display-buffer-alist
- '("\\*.*compilation\\*" (display-buffer-no-window)))
+(add-to-list 'display-buffer-alist
+             '("\\*.*compilation\\*" (display-buffer-no-window)))
 
 ;; Scroll to the first error
 (setopt compilation-scroll-output 'first-error)
