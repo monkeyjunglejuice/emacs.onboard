@@ -2197,15 +2197,15 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; Define localleader keymap for `emacs-lisp-mode'
 (eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
   :doc "Local leader keymap for Emacs Lisp buffers."
-  ;; Hook "compilation" keymap into the localleader keymap for emacs-lisp-mode
+  ;; Hook the "compilation" keymap into the localleader keymap
   "c" `("Compile" . ,eon-localleader-elisp-compile-map)
   "d" #'eval-defun
   "D" #'edebug-defun
   "e" #'eval-last-sexp
-  ;; Hook "macro" keymap into the localleader keymap for emacs-lisp-mode
+  "h" #'describe-symbol
+  ;; Hook the "macro" keymap into the localleader keymap
   "m" `("Macro" . ,eon-localleader-elisp-macro-map)
   "p" #'pp-eval-last-sexp
-  "P" #'eval-print-last-sexp
   "r" #'elisp-eval-region-or-buffer)
 
 ;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode.
