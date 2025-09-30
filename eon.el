@@ -652,17 +652,17 @@ already in MODE or a derived mode). BODY is forwarded to `defvar-keymap.'"
   "Toggle between light and dark theme with a single key press."
   :group 'eon)
 
-(defcustom eon-light-theme-name 'modus-operandi
+(defcustom eon-light-theme-name 'modus-operandi-tinted
   "Name of the light theme."
   :group 'eon-theme
   :type 'symbol)
 
-(defcustom eon-dark-theme-name 'modus-vivendi
+(defcustom eon-dark-theme-name 'modus-vivendi-tinted
   "Name of the dark theme."
   :group 'eon-theme
   :type 'symbol)
 
-(defcustom eon-default-theme-variant 'dark
+(defcustom eon-default-theme-variant 'light
   "Load either the light or the dark theme at startup?"
   :group 'eon-theme
   :type 'symbol)
@@ -737,6 +737,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Either configure the themes here,
 ;; or "M-x customize-group RET eon-toggle-theme"
 
+;; Set the keybinding to toggle between light and dark: "<leader> x t"
+(keymap-set ctl-z-x-map "t" #'eon-toggle-theme)
+
 ;; Set some defaults for the Modus themes; doesn't affect other themes.
 ;; These variables must be set before loading the Modus themes.
 (setopt modus-themes-bold-constructs t
@@ -746,21 +749,18 @@ Some themes may come as functions -- wrap these ones in lambdas."
         '((border-mode-line-active bg-mode-line-active)
           (border-mode-line-inactive bg-mode-line-inactive)))
 
-;; Do not extend `region' background past the end of the line
+;; Do not extend `region' background past the end of the line?
 (custom-set-faces
  '(region ((t :extend nil))))
 
 ;;; ---> Set your light theme:
-;; (setopt eon-light-theme-name 'modus-operandi-tinted)
+;; (setopt eon-light-theme-name 'modus-operandi)
 
 ;;; ---> Set your dark theme:
-;; (setopt eon-dark-theme-name 'modus-vivendi-tinted)
+;; (setopt eon-dark-theme-name 'modus-vivendi)
 
 ;;; ---> Set your default variant here - 'light or 'dark
 ;; (setopt eon-default-theme-variant 'light)
-
-;; Set the keybinding to toggle between light and dark: "<leader> x t"
-(keymap-set ctl-z-x-map "t" #'eon-toggle-theme)
 
 ;; The hooks below can be used to run additional functions before or after
 ;; loading the selected light and dark theme. That's useful for setting
