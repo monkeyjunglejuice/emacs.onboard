@@ -31,7 +31,7 @@
 ;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Created: 28 Apr 2021
-;; Version: 2.0.2
+;; Version: 2.0.3
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
 ;; Keywords: config dotemacs convenience
@@ -277,7 +277,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 
 ;; Group for customizations
 (defgroup eon nil
-  "Emacs ONboard & Emacs ONtop customization options."
+  "Emacs ONBOARD starter kit & ONTOP extension layer."
   :group 'convenience)
 
 ;; Simplify writing of operating-system-specific Elisp code
@@ -642,23 +642,19 @@ BODY is forwarded to `defvar-keymap'."
 ;; Default/fallback definitions – don't change them here,
 ;; but scroll further down to 'THEME CONFIG'
 
-(defgroup eon-theme nil
-  "Toggle between light and dark theme with a single key press."
-  :group 'eon)
-
 (defcustom eon-light-theme-name 'modus-operandi-tinted
   "Name of the light theme."
-  :group 'eon-theme
+  :group 'eon
   :type 'symbol)
 
 (defcustom eon-dark-theme-name 'modus-vivendi-tinted
   "Name of the dark theme."
-  :group 'eon-theme
+  :group 'eon
   :type 'symbol)
 
 (defcustom eon-default-theme-variant 'light
   "Load either the light or the dark theme at startup?"
-  :group 'eon-theme
+  :group 'eon
   :type 'symbol)
 
 (defvar eon-active-theme-variant nil
@@ -666,22 +662,22 @@ BODY is forwarded to `defvar-keymap'."
 
 (defcustom eon-load-before-light-theme-hook nil
   "Run before loading the light theme."
-  :group 'eon-theme
+  :group 'eon
   :type 'hook)
 
 (defcustom eon-load-after-light-theme-hook nil
   "Run after loading the light theme."
-  :group 'eon-theme
+  :group 'eon
   :type 'hook)
 
 (defcustom eon-load-before-dark-theme-hook nil
   "Run before loading the dark theme."
-  :group 'eon-theme
+  :group 'eon
   :type 'hook)
 
 (defcustom eon-load-after-dark-theme-hook nil
   "Run after loading the dark theme."
-  :group 'eon-theme
+  :group 'eon
   :type 'hook)
 
 (defun eon-load-theme-light ()
