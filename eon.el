@@ -784,8 +784,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 (add-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 
-;; Set the default fontset
-(eon-fonts-default)
 ;; Load the theme
 (eon-theme-load-default)
 
