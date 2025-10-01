@@ -9,7 +9,7 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 *Emacs ONBOARD is a comprehensive, portable starter-kit for Emacs.*
 It's not supposed to replace your ~init.el~, but loaded from there as a library (see installing instructions down below).
 
-Emacs ONNBOARD is vanilla Emacs, but gives you a vastly better user experience, without any 3rd-party packages.
+Emacs ONBOARD is vanilla Emacs, but gives you a vastly better user experience, without any 3rd-party packages.
 
 *It's all built-in -- all on board.*
 
