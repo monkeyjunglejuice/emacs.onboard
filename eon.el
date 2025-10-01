@@ -338,7 +338,7 @@ Examples (CUR = (a b)):
       (step (copy-sequence cur)
             (if append xs (reverse xs))))))
 
-(defmacro eon-setopt-add-to-list (var elements &optional append compare-fn)
+(defmacro eon-add-to-list-setopt (var elements &optional append compare-fn)
   "Set VAR to CUR with ELEMENTS adjoined using a single `setopt' call.
 
 VAR is a symbol naming a list variable.  ELEMENTS may be an item or a
@@ -346,10 +346,10 @@ list.  APPEND/COMPARE-FN as in `eon-list-adjoin'.  If VAR is unbound,
 treat it as nil.
 
 Examples (initial VAR = (a b)):
-  (eon-setopt-add-to-list some-var 'c)
-  (eon-setopt-add-to-list some-var '(c a))
-  (eon-setopt-add-to-list some-var '(d) t)
-  (eon-setopt-add-to-list some-var '(\"x\") nil #'string-equal)"
+  (eon-add-to-list-setopt some-var 'c)
+  (eon-add-to-list-setopt some-var '(c a))
+  (eon-add-to-list-setopt some-var '(d) t)
+  (eon-add-to-list-setopt some-var '(\"x\") nil #'string-equal)"
   `(setopt ,var
            (eon-list-adjoin
             (if (boundp ',var) ,var nil)
@@ -423,7 +423,7 @@ When called interactively, also echo the result."
 
 ;; Leader implementation
 
-(defun eon--set-leader-key (sym value)
+(defun eon-leader--set-key (sym value)
   (let ((old (and (boundp sym) (symbol-value sym))))
     (when (and old (stringp old) (> (length old) 0))
       (keymap-global-unset old t))
@@ -431,14 +431,14 @@ When called interactively, also echo the result."
     (when (boundp 'ctl-z-map)
       (keymap-global-set value ctl-z-map))
     (when (and old (string= eon-localleader-key old))
-      (eon--set-localleader-key 'eon-localleader-key value))))
+      (eon-localleader--set-key 'eon-localleader-key value))))
 
 (defcustom eon-leader-key
   (if (display-graphic-p) "C-," "C-z")
   "Leader prefix (GUI -> \"C-,\"; TTY -> \"C-z\"). Use `setopt' to change."
   :group 'eon
   :type 'string
-  :set #'eon--set-leader-key)
+  :set #'eon-leader--set-key)
 
 ;; Localleader implementation
 
@@ -446,10 +446,10 @@ When called interactively, also echo the result."
   :doc "Global localleader map (fallback for all buffers)."
   "/" '("..." . execute-extended-command-for-buffer))
 
-(defvar-local eon-localleader-map eon-localleader-global-map
+(defvar-local eon-localleader--map eon-localleader-global-map
   "Active localleader keymap for the current buffer.")
 
-(defun eon--localleader--context-window ()
+(defun eon-localleader--context-window ()
   "Return the window where the key sequence started."
   (cond
    ((and (boundp 'which-key--original-window)
@@ -457,16 +457,16 @@ When called interactively, also echo the result."
     which-key--original-window)
    (t (selected-window))))
 
-(defun eon--localleader-effective-map (&optional _)
+(defun eon-localleader--effective-map (&optional _)
   "Return the localleader map for the current context buffer."
-  (let* ((win (eon--localleader--context-window))
+  (let* ((win (eon-localleader--context-window))
          (buf (and (window-live-p win) (window-buffer win))))
     (with-current-buffer (or buf (current-buffer))
-      (if (keymapp eon-localleader-map)
-          eon-localleader-map
+      (if (keymapp eon-localleader--map)
+          eon-localleader--map
         eon-localleader-global-map))))
 
-(defun eon--set-localleader-key (sym value)
+(defun eon-localleader--set-key (sym value)
   "Setter for `eon-localleader-key'; rebinds the leader entry."
   (let ((old (and (boundp sym) (symbol-value sym))))
     (when (boundp 'ctl-z-map)
@@ -474,7 +474,7 @@ When called interactively, also echo the result."
       (keymap-set
        ctl-z-map value
        ;; No label; :filter supplies the proper (buffer-local) map.
-       '(menu-item "" nil :filter eon--localleader-effective-map))))
+       '(menu-item "" nil :filter eon-localleader--effective-map))))
   (set-default sym value))
 
 (defcustom eon-localleader-key
@@ -485,7 +485,7 @@ TTY: leader then \"C-z\" -> localleader (\"C-z C-z\")
 Use `setopt' to override."
   :group 'eon
   :type 'string
-  :set #'eon--set-localleader-key)
+  :set #'eon-localleader--set-key)
 
 ;; Sub-keymaps under the leader:
 (defvar-keymap ctl-z-b-map   :doc "Buffer")
@@ -525,7 +525,7 @@ Use `setopt' to override."
   "RET" `("Bookmark" . ,ctl-z-ret-map)
   ;; Add dynamic localleader keymap
   eon-localleader-key
-  '(menu-item "" nil :filter eon--localleader-effective-map))
+  '(menu-item "" nil :filter eon-localleader--effective-map))
 
 ;; Initial binding of the leader prefix
 (keymap-global-set eon-leader-key ctl-z-map)
@@ -548,10 +548,10 @@ BODY is forwarded to `defvar-keymap'."
        ;; Inherit global entries so globals are always available.
        (set-keymap-parent ,map-sym eon-localleader-global-map)
        ;; Activate buffer-locally in this mode.
-       (add-hook ',hook (lambda () (setq-local eon-localleader-map ,map-sym)))
+       (add-hook ',hook (lambda () (setq-local eon-localleader--map ,map-sym)))
        ;; If we're already in MODE (or derived), select it now.
        (when (derived-mode-p ',mode)
-         (setq-local eon-localleader-map ,map-sym)))))
+         (setq-local eon-localleader--map ,map-sym)))))
 
 ;; _____________________________________________________________________________
 ;;; KEYBINDING RELATED SETTINGS
@@ -641,93 +641,93 @@ BODY is forwarded to `defvar-keymap'."
 ;; Default/fallback definitions – don't change them here,
 ;; but scroll further down to 'THEME CONFIG'
 
-(defcustom eon-light-theme-name 'modus-operandi-tinted
+(defcustom eon-theme-name-light 'modus-operandi-tinted
   "Name of the light theme."
   :group 'eon
   :type 'symbol)
 
-(defcustom eon-dark-theme-name 'modus-vivendi-tinted
+(defcustom eon-theme-name-dark 'modus-vivendi-tinted
   "Name of the dark theme."
   :group 'eon
   :type 'symbol)
 
-(defcustom eon-default-theme-variant 'light
+(defcustom eon-theme-variant-default 'light
   "Load either the light or the dark theme at startup?"
   :group 'eon
   :type 'symbol)
 
-(defvar eon-active-theme-variant nil
+(defvar eon-theme-variant-active nil
   "Holds the information about the currently active theme variant.")
 
-(defcustom eon-load-before-light-theme-hook nil
+(defcustom eon-theme-light-pre-load-hook nil
   "Run before loading the light theme."
   :group 'eon
   :type 'hook)
 
-(defcustom eon-load-after-light-theme-hook nil
+(defcustom eon-theme-light-post-load-hook nil
   "Run after loading the light theme."
   :group 'eon
   :type 'hook)
 
-(defcustom eon-load-before-dark-theme-hook nil
+(defcustom eon-theme-dark-post-load-hook nil
   "Run before loading the dark theme."
   :group 'eon
   :type 'hook)
 
-(defcustom eon-load-after-dark-theme-hook nil
+(defcustom eon-theme-dark-post-load-hook nil
   "Run after loading the dark theme."
   :group 'eon
   :type 'hook)
 
-(defun eon-load-theme-light ()
+(defun eon-theme-load-light ()
   "Load the light theme and apply some modifications.
 Some themes may come as functions -- wrap these ones in lambdas."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
-  (run-hooks 'eon-load-before-light-theme-hook)
-  (cond ((symbolp eon-light-theme-name)
-         (load-theme eon-light-theme-name t))
-        ((functionp eon-light-theme-name)
-         (funcall eon-light-theme-name)))
-  (setq eon-active-theme-variant 'light)
-  (run-hooks 'eon-load-after-light-theme-hook))
+  (run-hooks 'eon-theme-light-pre-load-hook)
+  (cond ((symbolp eon-theme-name-light)
+         (load-theme eon-theme-name-light t))
+        ((functionp eon-theme-name-light)
+         (funcall eon-theme-name-light)))
+  (setq eon-theme-variant-active 'light)
+  (run-hooks 'eon-theme-light-post-load-hook))
 
-(defun eon-load-theme-dark ()
+(defun eon-theme-load-dark ()
   "Load the dark theme and apply some modifications.
 Some themes may come as functions -- wrap these ones in lambdas."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
-  (run-hooks 'eon-load-before-dark-theme-hook)
-  (cond ((symbolp eon-dark-theme-name)
-         (load-theme eon-dark-theme-name t))
-        ((functionp eon-dark-theme-name)
-         (funcall eon-dark-theme-name)))
-  (setq eon-active-theme-variant 'dark)
-  (run-hooks 'eon-load-after-dark-theme-hook))
+  (run-hooks 'eon-theme-dark-post-load-hook)
+  (cond ((symbolp eon-theme-name-dark)
+         (load-theme eon-theme-name-dark t))
+        ((functionp eon-theme-name-dark)
+         (funcall eon-theme-name-dark)))
+  (setq eon-theme-variant-active 'dark)
+  (run-hooks 'eon-theme-dark-post-load-hook))
 
-(defun eon-toggle-theme ()
+(defun eon-theme-toggle ()
   "Toggle between light and dark theme."
   (interactive)
   (cond
-   ((equal eon-active-theme-variant 'light) (eon-load-theme-dark))
-   ((equal eon-active-theme-variant 'dark) (eon-load-theme-light))
+   ((equal eon-theme-variant-active 'light) (eon-theme-load-dark))
+   ((equal eon-theme-variant-active 'dark) (eon-theme-load-light))
    (t (mapc #'disable-theme custom-enabled-themes))))
 
-(defun eon-load-theme-default ()
+(defun eon-theme-load-default ()
   "Load the default theme."
   (cond
-   ((equal eon-default-theme-variant 'light) (eon-load-theme-light))
-   ((equal eon-default-theme-variant 'dark) (eon-load-theme-dark))
+   ((equal eon-theme-variant-default 'light) (eon-theme-load-light))
+   ((equal eon-theme-variant-default 'dark) (eon-theme-load-dark))
    (t (error
        "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; THEME CONFIG
 ;; Either configure the themes here,
-;; or "M-x customize-group RET eon-toggle-theme"
+;; or "M-x customize-group RET eon-theme-toggle"
 
 ;; Set the keybinding to toggle between light and dark: "<leader> x t"
-(keymap-set ctl-z-x-map "t" #'eon-toggle-theme)
+(keymap-set ctl-z-x-map "t" #'eon-theme-toggle)
 
 ;; Set some defaults for the Modus themes; doesn't affect other themes.
 ;; These variables must be set before loading the Modus themes.
@@ -743,33 +743,39 @@ Some themes may come as functions -- wrap these ones in lambdas."
  '(region ((t :extend nil))))
 
 ;;; ---> Set your light theme:
-;; (setopt eon-light-theme-name 'modus-operandi)
+;; (setopt eon-theme-name-light 'modus-operandi)
 
 ;;; ---> Set your dark theme:
-;; (setopt eon-dark-theme-name 'modus-vivendi)
+;; (setopt eon-theme-name-dark 'modus-vivendi)
 
 ;;; ---> Set your default variant here - 'light or 'dark
-;; (setopt eon-default-theme-variant 'light)
+;; (setopt eon-theme-variant-default 'dark)
 
 ;; The hooks below can be used to run additional functions before or after
 ;; loading the selected light and dark theme. That's useful for setting
 ;; variables that otherwise would get overwritten by the themes.
 ;; Restart Emacs to take effect after changing the hooks.
 
-(add-hook 'eon-load-after-light-theme-hook
           (lambda ()
             ;; Your arbitrary non-interactive function here
             ))
+;; (add-hook 'eon-theme-light-post-load-hook #'my-interactive-function)
+;; (add-hook 'eon-theme-light-post-load-hook
+;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
+(add-hook 'eon-theme-light-post-load-hook #'eon-fonts-default)
 
-(add-hook 'eon-load-after-dark-theme-hook
           (lambda ()
             ;; Your arbitrary non-interactive function here
             ))
+;; (add-hook 'eon-theme-dark-post-load-hook #'my-interactive-function)
+;; (add-hook 'eon-theme-dark-post-load-hook
+;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
+(add-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 
 ;; Set the default fontset
 (eon-fonts-default)
 ;; Load the theme
-(eon-load-theme-default)
+(eon-theme-load-default)
 
 ;; _____________________________________________________________________________
 ;;; DISPLAY & SCROLLING
