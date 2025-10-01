@@ -31,7 +31,7 @@
 ;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Created: 28 Apr 2021
-;; Version: 2.1.0
+;; Version: 2.1.1
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
 ;; Keywords: config dotemacs convenience
@@ -879,11 +879,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completions-detailed nil)
 
 ;; Preview current in-buffer completion candidate?
-(global-completion-preview-mode 1)
-(keymap-set completion-preview-active-mode-map "M-n"
-            #'completion-preview-next-candidate)
-(keymap-set completion-preview-active-mode-map "M-p"
-            #'completion-preview-prev-candidate)
+(when (fboundp #'global-completion-preview-mode)
+  (global-completion-preview-mode 1)
+  (keymap-set completion-preview-active-mode-map "M-n"
+              #'completion-preview-next-candidate)
+  (keymap-set completion-preview-active-mode-map "M-p"
+              #'completion-preview-prev-candidate))
 
 ;; Tweaking Icomplete
 (with-eval-after-load 'icomplete
