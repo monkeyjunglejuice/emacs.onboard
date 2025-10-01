@@ -753,22 +753,34 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; The hooks below can be used to run additional functions before or after
 ;; loading the selected light and dark theme. That's useful for setting
-;; variables that otherwise would get overwritten by the themes.
+;; variables that otherwise would get overwritten by themes.
 ;; Restart Emacs to take effect after changing the hooks.
 
-          (lambda ()
-            ;; Your arbitrary non-interactive function here
-            ))
+;;; Call a function before/after loading the light theme
+;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-light-post-load-hook #'my-interactive-function)
+;; Normal functions not designated as "(interactive)" must be wrapped in lambdas:
 ;; (add-hook 'eon-theme-light-post-load-hook
+;;           (lambda ()
+;;             ;; Your arbitrary non-interactive function(s) here
+;;             ))
+
+;; Load the default font set; if you want to load a different font set,
+;; "unhook" `eon-fonts-default' first via:
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 (add-hook 'eon-theme-light-post-load-hook #'eon-fonts-default)
 
-          (lambda ()
-            ;; Your arbitrary non-interactive function here
-            ))
+;;; Call a function before/after loading the dark theme
+;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-dark-post-load-hook #'my-interactive-function)
+;; Normal functions not designated as "(interactive)" must be wrapped in lambdas:
 ;; (add-hook 'eon-theme-dark-post-load-hook
+;;           (lambda ()
+;;             ;; Your arbitrary non-interactive function(s) here
+;;             ))
+
+;; Load the default font set; if you want to load a different font set,
+;; "unhook" `eon-fonts-default' first via:
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 (add-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 
