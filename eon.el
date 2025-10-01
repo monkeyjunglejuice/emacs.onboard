@@ -306,7 +306,8 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'darwin))
 
-;; Extend `add-to-list' for practical reasons
+;; Extended variant of `add-to-list' and friends
+
 (defun eon-list-adjoin (cur elements &optional append compare-fn)
   "Return a new list like CUR with ELEMENTS added once.
 
@@ -337,7 +338,6 @@ Examples (CUR = (a b)):
       (step (copy-sequence cur)
             (if append xs (reverse xs))))))
 
-;; One-shot Customize wrapper (runs :set/type normalization once)
 (defmacro eon-setopt-add-to-list (var elements &optional append compare-fn)
   "Set VAR to CUR with ELEMENTS adjoined using a single `setopt' call.
 
@@ -355,7 +355,6 @@ Examples (initial VAR = (a b)):
             (if (boundp ',var) ,var nil)
             ,elements ,append ,compare-fn)))
 
-;; Drop-in rebinder (no Customize semantics)
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
   "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
 
@@ -795,21 +794,23 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (pixel-scroll-precision-mode 1))
 
 ;; Redraw the display – useful when running Emacs in a Windows terminal emulator
+;; and the display shows garbage. Accessible via "<leader> x r"
 (keymap-set ctl-z-x-map "r" #'redraw-display)
 
 ;; _____________________________________________________________________________
 ;;; MODE LINE
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Mode-Line>
 
-;; Compress the mode line? If non-nil, repeating spaces are compressed into
-;; a single space. If 'long', this is only done when the mode line is longer
-;; than the current window width (in columns).
+;; Compress the mode line?
+;; If non-nil, repeating spaces are compressed into a single space.
+;; If 'long, this is only done when the mode line is longer than
+;; the current window width (in columns).
 (setopt mode-line-compact nil)
 
 ;; Show the buffer size in the modeline?
 (size-indication-mode 1)
 
-;; Show column number along with line number in mode line?
+;; Show the current line number along with column number in mode line?
 (column-number-mode 1)
 
 ;; _____________________________________________________________________________
