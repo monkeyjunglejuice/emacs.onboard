@@ -1533,19 +1533,18 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   "Accepts a symbol in order to return a pre-defined user-agent string.
 BROWSER-NAME can be either `safari-macos', `safari-iphone', `w3m' or t,
 which sets the default `eww' user-agent according to `url-privacy-level'."
-  (cond
-   ((equal browser-name 'safari-macos)
-    (setopt url-user-agent
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
-   ((equal browser-name 'safari-iphone)
-    (setopt url-user-agent
-            "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
-   ((equal browser-name 'w3m)
-    (setopt url-user-agent
-            "w3m/0.5.3+git2020050"))
-   (t
-    (setopt url-user-agent
-            'default))))
+  (pcase browser-name
+    ('safari-macos
+     (setopt url-user-agent
+             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
+    ('safari-iphone
+     (setopt url-user-agent
+             "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
+    ('w3m
+     (setopt url-user-agent
+             "w3m/0.5.3+git2020050"))
+    (_
+     (setopt url-user-agent 'default))))
 
 ;; Set the user agent for the internal web browser
 (eon-user-agent 'safari-iphone)
