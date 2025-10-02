@@ -1287,6 +1287,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (add-to-list 'recentf-exclude
              "^/\\(?:ssh\\|su\\|sudo\\)?:")
 
+;; Provide Keybindings for these useful commands
 (keymap-global-set "C-x f" #'recentf-open)
 (keymap-set ctl-z-f-map "r" #'recentf-open)
 
@@ -1357,10 +1358,12 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; The `dired' keybinding is "C-x d". This new keybinding is in accordance
 ;; with "C-x C-f" for visiting files
 (keymap-global-set "C-x C-d" #'dired)
+;; Open directory of the currently visited file in Dired
+(keymap-global-set "C-x d" #'dired-jump)
 
-;; Open the Dired file manager from the leader menu: "<leader> d"
+;; Open Dired file manager via leader menu: "<leader> d"
 (keymap-set ctl-z-map "d" #'dired)
-;; Open the directory of the currently visited file in Dired: "<leader> f d"
+;; Open directory of the currently visited file via leader menu: "<leader> f d"
 (keymap-set ctl-z-f-map "d" #'dired-jump)
 
 ;; Switch to wdired-mode and edit directory content like a text buffer
@@ -1484,11 +1487,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; _____________________________________________________________________________
 ;;; PROJECT MANAGEMENT
 ;; Setup for Emacs' built-in project management
-
-;; Open file in current project
-(keymap-global-set "C-x f" #'project-find-file)
-;; Open directory in current project
-(keymap-global-set "C-x d" #'project-find-dir)
 
 ;; Switch to current project buffers: "<leader> n"
 (keymap-set ctl-z-map "n" #'project-switch-to-buffer)
