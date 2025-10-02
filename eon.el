@@ -1547,16 +1547,16 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
             "w3m/0.5.3+git2020050"))
    (t
     (setopt url-user-agent
-            'default)))
+            'default))))
 
-  ;; Set the user agent for the internal web browser
-  (eon-user-agent 'safari-iphone)
+;; Set the user agent for the internal web browser
+(eon-user-agent 'safari-iphone)
 
-  ;; Per default, open links with the internal web browser
-  (setopt browse-url-browser-function #'eww-browse-url)
+;; Per default, open links with the internal web browser
+(setopt browse-url-browser-function #'eww-browse-url)
 
-  ;; Secondary web browser
-  (setopt browse-url-secondary-browser-function #'browse-url-default-browser))
+;; Secondary web browser
+(setopt browse-url-secondary-browser-function #'browse-url-default-browser)
 ;; (setopt browse-url-browser-function #'browse-url-firefox)
 ;; (setopt browse-url-generic-program (executable-find "nyxt")
 ;;         browse-url-browser-function #'browse-url-generic)
