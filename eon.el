@@ -2228,7 +2228,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   ;; Hook the "macro" keymap into the localleader keymap
   "m" `("Macro" . ,eon-localleader-elisp-macro-map)
   "p" #'pp-eval-last-sexp
-  "r" #'elisp-eval-region-or-buffer)
+  "E" #'elisp-eval-region-or-buffer)
 
 ;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode.
 (add-hook 'emacs-lisp-mode-hook
