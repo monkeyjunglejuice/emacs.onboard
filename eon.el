@@ -2199,6 +2199,23 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; EMACS LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
+
+;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (unless (derived-mode-p 'lisp-interaction-mode)
+              (flymake-mode 1))))
+
+;; Emacs Lisp evaluation: don't truncate printed lists
+(setopt eval-expression-print-length nil
+        eval-expression-print-level nil)
+
+;; Reach eval-expression via "<leader> x"
+(keymap-set ctl-z-e-map "x" #'eval-expression)
+
+;; Additional keybinding resembling other sexp-related keybindings
+(keymap-global-set "C-M-<backspace>" #'backward-kill-sexp)
+
 ;;; Localleader keymaps
 
 ;; Group macro-related commands into a keymap
@@ -2226,22 +2243,6 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   "m" `("Macro" . ,eon-localleader-elisp-macro-map)
   "p" #'pp-eval-last-sexp
   "E" #'elisp-eval-region-or-buffer)
-
-;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode.
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (unless (derived-mode-p 'lisp-interaction-mode)
-              (flymake-mode 1))))
-
-;; Reach eval-expression via "<leader> x"
-(keymap-set ctl-z-e-map "x" #'eval-expression)
-
-;; Emacs Lisp evaluation: don't truncate printed lists
-(setopt eval-expression-print-length nil
-        eval-expression-print-level nil)
-
-;; Additional keybinding resembling other sexp-related keybindings
-(keymap-global-set "C-M-<backspace>" #'backward-kill-sexp)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Helpers
