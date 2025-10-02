@@ -31,7 +31,7 @@
 ;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Created: 28 Apr 2021
-;; Version: 2.1.1
+;; Version: 2.1.2
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
 ;; Keywords: config dotemacs convenience
@@ -2199,6 +2199,27 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; EMACS LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
+(defun eon--guard-parens ()
+  "Check parens; prompt to proceed on mismatch."
+  (if (condition-case nil (progn (check-parens) t) (error nil))
+      nil
+    (if (y-or-n-p
+         "Couldn't save file: unmatched paren or quote. Save anyway? ")
+        nil
+      (user-error "OK, the file hasn't been saved"))))
+
+(define-minor-mode eon-guard-parens-mode
+  "Ask when saving with mismatching parens or quotes."
+  :init-value t
+  :lighter ""
+  (if eon-guard-parens-mode
+      (add-hook 'write-contents-functions #'eon--guard-parens nil t)
+    (remove-hook 'write-contents-functions #'eon--guard-parens t)))
+
+;; Enable minor mode per default. Toggle via "M-x eon-guard-parens-mode"
+;; Don't like the guard? Remove the hook via:
+;; (add-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
+(add-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
 
 ;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode
 (add-hook 'emacs-lisp-mode-hook
