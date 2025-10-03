@@ -672,7 +672,7 @@ BODY is forwarded to `defvar-keymap'."
   :group 'eon
   :type 'hook)
 
-(defcustom eon-theme-dark-post-load-hook nil
+(defcustom eon-theme-dark-pre-load-hook nil
   "Run before loading the dark theme."
   :group 'eon
   :type 'hook)
@@ -700,7 +700,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 Some themes may come as functions -- wrap these ones in lambdas."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
-  (run-hooks 'eon-theme-dark-post-load-hook)
+  (run-hooks 'eon-theme-dark-pre-load-hook)
   (cond ((symbolp eon-theme-name-dark)
          (load-theme eon-theme-name-dark t))
         ((functionp eon-theme-name-dark)
