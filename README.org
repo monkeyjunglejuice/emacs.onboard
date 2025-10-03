@@ -44,12 +44,12 @@ Some features -- without any dependencies or "re-inventing the wheel":
 - Garbage Collector tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
 - The package manager is pre-configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
 - Makes it easy to set the fonts you like -- all options in one place.
-- Dired, the most powerful file manager in existence
-  - Doesn't accumulate used buffers.
-  - Dired uses the OS system trash, instead of deleting files right away (Linux).
-  - Open files in desktop apps from Dired via =M-RET= (uses xdg-open; Linux only for now).
-  - Clean directory listings per default in Dired, toggle via =(=.
-  - Hide and show hidden files (dotfiles) in Dired simply by hitting =.=
+- Dired, the most powerful file manager in existence ...
+  - doesn't accumulate used buffers.
+  - uses the OS system trash, instead of deleting files right away (Linux).
+  - opens files in desktop apps via =M-RET= (uses xdg-open; Linux only for now).
+  - shows directory listings per default in Dired, toggle file infos via =(=.
+  - hides hidden files (dotfiles) per default, show them by simply hitting =.=
 - Visit any file when the file name is under the cursor: =<leader> f o=.
 - Kill all buffers at once via =<leader> b K=.
 - Open Shell- and Eshell buffer via =<leader> e s= and =<leader> e e=
