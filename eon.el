@@ -1437,8 +1437,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 (setopt comint-input-ignoredups t
         comint-prompt-read-only t
-        comint-buffer-maximum-size 2048
-        comint-scroll-to-bottom-on-input 'this)
+        comint-buffer-maximum-size 2048)
 
 ;; _____________________________________________________________________________
 ;;; ESHELL
