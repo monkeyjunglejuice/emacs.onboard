@@ -1419,7 +1419,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
   (with-eval-after-load 'dired
-    (keymap-global-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
+    (keymap-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
 
 ;; _____________________________________________________________________________
 ;;; BOOKMARKS
