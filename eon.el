@@ -505,7 +505,7 @@ Use `setopt' to override."
 (defvar-keymap ctl-z-x-map   :doc "Misc")
 (defvar-keymap ctl-z-ret-map :doc "Bookmark")
 
-;; Top-level leader keymap:
+;; Top-level leader keymap, referencing the sub-keymaps defined previously:
 
 (defvar-keymap ctl-z-map
   :doc "Leader (top-level) keymap."
@@ -1213,7 +1213,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Delete duplicates from the command history?
 (setopt history-delete-duplicates t)
 
-;; Remember where the cursor was, the last time you visited the file?
+;; Remember where the cursor was, the last time you visited that file?
 (setopt save-place-limit 500)
 (save-place-mode 1)
 
@@ -1224,7 +1224,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-f-map "f" #'find-file)
 ;; Open another file that has common file base name: "<leader> f a"
 (keymap-set ctl-z-f-map "a" #'find-alternate-file)
-;; Open the file you really wanted: "<leader> f A"
+;; Open the file in another window: "<leader> f A"
 (keymap-set ctl-z-f-map "A" #'find-alternate-file-other-window)
 
 ;; Open any resource under the cursor: "<leader> f o"
