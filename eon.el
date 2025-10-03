@@ -1223,9 +1223,9 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Open arbitrary file: "<leader> f f"
 (keymap-set ctl-z-f-map "f" #'find-file)
 ;; Open another file that has common file base name: "<leader> f a"
-(keymap-set ctl-z-f-map "a" #'find-alternate-file-other-window)
+(keymap-set ctl-z-f-map "a" #'find-alternate-file)
 ;; Open the file you really wanted: "<leader> f A"
-(keymap-set ctl-z-f-map "A" #'find-alternate-file)
+(keymap-set ctl-z-f-map "A" #'find-alternate-file-other-window)
 
 ;; Open any resource under the cursor: "<leader> f o"
 (keymap-set ctl-z-f-map "o" #'find-file-at-point)
