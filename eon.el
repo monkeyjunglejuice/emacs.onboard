@@ -1623,12 +1623,12 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; Kill up to character
 (keymap-global-set "M-z" #'zap-up-to-char)
 
-;; Define keymap in order to group formatting commands
+;; Define a keymap in order to group formatting commands
 (defvar-keymap eon-format-map :doc "Format"
                "a" #'align
                "s" #'sort-lines)
-;; Hook the keymap into the "Code" sub-keymap under the leader to make it
-;; available via "<leader> c f"
+;; Hook the keymap into the "Code" sub-keymap under the leader
+;; in order to make it available via "<leader> c F"
 (keymap-set ctl-z-c-map "F" `("Format" . ,eon-format-map))
 
 ;; _____________________________________________________________________________
