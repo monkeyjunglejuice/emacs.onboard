@@ -306,7 +306,7 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'darwin))
 
-;; Extended variant of `add-to-list' and friends
+;; Extended variant of `add-to-list' and its friends
 
 (defun eon-list-adjoin (cur elements &optional append compare-fn)
   "Return a new list like CUR with ELEMENTS added once.
@@ -403,14 +403,14 @@ When called interactively, also echo the result."
 ;; To avoid clashes, new keybindings introduced by Emacs ONboard will usually
 ;; live under the leader prefix (with only a few exceptions).
 
-;; ---> Defaults for graphical Emacs:
+;;; ---> Defaults for graphical Emacs:
 ;; "C-," is the leader key, reach the local leader via "C-, C-,"
 ;; 
-;; ---> Defaults for Emacs with terminal UI (invoked by "emacs -nw"):
+;;; ---> Defaults for Emacs with terminal UI (invoked by "emacs -nw"):
 ;; "C-z" is the leader key, reach the local leader via "C-z C-z"
 
 ;; Terminal note: In `emacs -nw`, "C-z" is normally bound to suspend Emacs.
-;; We rebind it as a leader, so it works in modern terminals (e.g. WezTerm).
+;; We rebind it as a leader, and it works in modern terminals (e.g. WezTerm).
 ;; If your TTY converts C-z to SIGTSTP before Emacs sees it (rare), disable
 ;; the suspend char or move it (see optional snippet below).
 ;; (add-hook 'tty-setup-hook
@@ -505,6 +505,7 @@ Use `setopt' to override."
 (defvar-keymap ctl-z-ret-map :doc "Bookmark")
 
 ;; Top-level leader keymap:
+
 (defvar-keymap ctl-z-map
   :doc "Leader (top-level) keymap."
   "b"   `("Buffer"   . ,ctl-z-b-map)
@@ -545,16 +546,16 @@ BODY is forwarded to `defvar-keymap'."
   (let ((hook (intern (format "%s-hook" mode))))
     `(progn
        (defvar-keymap ,map-sym ,@body)
-       ;; Inherit global entries so globals are always available.
+       ;; Inherit global entries so globals are always available
        (set-keymap-parent ,map-sym eon-localleader-global-map)
-       ;; Activate buffer-locally in this mode.
+       ;; Activate buffer-locally in this mode
        (add-hook ',hook (lambda () (setq-local eon-localleader--map ,map-sym)))
-       ;; If we're already in MODE (or derived), select it now.
+       ;; If we're already in MODE (or derived), select it now
        (when (derived-mode-p ',mode)
          (setq-local eon-localleader--map ,map-sym)))))
 
 ;; _____________________________________________________________________________
-;;; KEYBINDING RELATED SETTINGS
+;;; KEYBINDING-RELATED SETTINGS
 
 ;; Which-key: show a menu with available keybindings
 (when (fboundp #'which-key-mode)
@@ -586,7 +587,7 @@ BODY is forwarded to `defvar-keymap'."
 ;; You can use this function definition as a template to define your own font
 ;; set, then call your personal function via `eon-load-after-light-theme-hook'
 ;; and `eon-load-after-light-theme-hook' (under section 'THEME CONFIG').
-
+;; TODO Make it easy to configure by setting a font, the size, etc.
 (defun eon-fonts-default ()
   "The height value is in 1/10 pt, so 140 will give 14 pt."
   (interactive)
@@ -640,6 +641,7 @@ BODY is forwarded to `defvar-keymap'."
 
 ;; Default/fallback definitions – don't change them here,
 ;; but scroll further down to 'THEME CONFIG'
+;; TODO Refactor in order to dissolve duplication
 
 (defcustom eon-theme-name-light 'modus-operandi-tinted
   "Name of the light theme."
@@ -1166,7 +1168,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-global-set "M-y" #'eon-yank-from-kill-ring)
 
 ;; Copy & paste between Windows and Emacs running within WSL
-;; (Windows Subsystem for Linux) — which is technically a Linux, not Windows
+;; (Windows Subsystem for Linux) - which is technically a Linux, not Windows
 
 ;; Copy "kill" text from an Emacs buffer for pasting it into a Windows app
 (when (and (eon-linp)
@@ -1361,7 +1363,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Open directory of the currently visited file in Dired
 (keymap-global-set "C-x d" #'dired-jump)
 
-;; Open Dired file manager via leader menu: "<leader> d"
+;; Open the Dired file manager via leader menu: "<leader> d"
 (keymap-set ctl-z-map "d" #'dired)
 ;; Open directory of the currently visited file via leader menu: "<leader> f d"
 (keymap-set ctl-z-f-map "d" #'dired-jump)
@@ -2204,7 +2206,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   (if (condition-case nil (progn (check-parens) t) (error nil))
       nil
     (if (y-or-n-p
-         "Couldn't save file: unmatched paren or quote. Save anyway? ")
+         "Didn't save file: unmatched paren or quote. Save anyway? ")
         nil
       (user-error "OK, the file hasn't been saved"))))
 
@@ -2216,9 +2218,9 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
       (add-hook 'write-contents-functions #'eon--guard-parens nil t)
     (remove-hook 'write-contents-functions #'eon--guard-parens t)))
 
-;; Enable minor mode per default. Toggle via "M-x eon-guard-parens-mode"
+;; Enable minor mode per default. Toggle via "M-x eon-guard-parens-mode".
 ;; Don't like the guard? Remove the hook via:
-;; (add-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
+;; (remove-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
 (add-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
 
 ;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode
