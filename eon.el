@@ -1257,7 +1257,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 (eon-trash-on)  ; set the default
 
-;; Use the system trash when deleting files?
+;; Inhibit using the system trash when deleting remote files?
 (setopt remote-file-name-inhibit-delete-by-moving-to-trash t)
 
 ;; Resolve symlinks so that operations are conducted from the file's directory?
