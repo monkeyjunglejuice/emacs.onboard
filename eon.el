@@ -2202,6 +2202,8 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; EMACS LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
+;; Tiny minor mode that prevents from accidently saving files with mismatched
+;; parenthesis and quotes
 (defun eon--guard-parens ()
   "Check parens; prompt to proceed on mismatch."
   (if (condition-case nil (progn (check-parens) t) (error nil))
@@ -2220,7 +2222,8 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
     (remove-hook 'write-contents-functions #'eon--guard-parens t)))
 
 ;; Enable minor mode per default. Toggle via "M-x eon-guard-parens-mode".
-;; Don't like the guard? Remove the hook via:
+;; Don't like the guard? Turn off via "M-x eon-guard-parens-mode"
+;; or remove the hook permanently via:
 ;; (remove-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
 (add-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
 
@@ -2240,7 +2243,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; Additional keybinding resembling other sexp-related keybindings
 (keymap-global-set "C-M-<backspace>" #'backward-kill-sexp)
 
-;;; Localleader keymaps
+;;; Localleader keymaps for `emacs-lisp-mode'
 
 ;; Group macro-related commands into a keymap
 (defvar-keymap eon-localleader-elisp-macro-map
@@ -2269,7 +2272,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   "E" #'elisp-eval-region-or-buffer)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Helpers
+;;; General helpers for lisp-type languages
 
 (defvar eon-lisp-src-modes-registry
   '(common-lisp-mode
