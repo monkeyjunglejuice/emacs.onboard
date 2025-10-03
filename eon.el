@@ -1163,7 +1163,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 ;; Simple alternative for 'yank-pop' – present a selection of the kill ring
 (defun eon-yank-from-kill-ring ()
-  "Select and insert an item from the 'kill-ring'."
+  "Select and insert an item from the \='kill-ring'."
   (interactive)
   (insert (completing-read "Yank: " kill-ring nil t)))
 (keymap-global-set "M-y" #'eon-yank-from-kill-ring)
