@@ -727,7 +727,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; THEME CONFIG
 ;; Either configure the themes here,
-;; or "M-x customize-group RET eon-theme-toggle"
+;; or "M-x customize-group RET eon"
 
 ;; Set the keybinding to toggle between light and dark: "<leader> x t"
 (keymap-set ctl-z-x-map "t" #'eon-theme-toggle)
