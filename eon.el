@@ -2291,21 +2291,21 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 
 (defun eon-lisp--modes-transform (modes switch)
   "Transform MODES according to SWITCH.
-- 'hook returns corresponding -hook symbols"
+Calling SWITCH with \='hook returns corresponding ...-hook symbols"
   (pcase switch
     ('hook (mapcar (lambda (m) (intern (format "%s-hook" m))) modes))
     (_ modes)))
 
 (defun eon-lisp-src-modes (&optional switch)
   "Return installed Lisp-related source modes from the registry.
-With SWITCH = 'hook, return -hook variables."
+With SWITCH = \='hook, return ...-hook variables."
   (eon-lisp--modes-transform
    (seq-filter #'fboundp eon-lisp-src-modes-registry)
    switch))
 
 (defun eon-lisp-repl-modes (&optional switch)
   "Return installed Lisp-related REPL modes from the registry.
-With SWITCH = 'hook, return -hook variables."
+With SWITCH = \='hook, return ...-hook variables."
   (eon-lisp--modes-transform
    (seq-filter #'fboundp eon-lisp-repl-modes-registry)
    switch))
