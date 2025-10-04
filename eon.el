@@ -910,7 +910,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-h-map "/" `("..." . ,help-map))
 (keymap-set ctl-z-h-map "e" #'view-echo-area-messages)
 (keymap-set ctl-z-h-map "f" #'describe-function)
-(keymap-set ctl-z-h-map "k" #'describe-key-briefly)
+(keymap-set ctl-z-h-map "k" #'describe-key)
 (keymap-set ctl-z-h-map "o" #'describe-symbol)
 (keymap-set ctl-z-h-map "v" #'describe-variable)
 
