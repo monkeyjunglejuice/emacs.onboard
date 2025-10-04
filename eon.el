@@ -1148,6 +1148,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
       (kill-new filename)
       (message "Copied buffer file name '%s' to the kill ring."
                filename))))
+(keymap-set ctl-z-f-map "M-w" #'eon-copy-file-path)
 
 ;; Simple alternative for 'yank-pop' – present a selection of the kill ring
 (defun eon-yank-from-kill-ring ()
