@@ -1285,7 +1285,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
              "^/\\(?:ssh\\|su\\|sudo\\)?:")
 
 ;; Provide Keybindings for these useful commands
-(keymap-global-set "C-x f" #'recentf-open)
+(keymap-global-set "C-x f" #'recentf-open)  ; shadows `set-fill-column'
 (keymap-set ctl-z-f-map "r" #'recentf-open)
 
 ;; _____________________________________________________________________________
