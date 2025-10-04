@@ -1370,38 +1370,45 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Open directory of the currently visited file via leader menu: "<leader> f d"
 (keymap-set ctl-z-f-map "d" #'dired-jump)
 
+(with-eval-after-load 'dired
+  (setopt
+   ;; Don't accumulate useless Dired buffers
+   dired-kill-when-opening-new-dired-buffer t
+   ;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
+   dired-listing-switches "-lhFA -v --group-directories-first"
+   ;; Copying files/directories with sub-directories?
+   dired-recursive-copies 'always
+   ;; Create directories if they don't exist?
+   dired-create-destination-dirs 'ask
+   ;; Register file renaming in underlying version control system?
+   dired-vc-rename-file t
+   ;; Mimic dual-pane file managers?
+   dired-dwim-target t
+   ;; Check for directory modifications?
+   dired-auto-revert-buffer 'dired-buffer-stale-p))
+
 ;; Switch to wdired-mode and edit directory content like a text buffer
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode))
 
-;; Don't accumulate useless Dired buffers
-(setopt dired-kill-when-opening-new-dired-buffer t)
+;; Hide details in file listings? Toggle via "S-("
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
-;; Improving directory listings
-(add-hook 'dired-mode-hook
-          (lambda ()
-            ;; Hide details in file listings? Toggle via "S-("
-            (dired-hide-details-mode 1)
-            ;; Highlight current line?
-            (hl-line-mode 1)))
+;; Highlight current line?
+(add-hook 'dired-mode-hook #'hl-line-mode)
 
-;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
-(setopt dired-listing-switches "-lhFA -v --group-directories-first")
+;; Linux/Unix only: hit "M-RET" to open files in the corresponding desktop app
+(with-eval-after-load 'dired
+  (when (eon-linp)
+    (defun eon-dired-xdg-open ()
+      "Open files and folders with the default desktop app."
+      (interactive)
+      (let* ((file (dired-get-filename nil t)))
+        (message "Opening %s..." file)
+        (call-process "xdg-open" nil 0 nil file)
+        (message "Opening %s done" file)))
+    (keymap-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
 
-;; Copying files/directories with sub-directories?
-(setopt dired-recursive-copies 'always)
-
-;; Create directories if they don't exist?
-(setopt dired-create-destination-dirs 'ask)
-
-;; Register file renaming in underlying version control system?
-(setopt dired-vc-rename-file t)
-
-;; Mimic dual-pane file managers?
-(setopt dired-dwim-target t)
-
-;; Check for directory modifications?
-(setopt dired-auto-revert-buffer 'dired-buffer-stale-p)
 ;; Open '~/.emacs.d' directory in Dired
 (defun eon-visit-user-emacs-directory ()
   "Open the Emacs directory in Dired, which is usually '~/.emacs.d'."
@@ -1409,23 +1416,13 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   (dired user-emacs-directory))
 
 ;; Images
-(setopt image-dired-thumb-margin 1
-        image-dired-thumb-relief 0
-        ;; Store thumbnails in the system-wide thumbnail location
-        ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
-        image-dired-thumbnail-storage 'standard-large)
-
-;; Linux/Unix only: hit "M-RET" to open files in the corresponding desktop app
-(when (eon-linp)
-  (defun eon-dired-xdg-open ()
-    "Open files and folders with the default desktop app."
-    (interactive)
-    (let* ((file (dired-get-filename nil t)))
-      (message "Opening %s..." file)
-      (call-process "xdg-open" nil 0 nil file)
-      (message "Opening %s done" file)))
-  (with-eval-after-load 'dired
-    (keymap-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
+(with-eval-after-load 'image-dired
+  (setopt
+   image-dired-thumb-margin 1
+   image-dired-thumb-relief 0
+   ;; Store thumbnails in the system-wide thumbnail location
+   ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
+   image-dired-thumbnail-storage 'standard-large))
 
 ;; _____________________________________________________________________________
 ;;; BOOKMARKS
