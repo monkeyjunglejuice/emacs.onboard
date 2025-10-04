@@ -174,12 +174,12 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;;; EMACS SYSTEM LIMITS
 
 ;; Increase warning threshold
-(setopt large-file-warning-threshold (* 64 1000000))
+(setopt large-file-warning-threshold (* 64 1024 1024))
 
 ;; Increase undo limit
-(setopt undo-limit 67108864          ; 64mb
-        undo-strong-limit 100663296  ; 96mb
-        undo-outer-limit 1006632960) ; 960mb
+(setopt undo-limit (* 64 1024 1024)  ; 64mb
+        undo-strong-limit (* 96 1024 1024)   ; 96mb
+        undo-outer-limit (* 960 1024 1024))  ; 960mb
 
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setopt read-process-output-max (* 1024 1024))  ; 1 MB
@@ -740,10 +740,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt modus-themes-common-palette-overrides
         '((border-mode-line-active bg-mode-line-active)
           (border-mode-line-inactive bg-mode-line-inactive)))
-
-;; Do not extend `region' background past the end of the line?
-(custom-set-faces
- '(region ((t :extend nil))))
 
 ;;; ---> Set your light theme:
 ;; (setopt eon-theme-name-light 'modus-operandi)
