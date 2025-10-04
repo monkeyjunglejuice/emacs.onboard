@@ -275,7 +275,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; _____________________________________________________________________________
 ;;; GLOBAL DEFINITIONS & UTILITIES
 
-;; Group for customizations
+;; Define the group for Customizations
 (defgroup eon nil
   "Emacs ONBOARD starter kit & ONTOP extension layer."
   :group 'convenience)
