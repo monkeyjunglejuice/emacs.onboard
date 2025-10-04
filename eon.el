@@ -560,7 +560,6 @@ BODY is forwarded to `defvar-keymap'."
           which-key-idle-secondary-delay 0.0
           which-key-sort-uppercase-first nil
           which-key-sort-order 'which-key-key-order-alpha
-          which-key-allow-evil-operators t
           which-key-preserve-window-configuration t
           which-key-show-remaining-keys t
           which-key-show-transient-maps t)
