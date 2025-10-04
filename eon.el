@@ -71,26 +71,21 @@
 
 ;; Set a high value of 1 GB to prevent frequent garbage collections
 ;; during initialization
-(setopt gc-cons-threshold #x40000000)  ; default threshold is 800 KB
+(setq gc-cons-threshold (* 1024 1024 1024)  ; 1024 MiB
+      gc-cons-percentage 1.0)
 
 ;; Prevent longer GC pauses and experience less mini-interruptions.
-;; When idle for 15 sec, run the GC no matter what.
-;; This hack was stolen from <https://akrl.sdf.org/>
-(defmacro eon-time (&rest body)
-  "Measure and return the time it takes evaluating BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (float-time (time-since time))))
-
+;; When idle, run the GC no matter what.
+;; This hack was stolen from <https://akrl.sdf.org/>.
 (defvar eon-gc-timer nil
   "Timer object for garbage collection monitoring.
 The timer can be canceled with `eon-cancel-gc-timer'.")
 
-(defun eon-start-gc-timer ()
-  "Start the garbage collection timer."
+(defun eon-start-gc-timer (&optional seconds)
+  "Start a GC idle timer every SECONDS (default 15)."
   (interactive)
-  (setq eon-gc-timer
-        (run-with-idle-timer 15 t (lambda () (eon-time (garbage-collect))))))
+  (let ((s (or seconds 15)))
+    (setq eon-gc-timer (run-with-idle-timer s t #'garbage-collect))))
 
 (defun eon-cancel-gc-timer ()
   "Cancel the garbage collection timer."
@@ -100,10 +95,15 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
     (setq eon-gc-timer nil)))
 
 ;; Start the GC Timer
-(eon-start-gc-timer)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 1024 1024 1024)  ; keep it to adjust
+                  gc-cons-percentage 0.1)
+            ;; Begin periodic idle GC
+            (eon-start-gc-timer 15)))
 
 ;; Show a message when garbage collection happens? Useful while tuning the GC
-(setopt garbage-collection-messages nil)
+(setopt garbage-collection-messages t)
 
 ;; Diagnostics
 (add-hook 'window-setup-hook
@@ -305,6 +305,12 @@ or `system-configuration' directly."
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'darwin))
+
+(defmacro eon-time (&rest body)
+  "Measure and return the time it takes evaluating BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (float-time (time-since time))))
 
 ;; Extended variant of `add-to-list' and its friends
 
