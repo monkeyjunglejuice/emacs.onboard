@@ -317,7 +317,7 @@ or `system-configuration' directly."
 (defun eon-list-adjoin (cur elements &optional append compare-fn)
   "Return a new list like CUR with ELEMENTS added once.
 
-ELEMENTS may be an item or a list.  If APPEND is non-nil, append items
+ELEMENTS may be an item or a list. If APPEND is non-nil, append items
 left→right; otherwise prepend while preserving ELEMENTS order.
 COMPARE-FN is the membership predicate (default `equal').  CUR is not
 mutated.
@@ -347,8 +347,8 @@ Examples (CUR = (a b)):
 (defmacro eon-add-to-list-setopt (var elements &optional append compare-fn)
   "Set VAR to CUR with ELEMENTS adjoined using a single `setopt' call.
 
-VAR is a symbol naming a list variable.  ELEMENTS may be an item or a
-list.  APPEND/COMPARE-FN as in `eon-list-adjoin'.  If VAR is unbound,
+VAR is a symbol naming a list variable. ELEMENTS may be an item or a
+list. APPEND/COMPARE-FN as in `eon-list-adjoin'. If VAR is unbound,
 treat it as nil.
 
 Examples (initial VAR = (a b)):
@@ -364,8 +364,8 @@ Examples (initial VAR = (a b)):
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
   "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
 
-LIST-SYM is a symbol naming a list variable.  ELEMENTS may be an item or
-a list.  APPEND/COMPARE-FN as in `eon-list-adjoin'.  Returns the new
+LIST-SYM is a symbol naming a list variable. ELEMENTS may be an item or
+a list. APPEND/COMPARE-FN as in `eon-list-adjoin'. Returns the new
 value of LIST-SYM.
 
 Examples (LIST-SYM value starts as (a b)):
