@@ -849,7 +849,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Allow for shorter responses? "y" for "yes" and "n" for "no"
 (setopt read-answer-short t)
 (setopt use-short-answers t)
-(advice-add 'yes-or-no-p :override #'y-or-n-p)
 
 ;; _____________________________________________________________________________
 ;;; COMPLETION
