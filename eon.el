@@ -1636,8 +1636,8 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; LINE NUMBERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom>
 
-;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode" or
-;; set it here for all programming modes. Goto line: "M-g M-g"
+;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode"
+;; or set it here for all programming modes. Goto line: "M-g M-g"
 (add-hook 'prog-mode-hook
           (lambda ()
             (display-line-numbers-mode -1)))
@@ -1646,7 +1646,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; LINE WRAPPING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
 
-;; Truncate long lines in programming modes by default.
+;; No line wrapping: truncate long lines in programming modes by default.
 (add-hook 'prog-mode-hook
           (lambda ()
             (setq-local truncate-lines t)))
