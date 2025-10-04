@@ -377,18 +377,6 @@ Examples (LIST-SYM value starts as (a b)):
         (if (boundp list-sym) (symbol-value list-sym) nil)
         elements append compare-fn)))
 
-;; Open the '~/.emacs.d' directory in the Dired file manager
-(defun eon-visit-user-emacs-directory ()
-  "Open the Emacs directory in Dired, which is usually '~/.emacs.d'."
-  (interactive)
-  (dired user-emacs-directory))
-
-;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
-(defun eon-visit-user-init-file ()
-  "Visit the init file."
-  (interactive)
-  (find-file user-init-file))
-
 ;; Get all the parent major modes
 (defun eon-get-parent-modes ()
   "Return major-mode and its parents (child first).
@@ -1276,6 +1264,12 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (setopt ediff-window-setup-function 'ediff-setup-windows-plain
         ediff-split-window-function 'split-window-horizontally)
 
+;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
+(defun eon-visit-user-init-file ()
+  "Visit the init file."
+  (interactive)
+  (find-file user-init-file))
+
 ;; _____________________________________________________________________________
 ;;; RECENT FILES
 
@@ -1403,6 +1397,11 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 ;; Check for directory modifications?
 (setopt dired-auto-revert-buffer 'dired-buffer-stale-p)
+;; Open '~/.emacs.d' directory in Dired
+(defun eon-visit-user-emacs-directory ()
+  "Open the Emacs directory in Dired, which is usually '~/.emacs.d'."
+  (interactive)
+  (dired user-emacs-directory))
 
 ;; Images
 (setopt image-dired-thumb-margin 1
