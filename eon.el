@@ -748,28 +748,34 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; variables that otherwise would get overwritten by themes.
 ;; Restart Emacs to take effect after changing the hooks.
 
-;;; Call a function before/after loading the light theme
+;;; Light theme
+;; Call a function before/after loading the light theme
 ;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-light-post-load-hook #'my-interactive-function)
 ;; Normal functions not designated as "(interactive)" must be wrapped in lambdas:
-;; (add-hook 'eon-theme-light-post-load-hook
-;;           (lambda ()
-;;             ;; Your arbitrary non-interactive function(s) here
-;;             ))
+(add-hook 'eon-theme-light-post-load-hook
+          (lambda ()
+            ;; Do not extend `region' background past the end of the line?
+            (custom-set-faces
+             '(region ((t :extend nil))))
+            ))
 
 ;; Load the default font set; if you want to load a different font set,
 ;; "unhook" `eon-fonts-default' first via:
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 (add-hook 'eon-theme-light-post-load-hook #'eon-fonts-default)
 
-;;; Call a function before/after loading the dark theme
+;;; Dark theme
+;; Call a function before/after loading the dark theme
 ;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-dark-post-load-hook #'my-interactive-function)
 ;; Normal functions not designated as "(interactive)" must be wrapped in lambdas:
-;; (add-hook 'eon-theme-dark-post-load-hook
-;;           (lambda ()
-;;             ;; Your arbitrary non-interactive function(s) here
-;;             ))
+(add-hook 'eon-theme-dark-post-load-hook
+          (lambda ()
+            ;; Do not extend `region' background past the end of the line?
+            (custom-set-faces
+             '(region ((t :extend nil))))
+            ))
 
 ;; Load the default font set; if you want to load a different font set,
 ;; "unhook" `eon-fonts-default' first via:
