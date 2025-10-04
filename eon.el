@@ -103,7 +103,7 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
             (eon-start-gc-timer 15)))
 
 ;; Show a message when garbage collection happens? Useful while tuning the GC
-(setopt garbage-collection-messages t)
+(setopt garbage-collection-messages nil)
 
 ;; Diagnostics
 (add-hook 'window-setup-hook
