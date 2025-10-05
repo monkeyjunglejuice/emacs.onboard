@@ -63,7 +63,7 @@ Some features -- without any dependencies or "re-inventing the wheel":
 
 ** TRY IT
 
-1. Download [[https://github.com/monkeyjunglejuice/emacs.onboard/releases/latest/download/eon.el][eon.el]]
+1. Download [[https://raw.githubusercontent.com/monkeyjunglejuice/emacs.onboard/main/eon.el][eon.el]]
 
 2. Open a terminal
 
