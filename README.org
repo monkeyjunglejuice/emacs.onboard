@@ -4,6 +4,8 @@
 
 Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up? Or you don't want to configure Emacs at all? But ... just use it? Right now? 🤯
 
+*Emacs ONBOARDing made Easy*
+
 [[file:misc/emacs-onboard.jpg]]
 
 *Emacs ONBOARD is a comprehensive, portable starter-kit for Emacs.*
