@@ -8,7 +8,7 @@ Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to r
 
 [[file:misc/emacs-onboard.jpg]]
 
-*Emacs ONBOARD is a comprehensive, portable starter-kit for Emacs.*
+*Emacs ONBOARD aims to be a comprehensive, portable starter-kit for Emacs.*
 It's not supposed to replace your ~init.el~, but loaded from there as a library (see installing instructions down below).
 
 Emacs ONBOARD is vanilla Emacs, but gives you a vastly better user experience, without any 3rd-party packages.
@@ -19,7 +19,7 @@ Emacs ONBOARD is vanilla Emacs, but gives you a vastly better user experience, w
 
 ✔ Beginner-friendly
 
-✔ Convenient drop-in config: just load it from your init.el
+✔ Convenient drop-in config: just load it early from your init.el
 
 ** Vastly Better Defaults
 
@@ -98,13 +98,13 @@ Typical results:
 
 ** Getting Comfortable
 
-The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All these keybindings are just convenience shortcuts to use /commands/, but they are not the commands themselves. The commands are the really interesting things. What that means:
+The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All these keybindings are just convenience shortcuts to use /commands/, but they are not the commands themselves. The commands are the really interesting things -- and they are just functions. What that means:
 
 *** Emacs has Only 2 Really Important Keybindings:
 
-"M-x" — Press <Alt>+<x> to show all commands
+"M-x" -- Press <Alt>+<x> to show all commands
 
-"C-g" — Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic – same effect!)
+"C-g" -- Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic -- same effect!)
 
 **** Examples:
 
@@ -120,27 +120,27 @@ And later then, when I was cleaning up my Emacs config, I realized that I haven'
 
 So I stripped out those parts and put it all in one file, and made them my core config. Then added some grooming to make everything digestable for the public, and -- here we are.
 
-Actually I use not only that config file, but have my Emacs config split into several modules -- an extension layer where 3rd-party packages are configured, configs for programming languages, etc …
+Actually I use not only that config file, but have my Emacs config split into several modules -- an extension layer where 3rd-party packages are configured, configs for programming languages, etc. I'm making that available too; surprisingly, it's called [[https://github.com/monkeyjunglejuice/emacs.ontop][Emacs ONTOP]].
 
 … but this is the 💝 piece.
 
-*Backwards-compatibility* follows the Emacs version 28.2 in Debian Stable.
-- Emacs 26 and Emacs 27 are no longer supported since 27.01.2024.
+*Backwards-compatibility* follows the Emacs version in Debian Stable.
 
 ** Goals
 
+- Be as un-opinionated as possible -- there's no "one-fits-all", and you should be able to make your Emacs whatever you want it to be.
 - Portable: Should work on recent Linux/Unix, Windows and MacOS systems, while maintaining reasonable backwards-compatibility.
-- Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow. Elisp code should be free from errors and warnings.
+- Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow (most of the time). Elisp code should be free from errors and warnings.
 - Use only built-in packages and features enabled by the GNU Emacs distribution's default build options.
 - Extendable by 3rd-party packages without interfering or breaking things.
 - Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, rather an add-on.
 - Documentation is first class; it should be clear why something is in the code.
-- Modular simplicity: Code should not be intertwined, but easily modificable and separately usable.
+- Modular simplicity: Code should not be tightly coupled, but easily modificable and separately usable.
 
 ** Non-goals
 
 - Providing a whole new experience like Spacemacs or Doom-Emacs.
-- Re-configuring keybindings (with few exceptions).
+- Re-configuring standard keybindings (with few exceptions).
 - Pre-configure everything and the cat's pillow (if you know cats ...).
 - (Re)creating functionality where a 3rd-party package would be a better fit.
 
