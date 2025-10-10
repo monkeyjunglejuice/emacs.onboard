@@ -411,7 +411,7 @@ When called interactively, also echo the result."
 ;; _____________________________________________________________________________
 ;;; LEADER-KEY / LOCAL LEADER-KEY and KEYMAPS
 
-;; To avoid clashes, new keybindings introduced by Emacs ONboard will usually
+;; To avoid clashes, new keybindings introduced by Emacs ONBOARD will usually
 ;; live under the leader prefix (with only a few exceptions).
 
 ;;; ---> Defaults for graphical Emacs:
