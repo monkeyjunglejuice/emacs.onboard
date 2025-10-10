@@ -874,7 +874,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Prevent *Completions* buffer from popping up?
 (setopt completion-auto-help nil)
-;; Cycle completion candidates instead
+;; Cycle completion candidates instead?
 (setopt completion-cycle-threshold t)
 ;; Show docstrings for completion candidates?
 (setopt completions-detailed nil)
