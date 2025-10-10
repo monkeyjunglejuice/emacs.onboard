@@ -1060,8 +1060,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Uniquify buffer names for buffers that would have identical names
 (setopt uniquify-buffer-name-style 'forward)
 
-;; Define boring buffers globally, so they can be hidden.
-;; These buffers remain accessible via Ibuffer "C-x C-b".
+;; Define boring buffers globally, so they can be hidden. These buffers
+;; remain accessible via Ibuffer: "C-x C-b" or "<leader> b i"
 (defcustom eon-boring-buffers
   '("\\` "
     "\\`\\*Echo Area"
