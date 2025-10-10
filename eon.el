@@ -578,6 +578,9 @@ BODY is forwarded to `defvar-keymap'."
    ;; Don't bypass "C-h ..." keybindings
    mac-pass-command-to-system nil))
 
+;; Add `universal-argument' to the leader keymap
+(keymap-set ctl-z-map "u" #'universal-argument)
+
 ;; _____________________________________________________________________________
 ;;; FONTS
 ;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
