@@ -930,7 +930,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (when package-enable-at-startup
 
   ;; Open the package manager interface: "<leader> x p"
-  (keymap-set ctl-z-x-map "p" #'list-packages)
+  (keymap-set ctl-z-x-map "P" #'list-packages)
 
   ;; Highlight current line in the package manager
   (add-hook 'package-menu-mode-hook
