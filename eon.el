@@ -885,10 +885,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Preview current in-buffer completion candidate?
 (when (fboundp #'global-completion-preview-mode)
   (global-completion-preview-mode 1)
-  (keymap-set completion-preview-active-mode-map "M-n"
-              #'completion-preview-next-candidate)
-  (keymap-set completion-preview-active-mode-map "M-p"
-              #'completion-preview-prev-candidate))
+  (keymap-set completion-preview-active-mode-map
+              "M-n" #'completion-preview-next-candidate)
+  (keymap-set completion-preview-active-mode-map
+              "M-p" #'completion-preview-prev-candidate))
 
 ;; Tweaking Icomplete
 (with-eval-after-load 'icomplete
