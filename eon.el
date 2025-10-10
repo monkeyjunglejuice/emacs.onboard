@@ -981,6 +981,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt epg-pinentry-mode 'loopback)
 
 ;; _____________________________________________________________________________
+;;; FRAME MANAGEMENT
+
+(keymap-set ctl-z-x-map "f" #'toggle-frame-maximized)
+(keymap-set ctl-z-x-map "F" #'toggle-frame-fullscreen)
+
+;; _____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows>
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience>
