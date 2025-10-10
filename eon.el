@@ -1581,7 +1581,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; EMAIL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail>
 
-;; TODO: Send emails directly from Emacs using SMTP – example template
+;; TODO Send emails directly from Emacs using SMTP – example template
 
 ;; Should be defined first
 ;; (setopt user-mail-address "mail@example.org")
@@ -1595,7 +1595,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   (setopt send-mail-function #'smtpmail-send-it
           smtpmail-smtp-server "localhost"
           smtpmail-stream-type 'starttls
-          smtpmail-smtp-service 1025      ; default port: 587
+          smtpmail-smtp-service 1025  ; default port: 587
           smtpmail-queue-dir "~/.mail/queued-mail/"
           smtpmail-smtp-user user-mail-address
           smtpmail-debug-info nil))
