@@ -278,7 +278,8 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; Define the group for Customizations
 (defgroup eon nil
   "Emacs ONBOARD starter kit & ONTOP extension layer."
-  :group 'convenience)
+  :group 'convenience
+  :prefix "eon-")
 
 ;; Simplify writing of operating-system-specific Elisp code
 
