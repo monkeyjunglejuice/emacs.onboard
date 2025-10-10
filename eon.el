@@ -911,7 +911,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
-(keymap-set ctl-z-h-map "/" `("..." . ,help-map))
+(keymap-set ctl-z-h-map "." `("..." . ,help-map))
 (keymap-set ctl-z-h-map "e" #'view-echo-area-messages)
 (keymap-set ctl-z-h-map "f" #'describe-function)
 (keymap-set ctl-z-h-map "k" #'describe-key)
