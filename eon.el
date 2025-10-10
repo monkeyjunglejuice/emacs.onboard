@@ -1037,8 +1037,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 (keymap-set ctl-z-b-map "b" #'switch-to-buffer)
 
-;; Kill the current buffer immediately instead of presenting a selection
-;; It's the equivalent to "close tab" in a web browser or other editors
+;; Kill the current buffer immediately instead of presenting a selection.
+;; It's the equivalent to "close tab" in other editors.
 (keymap-set ctl-z-map "k" #'kill-current-buffer)
 
 ;; Kill the window too
