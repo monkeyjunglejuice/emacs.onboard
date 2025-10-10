@@ -1,4 +1,4 @@
-;;; eon.el --- Emacs ONboard Starter Kit -*- lexical-binding: t; -*-
+;;; eon.el --- Emacs ONBOARD Starter Kit -*- lexical-binding: t; -*-
 
 ;;    ▒░▒░▒░   ▒░     ▒░ ▒░▒░▒░▒░     ▒░▒░▒░      ▒░    ▒░▒░▒░▒░    ▒░▒░▒░▒░
 ;;   ▒░    ▒░  ▒░▒░   ▒░  ▒░     ▒░  ▒░    ▒░    ▒░▒░    ▒░     ▒░   ▒░    ▒░
@@ -8,18 +8,18 @@
 ;;   ▒░    ▒░  ▒░     ▒░  ▒░     ▒░  ▒░    ▒░ ▒░      ▒░ ▒░     ▒░   ▒░    ▒░
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 
-;; Emacs ONboard offers a clean slate to build your personal Emacs config.
+;; Emacs ONBOARD offers a clean slate to build your personal Emacs config.
 ;; It stays as close as possible to vanilla Emacs, but offers some convenience
 ;; and a much better user experience, while only relying on built-in packages.
 
 ;; Copyright (C) 2021–2025 Dan Dee
 ;;
-;; Emacs ONboard is free software: you can redistribute it and/or modify it
+;; Emacs ONBOARD is free software: you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
 ;; Software Foundation, either version 3 of the License, or (at your option) any
 ;; later version.
 ;;
-;; Emacs ONboard is distributed in the hope that it will be useful, but WITHOUT
+;; Emacs ONBOARD is distributed in the hope that it will be useful, but WITHOUT
 ;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 ;; FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 ;; details.
