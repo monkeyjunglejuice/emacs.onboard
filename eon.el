@@ -867,7 +867,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; There are many matching styles available, see `completion-styles-alist'
 ;; <https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html>
 ;; The order within the list determines their priority.
-(setopt completion-styles '(basic substring initials))
+(setopt completion-styles '(basic substring initials flex))
 (setopt completion-category-defaults nil)
 (setopt completion-category-overrides
         '((file (styles . (partial-completion basic initials)))))
