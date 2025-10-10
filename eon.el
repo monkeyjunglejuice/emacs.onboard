@@ -1546,7 +1546,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 (defun eon-user-agent (browser-name)
   "Accepts a symbol in order to return a pre-defined user-agent string.
-BROWSER-NAME can be either `safari-macos', `safari-iphone', `w3m' or t,
+BROWSER-NAME can be either \='safari-macos, \='safari-iphone, \='w3m or t -
 which sets the default `eww' user-agent according to `url-privacy-level'."
   (pcase browser-name
     ('safari-macos
