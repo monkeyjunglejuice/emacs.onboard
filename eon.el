@@ -392,6 +392,22 @@ When called interactively, also echo the result."
         parents))))
 
 ;; _____________________________________________________________________________
+;;; WHICH-KEY
+;; Show a menu with available keybindings
+
+(which-key-mode 1)
+
+(setopt which-key-lighter ""
+        which-key-separator " "
+        which-key-idle-delay 0.3
+        which-key-idle-secondary-delay 0.0
+        which-key-sort-uppercase-first nil
+        which-key-sort-order 'which-key-key-order-alpha
+        which-key-preserve-window-configuration t
+        which-key-show-remaining-keys t
+        which-key-show-transient-maps t)
+
+;; _____________________________________________________________________________
 ;;; LEADER-KEY / LOCAL LEADER-KEY and KEYMAPS
 
 ;; To avoid clashes, new keybindings introduced by Emacs ONboard will usually
@@ -551,19 +567,6 @@ BODY is forwarded to `defvar-keymap'."
 
 ;; _____________________________________________________________________________
 ;;; KEYBINDING-RELATED SETTINGS
-
-;; Which-key: show a menu with available keybindings
-(when (fboundp #'which-key-mode)
-  (setopt which-key-lighter ""
-          which-key-separator " "
-          which-key-idle-delay 0.3
-          which-key-idle-secondary-delay 0.0
-          which-key-sort-uppercase-first nil
-          which-key-sort-order 'which-key-key-order-alpha
-          which-key-preserve-window-configuration t
-          which-key-show-remaining-keys t
-          which-key-show-transient-maps t)
-  (which-key-mode 1))
 
 (when (eon-macp)
   (setopt
