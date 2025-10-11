@@ -1551,6 +1551,15 @@ Called without argument just syncs `eon-boring-buffers' to other places."
                                   (project-shell       "Shell"  ?s)))
 
 ;; _____________________________________________________________________________
+;;; VERSION CONTROL
+;; Setup for Emacs' built-in VC management
+
+(keymap-set ctl-z-v-map "v" #'vc-dir)
+(keymap-set ctl-z-v-map "V" #'project-vc-dir)
+(keymap-set ctl-z-v-map "g" #'vc-git-grep)
+(keymap-set ctl-z-v-map "." `("..." . ,vc-prefix-map))
+
+;; _____________________________________________________________________________
 ;;; PROCED
 
 ;; Show and manage OS processes, like the command line programs top and htop
