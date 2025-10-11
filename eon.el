@@ -1509,7 +1509,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   :doc "Local leader keymap for Eshell")
 
 ;; _____________________________________________________________________________
-;:;; SHELL
+;;; SHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Shell-Mode>
 
 ;; This is also no terminal emulator, but a buffer to issue shell commands
