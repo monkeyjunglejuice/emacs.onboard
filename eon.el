@@ -1419,7 +1419,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
    ;; Mimic dual-pane file managers?
    dired-dwim-target t
    ;; Check for directory modifications?
-   dired-auto-revert-buffer 'dired-buffer-stale-p))
+   dired-auto-revert-buffer t))
 
 ;; Switch to wdired-mode and edit directory content like a text buffer
 (with-eval-after-load 'dired
