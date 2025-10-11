@@ -1255,7 +1255,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 ;; Save buffer if modified: "<leader> f s"
 (keymap-set ctl-z-f-map "s" #'save-buffer)
-;; Save some modified file-visiting buffers, but ask: "<leader> f S"
+;; Save some modified file-visiting buffers, but ask first: "<leader> f S"
 (keymap-set ctl-z-f-map "S" #'save-some-buffers)
 ;; Write buffer to file ("save file as ..."): "<leader> f w"
 (keymap-set ctl-z-f-map "w" #'write-file)
@@ -1276,7 +1276,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   (setopt dired-recursive-deletes 'top)  ; ask when directory not empty
   (message "Trash off: Files will be deleted immediately!"))
 
-(eon-trash-on)  ; set the default
+;; Set the default
+(eon-trash-on)
 
 ;; Inhibit using the system trash when deleting remote files?
 (setopt remote-file-name-inhibit-delete-by-moving-to-trash t)
@@ -1285,7 +1286,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (setopt find-file-visit-truename t
         vc-follow-symlinks t)
 
-;; Auto refresh dired (and others) when contents change?
+;; Auto refresh buffers when contents change?
 (setopt global-auto-revert-non-file-buffers t
         auto-revert-stop-on-user-input nil
         auto-revert-verbose t)
@@ -1402,7 +1403,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
    dired-kill-when-opening-new-dired-buffer t
    ;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
    dired-listing-switches "-lhFA -v --group-directories-first"
-   ;; Copying files/directories with sub-directories?
+   ;; Copy files/directories with sub-directories?
    dired-recursive-copies 'always
    ;; Create directories if they don't exist?
    dired-create-destination-dirs 'ask
@@ -1474,7 +1475,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 ;; Eshell is not a terminal emulator, but a shell equivalent to Bash or Fish
 ;; that runs within Emacs. It is independent from the OS. Eshell looks like
-;; a Posix shell superficially, but is also a REPL for Emacs Lisp expressions.
+;; a POSIX shell superficially, but is also a REPL for Emacs Lisp expressions.
 
 ;; Get rid of the Eshell startup message?
 (setopt eshell-banner-message "")
