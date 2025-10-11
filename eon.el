@@ -2266,7 +2266,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 
 ;; Tiny minor mode that prevents from accidently saving files with mismatched
 ;; parenthesis and quotes
-(defun eon--guard-parens ()
+(defun eon--check-parens ()
   "Check parens; prompt to proceed on mismatch."
   (if (condition-case nil (progn (check-parens) t) (error nil))
       nil
@@ -2275,19 +2275,19 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
         nil
       (user-error "OK, the file hasn't been saved"))))
 
-(define-minor-mode eon-guard-parens-mode
+(define-minor-mode eon-check-parens-mode
   "Ask when saving with mismatching parens or quotes."
   :init-value t
   :lighter ""
-  (if eon-guard-parens-mode
-      (add-hook 'write-contents-functions #'eon--guard-parens nil t)
-    (remove-hook 'write-contents-functions #'eon--guard-parens t)))
+  (if eon-check-parens-mode
+      (add-hook 'write-contents-functions #'eon--check-parens nil t)
+    (remove-hook 'write-contents-functions #'eon--check-parens t)))
 
-;; Enable minor mode per default. Toggle via "M-x eon-guard-parens-mode".
-;; Don't like the guard? Turn off via "M-x eon-guard-parens-mode"
+;; Enable minor mode per default. Toggle via "M-x eon-check-parens-mode".
+;; Don't like the guard? Turn off via "M-x eon-check-parens-mode"
 ;; or remove the hook permanently via:
-;; (remove-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
-(add-hook 'emacs-lisp-mode-hook #'eon-guard-parens-mode)
+;; (remove-hook 'emacs-lisp-mode-hook #'eon-check-parens-mode)
+(add-hook 'emacs-lisp-mode-hook #'eon-check-parens-mode)
 
 ;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode
 (add-hook 'emacs-lisp-mode-hook
