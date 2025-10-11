@@ -1458,6 +1458,10 @@ Called without argument just syncs `eon-boring-buffers' to other places."
    ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
    image-dired-thumbnail-storage 'standard-large))
 
+;; Define localleader keymap for `dired-mode'
+(eon-localleader-defkeymap dired-mode eon-localleader-dired-map
+  :doc "Local leader keymap for Dired buffers.")
+
 ;; _____________________________________________________________________________
 ;;; BOOKMARKS
 
@@ -1499,6 +1503,10 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-e-map "e" #'eshell)
 ;; Launch a fresh Eshell buffer: "<leader> e E"
 (keymap-set ctl-z-e-map "E" #'eon-eshell-new)
+
+;; Create Eshell loacalleader keymap
+(eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
+  :doc "Local leader keymap for Eshell")
 
 ;; _____________________________________________________________________________
 ;:;; SHELL
@@ -1600,6 +1608,10 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; Keybindings
 (keymap-set ctl-z-g-map "W" #'browse-url)
 (keymap-set ctl-z-g-map "w" #'browse-web)
+
+(eon-localleader-defkeymap eww-mode eon-localleader-eww-map
+  :doc "Local leader keymap for the Emacs Web Wowser"
+  "e" #'eww-browse-with-external-browser)
 
 ;; _____________________________________________________________________________
 ;;; EMAIL
