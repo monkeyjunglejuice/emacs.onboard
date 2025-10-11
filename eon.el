@@ -875,12 +875,25 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completion-category-overrides
         '((file (styles . (partial-completion basic initials)))))
 
-;; Prevent *Completions* buffer from popping up?
-(setopt completion-auto-help nil)
-;; Cycle completion candidates instead?
-(setopt completion-cycle-threshold t)
-;; Show docstrings for completion candidates?
-(setopt completions-detailed nil)
+;; Allow the *Completions* buffer to pop up?
+(setopt completion-auto-help 'always)
+
+;; Display settings for the *Completions* buffer; only if not disabled above
+(setopt
+ ;; Show the help lines on top of the *Completions* buffer?
+ completion-show-help nil
+ ;; Cycle completion candidates instead?
+ completion-cycle-threshold nil
+ ;; Show docstrings for completion candidates?
+ completions-detailed t
+ ;; Automatically select the *Completions* buffer?
+ completion-auto-select 'second-tab
+ ;; Define the appearance of completions?
+ completions-format 'one-column
+ ;; Maximum height of the *Completions* buffer in lines?
+ completions-max-height 12
+ ;; Enable grouping of completion candidates?
+ completions-group t)
 
 ;; Preview current in-buffer completion candidate?
 (when (fboundp #'global-completion-preview-mode)
