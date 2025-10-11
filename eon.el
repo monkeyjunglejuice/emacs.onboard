@@ -159,16 +159,23 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
 ;; Prevents from interrupted compilations and leftover artifacts.
 (setopt native-comp-async-query-on-exit t)
 
-;; When to bring the buffer to the foreground?
-(setopt warning-minimum-level :error)
+;; This options are not set if Emacs is started via "emacs --debug-init"
+(unless init-file-debug
+  (setopt
+   ;; When to bring the buffer to the foreground?
+   warning-minimum-level :error
+   ;; Reduce bytecode compilation verbosity?
+   byte-compile-verbose nil
+   byte-compile-warnings nil
+   ;; Reduce native code compilation verbosity?
+   native-comp-async-report-warnings-errors nil
+   native-comp-warning-on-missing-source nil))
 
-;; Reduce bytecode compilation verbosity?
-(setopt byte-compile-verbose nil)
-(setopt byte-compile-warnings nil)
+;; _____________________________________________________________________________
+;;; DEBUGGING AND ERROR HANDLING
 
-;; Reduce native code compilation verbosity?
-(setopt native-comp-async-report-warnings-errors nil)
-(setopt native-comp-warning-on-missing-source nil)
+(when init-file-debug
+  (setopt debug-on-error t))
 
 ;; _____________________________________________________________________________
 ;;; EMACS SYSTEM LIMITS
