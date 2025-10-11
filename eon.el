@@ -461,12 +461,16 @@ When called interactively, also echo the result."
 ;; Localleader implementation
 
 (defvar-keymap eon-localleader-global-map
-  :doc "Global localleader map (fallback for all buffers)."
-  "/" '("..." . execute-extended-command-for-buffer))
+  :doc "Global local leader keymap (fallback for all buffers).
+You can bind commands here that should appear in all local leader keymaps."
+  "." '("..." . execute-extended-command-for-buffer))
 
 (defvar-local eon-localleader--map eon-localleader-global-map
-  "Active localleader keymap for the current buffer.")
+  "Active localleader keymap for the current buffer.
+Don't bind any keys/commands to this keymap.")
 
+;; HACK Relies currently on `which-key' internals, what's a bit of an eyesore,
+;; but seems to work reliably.
 (defun eon-localleader--context-window ()
   "Return the window where the key sequence started."
   (cond
@@ -475,25 +479,39 @@ When called interactively, also echo the result."
     which-key--original-window)
    (t (selected-window))))
 
-(defun eon-localleader--effective-map (&optional _)
-  "Return the localleader map for the current context buffer."
-  (let* ((win (eon-localleader--context-window))
-         (buf (and (window-live-p win) (window-buffer win))))
-    (with-current-buffer (or buf (current-buffer))
-      (if (keymapp eon-localleader--map)
-          eon-localleader--map
-        eon-localleader-global-map))))
-
 (defun eon-localleader--set-key (sym value)
   "Setter for `eon-localleader-key'; rebinds the leader entry."
   (let ((old (and (boundp sym) (symbol-value sym))))
     (when (boundp 'ctl-z-map)
       (when old (keymap-unset ctl-z-map old))
-      (keymap-set
-       ctl-z-map value
-       ;; No label; :filter supplies the proper (buffer-local) map.
-       '(menu-item "" nil :filter eon-localleader--effective-map))))
+      (keymap-set ctl-z-map value ctl-z-localleader-map)))
   (set-default sym value))
+
+;; Empty, named prefix so which-key shows a stable label "Local".
+(defvar-keymap ctl-z-localleader-map
+  :doc "Local leader"
+  :name "Local")
+
+(defun eon-localleader--sync-local-prefix-parent ()
+  "Make `ctl-z-localleader-map' inherit the effective localleader.
+Respects the which-key origin window so that the correct buffer's
+localleader is shown."
+  (let* ((win (eon-localleader--context-window))
+         (buf (and (window-live-p win) (window-buffer win)))
+         (map (with-current-buffer (or buf (current-buffer))
+                (if (keymapp eon-localleader--map)
+                    eon-localleader--map
+                  eon-localleader-global-map))))
+    (set-keymap-parent ctl-z-localleader-map map)))
+
+;; Keep the UI prefix parent fresh when modes change, even without which-key.
+(add-hook 'after-change-major-mode-hook
+          #'eon-localleader--sync-local-prefix-parent)
+
+(with-eval-after-load 'which-key
+  (advice-add 'which-key--update :before
+              (lambda (&rest _)
+                (eon-localleader--sync-local-prefix-parent))))
 
 (defcustom eon-localleader-key
   (if (display-graphic-p) "C-," "C-z")
@@ -544,8 +562,7 @@ Use `setopt' to override."
   "x"   `("Misc"     . ,ctl-z-x-map)
   "RET" `("Bookmark" . ,ctl-z-ret-map)
   ;; Add dynamic localleader keymap
-  eon-localleader-key
-  '(menu-item "" nil :filter eon-localleader--effective-map))
+  eon-localleader-key `("Local" . ,ctl-z-localleader-map))
 
 ;; Initial binding of the leader prefix
 (keymap-global-set eon-leader-key ctl-z-map)
@@ -568,10 +585,8 @@ BODY is forwarded to `defvar-keymap'."
        ;; Inherit global entries so globals are always available
        (set-keymap-parent ,map-sym eon-localleader-global-map)
        ;; Activate buffer-locally in this mode
-       (add-hook ',hook (lambda () (setq-local eon-localleader--map ,map-sym)))
-       ;; If we're already in MODE (or derived), select it now
-       (when (derived-mode-p ',mode)
-         (setq-local eon-localleader--map ,map-sym)))))
+       (add-hook ',hook (lambda ()
+                          (setq-local eon-localleader--map ,map-sym))))))
 
 ;; _____________________________________________________________________________
 ;;; KEYBINDING-RELATED SETTINGS
