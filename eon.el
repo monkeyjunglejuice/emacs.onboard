@@ -862,10 +862,11 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Recursive minibuffers
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Recursive-Edit>
-;; Allow minibuffer commands while in the minibuffer
+;; Allow minibuffer commands while in the minibuffer!
 ;; There are two commands to get out of recursive minibuffers:
-;; "C-z-c" exit-recursive-edit and "C-]" abort-recursive-edit
+;; "C-M-c" exit-recursive-edit and "C-]" abort-recursive-edit
 (setopt enable-recursive-minibuffers t)
+;; Show how deep you're in there?
 (minibuffer-depth-indicate-mode 1)
 
 ;; Do not allow the cursor in the minibuffer prompt
