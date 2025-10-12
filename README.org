@@ -30,7 +30,7 @@ Some features -- without any dependencies or "re-inventing the wheel":
   - Graphical Emacs: the default leader key is =C-,=; reach the local leader via =C-, C-,=.
   - Emacs in the terminal: the default leader key is =C-z=, and the local leader =C-z C-z=.
   - Works seamlessly with Evil mode (Vim keybindings etc. in Emacs);
-    e.g. the leader key could be just =,= and the local leader =, ,=.
+    e.g. the leader key could be just =,= and the local leader =, ,=; or =SPC= as the leader and =SPC SPC= as the local leader -- or something else.
 - Vertical fuzzy completion for commands, files, etc. in the minibuffer (built-in fido-vertical-mode).
 - Check-parens-mode: Emacs warns you before accidently saving Lisp source code with mismatched parens or quotes.
 - Lets you customize the most important preferences in Emacs' Customization GUI: =<leader> x C=.
