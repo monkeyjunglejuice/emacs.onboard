@@ -1583,6 +1583,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (setopt proced-auto-update-interval 1)
 
 (setopt proced-auto-update-flag t
+        proced-enable-color-flag t
         proced-descend t)
 
 ;; _____________________________________________________________________________
