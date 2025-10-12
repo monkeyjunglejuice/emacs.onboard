@@ -463,7 +463,7 @@ When called interactively, also echo the result."
 (defvar-keymap eon-localleader-global-map
   :doc "Global local leader keymap (fallback for all buffers).
 You can bind commands here that should appear in all local leader keymaps."
-  "." '("..." . execute-extended-command-for-buffer))
+  "," '("..." . execute-extended-command-for-buffer))
 
 (defvar-local eon-localleader--map eon-localleader-global-map
   "Active localleader keymap for the current buffer.
@@ -949,7 +949,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
-(keymap-set ctl-z-h-map "." `("..." . ,help-map))
+(keymap-set ctl-z-h-map "," `("..." . ,help-map))
 (keymap-set ctl-z-h-map "e" #'view-echo-area-messages)
 (keymap-set ctl-z-h-map "f" #'describe-function)
 (keymap-set ctl-z-h-map "k" #'describe-key)
@@ -1572,7 +1572,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-v-map "v" #'vc-dir)
 (keymap-set ctl-z-v-map "V" #'project-vc-dir)
 (keymap-set ctl-z-v-map "g" #'vc-git-grep)
-(keymap-set ctl-z-v-map "." `("..." . ,vc-prefix-map))
+(keymap-set ctl-z-v-map "," `("..." . ,vc-prefix-map))
 
 ;; _____________________________________________________________________________
 ;;; PROCED
