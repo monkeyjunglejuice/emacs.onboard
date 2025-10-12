@@ -74,6 +74,8 @@
 (setq gc-cons-threshold (* 1024 1024 1024)  ; 1024 MiB
       gc-cons-percentage 1.0)
 
+;; TODO This GCMH implementation has grown, consider vendoring the package
+
 ;; Prevent longer GC pauses and experience less mini-interruptions.
 ;; When idle, run the GC no matter what.
 ;; This hack was stolen from <https://akrl.sdf.org/>.
