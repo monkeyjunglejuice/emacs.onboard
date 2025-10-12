@@ -880,6 +880,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt use-dialog-box nil)
 
 ;; Grow and shrink the minibuffer according to its content?
+;; To prevent jumping, we're settling for 'grow-only.
 (setopt resize-mini-windows 'grow-only)
 
 ;; Allow for shorter responses? "y" for "yes" and "n" for "no"
