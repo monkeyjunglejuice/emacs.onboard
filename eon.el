@@ -908,7 +908,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
  ;; Cycle completion candidates instead?
  completion-cycle-threshold nil
  ;; Show docstrings for completion candidates?
- completions-detailed t
+ completions-detailed nil
  ;; Automatically select the *Completions* buffer?
  completion-auto-select 'second-tab
  ;; Define the appearance of completions?
