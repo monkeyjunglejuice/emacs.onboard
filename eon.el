@@ -296,12 +296,6 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'darwin))
 
-(defmacro eon-time (&rest body)
-  "Measure and return the time it takes evaluating BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (float-time (time-since time))))
-
 ;; Extended variant of `add-to-list' and its friends
 
 (defun eon-list-adjoin (cur elements &optional append compare-fn)
