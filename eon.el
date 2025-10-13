@@ -69,45 +69,110 @@
 ;;; GARBAGE COLLECTION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
 
-;; Set a high value of 1 GB to prevent frequent garbage collections
+;; "Garbage Collection Magic Hack" by Andrea Corallo <akrl@sdf.org> v0.2.1
+;; Original: <https://gitlab.com/koral/gcmh> License: GPL-3.0-OR-LATER
+;; Discussion: <https://news.ycombinator.com/item?id=39190110>
+
+(defcustom eon-gcmh-high-cons-threshold (* 1024 1024 1024)  ; 1024 MiB
+  "High cons GC threshold.
+This should be set to a value that makes GC unlikely but does not
+cause OS paging."
+  :group 'eon
+  :type 'number)
+
+;; Set the high value immediately to prevent frequent garbage collections
 ;; during initialization
-(setq gc-cons-threshold (* 1024 1024 1024)  ; 1024 MiB
-      gc-cons-percentage 1.0)
+(setq gc-cons-threshold eon-gcmh-high-cons-threshold)
 
-;; TODO This GCMH implementation has grown, consider vendoring the package
+(defcustom eon-gcmh-low-cons-threshold 800000
+  "Low cons GC threshold.
+This is the GC threshold used while idling. Default value is the
+same of `gc-cons-threshold' default."
+  :group 'eon
+  :type 'number)
 
-;; Prevent longer GC pauses and experience less mini-interruptions.
-;; When idle, run the GC no matter what.
-;; This hack was stolen from <https://akrl.sdf.org/>.
-(defvar eon-gc-timer nil
-  "Timer object for garbage collection monitoring.
-The timer can be canceled with `eon-cancel-gc-timer'.")
+(defcustom eon-gcmh-idle-delay 15
+  "Idle time to wait in seconds before triggering GC.
+If `auto' this is auto computed based on `eon-gcmh-auto-idle-delay-factor'."
+  :group 'eon
+  :type '(choice number (const auto)))
 
-(defun eon-start-gc-timer (&optional seconds)
-  "Start a GC idle timer every SECONDS (default 15)."
-  (interactive)
-  (let ((s (or seconds 15)))
-    (setq eon-gc-timer (run-with-idle-timer s t #'garbage-collect))))
+(defcustom eon-gcmh-auto-idle-delay-factor 20
+  "Factor to compute the idle delay when in idle-delay auto mode.
+The idle delay will be `eon-gcmh-auto-idle-delay-factor' times the
+time the last non idle garbage collection time."
+  :group  'eon
+  :type 'number)
 
-(defun eon-cancel-gc-timer ()
-  "Cancel the garbage collection timer."
-  (interactive)
-  (when (timerp eon-gc-timer)
-    (cancel-timer eon-gc-timer)
-    (setq eon-gc-timer nil)))
+(defcustom eon-gcmh-verbose nil
+  "If t, print a message when garbage collecting."
+  :group 'eon
+  :type 'boolean)
 
-;; Start the GC Timer
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (* 1024 1024 1024)  ; keep it to adjust
-                  gc-cons-percentage 0.1)
-            ;; Begin periodic idle GC
-            (eon-start-gc-timer 15)))
+(defvar eon-gcmh-idle-timer nil
+  "Idle timer for triggering GC.")
 
-;; Show a message when garbage collection happens? Useful while tuning the GC
-(setopt garbage-collection-messages nil)
+(defmacro eon-gcmh-time (&rest body)
+  "Measure and return the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (float-time (time-since time))))
 
-;; Diagnostics
+(defun eon-gcmh-set-high-threshold ()
+  "Set the high GC threshold.
+This is to be used with the `pre-command-hook'."
+  (setf gc-cons-threshold eon-gcmh-high-cons-threshold))
+
+(defvar eon-gcmh-last-gc-time 0.1
+  "How long it took to perform the last garbage collection.")
+
+(defun eon-gcmh-register-idle-gc ()
+  "Register a timer to run `eon-gcmh-idle-garbage-collect'.
+Cancel the previous one if present."
+  (let ((idle-t (if (eq eon-gcmh-idle-delay 'auto)
+		            (* eon-gcmh-auto-idle-delay-factor eon-gcmh-last-gc-time)
+		          eon-gcmh-idle-delay)))
+    (when (timerp eon-gcmh-idle-timer)
+      (cancel-timer eon-gcmh-idle-timer))
+    (setf eon-gcmh-idle-timer
+	      (run-with-timer idle-t nil #'eon-gcmh-idle-garbage-collect))))
+
+(defun eon-gcmh-idle-garbage-collect ()
+  "Run garbage collection after `eon-gcmh-idle-delay'."
+  (if eon-gcmh-verbose
+      (progn
+	    (message "Garbage collecting...")
+	    (condition-case-unless-debug e
+	        (message "Garbage collecting...done (%.3fs)"
+		             (setf eon-gcmh-last-gc-time (eon-gcmh-time (garbage-collect))))
+	      (error (message "Garbage collecting...failed")
+		         (signal (car e) (cdr e)))))
+    (setf eon-gcmh-last-gc-time (eon-gcmh-time (garbage-collect))))
+  (setf gc-cons-threshold eon-gcmh-low-cons-threshold))
+
+(define-minor-mode eon-gcmh-mode
+  "Minor mode to tweak Garbage Collection strategy."
+  :lighter " GCMH"
+  :group 'eon
+  :global t
+  (if eon-gcmh-mode
+      (progn
+        (setf gc-cons-threshold eon-gcmh-high-cons-threshold)
+	    ;; Release severe GC strategy before the user restart to working
+	    (add-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
+	    (add-hook 'post-command-hook #'eon-gcmh-register-idle-gc))
+    (setf gc-cons-threshold eon-gcmh-low-cons-threshold
+          eon-gcmh-idle-timer nil)
+    (remove-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
+    (remove-hook 'post-command-hook #'eon-gcmh-register-idle-gc)))
+
+;; Activate GCMH mode (idle timer) after Emacs startup
+(add-hook 'emacs-startup-hook #'eon-gcmh-mode)
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; DIAGNOSTICS
+
+;; Show Emacs init time and how many garbage collections happened during init
 (add-hook 'window-setup-hook
           (lambda ()
             (message "Emacs started in %s with %d garbage collections."
@@ -115,6 +180,9 @@ The timer can be canceled with `eon-cancel-gc-timer'.")
                              (float-time
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
+
+;; Show a message when garbage collection happens? Useful while tuning the GC
+(setopt garbage-collection-messages nil)
 
 ;; _____________________________________________________________________________
 ;;; PACKAGE MANAGEMENT INIT
