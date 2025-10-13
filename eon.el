@@ -152,7 +152,7 @@ Cancel the previous one if present."
 
 (define-minor-mode eon-gcmh-mode
   "Minor mode to tweak Garbage Collection strategy."
-  :lighter " GCMH"
+  :lighter ""
   :group 'eon
   :global t
   (if eon-gcmh-mode
