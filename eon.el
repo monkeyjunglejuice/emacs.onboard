@@ -101,7 +101,7 @@ If `auto' this is auto computed based on `eon-gcmh-auto-idle-delay-factor'."
   "Factor to compute the idle delay when in idle-delay auto mode.
 The idle delay will be `eon-gcmh-auto-idle-delay-factor' times the
 time the last non idle garbage collection time."
-  :group  'eon
+  :group 'eon
   :type 'number)
 
 (defcustom eon-gcmh-verbose nil
