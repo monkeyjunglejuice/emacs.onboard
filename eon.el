@@ -711,14 +711,14 @@ BODY is forwarded to `defvar-keymap'."
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 0.8)
+                      :height 0.9)
   ;; Set the fonts for the inactive mode line
   (set-face-attribute 'mode-line-inactive nil
                       ;; :family "Iosevka Curly"
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 0.8))
+                      :height 0.9))
 
 ;; _____________________________________________________________________________
 ;;; TOGGLE THEME
