@@ -50,7 +50,7 @@
 ;;
 ;; "<leader> x t"  Toggle between dark and light theme
 ;;
-;;; Examples:
+;; Examples:
 ;;
 ;; "M-x eon-"                      Show all commands defined by Emacs ONBOARD
 ;; "M-x eon-visit-user-init-file"  Visit main config file: .emacs or init.el
@@ -73,7 +73,7 @@
 ;; Original: <https://gitlab.com/koral/gcmh> License: GPL-3.0-OR-LATER
 ;; Discussion: <https://news.ycombinator.com/item?id=39190110>
 
-(defcustom eon-gcmh-high-cons-threshold (* 1024 1024 1024)  ; 1024 MiB
+(defcustom eon-gcmh-high-cons-threshold (* 1024 1024 1024)  ; 1 GiB
   "High cons GC threshold.
 This should be set to a value that makes GC unlikely but does not
 cause OS paging."
@@ -198,9 +198,9 @@ Cancel the previous one if present."
 (when package-enable-at-startup
   (require 'package)
 
-  ;;; 1st priority: Gnu Elpa, enabled by default
+  ;;; 1st priority: Gnu Elpa, enabled per default
 
-  ;;; 2nd priority: Non-Gnu Elpa, enabled by default
+  ;;; 2nd priority: Non-Gnu Elpa, enabled per default
 
   ;;; 3rd priority: Melpa
   (add-to-list 'package-archives
