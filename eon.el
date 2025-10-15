@@ -181,9 +181,6 @@ Cancel the previous one if present."
                               (time-subtract after-init-time before-init-time)))
                      gcs-done)))
 
-;; Show a message when garbage collection happens? Useful while tuning the GC
-(setopt garbage-collection-messages nil)
-
 ;; _____________________________________________________________________________
 ;;; PACKAGE MANAGEMENT INIT
 
