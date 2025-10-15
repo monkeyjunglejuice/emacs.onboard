@@ -992,7 +992,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (with-eval-after-load 'icomplete
   (setopt icomplete-in-buffer t
           icomplete-compute-delay 0
-          icomplete-delay-completions-threshold 100
+          icomplete-delay-completions-threshold 256
           icomplete-show-matches-on-no-input t
           icomplete-hide-common-prefix nil)
   ;; TAB accepts the current candidate in Fido minibuffers
@@ -1316,12 +1316,12 @@ Called without argument just syncs `eon-boring-buffers' to other places."
                    regexp-search-ring))
 
 ;; History length for various histories
-(setopt history-length 500)
+(setopt history-length 1024)
 ;; Delete duplicates from the command history?
 (setopt history-delete-duplicates t)
 
 ;; Remember where the cursor was, the last time you visited that file?
-(setopt save-place-limit 500)
+(setopt save-place-limit 1024)
 (save-place-mode 1)
 
 ;; _____________________________________________________________________________
@@ -1398,7 +1398,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (recentf-mode 1)
 
 (setopt recentf-max-menu-items 10
-        recentf-max-saved-items 100)
+        recentf-max-saved-items 128)
 
 ;; Ignore some recently visited files, eg. to prevent them from showing up
 ;; amongst recent files after package upgrades
@@ -1560,7 +1560,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 (setopt comint-input-ignoredups t
         comint-prompt-read-only t
-        comint-buffer-maximum-size 2048)
+        comint-buffer-maximum-size 65536)
 
 ;; _____________________________________________________________________________
 ;;; ESHELL
