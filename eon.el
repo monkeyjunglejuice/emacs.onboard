@@ -1103,7 +1103,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Default window navigation – simply switch to the next window in order.
 ;; Added for convenience; the default keybinding is "C-x o"
-(keymap-global-set "M-o" #'other-window)
+(keymap-set ctl-z-w-map "w" #'other-window)
 
 ;; Undo/redo window layouts
 (setopt winner-dont-bind-my-keys t)
@@ -1133,6 +1133,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-b-map "p" #'previous-buffer)
 (keymap-set ctl-z-b-map "n" #'next-buffer)
 
+(keymap-set ctl-z-map "SPC" #'switch-to-buffer)
 (keymap-set ctl-z-b-map "b" #'switch-to-buffer)
 
 ;; Kill the current buffer immediately instead of presenting a selection.
@@ -1333,10 +1334,13 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Open the file in another window: "<leader> f A"
 (keymap-set ctl-z-f-map "A" #'find-alternate-file-other-window)
 
-;; Open any resource under the cursor: "<leader> f o"
-(keymap-set ctl-z-f-map "o" #'find-file-at-point)
-;; Display a list of all resources mentioned in this buffer: "<leader> f O"
-(keymap-set ctl-z-f-map "O" #'ffap-menu)
+;; Open any resource under the cursor: "<leader> f p"
+(keymap-set ctl-z-f-map "p" #'find-file-at-point)
+;; Display a list of all resources mentioned in this buffer: "<leader> f P"
+(keymap-set ctl-z-f-map "P" #'ffap-menu)
+
+;; Open file in another window: "<leader> f o"
+(keymap-set ctl-z-f-map "o" #'find-file-other-window)
 
 ;; Save buffer if modified: "<leader> f s"
 (keymap-set ctl-z-f-map "s" #'save-buffer)
@@ -2224,6 +2228,9 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; Don't add leading indentation to code blocks, remove them during export
 (setopt org-edit-src-content-indentation 0
         org-src-preserve-indentation nil)
+
+;; Context-dependent action
+(keymap-set eon-localleader-org-mode-map "c" #'org-ctrl-c-ctrl-c)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; ORG CAPTURE
