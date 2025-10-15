@@ -1571,7 +1571,10 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; a POSIX shell superficially, but is also a REPL for Emacs Lisp expressions.
 
 ;; Get rid of the Eshell startup message?
-(setopt eshell-banner-message "")
+(setopt eshell-banner-message ""
+        eshell-history-size 1024
+        eshell-hist-ignoredups t
+        eshell-cmpl-ignore-case t)
 
 ;; List directory content after changing into it?
 (setopt eshell-list-files-after-cd t)
