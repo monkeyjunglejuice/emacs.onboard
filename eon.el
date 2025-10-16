@@ -386,10 +386,10 @@ When called interactively, also echo the result."
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; … or set the default width of the Emacs frame in characters
-(add-to-list 'default-frame-alist '(width . 80))
+;; (add-to-list 'default-frame-alist '(width . 80))
 
 ;; … and set the default height of the Emacs frame in lines
-(add-to-list 'default-frame-alist '(height . 32))
+;; (add-to-list 'default-frame-alist '(height . 32))
 
 ;; Horizontal position: set the distance from the left screen edge in pixels
 ;; That way, only the first frame created will get a fixed position:
