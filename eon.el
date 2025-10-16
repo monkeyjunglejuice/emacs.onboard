@@ -724,23 +724,28 @@ BODY is forwarded to `defvar-keymap'."
 ;;; TOGGLE THEME
 
 ;; Default/fallback definitions – don't change them here,
-;; but scroll further down to 'THEME CONFIG'
+;; but further down in 'THEME CONFIG' - or set them in your init.el.
 ;; TODO Refactor in order to dissolve duplication
+;; TODO Add setters to defcustom
 
-(defcustom eon-theme-name-light 'modus-operandi-tinted
-  "Name of the light theme."
+(defcustom eon-theme-light 'modus-operandi
+  "The theme can be either a symbol, function symbol or lambda."
   :group 'eon
-  :type 'symbol)
+  :type '(restricted-sexp
+          :match-alternatives (functionp symbolp)))
 
-(defcustom eon-theme-name-dark 'modus-vivendi-tinted
-  "Name of the dark theme."
+(defcustom eon-theme-dark 'modus-vivendi
+  "The theme can be either a symbol, function symbol or lambda."
   :group 'eon
-  :type 'symbol)
+  :type '(restricted-sexp
+          :match-alternatives (functionp symbolp)))
 
-(defcustom eon-theme-variant-default 'light
+(defcustom eon-theme-variant-default 'dark
   "Load either the light or the dark theme at startup?"
   :group 'eon
-  :type 'symbol)
+  :type '(radio
+          (const :tag "Dark" dark)
+          (const :tag "Light" light)))
 
 (defvar eon-theme-variant-active nil
   "Holds the information about the currently active theme variant.")
@@ -771,10 +776,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'eon-theme-light-pre-load-hook)
-  (cond ((symbolp eon-theme-name-light)
-         (load-theme eon-theme-name-light t))
-        ((functionp eon-theme-name-light)
-         (funcall eon-theme-name-light)))
+  (cond ((symbolp eon-theme-light)
+         (load-theme eon-theme-light t))
+        ((functionp eon-theme-light)
+         (funcall eon-theme-light)))
   (setq eon-theme-variant-active 'light)
   (run-hooks 'eon-theme-light-post-load-hook))
 
@@ -784,10 +789,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (run-hooks 'eon-theme-dark-pre-load-hook)
-  (cond ((symbolp eon-theme-name-dark)
-         (load-theme eon-theme-name-dark t))
-        ((functionp eon-theme-name-dark)
-         (funcall eon-theme-name-dark)))
+  (cond ((symbolp eon-theme-dark)
+         (load-theme eon-theme-dark t))
+        ((functionp eon-theme-dark)
+         (funcall eon-theme-dark)))
   (setq eon-theme-variant-active 'dark)
   (run-hooks 'eon-theme-dark-post-load-hook))
 
@@ -825,10 +830,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
           (border-mode-line-inactive bg-mode-line-inactive)))
 
 ;;; ---> Set your light theme:
-;; (setopt eon-theme-name-light 'modus-operandi)
+;; (setopt eon-theme-light 'modus-operandi-tinted)
 
 ;;; ---> Set your dark theme:
-;; (setopt eon-theme-name-dark 'modus-vivendi)
+;; (setopt eon-theme-dark 'modus-vivendi-tinted)
 
 ;;; ---> Set your default variant here - 'light or 'dark
 ;; (setopt eon-theme-variant-default 'dark)
