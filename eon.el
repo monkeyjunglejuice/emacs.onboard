@@ -681,7 +681,7 @@ BODY is forwarded to `defvar-keymap'."
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 150)
+                      :height 140)
   ;; Set an alternative monospaced font. Can be the same as above.
   ;; It should have the same character width as the default font
   (set-face-attribute 'fixed-pitch nil
