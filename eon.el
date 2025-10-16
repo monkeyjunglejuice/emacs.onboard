@@ -837,7 +837,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; (setopt eon-theme-dark 'modus-vivendi-tinted)
 
 ;;; ---> Set your default variant here - 'light or 'dark
-;; (setopt eon-theme-variant-default 'dark)
+;; (setopt eon-theme-variant-default 'light)
 
 ;; The hooks below can be used to run additional functions before or after
 ;; loading the selected light and dark theme. That's useful for setting
