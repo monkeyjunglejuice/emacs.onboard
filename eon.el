@@ -806,11 +806,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 (defun eon-theme-load-default ()
   "Load the default theme."
+  (interactive)
   (cond
    ((equal eon-theme-variant-default 'light) (eon-theme-load-light))
    ((equal eon-theme-variant-default 'dark) (eon-theme-load-dark))
    (t (error
-       "Toggle theme: DEFAULT-THEME-VARIANT must be either 'light or 'dark"))))
+       "Theme: `eon-theme-variant-default' must be set to 'light or 'dark"))))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; THEME CONFIG
