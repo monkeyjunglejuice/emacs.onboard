@@ -403,7 +403,7 @@ When called interactively, also echo the result."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
 ;; (add-to-list 'default-frame-alist '(right-fringe . 0))
 
-;; Bring frame to the front
+;; Bring frame to the front (steals focus)
 (add-hook 'window-setup-hook
           (lambda ()
             (when (display-graphic-p)
