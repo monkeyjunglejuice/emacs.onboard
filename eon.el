@@ -31,7 +31,7 @@
 ;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Created: 28 Apr 2021
-;; Version: 2.2.2
+;; Version: 2.2.3
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
 ;; Keywords: config dotemacs convenience
@@ -293,54 +293,44 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'darwin))
 
-;; Extended variant of `add-to-list' and its friends
+;; Extended `add-to-list' and friends
 
 (defun eon-list-adjoin (cur elements &optional append compare-fn)
   "Return a new list like CUR with ELEMENTS added once.
 
 ELEMENTS may be an item or a list. If APPEND is non-nil, append items
-left→right; otherwise prepend while preserving ELEMENTS order.
+left->right; otherwise prepend while preserving ELEMENTS order.
 COMPARE-FN is the membership predicate (default `equal').  CUR is not
-mutated.
+mutated (result may share structure with CUR).
 
-Examples (CUR = (a b)):
-  (eon-list-adjoin '(a b) 'c)                    ⇒ (c a b)
-  (eon-list-adjoin '(a b) '(c a))                ⇒ (c a b)
-  (eon-list-adjoin '(a b) '(d) t)                ⇒ (a b d)
-  (eon-list-adjoin '(a b) '(\"x\" \"x\") nil #'string-equal)
-                                                ⇒ (\"x\" a b)"
-  (let* ((xs   (if (listp elements) elements (list elements)))
+Examples:
+  (eon-list-adjoin '(a b) 'c)                                 ; => (c a b)
+  (eon-list-adjoin '(a b) '(c a))                             ; => (c a b)
+  (eon-list-adjoin '(a b) '(d) t)                             ; => (a b d)
+  (eon-list-adjoin '(a b) '(\"x\" \"x\") nil #'string-equal)  ; => (\"x\" a b)"
+  (declare (pure t) (side-effect-free t))
+  (let* ((xs   (if (consp elements) elements (list elements)))
          (test (or compare-fn #'equal)))
     (cl-labels
-        ((step (res items)
+        ((prepend-step (res items)
            (if (null items)
                res
-             (let* ((x (car items))
-                    (res* (if (cl-find x res :test test)
-                              res
-                            (if append
-                                (append res (list x))
-                              (cons x res)))))
-               (step res* (cdr items))))))
-      (step (copy-sequence cur)
-            (if append xs (reverse xs))))))
-
-(defmacro eon-add-to-list-setopt (var elements &optional append compare-fn)
-  "Set VAR to CUR with ELEMENTS adjoined using a single `setopt' call.
-
-VAR is a symbol naming a list variable. ELEMENTS may be an item or a
-list. APPEND/COMPARE-FN as in `eon-list-adjoin'. If VAR is unbound,
-treat it as nil.
-
-Examples (initial VAR = (a b)):
-  (eon-add-to-list-setopt some-var 'c)
-  (eon-add-to-list-setopt some-var '(c a))
-  (eon-add-to-list-setopt some-var '(d) t)
-  (eon-add-to-list-setopt some-var '(\"x\") nil #'string-equal)"
-  `(setopt ,var
-           (eon-list-adjoin
-            (if (boundp ',var) ,var nil)
-            ,elements ,append ,compare-fn)))
+             (let ((x (car items)))
+               (prepend-step
+                (if (cl-find x res :test test) res (cons x res))
+                (cdr items)))))
+         (append-step (res items seen extra)
+           (if (null items)
+               (append res (nreverse extra))
+             (let ((x (car items)))
+               (if (cl-find x seen :test test)
+                   (append-step res (cdr items) seen extra)
+                 (append-step res (cdr items)
+                              (cons x seen) (cons x extra)))))))
+      (if append
+          (append-step cur xs cur nil)
+        ;; preserve ELEMENTS order when prepending
+        (prepend-step cur (reverse xs))))))
 
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
   "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
@@ -350,13 +340,34 @@ a list. APPEND/COMPARE-FN as in `eon-list-adjoin'. Returns the new
 value of LIST-SYM.
 
 Examples (LIST-SYM value starts as (a b)):
-  (eon-add-to-list 'v 'c)                  ⇒ (c a b)
-  (eon-add-to-list 'v '(c a))              ⇒ (c a b)
-  (eon-add-to-list 'v '(d) t)              ⇒ (a b d)"
+  (eon-add-to-list 'v 'c)           ; => (c a b)
+  (eon-add-to-list 'v '(c a))       ; => (c a b)
+  (eon-add-to-list 'v '(d) t)       ; => (a b d)"
+  (unless (symbolp list-sym)
+    (error "eon-add-to-list: LIST-SYM must be quoted: 'my-var"))
   (set list-sym
        (eon-list-adjoin
         (if (boundp list-sym) (symbol-value list-sym) nil)
         elements append compare-fn)))
+
+(defmacro eon-add-to-list-setopt
+    (list-sym elements &optional append compare-fn)
+  "Like `eon-add-to-list' but via `setopt'.
+
+LIST-SYM must be a quoted symbol, e.g. 'my-var. ELEMENTS may be an
+item or a list. If APPEND is non-nil, append items left->right;
+otherwise prepend while preserving ELEMENTS order. COMPARE-FN defaults
+to `equal'. See `eon-add-to-list' for examples."
+  (declare (debug (sexp form &optional form function)))
+  (unless (and (consp list-sym)
+               (eq (car list-sym) 'quote)
+               (symbolp (cadr list-sym)))
+    (error "eon-add-to-list-setopt: LIST-SYM must be quoted: 'my-var"))
+  (let ((sym (cadr list-sym)))
+    `(setopt ,sym
+             (eon-list-adjoin
+              (if (boundp ',sym) ,sym nil)
+              ,elements ,append ,compare-fn))))
 
 ;; Get all the parent major modes
 (defun eon-get-parent-modes ()
