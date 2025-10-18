@@ -1003,8 +1003,14 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode))
 
+;; Make TAB try completion when appropriate.
+(setopt tab-always-indent 'complete)
+
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; *Completions* buffer
+
 ;; Allow the *Completions* buffer to pop up?
-(setopt completion-auto-help 'always)
+(setopt completion-auto-help t)
 
 ;; Display settings for the *Completions* buffer; only if not disabled above
 (setopt
@@ -1015,7 +1021,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
  ;; Show docstrings for completion candidates?
  completions-detailed nil
  ;; Automatically select the *Completions* buffer?
- completion-auto-select 'second-tab
+ completion-auto-select nil
  ;; Define the appearance of completions?
  completions-format 'one-column
  ;; Maximum height of the *Completions* buffer in lines?
@@ -1023,28 +1029,77 @@ Some themes may come as functions -- wrap these ones in lambdas."
  ;; Enable grouping of completion candidates?
  completions-group t)
 
-;; Preview current in-buffer completion candidate?
-(when (fboundp #'global-completion-preview-mode)
-  (global-completion-preview-mode 1)
-  (keymap-set completion-preview-active-mode-map
-              "M-n" #'completion-preview-next-candidate)
-  (keymap-set completion-preview-active-mode-map
-              "M-p" #'completion-preview-prev-candidate))
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; Icomplete
 
 ;; Tweaking Icomplete
 (with-eval-after-load 'icomplete
-  (setopt icomplete-in-buffer t
-          icomplete-compute-delay 0
+  (setopt icomplete-compute-delay 0.01
           icomplete-delay-completions-threshold 256
           icomplete-show-matches-on-no-input t
-          icomplete-hide-common-prefix nil)
-  ;; TAB accepts the current candidate in Fido minibuffers
+          icomplete-hide-common-prefix nil))
+
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; Show `completion-in-region' candidates in the buffer
+
+(setopt icomplete-in-buffer t)
+(setopt icomplete-prospects-height 10)
+
+;; Keep *Completions* from popping even if requested
+(advice-add 'completion-at-point :after #'minibuffer-hide-completions)
+
+(with-eval-after-load 'icomplete
+  (dolist (map (list icomplete-minibuffer-map
+                     minibuffer-local-completion-map))
+    (define-key map (kbd "C-n") #'icomplete-forward-completions)
+    (define-key map (kbd "C-p") #'icomplete-backward-completions)
+    (define-key map (kbd "<down>") #'icomplete-forward-completions)
+    (define-key map (kbd "<up>") #'icomplete-backward-completions)
+    (define-key map (kbd "M-n") #'icomplete-forward-completions)
+    (define-key map (kbd "M-p") #'icomplete-backward-completions)))
+
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; Vertical completion with `fido-vertical'
+
+;; TAB accepts the current candidates in Fido minibuffers
+(with-eval-after-load 'icomplete
   (keymap-set icomplete-minibuffer-map "TAB" #'icomplete-force-complete)
   (keymap-set icomplete-minibuffer-map "<tab>" #'icomplete-force-complete))
 
-;; Vertical minibuffer completion with `fido-vertical'
 (fido-vertical-mode 1)
 
+;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; Show `completion-in-region' candidates in the minibuffer
+
+(defvar eon-minibuffer-completion-require-match nil
+  "If non-nil, only accept a real candidate from `completing-read'.")
+
+(defun eon-minibuffer-completion-in-region
+    (beg end collection &optional predicate)
+  "Minibuffer frontend for `completion-in-region' (built-ins only)"
+  (let* ((initial (buffer-substring-no-properties beg end))
+         (md (completion-metadata initial collection predicate))
+         (ann (completion-metadata-get md 'annotation-function))
+         (aff (completion-metadata-get md 'affixation-function))
+         (cat (completion-metadata-get md 'category))
+         (exitf (completion-metadata-get md 'exit-function))
+         ;; Keep *Completions* silent even inside the minibuffer.
+         (completion-auto-help nil)
+         (completion-extra-properties
+          (append (when ann `(:annotation-function ,ann))
+                  (when aff `(:affixation-function ,aff))
+                  (when cat `(:category ,cat))))
+         (choice (completing-read "Complete: " collection predicate
+                                  eon-minibuffer-completion-require-match
+                                  initial)))
+    (unless (equal choice initial)
+      (delete-region beg end)
+      (insert choice))
+    (when exitf (funcall exitf choice 'finished))
+    t))
+
+;; Make it the global default
+;; (setq completion-in-region-function #'eon-minibuffer-completion-in-region)
 
 ;; _____________________________________________________________________________
 ;;; HELP
@@ -1847,9 +1902,6 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; Delete the whole indentation instead spaces one-by-one via <backspace>?
 ;; (Possibly shadowed by 3rd-party packages like `smartparens-mode'
 (setopt backward-delete-char-untabify-method 'hungry)
-
-;; Enable indentation and completion using the TAB key
-(setopt tab-always-indent 'complete)
 
 ;; Trigger automatic indentation by newline and DEL/backspace
 (setopt electric-indent-chars '(?\n ?\^?))
