@@ -93,7 +93,7 @@ same of `gc-cons-threshold' default."
 
 (defcustom eon-gcmh-idle-delay 15
   "Idle time to wait in seconds before triggering GC.
-If `auto' this is auto computed based on `eon-gcmh-auto-idle-delay-factor'."
+If `auto', this is auto-computed based on `eon-gcmh-auto-idle-delay-factor'."
   :group 'eon
   :type '(choice number (const auto)))
 
