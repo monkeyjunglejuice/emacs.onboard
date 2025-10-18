@@ -997,6 +997,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completion-category-overrides
         '((file (styles . (partial-completion basic initials)))))
 
+;;; Dabbrev
+(with-eval-after-load 'dabbrev
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode))
+
 ;; Allow the *Completions* buffer to pop up?
 (setopt completion-auto-help 'always)
 
@@ -1039,11 +1045,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Vertical minibuffer completion with `fido-vertical'
 (fido-vertical-mode 1)
 
-;; Dabbrev
-(with-eval-after-load 'dabbrev
-  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
-  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
-  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode))
 
 ;; _____________________________________________________________________________
 ;;; HELP
