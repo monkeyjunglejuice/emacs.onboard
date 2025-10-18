@@ -255,15 +255,15 @@ Cancel the previous one if present."
 ;;; EMACS SYSTEM LIMITS
 
 ;; Increase warning threshold
-(setopt large-file-warning-threshold (* 64 1024 1024))
+(setopt large-file-warning-threshold (* 64 1024 1024))  ; 64 MiB
 
 ;; Increase undo limit
-(setopt undo-limit (* 64 1024 1024)  ; 64mb
-        undo-strong-limit (* 96 1024 1024)   ; 96mb
-        undo-outer-limit (* 960 1024 1024))  ; 960mb
+(setopt undo-limit (* 64 1024 1024)  ; 64 MiB
+        undo-strong-limit (* 96 1024 1024)   ; 96 MiB
+        undo-outer-limit (* 960 1024 1024))  ; 960 MiB
 
 ;; Increase the amount of data which Emacs reads from subprocesses
-(setopt read-process-output-max (* 1024 1024))  ; 1 MB
+(setopt read-process-output-max (* 1024 1024))  ; 1 MiB
 
 ;; _____________________________________________________________________________
 ;;; GLOBAL DEFINITIONS & UTILITIES
