@@ -2597,7 +2597,7 @@ With SWITCH = \='hook, return ...-hook variables."
     (kill-emacs)))
 
 ;; Start the server?
-(add-hook 'emacs-startup-hook #'server-start)
+(add-hook 'after-init-hook #'server-start)
 
 ;; _____________________________________________________________________________
 (provide 'eon)
