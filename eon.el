@@ -624,7 +624,6 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   "f"   `("File"     . ,ctl-z-f-map)
   "g"   `("Goto"     . ,ctl-z-g-map)
   "h"   `("Help"     . ,ctl-z-h-map)
-  "m"   #'execute-extended-command
   "o"   `("Org"      . ,ctl-z-o-map)
   "p"   `("Project"  . ,ctl-z-p-map)
   "q"   `("Quit"     . ,ctl-z-q-map)
@@ -662,7 +661,7 @@ BODY is forwarded to `defvar-keymap'."
                           (setq-local eon-localleader--map ,map-sym))))))
 
 ;; _____________________________________________________________________________
-;;; KEYBINDING-RELATED SETTINGS
+;;; GENERAL KEYBINDINGS
 
 (when (eon-macp)
   (setopt
@@ -672,6 +671,9 @@ BODY is forwarded to `defvar-keymap'."
    mac-option-modifier 'meta
    ;; Don't bypass "C-h ..." keybindings
    mac-pass-command-to-system nil))
+
+;; Make "M-x" available in the leader keymap
+(keymap-set ctl-z-map "m" #'execute-extended-command)
 
 ;; Add `universal-argument' to the leader keymap
 (keymap-set ctl-z-map "u" #'universal-argument)
