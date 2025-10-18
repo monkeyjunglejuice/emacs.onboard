@@ -246,12 +246,6 @@ Cancel the previous one if present."
    native-comp-warning-on-missing-source nil))
 
 ;; _____________________________________________________________________________
-;;; DEBUGGING AND ERROR HANDLING
-
-(when init-file-debug
-  (setopt debug-on-error t))
-
-;; _____________________________________________________________________________
 ;;; EMACS SYSTEM LIMITS
 
 ;; Increase warning threshold
