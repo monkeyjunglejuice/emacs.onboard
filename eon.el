@@ -1229,6 +1229,11 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-t-map "p" #'tab-previous)
 (keymap-set ctl-z-t-map "n" #'tab-next)
 
+;; Run commands in a new tab
+(keymap-set ctl-z-t-map "f" #'find-file-other-tab)
+(keymap-set ctl-z-t-map "d" #'dired-other-tab)
+(keymap-set ctl-z-t-map "b" #'switch-to-buffer-other-tab)
+
 ;; _____________________________________________________________________________
 ;;; BUFFER MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
