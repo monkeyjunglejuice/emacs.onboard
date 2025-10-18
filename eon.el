@@ -683,6 +683,21 @@ BODY is forwarded to `defvar-keymap'."
 (keymap-set ctl-z-map "u" #'universal-argument)
 
 ;; _____________________________________________________________________________
+;;; VI KEYBINDINGS (VIPER-MODE)
+
+(with-eval-after-load 'viper
+  (setopt
+   viper-inhibit-startup-message t   ; Don't show viper's start up message
+   viper-expert-level            '5  ; Use max Emacs experience level [1,5]
+   viper-case-fold-search        t   ; Ingore case when searching
+   viper-ex-style-editing        nil ; Delete past line's beginning
+   viper-ex-style-motion         nil ; Move past line's beginning
+   ))
+
+(with-eval-after-load 'viper-cmd
+  (viper-buffer-search-enable))
+
+;; _____________________________________________________________________________
 ;;; FONTS
 ;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
 
