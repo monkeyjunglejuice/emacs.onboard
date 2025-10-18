@@ -329,7 +329,7 @@ Examples:
                               (cons x seen) (cons x extra)))))))
       (if append
           (append-step cur xs cur nil)
-        ;; preserve ELEMENTS order when prepending
+        ;; Preserve ELEMENTS order when prepending
         (prepend-step cur (reverse xs))))))
 
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
@@ -464,7 +464,7 @@ When called interactively, also echo the result."
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setopt visible-cursor nil)
 
-;; Make sure to highlight the current line only in the active window.
+;; Make sure to highlight the current line only in the active window
 (setopt hl-line-sticky-flag nil)
 (add-hook 'special-mode-hook
           (lambda ()
@@ -525,7 +525,8 @@ When called interactively, also echo the result."
 
 (defcustom eon-leader-key
   (if (display-graphic-p) "C-," "C-z")
-  "Leader prefix (GUI -> \"C-,\"; TTY -> \"C-z\"). Use `setopt' to change."
+  "Leader prefix (GUI -> \"C-,\"; TTY -> \"C-z\").
+Use the Customization UI to change, or `setopt' in Elisp code."
   :group 'eon
   :type 'string
   :set #'eon-leader--set-key)
@@ -533,7 +534,7 @@ When called interactively, also echo the result."
 ;; Localleader implementation
 
 (defvar-keymap eon-localleader-global-map
-  :doc "Global local leader keymap (fallback for all buffers).
+  :doc "Global local leader keymap (fallback for all major and minor modes).
 You can bind commands here that should appear in all local leader keymaps."
   "," '("..." . execute-extended-command-for-buffer))
 
@@ -559,13 +560,13 @@ Don't bind any keys/commands to this keymap.")
       (keymap-set ctl-z-map value ctl-z-localleader-map)))
   (set-default sym value))
 
-;; Empty, named prefix so which-key shows a stable label "Local".
+;; Empty named prefix, so which-key shows the label "Local".
 (defvar-keymap ctl-z-localleader-map
   :doc "Local leader"
   :name "Local")
 
 (defun eon-localleader--sync-local-prefix-parent ()
-  "Make `ctl-z-localleader-map' inherit the effective localleader.
+  "Make `ctl-z-localleader-map' inherit the effective local leader keymap.
 Respects the which-key origin window so that the correct buffer's
 localleader is shown."
   (let* ((win (eon-localleader--context-window))
@@ -587,10 +588,10 @@ localleader is shown."
 
 (defcustom eon-localleader-key
   (if (display-graphic-p) "C-," "C-z")
-  "Localleader key (pressed after the leader).
-GUI: leader then \"C-,\" -> localleader (\"C-, C-,\")
-TTY: leader then \"C-z\" -> localleader (\"C-z C-z\")
-Use `setopt' to override."
+  "Localleader key, pressed after the leader.
+GUI default: \"C-,\" -> reach local leader \"C-, C-,\"
+TTY default: \"C-z\" -> localleader \"C-z C-z\"
+Use the Customization UI to change, or `setopt' in Elisp code."
   :group 'eon
   :type 'string
   :set #'eon-localleader--set-key)
@@ -636,7 +637,7 @@ Use `setopt' to override."
   ;; Add dynamic localleader keymap
   eon-localleader-key `("Local" . ,ctl-z-localleader-map))
 
-;; Initial binding of the leader prefix
+;; Initial binding of the leader prefix to the leader keymap
 (keymap-global-set eon-leader-key ctl-z-map)
 
 ;; Make the leader available in the minibuffer too
@@ -680,11 +681,11 @@ BODY is forwarded to `defvar-keymap'."
 
 (with-eval-after-load 'viper
   (setopt
-   viper-inhibit-startup-message t   ; Don't show viper's start up message
-   viper-expert-level            '5  ; Use max Emacs experience level [1,5]
-   viper-case-fold-search        t   ; Ingore case when searching
-   viper-ex-style-editing        nil ; Delete past line's beginning
-   viper-ex-style-motion         nil ; Move past line's beginning
+   viper-inhibit-startup-message t    ; Don't show viper's start up message
+   viper-expert-level            '5   ; Use max Emacs experience level [1,5]
+   viper-case-fold-search        t    ; Ingore case when searching
+   viper-ex-style-editing        nil  ; Delete past line's beginning
+   viper-ex-style-motion         nil  ; Move past line's beginning
    ))
 
 (with-eval-after-load 'viper-cmd
@@ -698,6 +699,7 @@ BODY is forwarded to `defvar-keymap'."
 ;; set, then call your personal function via `eon-load-after-light-theme-hook'
 ;; and `eon-load-after-light-theme-hook' (under section 'THEME CONFIG').
 ;; TODO Make it easy to configure by setting a font, the size, etc.
+;; TODO Decouple from eon-load-.*-theme-hook
 (defun eon-fonts-default ()
   "The height value is in 1/10 pt, so 140 will give 14 pt."
   (interactive)
@@ -839,13 +841,11 @@ Some themes may come as functions -- wrap these ones in lambdas."
    (t (error
        "Theme: `eon-theme-variant-default' must be set to 'light or 'dark"))))
 
+;; Keybinding to toggle between light and dark: "<leader> x t"
+(keymap-set ctl-z-x-map "t" #'eon-theme-toggle)
+
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; THEME CONFIG
-;; Either configure the themes here,
-;; or "M-x customize-group RET eon"
-
-;; Set the keybinding to toggle between light and dark: "<leader> x t"
-(keymap-set ctl-z-x-map "t" #'eon-theme-toggle)
 
 ;; Set some defaults for the Modus themes; doesn't affect other themes.
 ;; These variables must be set before loading the Modus themes.
@@ -856,13 +856,15 @@ Some themes may come as functions -- wrap these ones in lambdas."
         '((border-mode-line-active bg-mode-line-active)
           (border-mode-line-inactive bg-mode-line-inactive)))
 
+;; Customize via "M-x eon-customize-group" or via `setopt' in your init.el
+
 ;;; ---> Set your light theme:
 ;; (setopt eon-theme-light 'modus-operandi-tinted)
 
 ;;; ---> Set your dark theme:
 ;; (setopt eon-theme-dark 'modus-vivendi-tinted)
 
-;;; ---> Set your default variant here - 'light or 'dark
+;;; ---> Set 'light or 'dark as your default theme variant:
 ;; (setopt eon-theme-variant-default 'light)
 
 ;; The hooks below can be used to run additional functions before or after
@@ -877,7 +879,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Normal functions not designated as "(interactive)" must be wrapped in lambdas:
 (add-hook 'eon-theme-light-post-load-hook
           (lambda ()
-            ;; Eextend `region' background past the end of the line?
+            ;; Extend `region' background past the end of the line?
             (custom-set-faces '(region ((t :extend nil))))
             ))
 
@@ -897,7 +899,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
             (custom-set-faces '(region ((t :extend nil))))
             ))
 
-;; Load the default font set; if you want to load a different font set,
+;; Load the default font set; if you want to load your own font set,
 ;; "unhook" `eon-fonts-default' first via:
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 (add-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
@@ -1012,6 +1014,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
  ;; Cycle completion candidates instead?
  completion-cycle-threshold nil
  ;; Show docstrings for completion candidates?
+ ;; TODO Keep that off until I figured out how to truncate long docstrings in
+ ;; the when the frame width is narrower
  completions-detailed nil
  ;; Automatically select the *Completions* buffer?
  completion-auto-select nil
@@ -1038,9 +1042,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt icomplete-in-buffer t)
 (setopt icomplete-prospects-height 10)
 
-;; Keep *Completions* from popping even if requested
+;; Keep *Completions* from popping up, even if requested
 (advice-add 'completion-at-point :after #'minibuffer-hide-completions)
 
+;; Navigate completion candidates
 (with-eval-after-load 'icomplete
   (dolist (map (list icomplete-minibuffer-map
                      minibuffer-local-completion-map))
@@ -1064,19 +1069,21 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Show `completion-in-region' candidates in the minibuffer
 
+;; TODO Make this a minor mode, and customizable with the Customization UI
+
 (defvar eon-minibuffer-completion-require-match nil
   "If non-nil, only accept a real candidate from `completing-read'.")
 
 (defun eon-minibuffer-completion-in-region
     (beg end collection &optional predicate)
-  "Minibuffer frontend for `completion-in-region' (built-ins only)"
+  "Minibuffer frontend for `completion-in-region'."
   (let* ((initial (buffer-substring-no-properties beg end))
          (md (completion-metadata initial collection predicate))
          (ann (completion-metadata-get md 'annotation-function))
          (aff (completion-metadata-get md 'affixation-function))
          (cat (completion-metadata-get md 'category))
          (exitf (completion-metadata-get md 'exit-function))
-         ;; Keep *Completions* silent even inside the minibuffer.
+         ;; Keep *Completions* silent even inside the minibuffer
          (completion-auto-help nil)
          (completion-extra-properties
           (append (when ann `(:annotation-function ,ann))
@@ -1124,8 +1131,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; _____________________________________________________________________________
 ;;; CUSTOMIZATION UI
 
-;; Don't accumulate customization buffers
-(setopt custom-buffer-done-kill t)
+;; The most important Emacs ONBOARD preferences are customizable via GUI.
+;; Open the GUI via "<leader> x C"
 
 (defun eon-customize-group ()
   "Set preferences via GUI."
@@ -1133,6 +1140,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (customize-group 'eon))
 
 (keymap-set ctl-z-x-map "C" #'eon-customize-group)
+
+;; Don't accumulate customization buffers
+(setopt custom-buffer-done-kill t)
 
 ;; _____________________________________________________________________________
 ;;; ELDOC
@@ -1232,7 +1242,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Get the buffer out of the way, but let it alive
 (keymap-set ctl-z-b-map "k" #'bury-buffer)
 
-;; Kill all buffers at once – equivalent to "close all tabs"
+;; Kill all buffers at once
 (defun eon-kill-all-buffers ()
   "Close all buffers at once."
   (interactive)
@@ -1597,11 +1607,11 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode))
 
-;; Hide details in file listings? Toggle via "S-(" or "<localleader> d"
+;; Hide details in file listings? Toggle via "(" or "<localleader> d"
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (keymap-set eon-localleader-dired-map "d" #'dired-hide-details-mode)
 
-;; Highlight current line?
+;; Highlight current line in Dired?
 (add-hook 'dired-mode-hook #'hl-line-mode)
 
 ;; Linux/Unix only: hit "M-RET" to open files in the corresponding desktop app
