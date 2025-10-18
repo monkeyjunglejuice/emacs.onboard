@@ -773,14 +773,14 @@ BODY is forwarded to `defvar-keymap'."
   :type '(restricted-sexp
           :match-alternatives (functionp symbolp)))
 
-(defcustom eon-theme-variant-default 'dark
+(defcustom eon-theme-variant-default 'light
   "Load either the light or the dark theme at startup?"
   :group 'eon
   :type '(radio
           (const :tag "Dark" dark)
           (const :tag "Light" light)))
 
-(defvar eon-theme-variant-active nil
+(defvar eon-theme--variant-active nil
   "Holds the information about the currently active theme variant.")
 
 (defcustom eon-theme-light-pre-load-hook nil
@@ -813,7 +813,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
          (load-theme eon-theme-light t))
         ((functionp eon-theme-light)
          (funcall eon-theme-light)))
-  (setq eon-theme-variant-active 'light)
+  (setq eon-theme--variant-active 'light)
   (run-hooks 'eon-theme-light-post-load-hook))
 
 (defun eon-theme-load-dark ()
@@ -826,15 +826,15 @@ Some themes may come as functions -- wrap these ones in lambdas."
          (load-theme eon-theme-dark t))
         ((functionp eon-theme-dark)
          (funcall eon-theme-dark)))
-  (setq eon-theme-variant-active 'dark)
+  (setq eon-theme--variant-active 'dark)
   (run-hooks 'eon-theme-dark-post-load-hook))
 
 (defun eon-theme-toggle ()
   "Toggle between light and dark theme."
   (interactive)
   (cond
-   ((equal eon-theme-variant-active 'light) (eon-theme-load-dark))
-   ((equal eon-theme-variant-active 'dark) (eon-theme-load-light))
+   ((equal eon-theme--variant-active 'light) (eon-theme-load-dark))
+   ((equal eon-theme--variant-active 'dark) (eon-theme-load-light))
    (t (mapc #'disable-theme custom-enabled-themes))))
 
 (defun eon-theme-load-default ()
