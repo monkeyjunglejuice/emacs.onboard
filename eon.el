@@ -1170,10 +1170,15 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-global-set "C-S-r" #'isearch-backward)
 
 ;; Search and replace
-;; The 'query-' variant asks for each string. Confirm with "SPC",
-;; or jump to the next via "n"
-(keymap-global-set "M-%"   #'query-replace-regexp)
-(keymap-global-set "C-M-%" #'replace-regexp)
+;; If text is selected, then the commands act on that region only
+
+;; The 'query-' variant asks for each string.
+;; Confirm with "SPC", or jump to the next via "n"
+(keymap-global-set "M-%"    #'query-replace-regexp)
+(keymap-set ctl-z-s-map "r" #'query-replace-regexp)
+;; Replace all strings immediately
+(keymap-global-set "C-M-%"  #'replace-regexp)
+(keymap-set ctl-z-s-map "R" #'replace-regexp)
 
 ;; _____________________________________________________________________________
 ;;; PINENTRY
