@@ -1206,6 +1206,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Default window navigation – simply switch to the next window in order.
 ;; Added for convenience; the default keybinding is "C-x o"
+(keymap-global-set "M-o" #'other-window)
 (keymap-set ctl-z-w-map "w" #'other-window)
 
 ;; Undo/redo window layouts
