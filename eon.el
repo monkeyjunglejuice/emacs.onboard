@@ -1523,10 +1523,10 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;;; BACKUP FILES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Backup>
 
-;; CAUTION: This mode makes copies of the files you are editing.
+;; ---> CAUTION: This mode makes copies of the files you are editing.
 ;; If you're editing files with sensitive data (e.g. on temporally mounted,
 ;; encrypted devices), either disable this mode or specify the location
-;; where to save (or not to save) backup copies of these files.
+;; via regexp where to save (or not to save) backup copies of these files.
 
 ;; Make backup before editing?
 (setopt make-backup-files t)
