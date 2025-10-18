@@ -1767,8 +1767,9 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; _____________________________________________________________________________
 ;;; NET-UTILS
 
-(setopt netstat-program "netstat"
-        netstat-program-options '("-atupe"))
+(when (executable-find "netstat")
+  (setopt netstat-program "netstat"
+          netstat-program-options '("-atupe")))
 
 ;; _____________________________________________________________________________
 ;;; WEB BROWSERS
