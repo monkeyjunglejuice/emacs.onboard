@@ -301,8 +301,7 @@ or `system-configuration' directly."
 
 ELEMENTS may be an item or a list. If APPEND is non-nil, append items
 left->right; otherwise prepend while preserving ELEMENTS order.
-COMPARE-FN is the membership predicate (default `equal').  CUR is not
-mutated (result may share structure with CUR).
+COMPARE-FN is the membership predicate (default `equal').
 
 Examples:
   (eon-list-adjoin '(a b) 'c)                                 ; => (c a b)
