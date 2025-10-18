@@ -1568,6 +1568,10 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;;; DIRED FILE MANAGER
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Dired>
 
+;; Define localleader keymap for `dired-mode'
+(eon-localleader-defkeymap dired-mode eon-localleader-dired-map
+  :doc "Local leader keymap for Dired buffers.")
+
 ;; The `dired' keybinding is "C-x d". This new keybinding is in accordance
 ;; with "C-x C-f" for visiting files
 (keymap-global-set "C-x C-d" #'dired)
@@ -1600,8 +1604,9 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode))
 
-;; Hide details in file listings? Toggle via "S-("
+;; Hide details in file listings? Toggle via "S-(" or "<localleader> d"
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+(keymap-set eon-localleader-dired-map "d" #'dired-hide-details-mode)
 
 ;; Highlight current line?
 (add-hook 'dired-mode-hook #'hl-line-mode)
@@ -1632,10 +1637,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
    ;; Store thumbnails in the system-wide thumbnail location
    ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
    image-dired-thumbnail-storage 'standard-large))
-
-;; Define localleader keymap for `dired-mode'
-(eon-localleader-defkeymap dired-mode eon-localleader-dired-map
-  :doc "Local leader keymap for Dired buffers.")
 
 ;; _____________________________________________________________________________
 ;;; BOOKMARKS
