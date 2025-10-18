@@ -231,9 +231,16 @@ Cancel the previous one if present."
   (setopt
    ;; When to bring the buffer to the foreground?
    warning-minimum-level :error
-   ;; Reduce bytecode compilation verbosity?
+   ;; Allow bytecode compilation to be verbose?
    byte-compile-verbose nil
-   byte-compile-warnings nil
+   ;; Turn off minor warnings
+   byte-compile-warnings (not '(callargs
+                                docstrings
+                                empty-body
+                                free-vars
+                                lexical
+                                noruntime
+                                obsolete))
    ;; Reduce native code compilation verbosity?
    native-comp-async-report-warnings-errors nil
    native-comp-warning-on-missing-source nil))
