@@ -1940,7 +1940,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; How to display matching parens generally?
 (setopt show-paren-style 'parenthesis
         show-paren-delay 0.125
-        show-paren-when-point-inside-paren t
+        show-paren-when-point-inside-paren nil
         show-paren-when-point-in-periphery t)
 
 ;; Auto-close parens, brackets and quotes?
