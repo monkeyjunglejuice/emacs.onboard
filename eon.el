@@ -1728,8 +1728,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;;; PROJECT MANAGEMENT
 ;; Setup for Emacs' built-in project management
 
-;; Switch to current project buffers: "<leader> SPC"
-(keymap-set ctl-z-map "SPC" #'project-switch-to-buffer)
+;; Switch to current project buffers: "<leader> n"
+(keymap-set ctl-z-map "n" #'project-switch-to-buffer)
 ;; "<leader> p" inherits all commands from the `project-prefix-map'
 (set-keymap-parent ctl-z-p-map project-prefix-map)
 
