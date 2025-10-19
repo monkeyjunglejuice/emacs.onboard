@@ -470,51 +470,6 @@ When called interactively, also echo the result."
             ;; Highlight current line in special modes?
             (hl-line-mode 1)))
 
-;;; Change the cursor type based on a certain state
-
-(defvar eon-cursor-type-writable 'bar
-  "Cursor type to use in writable buffers.")
-
-(defvar eon-cursor-type-readonly 'hbar
-  "Cursor type to use in read-only buffers.")
-
-(defvar eon-cursor-type-special 'box
-  "Cursor type for special circumstances.")
-
-(defvar eon-cursor-compute-functions-hook nil
-  "Hook of functions that may compute a cursor type.
-Each function is called with no args and should return either a
-cursor type (symbol) or nil. The first non-nil return wins.")
-
-(defun eon-cursor--desired-type ()
-  "Compute desired cursor type for the current buffer."
-  (or (run-hook-with-args-until-success 'eon-cursor-compute-functions-hook)
-      (if buffer-read-only
-          eon-cursor-type-readonly
-        eon-cursor-type-writable)))
-
-(defun eon-cursor--update (&rest _)
-  "Apply the desired cursor type to the current buffer."
-  (setq-local cursor-type (eon-cursor--desired-type)))
-
-(define-minor-mode eon-cursor-mode
-  "Globally change cursor type according to status."
-  :global t
-  (if eon-cursor-mode
-      (progn
-        (add-hook 'buffer-list-update-hook      #'eon-cursor--update)
-        (add-hook 'read-only-mode-hook          #'eon-cursor--update)
-        (add-hook 'after-change-major-mode-hook #'eon-cursor--update)
-        (mapc (lambda (buf)
-                (with-current-buffer buf (eon-cursor--update)))
-              (buffer-list)))
-    (remove-hook 'buffer-list-update-hook      #'eon-cursor--update)
-    (remove-hook 'read-only-mode-hook          #'eon-cursor--update)
-    (remove-hook 'after-change-major-mode-hook #'eon-cursor--update)))
-
-;; Turn it on
-(eon-cursor-mode 1)
-
 ;; _____________________________________________________________________________
 ;;; WHICH-KEY
 ;; Show a menu with available keybindings
