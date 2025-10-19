@@ -1598,12 +1598,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-f-map "d" #'dired-jump)
 
 (with-eval-after-load 'dired
-  ;; Switch to wdired-mode and edit directory content like a text buffer
-  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode)
-  ;; "M-RET" to open files in the corresponding desktop app
-  (keymap-set dired-mode-map "M-RET" #'dired-do-open))
-
-(with-eval-after-load 'dired
   (setopt
    ;; Don't accumulate useless Dired buffers
    dired-kill-when-opening-new-dired-buffer t
@@ -1620,12 +1614,28 @@ Called without argument just syncs `eon-boring-buffers' to other places."
    ;; Check for directory modifications?
    dired-auto-revert-buffer t))
 
+;; Switch to wdired-mode and edit directory content like a text buffer
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode))
+
 ;; Hide details in file listings? Toggle via "(" or "<localleader> d"
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (keymap-set eon-localleader-dired-map "d" #'dired-hide-details-mode)
 
 ;; Highlight current line in Dired?
 (add-hook 'dired-mode-hook #'hl-line-mode)
+
+;; Linux/Unix only: hit "M-RET" to open files in the corresponding desktop app
+(with-eval-after-load 'dired
+  (when (eon-linp)
+    (defun eon-dired-xdg-open ()
+      "Open files and folders with the default desktop app."
+      (interactive)
+      (let* ((file (dired-get-filename nil t)))
+        (message "Opening %s..." file)
+        (call-process "xdg-open" nil 0 nil file)
+        (message "Opening %s done" file)))
+    (keymap-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
 
 ;; Open '~/.emacs.d' directory in Dired
 (defun eon-visit-user-emacs-directory ()
