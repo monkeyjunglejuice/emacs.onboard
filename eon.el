@@ -448,9 +448,8 @@ When called interactively, also echo the result."
 ;; To learn about available cursors, place your cursor behind 'cursor-type'
 ;; in the code below or do "M-x describe-symbol RET cursor-type RET"
 
-;; Set the cursor type
-;; Comment out the following expression to change the cursor into a bar
-;; (add-to-list 'default-frame-alist '(cursor-type . bar))
+;; Set the cursor type to a bar instead; block ist the default
+(add-to-list 'default-frame-alist '(cursor-type . bar))
 
 ;; Turn on/off cursor blinking by default? 1 means 'on' and -1 means 'off'
 (blink-cursor-mode -1)
