@@ -1,4 +1,4 @@
-;;; eon.el --- Emacs ONBOARD Starter Kit -*- lexical-binding: t; -*-
+;;; eon.el --- Emacs ONBOARD Starter Kit -*- lexical-binding: t; no-byte-compile: t; -*-
 
 ;;    ▒░▒░▒░   ▒░     ▒░ ▒░▒░▒░▒░     ▒░▒░▒░      ▒░    ▒░▒░▒░▒░    ▒░▒░▒░▒░
 ;;   ▒░    ▒░  ▒░▒░   ▒░  ▒░     ▒░  ▒░    ▒░    ▒░▒░    ▒░     ▒░   ▒░    ▒░
@@ -448,14 +448,14 @@ When called interactively, also echo the result."
 ;; To learn about available cursors, place your cursor behind 'cursor-type'
 ;; in the code below or do "M-x describe-symbol RET cursor-type RET"
 
-;; Set the cursor type to a bar instead; block ist the default
+;; Set the cursor type to a vertica bar? The default was box
 (add-to-list 'default-frame-alist '(cursor-type . bar))
 
 ;; Turn on/off cursor blinking by default? 1 means 'on' and -1 means 'off'
 (blink-cursor-mode -1)
 
 ;; Cursor blinking interval in seconds
-(setopt blink-cursor-interval 0.3)
+(setopt blink-cursor-interval 0.1)
 
 ;; Blink cursor that often before going into solid state
 (setopt blink-cursor-blinks 3)
@@ -469,6 +469,51 @@ When called interactively, also echo the result."
           (lambda ()
             ;; Highlight current line in special modes?
             (hl-line-mode 1)))
+
+;;; Change the cursor type based on a certain state
+
+(defvar eon-cursor-type-writable 'bar
+  "Cursor type to use in writable buffers.")
+
+(defvar eon-cursor-type-readonly 'hbar
+  "Cursor type to use in read-only buffers.")
+
+(defvar eon-cursor-type-special 'box
+  "Cursor type for special circumstances.")
+
+(defvar eon-cursor-compute-functions-hook nil
+  "Hook of functions that may compute a cursor type.
+Each function is called with no args and should return either a
+cursor type (symbol) or nil. The first non-nil return wins.")
+
+(defun eon-cursor--desired-type ()
+  "Compute desired cursor type for the current buffer."
+  (or (run-hook-with-args-until-success 'eon-cursor-compute-functions-hook)
+      (if buffer-read-only
+          eon-cursor-type-readonly
+        eon-cursor-type-writable)))
+
+(defun eon-cursor--update (&rest _)
+  "Apply the desired cursor type to the current buffer."
+  (setq-local cursor-type (eon-cursor--desired-type)))
+
+(define-minor-mode eon-cursor-mode
+  "Globally change cursor type according to status."
+  :global t
+  (if eon-cursor-mode
+      (progn
+        (add-hook 'buffer-list-update-hook      #'eon-cursor--update)
+        (add-hook 'read-only-mode-hook          #'eon-cursor--update)
+        (add-hook 'after-change-major-mode-hook #'eon-cursor--update)
+        (mapc (lambda (buf)
+                (with-current-buffer buf (eon-cursor--update)))
+              (buffer-list)))
+    (remove-hook 'buffer-list-update-hook      #'eon-cursor--update)
+    (remove-hook 'read-only-mode-hook          #'eon-cursor--update)
+    (remove-hook 'after-change-major-mode-hook #'eon-cursor--update)))
+
+;; Turn it on
+(eon-cursor-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; WHICH-KEY
@@ -1598,6 +1643,12 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-f-map "d" #'dired-jump)
 
 (with-eval-after-load 'dired
+  ;; Switch to wdired-mode and edit directory content like a text buffer
+  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode)
+  ;; "M-RET" to open files in the corresponding desktop app
+  (keymap-set dired-mode-map "M-RET" #'dired-do-open))
+
+(with-eval-after-load 'dired
   (setopt
    ;; Don't accumulate useless Dired buffers
    dired-kill-when-opening-new-dired-buffer t
@@ -1614,28 +1665,12 @@ Called without argument just syncs `eon-boring-buffers' to other places."
    ;; Check for directory modifications?
    dired-auto-revert-buffer t))
 
-;; Switch to wdired-mode and edit directory content like a text buffer
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode))
-
 ;; Hide details in file listings? Toggle via "(" or "<localleader> d"
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (keymap-set eon-localleader-dired-map "d" #'dired-hide-details-mode)
 
 ;; Highlight current line in Dired?
 (add-hook 'dired-mode-hook #'hl-line-mode)
-
-;; Linux/Unix only: hit "M-RET" to open files in the corresponding desktop app
-(with-eval-after-load 'dired
-  (when (eon-linp)
-    (defun eon-dired-xdg-open ()
-      "Open files and folders with the default desktop app."
-      (interactive)
-      (let* ((file (dired-get-filename nil t)))
-        (message "Opening %s..." file)
-        (call-process "xdg-open" nil 0 nil file)
-        (message "Opening %s done" file)))
-    (keymap-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
 
 ;; Open '~/.emacs.d' directory in Dired
 (defun eon-visit-user-emacs-directory ()
@@ -1728,8 +1763,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;;; PROJECT MANAGEMENT
 ;; Setup for Emacs' built-in project management
 
-;; Switch to current project buffers: "<leader> n"
-(keymap-set ctl-z-map "n" #'project-switch-to-buffer)
+;; Switch to current project buffers: "<leader> SPC"
+(keymap-set ctl-z-map "SPC" #'project-switch-to-buffer)
 ;; "<leader> p" inherits all commands from the `project-prefix-map'
 (set-keymap-parent ctl-z-p-map project-prefix-map)
 
