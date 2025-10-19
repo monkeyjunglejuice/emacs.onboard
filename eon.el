@@ -2535,9 +2535,11 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 
 (defun eon-lisp--modes-transform (modes switch)
   "Transform MODES according to SWITCH.
-Calling SWITCH with \='hook returns corresponding ...-hook symbols"
+Calling SWITCH with \='hook returns corresponding ...-hook symbols."
   (pcase switch
-    ('hook (mapcar (lambda (m) (intern (format "%s-hook" m))) modes))
+    ('hook (mapcar (lambda (m)
+                     (intern (concat (symbol-name m) "-hook")))
+                   modes))
     (_ modes)))
 
 (defun eon-lisp-src-modes (&optional switch)
