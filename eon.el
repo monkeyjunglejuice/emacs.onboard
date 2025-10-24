@@ -63,6 +63,9 @@
 ;;
 ;; "M-;"   Comment/uncomment a selected piece of text or code
 ;;
+;;; Please report bugs and issues here:
+;; <https://github.com/monkeyjunglejuice/emacs.onboard/issues>
+;;
 ;;; Code:
 
 ;; _____________________________________________________________________________
