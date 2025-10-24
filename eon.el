@@ -69,6 +69,134 @@
 ;;; Code:
 
 ;; _____________________________________________________________________________
+;;; GLOBAL DEFINITIONS & UTILITIES
+
+;; Define groups for Customizations
+
+(defgroup eon nil
+  "Emacs ONBOARD starter kit & ONTOP extension layer."
+  :group 'convenience)
+
+(defgroup eon-misc nil
+  "Various settings that don't belong to another group."
+  :group 'eon)
+
+;; Simplify writing of operating-system-specific Elisp code
+
+(defun eon-linp ()
+  "True if `system-type' is Linux or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
+
+(defun eon-winp ()
+  "True if `system-type' is Windows or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (memq system-type '(windows-nt cygwin ms-dos)))
+
+(defun eon-androidp ()
+  "True if `system-type' is Android or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (eq system-type 'android))
+
+(defun eon-macp ()
+  "True if `system-type' is MacOS or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (eq system-type 'darwin))
+
+;; Extended `add-to-list' and friends
+
+(defun eon-list-adjoin (cur elements &optional append compare-fn)
+  "Return a new list like CUR with ELEMENTS added once.
+
+ELEMENTS may be an item or a list. If APPEND is non-nil, append items
+left->right; otherwise prepend while preserving ELEMENTS order.
+COMPARE-FN is the membership predicate (default `equal').
+
+Examples:
+  (eon-list-adjoin '(a b) 'c)                                 ; => (c a b)
+  (eon-list-adjoin '(a b) '(c a))                             ; => (c a b)
+  (eon-list-adjoin '(a b) '(d) t)                             ; => (a b d)
+  (eon-list-adjoin '(a b) '(\"x\" \"x\") nil #'string-equal)  ; => (\"x\" a b)"
+  (declare (pure t) (side-effect-free t))
+  (let* ((xs   (if (consp elements) elements (list elements)))
+         (test (or compare-fn #'equal)))
+    (cl-labels
+        ((prepend-step (res items)
+           (if (null items)
+               res
+             (let ((x (car items)))
+               (prepend-step
+                (if (cl-find x res :test test) res (cons x res))
+                (cdr items)))))
+         (append-step (res items seen extra)
+           (if (null items)
+               (append res (nreverse extra))
+             (let ((x (car items)))
+               (if (cl-find x seen :test test)
+                   (append-step res (cdr items) seen extra)
+                 (append-step res (cdr items)
+                              (cons x seen) (cons x extra)))))))
+      (if append
+          (append-step cur xs cur nil)
+        ;; Preserve ELEMENTS order when prepending
+        (prepend-step cur (reverse xs))))))
+
+(defun eon-add-to-list (list-sym elements &optional append compare-fn)
+  "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
+
+LIST-SYM is a symbol naming a list variable. ELEMENTS may be an item or
+a list. APPEND/COMPARE-FN as in `eon-list-adjoin'. Returns the new
+value of LIST-SYM.
+
+Examples (LIST-SYM value starts as (a b)):
+  (eon-add-to-list 'v 'c)           ; => (c a b)
+  (eon-add-to-list 'v '(c a))       ; => (c a b)
+  (eon-add-to-list 'v '(d) t)       ; => (a b d)"
+  (unless (symbolp list-sym)
+    (error "eon-add-to-list: LIST-SYM must be quoted: 'my-var"))
+  (set list-sym
+       (eon-list-adjoin
+        (if (boundp list-sym) (symbol-value list-sym) nil)
+        elements append compare-fn)))
+
+(defmacro eon-add-to-list-setopt
+    (list-sym elements &optional append compare-fn)
+  "Like `eon-add-to-list' but via `setopt'.
+
+LIST-SYM must be a quoted symbol, e.g. 'my-var. ELEMENTS may be an
+item or a list. If APPEND is non-nil, append items left->right;
+otherwise prepend while preserving ELEMENTS order. COMPARE-FN defaults
+to `equal'. See `eon-add-to-list' for examples."
+  (declare (debug (sexp form &optional form function)))
+  (unless (and (consp list-sym)
+               (eq (car list-sym) 'quote)
+               (symbolp (cadr list-sym)))
+    (error "eon-add-to-list-setopt: LIST-SYM must be quoted: 'my-var"))
+  (let ((sym (cadr list-sym)))
+    `(setopt ,sym
+             (eon-list-adjoin
+              (if (boundp ',sym) ,sym nil)
+              ,elements ,append ,compare-fn))))
+
+;; Get all the parent major modes
+(defun eon-get-parent-modes ()
+  "Return major-mode and its parents (child first).
+When called interactively, also echo the result."
+  (interactive)
+  (cl-labels ((collect (mode)
+                (if-let ((p (get mode 'derived-mode-parent)))
+                    (cons mode (collect p))
+                  (list mode))))
+    (let ((parents (collect major-mode)))
+      (if (called-interactively-p 'interactive)
+          (message "%S" parents)
+        parents))))
+
+;; _____________________________________________________________________________
 ;;; GARBAGE COLLECTION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
 
@@ -261,130 +389,6 @@ Cancel the previous one if present."
 
 ;; Increase the amount of data which Emacs reads from subprocesses
 (setopt read-process-output-max (* 1024 1024))  ; 1 MiB
-
-;; _____________________________________________________________________________
-;;; GLOBAL DEFINITIONS & UTILITIES
-
-;; Define the group for Customizations
-(defgroup eon nil
-  "Emacs ONBOARD starter kit & ONTOP extension layer."
-  :group 'convenience
-  :prefix "eon-")
-
-;; Simplify writing of operating-system-specific Elisp code
-
-(defun eon-linp ()
-  "True if `system-type' is Linux or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
-
-(defun eon-winp ()
-  "True if `system-type' is Windows or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (memq system-type '(windows-nt cygwin ms-dos)))
-
-(defun eon-androidp ()
-  "True if `system-type' is Android or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (eq system-type 'android))
-
-(defun eon-macp ()
-  "True if `system-type' is MacOS or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (eq system-type 'darwin))
-
-;; Extended `add-to-list' and friends
-
-(defun eon-list-adjoin (cur elements &optional append compare-fn)
-  "Return a new list like CUR with ELEMENTS added once.
-
-ELEMENTS may be an item or a list. If APPEND is non-nil, append items
-left->right; otherwise prepend while preserving ELEMENTS order.
-COMPARE-FN is the membership predicate (default `equal').
-
-Examples:
-  (eon-list-adjoin '(a b) 'c)                                 ; => (c a b)
-  (eon-list-adjoin '(a b) '(c a))                             ; => (c a b)
-  (eon-list-adjoin '(a b) '(d) t)                             ; => (a b d)
-  (eon-list-adjoin '(a b) '(\"x\" \"x\") nil #'string-equal)  ; => (\"x\" a b)"
-  (declare (pure t) (side-effect-free t))
-  (let* ((xs   (if (consp elements) elements (list elements)))
-         (test (or compare-fn #'equal)))
-    (cl-labels
-        ((prepend-step (res items)
-           (if (null items)
-               res
-             (let ((x (car items)))
-               (prepend-step
-                (if (cl-find x res :test test) res (cons x res))
-                (cdr items)))))
-         (append-step (res items seen extra)
-           (if (null items)
-               (append res (nreverse extra))
-             (let ((x (car items)))
-               (if (cl-find x seen :test test)
-                   (append-step res (cdr items) seen extra)
-                 (append-step res (cdr items)
-                              (cons x seen) (cons x extra)))))))
-      (if append
-          (append-step cur xs cur nil)
-        ;; Preserve ELEMENTS order when prepending
-        (prepend-step cur (reverse xs))))))
-
-(defun eon-add-to-list (list-sym elements &optional append compare-fn)
-  "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
-
-LIST-SYM is a symbol naming a list variable. ELEMENTS may be an item or
-a list. APPEND/COMPARE-FN as in `eon-list-adjoin'. Returns the new
-value of LIST-SYM.
-
-Examples (LIST-SYM value starts as (a b)):
-  (eon-add-to-list 'v 'c)           ; => (c a b)
-  (eon-add-to-list 'v '(c a))       ; => (c a b)
-  (eon-add-to-list 'v '(d) t)       ; => (a b d)"
-  (unless (symbolp list-sym)
-    (error "eon-add-to-list: LIST-SYM must be quoted: 'my-var"))
-  (set list-sym
-       (eon-list-adjoin
-        (if (boundp list-sym) (symbol-value list-sym) nil)
-        elements append compare-fn)))
-
-(defmacro eon-add-to-list-setopt
-    (list-sym elements &optional append compare-fn)
-  "Like `eon-add-to-list' but via `setopt'.
-
-LIST-SYM must be a quoted symbol, e.g. 'my-var. ELEMENTS may be an
-item or a list. If APPEND is non-nil, append items left->right;
-otherwise prepend while preserving ELEMENTS order. COMPARE-FN defaults
-to `equal'. See `eon-add-to-list' for examples."
-  (declare (debug (sexp form &optional form function)))
-  (unless (and (consp list-sym)
-               (eq (car list-sym) 'quote)
-               (symbolp (cadr list-sym)))
-    (error "eon-add-to-list-setopt: LIST-SYM must be quoted: 'my-var"))
-  (let ((sym (cadr list-sym)))
-    `(setopt ,sym
-             (eon-list-adjoin
-              (if (boundp ',sym) ,sym nil)
-              ,elements ,append ,compare-fn))))
-
-;; Get all the parent major modes
-(defun eon-get-parent-modes ()
-  "Return major-mode and its parents (child first).
-When called interactively, also echo the result."
-  (interactive)
-  (cl-labels ((collect (mode)
-                (if-let ((p (get mode 'derived-mode-parent)))
-                    (cons mode (collect p))
-                  (list mode))))
-    (let ((parents (collect major-mode)))
-      (if (called-interactively-p 'interactive)
-          (message "%S" parents)
-        parents))))
 
 ;; _____________________________________________________________________________
 ;;; DEFAULT AND INITIAL FRAME
