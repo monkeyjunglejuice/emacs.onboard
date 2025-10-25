@@ -1478,6 +1478,17 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-r-map "r" #'jump-to-register)
 
 ;; _____________________________________________________________________________
+;;; BOOKMARKS
+
+;; Bind common bookmark commands to the leader menu
+(keymap-set ctl-z-ret-map "RET" #'bookmark-jump)
+(keymap-set ctl-z-ret-map "d"   #'bookmark-delete)
+(keymap-set ctl-z-ret-map "l"   #'list-bookmarks)
+(keymap-set ctl-z-ret-map "m"   #'bookmark-set)
+(keymap-set ctl-z-ret-map "M"   #'bookmark-set-no-overwrite)
+(keymap-set ctl-z-ret-map "r"   #'bookmark-rename)
+
+;; _____________________________________________________________________________
 ;;; HISTORY
 
 ;; Which histories to save between Emacs sessions?
@@ -1617,13 +1628,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
         vc-make-backup-files t)
 
 ;; _____________________________________________________________________________
-;;; LOCKFILES
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking>
-
-;; Let Emacs keep track of files currently visited?
-(setopt create-lockfiles nil)
-
-;; _____________________________________________________________________________
 ;;; AUTO-SAVE FILES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save>
 
@@ -1644,6 +1648,13 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 ;; Auto save options
 (setopt kill-buffer-delete-auto-save-files t)
+
+;; _____________________________________________________________________________
+;;; LOCKFILES
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Interlocking>
+
+;; Let Emacs keep track of files currently visited?
+(setopt create-lockfiles nil)
 
 ;; _____________________________________________________________________________
 ;;; DIRED FILE MANAGER
@@ -1720,17 +1731,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
    image-dired-thumbnail-storage 'standard-large))
 
 ;; _____________________________________________________________________________
-;;; BOOKMARKS
-
-;; Bind common bookmark commands to the leader menu
-(keymap-set ctl-z-ret-map "RET" #'bookmark-jump)
-(keymap-set ctl-z-ret-map "d"   #'bookmark-delete)
-(keymap-set ctl-z-ret-map "l"   #'list-bookmarks)
-(keymap-set ctl-z-ret-map "m"   #'bookmark-set)
-(keymap-set ctl-z-ret-map "M"   #'bookmark-set-no-overwrite)
-(keymap-set ctl-z-ret-map "r"   #'bookmark-rename)
-
-;; _____________________________________________________________________________
 ;;; COMINT
 
 (setopt comint-input-ignoredups t
@@ -1792,34 +1792,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-set ctl-z-e-map "S" #'eon-shell-new)
 
 ;; _____________________________________________________________________________
-;;; PROJECT MANAGEMENT
-;; Setup for Emacs' built-in project management
-
-;; Switch to current project buffers: "<leader> n"
-(keymap-set ctl-z-map "n" #'project-switch-to-buffer)
-;; "<leader> p" inherits all commands from the `project-prefix-map'
-(set-keymap-parent ctl-z-p-map project-prefix-map)
-
-;; Show all project keybindings in the selection?
-(setopt project-switch-use-entire-map nil)
-;; Show these insteads:
-(setopt project-switch-commands '((project-find-file   "File"   ?f)
-                                  (project-find-dir    "Dired"  ?d)
-                                  (project-find-regexp "Grep"   ?g)
-                                  (project-vc-dir      "VC/Git" ?v)
-                                  (project-eshell      "Eshell" ?e)
-                                  (project-shell       "Shell"  ?s)))
-
-;; _____________________________________________________________________________
-;;; VERSION CONTROL
-;; Setup for Emacs' built-in VC management
-
-(keymap-set ctl-z-v-map "v" #'vc-dir)
-(keymap-set ctl-z-v-map "V" #'project-vc-dir)
-(keymap-set ctl-z-v-map "g" #'vc-git-grep)
-(keymap-set ctl-z-v-map "," `("..." . ,vc-prefix-map))
-
-;; _____________________________________________________________________________
 ;;; PROCED
 
 ;; Show and manage OS processes, like the command line programs top and htop
@@ -1836,6 +1808,11 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (when (executable-find "netstat")
   (setopt netstat-program "netstat"
           netstat-program-options '("-atupe")))
+
+;; _____________________________________________________________________________
+;;; PINENTRY
+
+(setopt epg-pinentry-mode 'loopback)
 
 ;; _____________________________________________________________________________
 ;;; WEB BROWSERS
@@ -1967,6 +1944,17 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;           (lambda ()
 ;;             (visual-line-mode 1)))
 
+;; Visual line wrapping in text mode
+(add-hook 'text-mode-hook #'visual-line-mode)
+
+;; _____________________________________________________________________________
+;;; TEXT / PROSE
+
+;; Sentences end with a single space
+(setopt sentence-end-double-space nil)
+
+;; TODO Add Flyspell / Ispell presets here
+
 ;; _____________________________________________________________________________
 ;;; FOLDING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hideshow>
@@ -2051,6 +2039,48 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; _____________________________________________________________________________
 ;;; EGLOT LANGUAGE SERVER (LSP)
+;;; COMPILING
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Building>
+
+;; Keep the compilation buffer in the background, except when there's an error
+(add-to-list 'display-buffer-alist
+             '("\\*.*compilation\\*" (display-buffer-no-window)))
+
+;; Scroll to the first error
+(setopt compilation-scroll-output 'first-error)
+
+;; Recenter to the middle of the window for `compile-goto-error'
+(setopt next-error-recenter '(4))
+
+;; _____________________________________________________________________________
+;;; PROJECT MANAGEMENT
+;; Setup for Emacs' built-in project management
+
+;; Switch to current project buffers: "<leader> n"
+(keymap-set ctl-z-map "SPC" #'project-switch-to-buffer)
+;; "<leader> p" inherits all commands from the `project-prefix-map'
+(set-keymap-parent ctl-z-p-map project-prefix-map)
+
+;; Show all project keybindings in the selection?
+(setopt project-switch-use-entire-map nil)
+;; Show these insteads:
+(setopt project-switch-commands '((project-find-file   "File"   ?f)
+                                  (project-find-dir    "Dired"  ?d)
+                                  (project-find-regexp "Grep"   ?g)
+                                  (project-vc-dir      "VC/Git" ?v)
+                                  (project-eshell      "Eshell" ?e)
+                                  (project-shell       "Shell"  ?s)))
+
+;; _____________________________________________________________________________
+;;; VERSION CONTROL / GIT
+;; Setup for Emacs' built-in VC management
+
+(keymap-set ctl-z-v-map "v" #'vc-dir)
+(keymap-set ctl-z-v-map "V" #'project-vc-dir)
+(keymap-set ctl-z-v-map "g" #'vc-git-grep)
+(keymap-set ctl-z-v-map "r" #'vc-rename-file)
+(keymap-set ctl-z-v-map "," `("..." . ,vc-prefix-map))
+
 ;; <https://github.com/joaotavora/eglot/blob/master/MANUAL.md/>
 
 (with-eval-after-load 'eglot
@@ -2341,31 +2371,6 @@ When called interactively with a prefix argument, acts like :reinstall t.
 Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   (interactive (list :reinstall current-prefix-arg))
   (eon-treesitter--ensure-impl eon-treesitter-specs (and reinstall t)))
-
-;; _____________________________________________________________________________
-;;; COMPILING
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Building>
-
-;; Keep the compilation buffer in the background, except when there's an error
-(add-to-list 'display-buffer-alist
-             '("\\*.*compilation\\*" (display-buffer-no-window)))
-
-;; Scroll to the first error
-(setopt compilation-scroll-output 'first-error)
-
-;; Recenter to the middle of the window for `compile-goto-error'
-(setopt next-error-recenter '(4))
-
-;; _____________________________________________________________________________
-;;; TEXT MODES / WRITING PROSE
-
-;; Visual line wrapping in text mode
-(add-hook 'text-mode-hook #'visual-line-mode)
-
-;; Sentences end with a single space
-(setopt sentence-end-double-space nil)
-
-;; TODO Add Flyspell / Ispell presets here
 
 ;; _____________________________________________________________________________
 ;;; ORG MODE
