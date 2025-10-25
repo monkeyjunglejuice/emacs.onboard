@@ -546,7 +546,7 @@ cursor type (symbol) or nil. The first non-nil return wins.")
 
 ;;; ---> Defaults for graphical Emacs:
 ;; "C-," is the leader key, reach the local leader via "C-, C-,"
-;; 
+;;
 ;;; ---> Defaults for Emacs with terminal UI (invoked by "emacs -nw"):
 ;; "C-z" is the leader key, reach the local leader via "C-z C-z"
 
@@ -565,6 +565,7 @@ cursor type (symbol) or nil. The first non-nil return wins.")
 ;; Leader implementation
 
 (defun eon-leader--set-key (sym value)
+  "Setter for `eon-leader-key'."
   (let ((old (and (boundp sym) (symbol-value sym))))
     (when (and old (stringp old) (> (length old) 0))
       (keymap-global-unset old t))
@@ -576,7 +577,7 @@ cursor type (symbol) or nil. The first non-nil return wins.")
 
 (defcustom eon-leader-key
   (if (display-graphic-p) "C-," "C-z")
-  "Leader prefix (GUI -> \"C-,\"; TTY -> \"C-z\").
+  "Leader prefix key. GUI default: \"C-,\"; TTY default: \"C-z\".
 Use the Customization UI to change, or `setopt' in Elisp code."
   :group 'eon
   :type 'string
@@ -593,7 +594,7 @@ You can bind commands here that should appear in all local leader keymaps."
   "Active localleader keymap for the current buffer.
 Don't bind any keys/commands to this keymap.")
 
-;; HACK Relies currently on `which-key' internals, what's a bit of an eyesore,
+;; KLUDGE Relies currently on `which-key' internals, what's a bit of an eyesore,
 ;; but seems to work reliably.
 (defun eon-localleader--context-window ()
   "Return the window where the key sequence started."
@@ -604,7 +605,7 @@ Don't bind any keys/commands to this keymap.")
    (t (selected-window))))
 
 (defun eon-localleader--set-key (sym value)
-  "Setter for `eon-localleader-key'; rebinds the leader entry."
+  "Setter for `eon-localleader-key'."
   (let ((old (and (boundp sym) (symbol-value sym))))
     (when (boundp 'ctl-z-map)
       (when old (keymap-unset ctl-z-map old))
@@ -639,9 +640,9 @@ localleader is shown."
 
 (defcustom eon-localleader-key
   (if (display-graphic-p) "C-," "C-z")
-  "Localleader key, pressed after the leader.
-GUI default: \"C-,\" -> reach local leader \"C-, C-,\"
-TTY default: \"C-z\" -> localleader \"C-z C-z\"
+  "Local leader key, pressed after the leader.
+GUI default: \"C-,\" -> reach local leader via \"C-, C-,\"
+TTY default: \"C-z\" -> reach local leader via \"C-z C-z\"
 Use the Customization UI to change, or `setopt' in Elisp code."
   :group 'eon
   :type 'string
@@ -915,13 +916,13 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Customize via "M-x eon-customize-group" or via `setopt' in your init.el
 
-;;; ---> Set your light theme:
+;;; Set your light theme:
 ;; (setopt eon-theme-light 'modus-operandi-tinted)
 
-;;; ---> Set your dark theme:
+;;; Set your dark theme:
 ;; (setopt eon-theme-dark 'modus-vivendi-tinted)
 
-;;; ---> Set 'light or 'dark as your default theme variant:
+;;; Set 'light or 'dark as your default theme variant:
 ;; (setopt eon-theme-variant-default 'light)
 
 ;; The hooks below can be used to run additional functions before or after
@@ -929,7 +930,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; variables that otherwise would get overwritten by themes.
 ;; Restart Emacs to take effect after changing the hooks.
 
-;;; Light theme
+;;; Light theme hooks
+
 ;; Call a function before/after loading the light theme
 ;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-light-post-load-hook #'my-interactive-function)
@@ -945,7 +947,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 (add-hook 'eon-theme-light-post-load-hook #'eon-fonts-default)
 
-;;; Dark theme
+;;; Dark theme hooks
+
 ;; Call a function before/after loading the dark theme
 ;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-dark-post-load-hook #'my-interactive-function)
@@ -1186,7 +1189,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
               (hl-line-mode 1))))
 
 ;; _____________________________________________________________________________
-;;; CUSTOMIZATION UI
+;;; CUSTOMIZATION UI SETTINGS
 
 ;; The most important Emacs ONBOARD preferences are customizable via GUI.
 ;; Open the GUI via "<leader> x C"
@@ -1218,7 +1221,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; SEARCH
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
 
-;; Switch search functions to make regex-search the default
+;; Swap search functions to make regexp-search the default
 (keymap-global-set "C-s"   #'isearch-forward-regexp)
 (keymap-global-set "C-r"   #'isearch-backward-regexp)
 (keymap-global-set "C-S-s" #'isearch-forward)
@@ -1359,8 +1362,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Hide boring buffers from `next-buffer' and `prev-buffer'.
 (with-eval-after-load 'window (eon-boring-buffers-add))
 
-;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; IBUFFER – the buffer manager
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Ibuffer, the buffer manager
 ;; <https://protesilaos.com/codelog/2020-04-02-emacs-intro-ibuffer/>
 
 (add-hook 'ibuffer-mode-hook
@@ -1829,8 +1832,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; _____________________________________________________________________________
 ;;; WEB BROWSERS
 
-;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;; EWW BUILT-IN BROWSER
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;; - EWW, a built-in web browser
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
 
 (setopt url-privacy-level '(email lastloc cookies))
@@ -1867,14 +1870,14 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; EMAIL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Sending-Mail>
 
-;; TODO Send emails directly from Emacs using SMTP – example template
+;; Send emails directly from Emacs using SMTP – example template
 
 ;; Should be defined first
 ;; (setopt user-mail-address "mail@example.org")
 
 ;; To avoid typing in the password for each email, specify SMTP account(s)
 ;; in '~/.authinfo.gpg'. Here's a content template for authinfo.gpg:
-;; machine mail.example.org port 587 login myuser password mypassword
+;; machine mail.example.org port 587 login myusername password mypassword
 
 ;; Emacs email variables
 (with-eval-after-load 'smtpmail
@@ -1897,16 +1900,17 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
         calendar-weekend-days '(6 0))
 
 ;; _____________________________________________________________________________
-;;; GENERAL EDITING
+;;; EDITING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Basic>
 
 ;; UTF-8
 (prefer-coding-system 'utf-8)
 
-;; Set desired line length in characters
+;; Set desired line length in characters.
+;; Can be changed temporarily via `set-fill-column' "C-x f"
 (setopt fill-column 80)
 
-;; While a text selection is active, typing characters replaces
+;; While a text selection is active, typing characters will replace
 ;; the selection with the typed characters (default: -1 = off)
 (delete-selection-mode -1)
 
@@ -2128,8 +2132,7 @@ Add further specs without building/installing via `eon-treesitter-add-specs'
 - SOURCE-DIR is the relative subdirectory in the repository in which
   the grammar’s parser.c file resides, defaulting to \"src\".")
 
-;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Internal utilities
+;; Internal utilities
 
 (defun eon-treesitter--spec-p (x)
   "Return non-nil if X is a spec tuple (LANG URL [REV] [DIR])."
@@ -2398,7 +2401,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (keymap-set eon-localleader-org-mode-map "c" #'org-ctrl-c-ctrl-c)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; ORG CAPTURE
+;;; - ORG CAPTURE
 ;; <https://orgmode.org/org.html#Capture>
 
 ;; Capture a note via `C-z o c'
@@ -2418,7 +2421,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (keymap-set ctl-z-o-map "o" #'eon-visit-org-notes)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; ORG TODO
+;;; - ORG TODO
 ;; <https://orgmode.org/org.html#TODO-Items>
 
 ;; Set some sensible default states for todo-items
@@ -2428,7 +2431,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
           (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; ORG AGENDA
+;;; - ORG AGENDA
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
 (setopt org-agenda-files (list org-directory))
@@ -2442,7 +2445,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
             (hl-line-mode 1)))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; ORG LINKS
+;;; - ORG LINKS
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
 ;; Store a link via "<localleader> L"
@@ -2455,7 +2458,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (keymap-set eon-localleader-org-mode-map "M-l" #'org-toggle-link-display)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; ORG PUBLISH
+;;; - ORG PUBLISH
 
 ;; Select a project to publish a project via "<localleader> p";
 ;; This can be used to generate and publish a static blog, ebooks, etc.
@@ -2478,7 +2481,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
            (message "Don't re-export unchanged files (default)"))))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; ORG EXPORT
+;;; - ORG EXPORT
 
 ;; HTML export
 (setopt org-html-checkbox-type 'unicode
@@ -2620,7 +2623,8 @@ With SWITCH = \='hook, return ...-hook variables."
 ;; ... or do "M-x info-emacs-manual s server RET" to read it within Emacs
 
 ;; Display the name of the Emacs server process in the frame title
-;; to see easily to which server process a client is connected to
+;; to see easily to which server process a client is connected to.
+
 (with-eval-after-load 'server
 
   (defun eon-frame-title ()
