@@ -1308,13 +1308,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
                      completion-in-region-function))
          (frontend
           (cond
-           ;; Respect buffer-local frontends.
+           ;; Respect buffer-local frontends
            (local local)
-           ;; If we're already in a minibuffer, or recursion is off,
-           ;; fall back to the saved default
-           ((or (minibufferp) (not enable-recursive-minibuffers))
+           ;; If recursion is off, fall back
+           ((not enable-recursive-minibuffers)
             eon-minicomp--saved-in-region)
-           ;; Otherwise, use our minibuffer UI
+           ;; Otherwise, use the minibuffer UI - even from a minibuffer
            (t #'eon-minicomp--minibuffer))))
     (funcall frontend beg end collection pred)))
 
