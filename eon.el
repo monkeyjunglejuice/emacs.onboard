@@ -1377,7 +1377,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 These buffers may be skipped from navigation commands.
 Use `eon-boring-buffers-add' to extend the list."
   :type '(repeat regexp)
-  :group 'eon)
+  :group 'eon-misc)
 
 (defun eon-boring-buffers-add (&optional regexp)
   "Add REGEXP (string or list of strings) to `eon-boring-buffers'.
