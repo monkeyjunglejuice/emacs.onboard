@@ -727,6 +727,12 @@ BODY is forwarded to `defvar-keymap'."
 ;; Add `universal-argument' to the leader keymap
 (keymap-set ctl-z-map "u" #'universal-argument)
 
+;; Quit Emacs
+(keymap-set ctl-z-q-map "q" #'save-buffers-kill-terminal)
+
+;; Restart Emacs
+(keymap-set ctl-z-q-map "r" #'restart-emacs)
+
 ;; _____________________________________________________________________________
 ;;; VI KEYBINDINGS (VIPER-MODE)
 
@@ -2605,14 +2611,8 @@ With SWITCH = \='hook, return ...-hook variables."
    (seq-filter #'fboundp eon-lisp-repl-modes-registry)
    switch))
 
-;; _____________________________________________________________________________
-;;; QUIT EMACS
 
-;; The standard way to leave Emacs
-(keymap-set ctl-z-q-map "q" #'save-buffers-kill-terminal)
 
-;; The standard way to leave Emacs
-(keymap-set ctl-z-q-map "r" #'restart-emacs)
 
 ;; _____________________________________________________________________________
 ;;; SERVER
