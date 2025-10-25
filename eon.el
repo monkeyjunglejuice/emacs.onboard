@@ -1219,11 +1219,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (with-eval-after-load 'icomplete
   (keymap-set icomplete-minibuffer-map "TAB" #'icomplete-force-complete)
   (keymap-set icomplete-minibuffer-map "<tab>" #'icomplete-force-complete)
-  ;; "SPC" inserts the literal space character instead of triggering
+  ;; Let "SPC" insert the literal space character instead of triggering
   ;; `minibuffer-complete-word'. This enables filtering for candidates who
   ;; contain whitespace and prevents the *Completions* buffer from popping up.
-  (keymap-set icomplete-minibuffer-map "SPC"
-              (lambda () (interactive) (insert ?\s))))
+  (keymap-set icomplete-minibuffer-map "SPC" #'self-insert-command))
 
 (fido-vertical-mode 1)
 
