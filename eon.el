@@ -1283,16 +1283,26 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt mouse-autoselect-window nil
         focus-follows-mouse nil)
 
-;; Default window navigation – simply switch to the next window in order.
-;; Added for convenience; the default keybinding is "C-x o"
-(keymap-global-set "M-o" #'other-window)
-(keymap-set ctl-z-w-map "w" #'other-window)
-
 ;; Undo/redo window layouts
 (setopt winner-dont-bind-my-keys t)
 (keymap-set ctl-z-w-map "u" #'winner-undo)
 (keymap-set ctl-z-w-map "r" #'winner-redo)
 (winner-mode 1)
+
+;; Common window management commands under the leader key
+(keymap-set ctl-z-w-map "b" #'display-buffer)
+(keymap-set ctl-z-w-map "c" #'delete-window)
+(keymap-set ctl-z-w-map "d" #'dired-other-window)
+(keymap-set ctl-z-w-map "f" #'find-file-other-window)
+(keymap-set ctl-z-w-map "k" #'kill-buffer-and-window)
+(keymap-set ctl-z-w-map "m" #'delete-other-windows)
+(keymap-set ctl-z-w-map "s" #'split-window-below)
+(keymap-set ctl-z-w-map "v" #'split-window-right)
+(keymap-set ctl-z-w-map "w" #'other-window)
+
+;; Default window navigation – simply switch to the next window in order.
+;; Added for convenience; the default keybinding is "C-x o"
+(keymap-global-set "M-o" #'other-window)
 
 ;; _____________________________________________________________________________
 ;;; TAB MANAGEMENT
