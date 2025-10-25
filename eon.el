@@ -1320,8 +1320,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Fast buffer switching
 (keymap-set ctl-z-b-map "p" #'previous-buffer)
 (keymap-set ctl-z-b-map "n" #'next-buffer)
-
-(keymap-set ctl-z-map "SPC" #'switch-to-buffer)
 (keymap-set ctl-z-b-map "b" #'switch-to-buffer)
 
 ;; Kill the current buffer immediately instead of presenting a selection.
