@@ -659,6 +659,7 @@ Use the Customization UI to change, or `setopt' in Elisp code."
 (defvar-keymap ctl-z-o-map   :doc "Org")
 (defvar-keymap ctl-z-p-map   :doc "Project")
 (defvar-keymap ctl-z-q-map   :doc "Quit")
+(defvar-keymap ctl-z-r-map   :doc "Register")
 (defvar-keymap ctl-z-s-map   :doc "Search")
 (defvar-keymap ctl-z-t-map   :doc "Tab/WS")
 (defvar-keymap ctl-z-v-map   :doc "VC/Git")
@@ -679,6 +680,7 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   "o"   `("Org"      . ,ctl-z-o-map)
   "p"   `("Project"  . ,ctl-z-p-map)
   "q"   `("Quit"     . ,ctl-z-q-map)
+  "r"   `("Register" . ,ctl-z-r-map)
   "s"   `("Search"   . ,ctl-z-s-map)
   "t"   `("Tab/WS"   . ,ctl-z-t-map)
   "v"   `("VC/Git"   . ,ctl-z-v-map)
@@ -1468,6 +1470,11 @@ Called without argument just syncs `eon-boring-buffers' to other places."
         (shell-command-to-string "powershell.exe -command 'Get-Clipboard'")
         0 -1))))
   (keymap-set ctl-z-map "C-y" #'eon-wsl-paste))
+
+;; _____________________________________________________________________________
+;;; REGISTER
+
+(keymap-set ctl-z-r-map "r" #'jump-to-register)
 
 ;; _____________________________________________________________________________
 ;;; HISTORY
