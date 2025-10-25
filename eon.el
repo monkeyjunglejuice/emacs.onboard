@@ -479,49 +479,114 @@ Cancel the previous one if present."
             (hl-line-mode 1)))
 
 ;;; Change the cursor type based on a certain state
+;; To learn about available cursor types, place your cursor on `cursor-type'
+;; and do "C-h o"; or do "M-x describe-symbol RET cursor-type RET"
 
-(defvar eon-cursor-type-writable 'bar
-  "Cursor type to use in writable buffers.")
+;; Example how to set your default cursor in your init.el:
+;; (setopt eon-cursor-type-write 'box)  ; block-style cursor
 
-(defvar eon-cursor-type-readonly 'hbar
-  "Cursor type to use in read-only buffers.")
+(defgroup eon-cursor-type nil
+  "Cursor styles."
+  :group 'eon)
 
-(defvar eon-cursor-type-special 'box
-  "Cursor type for special circumstances.")
+(defun eon-cursor-type--set (symbol value)
+  "Set SYMBOL to VALUE and refresh the mode line."
+  (set-default symbol value)
+  (force-mode-line-update t))
 
-(defvar eon-cursor-compute-functions-hook nil
+(defcustom eon-cursor-type-write 'bar
+  "Cursor type for text input.
+Accepts an expression that returns either:
+- t or nil
+- one of the symbols: 'bar 'hbar 'box 'hollow
+- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+See also `cursor-type'"
+  :type 'sexp
+  :group 'eon-cursor-type
+  :set #'eon-cursor-type--set)
+
+(defcustom eon-cursor-type-select 'bar
+  "Cursor type for selecting text.
+Accepts an expression that returns either:
+- t or nil
+- one of the symbols: 'bar 'hbar 'box 'hollow
+- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+See also `cursor-type'"
+  :type 'sexp
+  :group 'eon-cursor-type
+  :set #'eon-cursor-type--set)
+
+(defcustom eon-cursor-type-view '(hbar . 3)
+  "Cursor type for read-only buffers.
+Accepts an expression that returns either:
+- t or nil
+- one of the symbols: 'bar 'hbar 'box 'hollow
+- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+See also `cursor-type'"
+  :type 'sexp
+  :group 'eon-cursor-type
+  :set #'eon-cursor-type--set)
+
+(defcustom eon-cursor-type-extra 'box
+  "Cursor type for special or command states.
+Accepts an expression that returns either:
+- t or nil
+- one of the symbols: 'bar 'hbar 'box 'hollow
+- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+See also `cursor-type'"
+  :type 'sexp
+  :group 'eon-cursor-type
+  :set #'eon-cursor-type--set)
+
+(defvar eon-cursor-type-functions nil
   "Hook of functions that may compute a cursor type.
 Each function is called with no args and should return either a
-cursor type (symbol) or nil. The first non-nil return wins.")
+`cursor-type' or nil. The first non-nil return wins.")
 
-(defun eon-cursor--desired-type ()
+(defun eon-cursor-type--desired ()
   "Compute desired cursor type for the current buffer."
-  (or (run-hook-with-args-until-success 'eon-cursor-compute-functions-hook)
-      (if buffer-read-only
-          eon-cursor-type-readonly
-        eon-cursor-type-writable)))
+  (or (run-hook-with-args-until-success 'eon-cursor-type-functions)
+      (cond
+       ((region-active-p) eon-cursor-type-select)
+       (buffer-read-only eon-cursor-type-view)
+       (t eon-cursor-type-write))))
 
-(defun eon-cursor--update (&rest _)
+(defun eon-cursor-type-update (&rest _)
   "Apply the desired cursor type to the current buffer."
-  (setq-local cursor-type (eon-cursor--desired-type)))
+  (setq-local cursor-type (eon-cursor-type--desired)))
 
-(define-minor-mode eon-cursor-mode
+(define-minor-mode eon-cursor-type-mode
   "Globally change cursor type according to status."
+  :group 'eon-cursor-type
   :global t
-  (if eon-cursor-mode
+  :init-value t
+  (if eon-cursor-type-mode
       (progn
-        (add-hook 'buffer-list-update-hook      #'eon-cursor--update)
-        (add-hook 'read-only-mode-hook          #'eon-cursor--update)
-        (add-hook 'after-change-major-mode-hook #'eon-cursor--update)
         (mapc (lambda (buf)
-                (with-current-buffer buf (eon-cursor--update)))
-              (buffer-list)))
-    (remove-hook 'buffer-list-update-hook      #'eon-cursor--update)
-    (remove-hook 'read-only-mode-hook          #'eon-cursor--update)
-    (remove-hook 'after-change-major-mode-hook #'eon-cursor--update)))
+                (with-current-buffer buf (eon-cursor-type-update)))
+              (buffer-list))
+        ;; It seems unreasonabe to use `after-command-hook'
+        ;; to update the cursor type, because of the overhead.
+        ;; Instead we're listing the triggers one-by-one.
+        (add-hook 'buffer-list-update-hook      #'eon-cursor-type-update)
+        (add-hook 'read-only-mode-hook          #'eon-cursor-type-update)
+        (add-hook 'after-change-major-mode-hook #'eon-cursor-type-update)
+        ;; React to selections
+        (add-hook 'activate-mark-hook           #'eon-cursor-type-update)
+        (add-hook 'deactivate-mark-hook         #'eon-cursor-type-update)
+        ;; Make sure the cursor will be updated after leaving wdired
+        (advice-add 'wdired-abort-changes :after #'eon-cursor-type-update)
+        (advice-add 'wdired-finish-edit :after   #'eon-cursor-type-update))
+    (remove-hook 'buffer-list-update-hook      #'eon-cursor-type-update)
+    (remove-hook 'read-only-mode-hook          #'eon-cursor-type-update)
+    (remove-hook 'after-change-major-mode-hook #'eon-cursor-type-update)
+    (remove-hook 'activate-mark-hook           #'eon-cursor-type-update)
+    (remove-hook 'deactivate-mark-hook         #'eon-cursor-type-update)
+    (advice-remove 'wdired-abort-changes #'eon-cursor-type-update)
+    (advice-remove 'wdired-finish-edit   #'eon-cursor-type-update)))
 
 ;; Turn it on
-(eon-cursor-mode 1)
+(eon-cursor-type-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; WHICH-KEY
