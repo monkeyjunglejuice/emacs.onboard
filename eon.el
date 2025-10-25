@@ -953,7 +953,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (add-hook 'eon-theme-light-post-load-hook
           (lambda ()
             ;; Extend `region' background past the end of the line?
-            (custom-set-faces '(region ((t :extend nil))))
+            (set-face-attribute 'region nil :extend nil)
             ))
 
 ;; Load the default font set; if you want to load a different font set,
@@ -970,7 +970,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (add-hook 'eon-theme-dark-post-load-hook
           (lambda ()
             ;; Extend `region' background past the end of the line?
-            (custom-set-faces '(region ((t :extend nil))))
+            (set-face-attribute 'region nil :extend nil)
             ))
 
 ;; Load the default font set; if you want to load your own font set,
