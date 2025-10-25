@@ -459,12 +459,6 @@ Cancel the previous one if present."
 ;;; CURSOR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
 
-;; To learn about available cursors, place your cursor behind 'cursor-type'
-;; in the code below or do "M-x describe-symbol RET cursor-type RET"
-
-;; Set the cursor type to a bar instead; block ist the default
-(add-to-list 'default-frame-alist '(cursor-type . bar))
-
 ;; Turn on/off cursor blinking by default? 1 means 'on' and -1 means 'off'
 (blink-cursor-mode -1)
 
