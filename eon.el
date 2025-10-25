@@ -1218,7 +1218,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; TAB accepts the current candidates in Icomplete/Fido minibuffers
 (with-eval-after-load 'icomplete
   (keymap-set icomplete-minibuffer-map "TAB" #'icomplete-force-complete)
-  (keymap-set icomplete-minibuffer-map "<tab>" #'icomplete-force-complete))
+  (keymap-set icomplete-minibuffer-map "<tab>" #'icomplete-force-complete)
+  ;; "SPC" inserts the literal space character instead of triggering
+  ;; `minibuffer-complete-word'. This enables filtering for candidates who
+  ;; contain whitespace and prevents the *Completions* buffer from popping up.
+  (keymap-set icomplete-minibuffer-map "SPC"
+              (lambda () (interactive) (insert ?\s))))
 
 (fido-vertical-mode 1)
 
