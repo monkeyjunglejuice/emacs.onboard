@@ -1183,25 +1183,29 @@ Some themes may come as functions -- wrap these ones in lambdas."
           icomplete-show-matches-on-no-input t
           icomplete-hide-common-prefix nil))
 
-;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Show `completion-in-region' candidates in the buffer
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Buffcomp code completion
 
-(setopt icomplete-in-buffer t)
-(setopt icomplete-prospects-height 10)
+;; TODO Show `completion-in-region' candidates in the buffer,
+;; using `fido-vertical-mode' and `icomplete-in-buffer'
 
-;; Keep *Completions* from popping up, even if requested
-(advice-add 'completion-at-point :after #'minibuffer-hide-completions)
+;; (setopt icomplete-in-buffer t)
+;; (setopt icomplete-prospects-height 10)
+;;
+;; ;; Prevent *Completions* from popping up, even if requested
+;; (advice-add 'completion-at-point :after #'minibuffer-hide-completions)
+;;
+;; ;; Navigate completion candidates
+;; (with-eval-after-load 'icomplete
+;;   (dolist (map (list icomplete-minibuffer-map
+;;                      minibuffer-local-completion-map))
+;;     (define-key map (kbd "C-n") #'icomplete-forward-completions)
+;;     (define-key map (kbd "C-p") #'icomplete-backward-completions)
+;;     (define-key map (kbd "<down>") #'icomplete-forward-completions)
+;;     (define-key map (kbd "<up>") #'icomplete-backward-completions)
+;;     (define-key map (kbd "M-n") #'icomplete-forward-completions)
+;;     (define-key map (kbd "M-p") #'icomplete-backward-completions)))
 
-;; Navigate completion candidates
-(with-eval-after-load 'icomplete
-  (dolist (map (list icomplete-minibuffer-map
-                     minibuffer-local-completion-map))
-    (define-key map (kbd "C-n") #'icomplete-forward-completions)
-    (define-key map (kbd "C-p") #'icomplete-backward-completions)
-    (define-key map (kbd "<down>") #'icomplete-forward-completions)
-    (define-key map (kbd "<up>") #'icomplete-backward-completions)
-    (define-key map (kbd "M-n") #'icomplete-forward-completions)
-    (define-key map (kbd "M-p") #'icomplete-backward-completions)))
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Fido vertical mode
 
