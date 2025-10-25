@@ -1259,9 +1259,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-s-map "R" #'replace-regexp)
 
 ;; _____________________________________________________________________________
-;;; PINENTRY
+;;; IMENU
 
-(setopt epg-pinentry-mode 'loopback)
+(keymap-set ctl-z-g-map "i" #'imenu)
 
 ;; _____________________________________________________________________________
 ;;; FRAME MANAGEMENT
