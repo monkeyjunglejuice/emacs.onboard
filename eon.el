@@ -2038,7 +2038,6 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   (keymap-set flymake-mode-map "M-g p" #'flymake-goto-prev-error))  ; default
 
 ;; _____________________________________________________________________________
-;;; EGLOT LANGUAGE SERVER (LSP)
 ;;; COMPILING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Building>
 
@@ -2081,6 +2080,8 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (keymap-set ctl-z-v-map "r" #'vc-rename-file)
 (keymap-set ctl-z-v-map "," `("..." . ,vc-prefix-map))
 
+;; _____________________________________________________________________________
+;;; EGLOT LANGUAGE SERVER CLIENT (LSP)
 ;; <https://github.com/joaotavora/eglot/blob/master/MANUAL.md/>
 
 (with-eval-after-load 'eglot
