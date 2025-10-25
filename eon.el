@@ -2089,6 +2089,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Switch to current project buffers: "<leader> n"
 (keymap-set ctl-z-map "SPC" #'project-switch-to-buffer)
+
 ;; "<leader> p" inherits all commands from the `project-prefix-map'
 (set-keymap-parent ctl-z-p-map project-prefix-map)
 
