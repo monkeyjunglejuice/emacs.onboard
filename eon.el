@@ -196,6 +196,9 @@ When called interactively, also echo the result."
           (message "%S" parents)
         parents))))
 
+(defvar eon-user-directory (expand-file-name "~/")
+  "The user's home directory with a trailing slash.")
+
 ;; _____________________________________________________________________________
 ;;; GARBAGE COLLECTION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Garbage-Collection>
@@ -1716,10 +1719,18 @@ Called without argument just syncs `eon-boring-buffers' to other places."
     (keymap-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
 
 ;; Open '~/.emacs.d' directory in Dired
-(defun eon-visit-user-emacs-directory ()
+(defun eon-dired-user-emacs-directory ()
   "Open the Emacs directory in Dired, which is usually '~/.emacs.d'."
   (interactive)
   (dired user-emacs-directory))
+
+;; Open home directory in Dired
+(defun eon-dired-user-directory ()
+  "Open the user's home directory in `dired'."
+  (interactive)
+  (dired eon-user-directory))
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "h" #'eon-visit-user-directory))
 
 ;; Images
 (with-eval-after-load 'image-dired
