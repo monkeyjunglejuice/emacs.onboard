@@ -1151,7 +1151,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; for inline code completion, similar to Company or Corfu (but much simpler).
 
 ;; Allow the *Completions* buffer to pop up?
-(setopt completion-auto-help t)
+(setopt completion-auto-help 'always)
 
 ;; Display settings for the *Completions* buffer; only if not disabled above
 (setopt
@@ -1160,9 +1160,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
  ;; Cycle completion candidates instead?
  completion-cycle-threshold nil
  ;; Show docstrings for completion candidates?
- completions-detailed nil
+ completions-detailed t
  ;; Automatically select the *Completions* buffer?
- completion-auto-select nil
+ completion-auto-select 'second-tab
  ;; Define the appearance of completions?
  completions-format 'one-column
  ;; Maximum height of the *Completions* buffer in lines?
