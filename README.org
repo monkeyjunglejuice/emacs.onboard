@@ -77,8 +77,7 @@ Some features -- without any dependencies or "re-inventing the wheel":
 git clone https://github.com/monkeyjunglejuice/emacs.onboard.git ~/.emacs.onboard
 #+end_src
 
-*2. Put this in your Emacs init file*
-Directly after ~(custom-set-faces ... )~
+*2. Put this in your Emacs init file* directly after ~(custom-set-faces ... )~
 #+begin_src emacs-lisp
   (load-file (expand-file-name "~/.emacs.onboard/eon.el"))
 #+end_src
