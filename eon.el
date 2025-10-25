@@ -760,6 +760,7 @@ BODY is forwarded to `defvar-keymap'."
 ;; and `eon-load-after-light-theme-hook' (under section 'THEME CONFIG').
 ;; TODO Make it easy to configure by setting a font, the size, etc.
 ;; TODO Decouple from eon-load-.*-theme-hook
+
 (defun eon-fonts-default ()
   "The height value is in 1/10 pt, so 140 will give 14 pt."
   (interactive)
