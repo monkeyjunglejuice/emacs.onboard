@@ -1049,9 +1049,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; For mouse commands to ask questions, use dialog box instead of minibuffer?
 (setopt use-dialog-box nil)
 
-;; Grow and shrink the minibuffer according to its content?
-;; To prevent jumping, we're settling for 'grow-only.
-(setopt resize-mini-windows 'grow-only)
+;; Grow and shrink the minibuffer according to its lines of content?
+;; If there's too much jumping, set it to 'grow-only.
+(setopt resize-mini-windows t)
 
 ;; Allow for shorter responses? "y" for "yes" and "n" for "no"
 (setopt read-answer-short t)
@@ -1137,6 +1137,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; Vertical completion with `fido-vertical'
 
 ;; TAB accepts the current candidates in Fido minibuffers
+;; Prevent jumping minibuffer window when the number of candidates changes.
+(add-hook 'icomplete-minibuffer-setup-hook
+          (lambda () (setq-local resize-mini-windows 'grow-only)))
 (with-eval-after-load 'icomplete
   (keymap-set icomplete-minibuffer-map "TAB" #'icomplete-force-complete)
   (keymap-set icomplete-minibuffer-map "<tab>" #'icomplete-force-complete))
