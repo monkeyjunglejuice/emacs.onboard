@@ -530,7 +530,7 @@ cursor type (symbol) or nil. The first non-nil return wins.")
 
 (setopt which-key-lighter ""
         which-key-separator " "
-        which-key-idle-delay 0.3
+        which-key-idle-delay 0.4
         which-key-idle-secondary-delay 0.0
         which-key-sort-uppercase-first nil
         which-key-sort-order 'which-key-key-order-alpha
@@ -2482,7 +2482,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
         org-html-self-link-headlines t)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; LITERATE PROGRAMMING
+;;; - LITERATE PROGRAMMING
 ;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
 ;; Activate code blocks via Babel languages
@@ -2493,7 +2493,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; ("eon-*.el" files)
 
 ;; _____________________________________________________________________________
-;;; EMACS LISP
+;;; LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
 ;; Tiny minor mode that prevents from accidently saving files with mismatched
