@@ -1315,8 +1315,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
            ;; Respect buffer-local frontends
            (local local)
            ;; If recursion is off, fall back
-           ((not enable-recursive-minibuffers)
-            eon-minicomp--saved-in-region)
+           ((not enable-recursive-minibuffers) eon-minicomp--saved-in-region)
            ;; Otherwise, use the minibuffer UI - even from a minibuffer
            (t #'eon-minicomp--minibuffer))))
     (funcall frontend beg end collection pred)))
