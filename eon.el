@@ -1101,10 +1101,11 @@ Some themes may come as functions -- wrap these ones in lambdas."
  ;; Enable grouping of completion candidates?
  completions-group t)
 
-;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Icomplete
 ;; Prevent visual line wrapping in narrow frames
 (add-hook 'completion-list-mode-hook (lambda () (setq-local truncate-lines t)))
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Icomplete
 
 ;; Tweaking Icomplete
 (with-eval-after-load 'icomplete
