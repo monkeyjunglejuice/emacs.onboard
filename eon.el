@@ -1129,7 +1129,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completion-styles '(basic substring initials flex))
 (setopt completion-category-defaults nil)
 (setopt completion-category-overrides
-        '((file (styles . (partial-completion basic initials)))))
+        '((file (styles . (basic partial-completion)))))
 
 ;;; Dabbrev
 (with-eval-after-load 'dabbrev
