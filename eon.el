@@ -1193,6 +1193,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-h-map "o" #'describe-symbol)
 (keymap-set ctl-z-h-map "v" #'describe-variable)
 
+;; Focus a help window when it appears?
+(setopt help-window-select t)
+
 ;; Show all options when running 'apropos' "C-h a" (fulltext search)
 (setopt apropos-do-all t)
 
