@@ -1178,7 +1178,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt apropos-do-all t)
 
 ;; _____________________________________________________________________________
-;;; PACKAGE MANAGER UI
+;;; PACKAGE MANAGER UI SETTINGS
 
 (when package-enable-at-startup
 
