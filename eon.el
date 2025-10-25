@@ -822,23 +822,27 @@ BODY is forwarded to `defvar-keymap'."
 ;; Default/fallback definitions – don't change them here,
 ;; but further down in 'THEME CONFIG' - or set them in your init.el.
 ;; TODO Refactor in order to dissolve duplication
-;; TODO Add setters to defcustom
+;; TODO Add setters to custom variables
+
+(defgroup eon-theme nil
+  "Set your light and dark themes."
+  :group 'eon)
 
 (defcustom eon-theme-light 'modus-operandi
   "The theme can be either a symbol, function symbol or lambda."
-  :group 'eon
+  :group 'eon-theme
   :type '(restricted-sexp
           :match-alternatives (functionp symbolp)))
 
 (defcustom eon-theme-dark 'modus-vivendi
   "The theme can be either a symbol, function symbol or lambda."
-  :group 'eon
+  :group 'eon-theme
   :type '(restricted-sexp
           :match-alternatives (functionp symbolp)))
 
 (defcustom eon-theme-variant-default 'light
   "Load either the light or the dark theme at startup?"
-  :group 'eon
+  :group 'eon-theme
   :type '(radio
           (const :tag "Dark" dark)
           (const :tag "Light" light)))
@@ -848,22 +852,22 @@ BODY is forwarded to `defvar-keymap'."
 
 (defcustom eon-theme-light-pre-load-hook nil
   "Run before loading the light theme."
-  :group 'eon
+  :group 'eon-theme
   :type 'hook)
 
 (defcustom eon-theme-light-post-load-hook nil
   "Run after loading the light theme."
-  :group 'eon
+  :group 'eon-theme
   :type 'hook)
 
 (defcustom eon-theme-dark-pre-load-hook nil
   "Run before loading the dark theme."
-  :group 'eon
+  :group 'eon-theme
   :type 'hook)
 
 (defcustom eon-theme-dark-post-load-hook nil
   "Run after loading the dark theme."
-  :group 'eon
+  :group 'eon-theme
   :type 'hook)
 
 (defun eon-theme-load-light ()
