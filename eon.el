@@ -1943,18 +1943,14 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode"
 ;; or set it here for all programming modes. Goto line: "M-g M-g"
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (display-line-numbers-mode -1)))
+(add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode -1)))
 
 ;; _____________________________________________________________________________
 ;;; LINE WRAPPING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
 
 ;; No line wrapping: truncate long lines in programming modes by default.
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (setq-local truncate-lines t)))
+(add-hook 'prog-mode-hook (lambda () (setq-local truncate-lines t)))
 
 ;; If you prefer to see all text within a window in programming modes, enable
 ;; visual line breaks, a.k.a soft wrapping
@@ -2024,12 +2020,10 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Useless-Whitespace>
 
 ;; Indicate trailing whitespace in programming modes?
-(add-hook 'prog-mode-hook
-          (lambda () (setopt show-trailing-whitespace nil)))
+(add-hook 'prog-mode-hook (lambda () (setopt show-trailing-whitespace nil)))
 
 ;; Indicate trailing whitespace in "text" modes?
-(add-hook 'text-mode-hook
-          (lambda () (setopt show-trailing-whitespace nil)))
+(add-hook 'text-mode-hook (lambda () (setopt show-trailing-whitespace nil)))
 
 ;; Cleanup trailing whitespace
 (keymap-set ctl-z-c-map "w" #'whitespace-cleanup)
