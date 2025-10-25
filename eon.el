@@ -207,11 +207,15 @@ When called interactively, also echo the result."
 ;; Original: <https://gitlab.com/koral/gcmh> License: GPL-3.0-OR-LATER
 ;; Discussion: <https://news.ycombinator.com/item?id=39190110>
 
+(defgroup eon-gcmh nil
+  "Garbage collection tuning."
+  :group 'eon)
+
 (defcustom eon-gcmh-high-cons-threshold (* 1024 1024 1024)  ; 1 GiB
   "High cons GC threshold.
 This should be set to a value that makes GC unlikely but does not
 cause OS paging."
-  :group 'eon
+  :group 'eon-gcmh
   :type 'number)
 
 ;; Set the high value immediately to prevent frequent garbage collections
@@ -222,25 +226,25 @@ cause OS paging."
   "Low cons GC threshold.
 This is the GC threshold used while idling. Default value is the
 same of `gc-cons-threshold' default."
-  :group 'eon
+  :group 'eon-gcmh
   :type 'number)
 
 (defcustom eon-gcmh-idle-delay 15
   "Idle time to wait in seconds before triggering GC.
 If `auto', this is auto-computed based on `eon-gcmh-auto-idle-delay-factor'."
-  :group 'eon
+  :group 'eon-gcmh
   :type '(choice number (const auto)))
 
 (defcustom eon-gcmh-auto-idle-delay-factor 20
   "Factor to compute the idle delay when in idle-delay auto mode.
 The idle delay will be `eon-gcmh-auto-idle-delay-factor' times the
 time the last non idle garbage collection time."
-  :group 'eon
+  :group 'eon-gcmh
   :type 'number)
 
 (defcustom eon-gcmh-verbose nil
   "If t, print a message when garbage collecting."
-  :group 'eon
+  :group 'eon-gcmh
   :type 'boolean)
 
 (defvar eon-gcmh-idle-timer nil
@@ -264,37 +268,37 @@ This is to be used with the `pre-command-hook'."
   "Register a timer to run `eon-gcmh-idle-garbage-collect'.
 Cancel the previous one if present."
   (let ((idle-t (if (eq eon-gcmh-idle-delay 'auto)
-		            (* eon-gcmh-auto-idle-delay-factor eon-gcmh-last-gc-time)
-		          eon-gcmh-idle-delay)))
+                    (* eon-gcmh-auto-idle-delay-factor eon-gcmh-last-gc-time)
+                  eon-gcmh-idle-delay)))
     (when (timerp eon-gcmh-idle-timer)
       (cancel-timer eon-gcmh-idle-timer))
     (setf eon-gcmh-idle-timer
-	      (run-with-timer idle-t nil #'eon-gcmh-idle-garbage-collect))))
+          (run-with-timer idle-t nil #'eon-gcmh-idle-garbage-collect))))
 
 (defun eon-gcmh-idle-garbage-collect ()
   "Run garbage collection after `eon-gcmh-idle-delay'."
   (if eon-gcmh-verbose
       (progn
-	    (message "Garbage collecting...")
-	    (condition-case-unless-debug e
-	        (message "Garbage collecting...done (%.3fs)"
-		             (setf eon-gcmh-last-gc-time (eon-gcmh-time (garbage-collect))))
-	      (error (message "Garbage collecting...failed")
-		         (signal (car e) (cdr e)))))
+        (message "Garbage collecting...")
+        (condition-case-unless-debug e
+            (message "Garbage collecting...done (%.3fs)"
+                     (setf eon-gcmh-last-gc-time (eon-gcmh-time (garbage-collect))))
+          (error (message "Garbage collecting...failed")
+                 (signal (car e) (cdr e)))))
     (setf eon-gcmh-last-gc-time (eon-gcmh-time (garbage-collect))))
   (setf gc-cons-threshold eon-gcmh-low-cons-threshold))
 
 (define-minor-mode eon-gcmh-mode
   "Minor mode to tweak Garbage Collection strategy."
-  :lighter ""
-  :group 'eon
+  :group 'eon-gcmh
   :global t
+  :init-value t
   (if eon-gcmh-mode
       (progn
         (setf gc-cons-threshold eon-gcmh-high-cons-threshold)
-	    ;; Release severe GC strategy before the user restart to working
-	    (add-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
-	    (add-hook 'post-command-hook #'eon-gcmh-register-idle-gc))
+        ;; Release severe GC strategy before the user restart to working
+        (add-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
+        (add-hook 'post-command-hook #'eon-gcmh-register-idle-gc))
     (setf gc-cons-threshold eon-gcmh-low-cons-threshold
           eon-gcmh-idle-timer nil)
     (remove-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
