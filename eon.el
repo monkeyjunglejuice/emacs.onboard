@@ -471,6 +471,9 @@ Cancel the previous one if present."
 ;; Emphasize the cursor when running Emacs in a text terminal?
 (setopt visible-cursor nil)
 
+;; Show a cursor in inactive windows?
+(setopt cursor-in-non-selected-windows nil)
+
 ;; Make sure to highlight the current line only in the active window
 (setopt hl-line-sticky-flag nil)
 (add-hook 'special-mode-hook
