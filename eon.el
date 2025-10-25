@@ -2645,7 +2645,8 @@ With SWITCH = \='hook, return ...-hook variables."
     "Save buffers, quit and shutdown (kill) server."
     (interactive)
     (save-some-buffers)
-    (kill-emacs)))
+    (kill-emacs))
+  (keymap-set ctl-z-q-map "s" #'eon-server-stop))
 
 ;; Start the server?
 (add-hook 'after-init-hook #'server-start)
