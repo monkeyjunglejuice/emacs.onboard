@@ -1043,6 +1043,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
          face minibuffer-prompt))
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
+;; Prevent visual line wrapping in narrow frames
+(add-hook 'minibuffer-setup-hook (lambda () (setq-local truncate-lines t)))
+
 ;; For mouse commands to ask questions, use dialog box instead of minibuffer?
 (setopt use-dialog-box nil)
 
@@ -1088,8 +1091,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
  ;; Cycle completion candidates instead?
  completion-cycle-threshold nil
  ;; Show docstrings for completion candidates?
- ;; TODO Keep that off until I figured out how to truncate long docstrings in
- ;; the when the frame width is narrower
  completions-detailed nil
  ;; Automatically select the *Completions* buffer?
  completion-auto-select nil
@@ -1102,6 +1103,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; Icomplete
+;; Prevent visual line wrapping in narrow frames
+(add-hook 'completion-list-mode-hook (lambda () (setq-local truncate-lines t)))
 
 ;; Tweaking Icomplete
 (with-eval-after-load 'icomplete
