@@ -1433,8 +1433,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; --> recommended 3rd-party package 'xclip'
 ;; If you would like to install this 3rd-party package, uncomment and evaluate
 ;; the following expression – either via "C-M-x", or simply restart Emacs:
-;; (use-package xclip
-;;  :ensure t)
+;; (use-package xclip :ensure t)
 
 ;; Copy the full path of the current file
 (defun eon-copy-file-path ()
