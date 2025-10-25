@@ -2615,92 +2615,48 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
-;; Tiny minor mode that prevents from accidently saving files with mismatched
-;; parenthesis and quotes
-(defun eon--check-parens ()
-  "Check parens; prompt to proceed on mismatch."
-  (if (condition-case nil (progn (check-parens) t) (error nil))
-      nil
-    (if (y-or-n-p
-         "Didn't save file: unmatched paren or quote. Save anyway? ")
-        nil
-      (user-error "OK, the file hasn't been saved"))))
-
-(define-minor-mode eon-check-parens-mode
-  "Ask when saving with mismatching parens or quotes."
-  :init-value t
-  :lighter ""
-  (if eon-check-parens-mode
-      (add-hook 'write-contents-functions #'eon--check-parens nil t)
-    (remove-hook 'write-contents-functions #'eon--check-parens t)))
-
-;; Enable minor mode per default. Toggle via "M-x eon-check-parens-mode".
-;; Don't like the guard? Turn off via "M-x eon-check-parens-mode"
-;; or remove the hook permanently via:
-;; (remove-hook 'emacs-lisp-mode-hook #'eon-check-parens-mode)
-(add-hook 'emacs-lisp-mode-hook #'eon-check-parens-mode)
-
-;; Enable Flymake for Emacs Lisp, but never for lisp-interaction-mode
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (unless (derived-mode-p 'lisp-interaction-mode)
-              (flymake-mode 1))))
-
-;; Emacs Lisp evaluation: don't truncate printed lists
-(setopt eval-expression-print-length nil
-        eval-expression-print-level nil)
-
-;; Reach eval-expression via "<leader> x"
-(keymap-set ctl-z-e-map "x" #'eval-expression)
-
-;; Additional keybinding resembling other sexp-related keybindings
-(keymap-global-set "C-M-<backspace>" #'backward-kill-sexp)
-
-;;; Localleader keymaps for `emacs-lisp-mode'
-
-;; Group macro-related commands into a keymap
-(defvar-keymap eon-localleader-elisp-macro-map
-  :doc "Macro/expand commands for Emacs Lisp."
-  "m" #'emacs-lisp-macroexpand
-  "p" #'pp-macroexpand-last-sexp)
-
-;; Group compilaton commands ito a keymap
-(defvar-keymap eon-localleader-elisp-compile-map
-  :doc "Compilation commands for Emacs Lisp."
-  "b" #'elisp-byte-compile-buffer
-  "f" #'elisp-byte-compile-file)
-
-;; Define localleader keymap for `emacs-lisp-mode'
-(eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
-  :doc "Local leader keymap for Emacs Lisp buffers."
-  ;; Hook the "compilation" keymap into the localleader keymap
-  "c" `("Compile" . ,eon-localleader-elisp-compile-map)
-  "d" #'eval-defun
-  "D" #'edebug-defun
-  "e" #'eval-last-sexp
-  "h" #'describe-symbol
-  ;; Hook the "macro" keymap into the localleader keymap
-  "m" `("Macro" . ,eon-localleader-elisp-macro-map)
-  "p" #'pp-eval-last-sexp
-  "E" #'elisp-eval-region-or-buffer)
-
-;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; General helpers for lisp-type languages
+;;; Helpers for lisp-type languages
 
 (defvar eon-lisp-src-modes-registry
-  '(common-lisp-mode
+  '(;; Built-in modes
+    common-lisp-mode
     emacs-lisp-mode
-    lisp-mode
+    lisp-interaction-mode
     lisp-data-mode
-    scheme-mode)
+    lisp-mode
+    scheme-mode
+    ;; 3rd-party packages
+    clojure-mode
+    clojurec-mode
+    clojurescript-mode
+    clojurex-mode
+    clojure-ts-mode
+    clojurescript-ts-mode
+    clojurec-ts-mode
+    fennel-mode
+    gerbil-mode
+    lfe-mode
+    racket-mode
+    stumpwm-mode)
   "Registry of Lisp-related source modes.")
 
 (defvar eon-lisp-repl-modes-registry
-  '(eshell-mode
+  '(;; Built-in modes
+    eshell-mode
     inferior-emacs-lisp-mode
     inferior-lisp-mode
     inferior-scheme-mode
-    lisp-interaction-mode)
+    ;; 3rd-party packages
+    cider-repl-mode
+    fennel-repl-mode
+    geiser-repl-mode
+    inf-clojure-mode
+    inferior-lfe-mode
+    monroe-mode
+    racket-repl-mode
+    scheme-interaction-mode
+    slime-repl-mode
+    sly-mrepl-mode)
   "Registry of Lisp-related REPL modes.")
 
 (defun eon-lisp--modes-transform (modes switch)
@@ -2726,8 +2682,65 @@ With SWITCH = \='hook, return ...-hook variables."
    (seq-filter #'fboundp eon-lisp-repl-modes-registry)
    switch))
 
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; CHECK PARENS MODE
 
+;; Minor mode that prevents from accidently saving files with mismatched
+;; parenthesis and quotes
 
+(defun eon-check-parens ()
+  "Check parens; prompt to proceed on mismatch."
+  (if (condition-case nil (progn (check-parens) t) (error nil))
+      nil
+    (if (y-or-n-p
+         "Didn't save file: unmatched paren or quote. Save anyway? ")
+        nil
+      (user-error "OK, the file hasn't been saved"))))
+
+(define-minor-mode eon-check-parens-mode
+  "Ask when saving with mismatching parens or quotes."
+  :group 'eon
+  :global t
+  :init-value t
+  (if eon-check-parens-mode
+      (add-hook 'write-contents-functions #'eon-check-parens nil t)
+    (remove-hook 'write-contents-functions #'eon-check-parens t)))
+
+;; Enable minor mode per default; toggle via "M-x eon-check-parens-mode".
+;; How to remove the hook permanently from a specific lisp major mode:
+;; (remove-hook 'emacs-lisp-mode-hook #'eon-check-parens-mode)
+(mapc (lambda (mode) (add-hook mode #'eon-check-parens-mode))
+      (eon-lisp-src-modes 'hook))
+
+;; Enable Flymake for Emacs Lisp, but never for `lisp-interaction-mode'
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (unless (derived-mode-p 'lisp-interaction-mode)
+              (flymake-mode 1))))
+
+;; Emacs Lisp evaluation: don't truncate printed lists
+(setopt eval-expression-print-length nil
+        eval-expression-print-level nil)
+
+;; Reach eval-expression via "<leader> x"
+(keymap-set ctl-z-e-map "x" #'eval-expression)
+
+;; Additional keybinding resembling other sexp-related keybindings
+(keymap-global-set "C-M-DEL" #'backward-kill-sexp)
+
+;; Define local leader keymap for `emacs-lisp-mode'
+(eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
+  :doc "Local leader keymap for Emacs Lisp buffers."
+  "d"   #'edebug-defun
+  "e"   #'eval-last-sexp
+  "E"   #'elisp-eval-region-or-buffer
+  "h"   #'describe-symbol
+  "m"   #'pp-macroexpand-last-sexp
+  "M"   #'emacs-lisp-macroexpand
+  "p"   #'pp-eval-last-sexp
+  "x"   #'eval-defun
+  "C-b" #'elisp-byte-compile-buffer
+  "C-f" #'elisp-byte-compile-file)
 
 ;; _____________________________________________________________________________
 ;;; SERVER
