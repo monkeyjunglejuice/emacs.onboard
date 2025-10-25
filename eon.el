@@ -691,8 +691,6 @@ Use the Customization UI to change, or `setopt' in Elisp code."
 (keymap-global-set eon-leader-key ctl-z-map)
 
 ;; Make the leader available in the minibuffer too
-;; If there's a problem with that, please open an issue on Github:
-;; <https://github.com/monkeyjunglejuice/emacs.onboard/issues>
 (add-hook 'minibuffer-setup-hook
           (lambda ()
             (when (keymapp (current-local-map))
