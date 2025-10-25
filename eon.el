@@ -1195,14 +1195,16 @@ Some themes may come as functions -- wrap these ones in lambdas."
     (define-key map (kbd "<up>") #'icomplete-backward-completions)
     (define-key map (kbd "M-n") #'icomplete-forward-completions)
     (define-key map (kbd "M-p") #'icomplete-backward-completions)))
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Fido vertical mode
 
-;;  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Vertical completion with `fido-vertical'
+;; The default vertical minibuffer completion UI for Emacs ONBOARD
 
-;; TAB accepts the current candidates in Fido minibuffers
 ;; Prevent jumping minibuffer window when the number of candidates changes.
 (add-hook 'icomplete-minibuffer-setup-hook
           (lambda () (setq-local resize-mini-windows 'grow-only)))
+
+;; TAB accepts the current candidates in Icomplete/Fido minibuffers
 (with-eval-after-load 'icomplete
   (keymap-set icomplete-minibuffer-map "TAB" #'icomplete-force-complete)
   (keymap-set icomplete-minibuffer-map "<tab>" #'icomplete-force-complete))
