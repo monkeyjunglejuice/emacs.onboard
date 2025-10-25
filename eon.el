@@ -1551,6 +1551,11 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Write buffer to file ("save file as ..."): "<leader> f w"
 (keymap-set ctl-z-f-map "w" #'write-file)
 
+;; Rename a file via "<leader> f r"
+;; Reach the VC/Git aware renaming command via "<leader> v r"
+(keymap-set ctl-z-f-map "r" #'rename-visited-file)
+(keymap-set ctl-z-f-map "R" #'rename-file)
+
 ;; Deleting files
 
 (defun eon-trash-on ()
@@ -1610,7 +1615,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
              "^/\\(?:ssh\\|su\\|sudo\\)?:")
 
 ;; Select from recently opened files via "<leader> f r"
-(keymap-set ctl-z-f-map "r" #'recentf-open)
+(keymap-set ctl-z-f-map "h" #'recentf-open)
 
 ;; _____________________________________________________________________________
 ;;; BACKUP FILES
