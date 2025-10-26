@@ -1524,6 +1524,25 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; _____________________________________________________________________________
 ;;; REGISTER
 
+(defun eon-register-clear ()
+  "Pick a register with the built-in preview and clear it.
+
+Prompts using `register-read-with-preview', the same UI `view-register'
+uses.  After selection, remove the entry from `register-alist'.
+
+If the chosen register is empty, signal a user error instead of
+pretending to clear it."
+  (interactive)
+  (let* ((reg (register-read-with-preview "Clear register: "))
+         (val (get-register reg)))
+    (unless val
+      (user-error "Register %s is empty"
+                  (single-key-description reg)))
+    (set-register reg nil)
+    (message "Cleared register %s" (single-key-description reg))))
+
+(keymap-set ctl-z-r-map "c" #'eon-register-clear)
+
 (keymap-set ctl-z-r-map "r" #'jump-to-register)
 
 ;; _____________________________________________________________________________
