@@ -2713,6 +2713,7 @@ With SWITCH = \='hook, return ...-hook variables."
   "e"   #'eval-last-sexp
   "E"   #'elisp-eval-region-or-buffer
   "h"   #'describe-symbol
+  "l"   #'load-file
   "m"   #'pp-macroexpand-last-sexp
   "M"   #'emacs-lisp-macroexpand
   "p"   #'pp-eval-last-sexp
