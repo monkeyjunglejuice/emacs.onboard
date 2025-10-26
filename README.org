@@ -32,8 +32,6 @@ Some features -- without any dependencies or "re-inventing the wheel":
   - Works with Evil mode (Vim keybindings etc. in Emacs) -- [[https://github.com/monkeyjunglejuice/emacs.ontop/blob/c1f7fe28df28cfa9323a4da1b6b5a5d0c64477fb/eon-evil.el][example config here]].
     e.g. the leader key could be just =,= and the local leader =, ,=; or =SPC= as the leader and =SPC SPC= as the local leader -- or something else.
 - Vertical "fuzzy" completion for commands, files, etc. in the minibuffer (built-in fido-vertical-mode).
-  - Optional: eon-minicomp-mode -- minibuffer alternative to the =*Completions*= buffer for code completion (with "fuzzy" search, based on fido-vertical-mode).
-  - Optional (WIP): eon-buffcomp-mode -- lightweight in-buffer code completion based on icomplete-in-buffer and fido-vertical-mode (think poor person's Company or Corfu).
 - Check-parens-mode: Emacs warns you before accidently saving Lisp source code with mismatched parens or quotes.
 - Lets you customize the most important preferences in Emacs' Customization GUI: =<leader> x C=.
 - Toggle between your light/dark theme via =<leader> x t=; and run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the light/dark theme variant.
