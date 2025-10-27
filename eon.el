@@ -1905,6 +1905,7 @@ pretending to clear it."
 (setopt url-privacy-level '(email lastloc cookies))
 (url-setup-privacy-info)
 
+;; TODO Refactor to make the user-agent string customizable/selectable
 (defun eon-user-agent (browser-name)
   "Accepts a symbol in order to return a pre-defined user-agent string.
 BROWSER-NAME can be either \='safari-macos, \='safari-iphone, \='w3m or t -
