@@ -1751,6 +1751,15 @@ pretending to clear it."
 ;; Open directory of the currently visited file via leader menu: "<leader> f d"
 (keymap-set ctl-z-f-map "d" #'dired-jump)
 
+;; Keybindings in Dired
+(with-eval-after-load 'dired
+  ;; Switch to wdired-mode and edit directory content like a text buffer
+  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode)
+  ;; Open file in associated OS application
+  (keymap-set dired-mode-map "M-RET" #'dired-do-open)
+  ;; "f" opens file/directory; bring forward/backward pattern to Dired
+  (keymap-set dired-mode-map "b" #'dired-up-directory))
+
 (with-eval-after-load 'dired
   (setopt
    ;; Don't accumulate useless Dired buffers
@@ -1768,10 +1777,6 @@ pretending to clear it."
    ;; Check for directory modifications?
    dired-auto-revert-buffer t))
 
-;; Switch to wdired-mode and edit directory content like a text buffer
-(with-eval-after-load 'dired
-  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode))
-
 ;; Hide details in file listings? Toggle via "(" or "<localleader> d"
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (keymap-set eon-localleader-dired-map "d" #'dired-hide-details-mode)
@@ -1779,17 +1784,14 @@ pretending to clear it."
 ;; Highlight current line in Dired?
 (add-hook 'dired-mode-hook #'hl-line-mode)
 
-;; Linux/Unix only: hit "M-RET" to open files in the corresponding desktop app
-(with-eval-after-load 'dired
-  (when (eon-linp)
-    (defun eon-dired-xdg-open ()
-      "Open files and folders with the default desktop app."
-      (interactive)
-      (let* ((file (dired-get-filename nil t)))
-        (message "Opening %s..." file)
-        (call-process "xdg-open" nil 0 nil file)
-        (message "Opening %s done" file)))
-    (keymap-set dired-mode-map "M-RET" #'eon-dired-xdg-open)))
+;; Images
+(with-eval-after-load 'image-dired
+  (setopt
+   image-dired-thumb-margin 1
+   image-dired-thumb-relief 0
+   ;; Store thumbnails in the system-wide thumbnail location
+   ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
+   image-dired-thumbnail-storage 'standard-large))
 
 ;; Open '~/.emacs.d' directory in Dired
 (defun eon-dired-user-emacs-directory ()
@@ -1803,16 +1805,7 @@ pretending to clear it."
   (interactive)
   (dired eon-user-directory))
 (with-eval-after-load 'dired
-  (keymap-set dired-mode-map "h" #'eon-visit-user-directory))
-
-;; Images
-(with-eval-after-load 'image-dired
-  (setopt
-   image-dired-thumb-margin 1
-   image-dired-thumb-relief 0
-   ;; Store thumbnails in the system-wide thumbnail location
-   ;; e.g. ~/.local/cache/thumbnails to make them reusable by other programs
-   image-dired-thumbnail-storage 'standard-large))
+  (keymap-set dired-mode-map "h" #'eon-dired-user-directory))
 
 ;; _____________________________________________________________________________
 ;;; COMINT
