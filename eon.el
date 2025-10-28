@@ -219,7 +219,8 @@ cause OS paging."
   :type 'number)
 
 ;; Set the high value immediately to prevent frequent garbage collections
-;; during initialization
+;; during initialization. Will be adjusted dynamically when eon-gcmh-mode
+;; is activated via `emacs-startup-hook'.
 (setq gc-cons-threshold eon-gcmh-high-cons-threshold)
 
 (defcustom eon-gcmh-low-cons-threshold 800000
