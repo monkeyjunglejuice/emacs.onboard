@@ -1323,6 +1323,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-w-map "f" #'find-file-other-window)
 (keymap-set ctl-z-w-map "k" #'kill-buffer-and-window)
 (keymap-set ctl-z-w-map "m" #'delete-other-windows)
+(keymap-set ctl-z-w-map "q" #'quit-window)
 (keymap-set ctl-z-w-map "s" #'split-window-below)
 (keymap-set ctl-z-w-map "v" #'split-window-right)
 (keymap-set ctl-z-w-map "w" #'other-window)
