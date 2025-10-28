@@ -1359,15 +1359,53 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-b-map "n" #'next-buffer)
 (keymap-set ctl-z-b-map "b" #'switch-to-buffer)
 
-;; Kill the current buffer immediately instead of presenting a selection.
-;; It's the equivalent to "close tab" in other editors.
-(keymap-set ctl-z-map "k" #'kill-current-buffer)
+;; Get the buffer out of the way, but keep it alive
+(defun eon-bury-buffer (&optional restore)
+  "Bury the current buffer.
+If visiting a file and modified, ask to save first; then bury the buffer.
+If called from the minibuffer, exit via `abort-recursive-edit'.
+With prefix arg RESTORE is non-nil, bring the buffer back."
+  (interactive "P")
+  (if (minibufferp)
+      (abort-recursive-edit)
+    (if restore
+        (unbury-buffer)
+      (when (and buffer-file-name (buffer-modified-p))
+        (when (y-or-n-p (format "Save buffer %s before bury? "
+                                (buffer-name)))
+          (basic-save-buffer)))
+      (bury-buffer))))
+
+(keymap-set ctl-z-map "k" #'eon-bury-buffer)
+
+;; Get the buffer out of the way and close the window
+(defun eon-bury-window (&optional restore)
+  "Bury the current buffer.
+If visiting a file and modified, ask to save first; then bury the buffer.
+With prefix arg RESTORE non-nil, restore the previous window configuration.
+If called from the minibuffer, exit via `abort-recursive-edit'."
+  (interactive "P")
+  (if (minibufferp)
+      (abort-recursive-edit)
+    (if restore
+        (progn
+          (winner-undo)
+          (unbury-buffer))
+      (when (and buffer-file-name (buffer-modified-p))
+        (when (y-or-n-p (format "Save buffer %s before bury? "
+                                (buffer-name)))
+          (basic-save-buffer)))
+      (bury-buffer)
+      (unless (one-window-p)
+        (delete-window)))))
+
+(keymap-set ctl-z-map "K" #'eon-bury-window)
+
+;; Kill the current buffer immediately instead of presenting a selection
+(keymap-set ctl-z-b-map "k" #'kill-current-buffer)
 
 ;; Kill the window too
-(keymap-set ctl-z-map "K" #'kill-buffer-and-window)
-
-;; Get the buffer out of the way, but let it alive
-(keymap-set ctl-z-b-map "k" #'bury-buffer)
+(keymap-set ctl-z-b-map "K" #'kill-buffer-and-window)
 
 ;; Kill all buffers at once
 (defun eon-kill-all-buffers ()
@@ -1377,7 +1415,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
 
-(keymap-set ctl-z-b-map "K" #'eon-kill-all-buffers)
+(keymap-set ctl-z-b-map "C-k" #'eon-kill-all-buffers)
 
 ;; Uniquify buffer names for buffers that would have identical names
 (setopt uniquify-buffer-name-style 'forward)
