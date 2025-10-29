@@ -1920,6 +1920,9 @@ pretending to clear it."
   "Open a new eshell instance."
   (interactive)
   (eshell 't))
+;; Jump to Eshell prompts
+(add-hook eshell-mode-hook
+          (lambda () (setq outline-regexp eshell-prompt-regexp)))
 
 ;; Launch an Eshell buffer: "<leader> e e"; re-visit the buffer by repeating
 (keymap-set ctl-z-e-map "e" #'eshell)
