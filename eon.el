@@ -1648,13 +1648,14 @@ pretending to clear it."
 
 ;; Which histories to save between Emacs sessions?
 (savehist-mode 1)
-(eon-add-to-list 'savehist-additional-variables
-                 '(kill-ring
-                   register-alist
-                   mark-ring
-                   global-mark-ring
-                   search-ring
-                   regexp-search-ring))
+(eon-add-to-list-setopt 'savehist-additional-variables
+                        '(kill-ring
+                          register-alist
+                          mark-ring
+                          global-mark-ring
+                          search-ring
+                          regexp-search-ring
+                          compile-command))
 
 ;; History length for various histories
 (setopt history-length 1024)
