@@ -824,11 +824,11 @@ BODY is forwarded to `defvar-keymap'."
 
 (with-eval-after-load 'viper
   (setopt
-   viper-inhibit-startup-message t    ; Don't show viper's start up message
-   viper-expert-level            '5   ; Use max Emacs experience level [1,5]
-   viper-case-fold-search        t    ; Ingore case when searching
-   viper-ex-style-editing        nil  ; Delete past line's beginning
-   viper-ex-style-motion         nil  ; Move past line's beginning
+   viper-inhibit-startup-message t    ; don't show viper's start up message
+   viper-expert-level            '5   ; use max Emacs experience level [1,5]
+   viper-case-fold-search        t    ; ingore case when searching
+   viper-ex-style-editing        nil  ; delete past line's beginning
+   viper-ex-style-motion         nil  ; move past line's beginning
    ))
 
 (with-eval-after-load 'viper-cmd
