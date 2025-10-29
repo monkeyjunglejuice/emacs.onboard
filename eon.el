@@ -1321,6 +1321,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt mouse-autoselect-window nil
         focus-follows-mouse nil)
 
+;; Make window splits more evenly sized?
+(setopt window-resize-pixelwise t)
+
 ;; Undo/redo window layouts
 (setopt winner-dont-bind-my-keys t)
 (keymap-set ctl-z-w-map "u" #'winner-undo)
