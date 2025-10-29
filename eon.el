@@ -1947,14 +1947,14 @@ pretending to clear it."
 ;; Make `shell' behave like `eshell'
 (setopt shell-kill-buffer-on-exit t)
 
+;; Launch a Shell buffer: "<leader> e s"; re-visit the buffer by repeating
+(keymap-set ctl-z-e-map "s" #'shell)
+
+;; Launch a fresh Shell buffer: "<leader> e S"
 (defun eon-shell-new ()
   "Open a new shell instance."
   (interactive)
   (shell (generate-new-buffer-name "*shell*")))
-
-;; Launch a Shell buffer: "<leader> e s"; re-visit the buffer by repeating
-(keymap-set ctl-z-e-map "s" #'shell)
-;; Launch a fresh Shell buffer: "<leader> e S"
 (keymap-set ctl-z-e-map "S" #'eon-shell-new)
 
 ;; _____________________________________________________________________________
