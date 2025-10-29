@@ -1390,7 +1390,6 @@ With prefix arg RESTORE is non-nil, bring the buffer back."
                                 (buffer-name)))
           (basic-save-buffer)))
       (bury-buffer))))
-
 (keymap-set ctl-z-map "k" #'eon-bury-buffer)
 
 ;; Get the buffer out of the way and close the window
@@ -1413,7 +1412,6 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
       (bury-buffer)
       (unless (one-window-p)
         (delete-window)))))
-
 (keymap-set ctl-z-map "K" #'eon-bury-window)
 
 ;; Kill the current buffer immediately instead of presenting a selection
@@ -1429,7 +1427,6 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
   (save-some-buffers)
   (let ((kill-buffer-query-functions '()))
     (mapc #'kill-buffer (buffer-list))))
-
 (keymap-set ctl-z-b-map "C-k" #'eon-kill-all-buffers)
 
 ;; Uniquify buffer names for buffers that would have identical names
