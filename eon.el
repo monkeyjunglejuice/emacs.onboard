@@ -1916,20 +1916,21 @@ pretending to clear it."
 ;; List directory content after changing into it?
 (setopt eshell-list-files-after-cd t)
 
-(defun eon-eshell-new ()
-  "Open a new eshell instance."
-  (interactive)
-  (eshell 't))
 ;; Jump to Eshell prompts
 (add-hook eshell-mode-hook
           (lambda () (setq outline-regexp eshell-prompt-regexp)))
 
 ;; Launch an Eshell buffer: "<leader> e e"; re-visit the buffer by repeating
 (keymap-set ctl-z-e-map "e" #'eshell)
+
 ;; Launch a fresh Eshell buffer: "<leader> e E"
+(defun eon-eshell-new ()
+  "Open a new eshell instance."
+  (interactive)
+  (eshell 't))
 (keymap-set ctl-z-e-map "E" #'eon-eshell-new)
 
-;; Create Eshell loacalleader keymap
+;; Create Eshell loacal leader keymap
 (eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
   :doc "Local leader keymap for Eshell")
 
