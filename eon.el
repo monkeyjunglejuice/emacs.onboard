@@ -1724,7 +1724,7 @@ pretending to clear it."
 
 ;; Auto refresh buffers when contents change?
 (setopt global-auto-revert-non-file-buffers t
-        auto-revert-stop-on-user-input nil
+        auto-revert-stop-on-user-input t
         auto-revert-verbose t)
 (global-auto-revert-mode 1)
 
