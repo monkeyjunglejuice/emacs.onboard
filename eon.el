@@ -1371,6 +1371,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-b-map "n" #'next-buffer)
 (keymap-set ctl-z-b-map "b" #'switch-to-buffer)
 
+;; Reload buffer; when visiting a file, discard all unsaved changes
+(keymap-set ctl-z-b-map "C-r" #'revert-buffer)
+
 ;; Get the buffer out of the way, but keep it alive
 (defun eon-bury-buffer (&optional restore)
   "Bury the current buffer.
