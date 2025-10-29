@@ -1575,14 +1575,20 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   (keymap-set ctl-z-map "C-y" #'eon-wsl-paste))
 
 ;; _____________________________________________________________________________
-;;; REGISTER
+;;; REGISTERS
+
+(setopt register-use-preview t)
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - General keybindings
+
+;; View register content
+(keymap-set ctl-z-r-map "v" #'view-register)
 
 (defun eon-register-clear ()
   "Pick a register with the built-in preview and clear it.
-
 Prompts using `register-read-with-preview', the same UI `view-register'
 uses.  After selection, remove the entry from `register-alist'.
-
 If the chosen register is empty, signal a user error instead of
 pretending to clear it."
   (interactive)
@@ -1593,10 +1599,38 @@ pretending to clear it."
                   (single-key-description reg)))
     (set-register reg nil)
     (message "Cleared register %s" (single-key-description reg))))
-
 (keymap-set ctl-z-r-map "c" #'eon-register-clear)
 
-(keymap-set ctl-z-r-map "r" #'jump-to-register)
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Insertable
+
+;; Insert from register
+(keymap-set ctl-z-r-map "i" #'insert-register)
+
+;; Copy the region into register
+(keymap-set ctl-z-r-map "r" #'copy-to-register)
+;; Copy the region-rectangle into register
+(keymap-set ctl-z-r-map "R" #'copy-rectangle-to-register)
+
+;; Store number in register. Example: "C-u 23 <leader> r n"
+(keymap-set ctl-z-r-map "n" #'number-to-register)
+;; Increment register by number; behaves differently when register contains text
+(keymap-set ctl-z-r-map "+" #'increment-register)
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Jumpable
+
+;; Jump to a "jumpable" register
+(keymap-set ctl-z-r-map "j" #'jump-to-register)
+
+;; Save the state of the selected frame's windows in register
+(keymap-set ctl-z-r-map "w" #'window-configuration-to-register)
+;; Save the state of all frames in register
+(keymap-set ctl-z-r-map "f" #'frameset-to-register)
+;; Store keyboard macro in register
+(keymap-set ctl-z-r-map "k" #'kmacro-to-register)
+;; Record the position of point and the current buffer in register
+(keymap-set ctl-z-r-map "SPC" #'point-to-register)
 
 ;; _____________________________________________________________________________
 ;;; BOOKMARKS
