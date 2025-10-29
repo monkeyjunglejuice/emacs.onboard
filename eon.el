@@ -2109,9 +2109,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; If you prefer to see all text within a window in programming modes, enable
 ;; visual line breaks, a.k.a soft wrapping
-;; (add-hook 'prog-mode-hook
-;;           (lambda ()
-;;             (visual-line-mode 1)))
+;; (add-hook 'prog-mode-hook (lambda () (visual-line-mode 1)))
 
 ;; Visual line wrapping in text mode
 (add-hook 'text-mode-hook #'visual-line-mode)
@@ -2129,9 +2127,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hideshow>
 
 ;; Code folding on or off? Show available commands: "M-x hs-"
-;; (add-hook 'prog-mode-hook
-;;           (lambda ()
-;;             (hs-minor-mode 1)))
+;; (add-hook 'prog-mode-hook (lambda () (hs-minor-mode 1)))
 
 ;; _____________________________________________________________________________
 ;;; INDENTATION
