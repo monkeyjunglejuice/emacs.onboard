@@ -482,7 +482,9 @@ Cancel the previous one if present."
             ;; Highlight current line in special modes?
             (hl-line-mode 1)))
 
-;;; Change the cursor type based on a certain state
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Change the cursor type based on a certain state
+
 ;; To learn about available cursor types, place your cursor on `cursor-type'
 ;; and do "C-h o"; or do "M-x describe-symbol RET cursor-type RET"
 
@@ -992,7 +994,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Keybinding to toggle between light and dark: "<leader> x t"
 (keymap-set ctl-z-x-map "t" #'eon-theme-toggle)
 
-;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;; _____________________________________________________________________________
 ;;; THEME CONFIG
 
 ;; Set some defaults for the Modus themes; doesn't affect other themes.
@@ -1006,13 +1008,13 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Customize via "M-x eon-customize-group" or via `setopt' in your init.el
 
-;;; Set your light theme:
+;;; - Set your light theme:
 ;; (setopt eon-theme-light 'modus-operandi-tinted)
 
-;;; Set your dark theme:
+;;; - Set your dark theme:
 ;; (setopt eon-theme-dark 'modus-vivendi-tinted)
 
-;;; Set 'light or 'dark as your default theme variant:
+;;; - Set 'light or 'dark as your default theme variant:
 ;; (setopt eon-theme-variant-default 'light)
 
 ;; The hooks below can be used to run additional functions before or after
@@ -1020,7 +1022,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; variables that otherwise would get overwritten by themes.
 ;; Restart Emacs to take effect after changing the hooks.
 
-;;; Light theme hooks
+;;; - Light theme hooks
 
 ;; Call a function before/after loading the light theme
 ;; Example for commands ("interactive" functions):
@@ -1037,7 +1039,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 (add-hook 'eon-theme-light-post-load-hook #'eon-fonts-default)
 
-;;; Dark theme hooks
+;;; - Dark theme hooks
 
 ;; Call a function before/after loading the dark theme
 ;; Example for commands ("interactive" functions):
@@ -1145,7 +1147,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completion-category-overrides
         '((file (styles . (basic partial-completion)))))
 
-;;; Dabbrev
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Dabbrev
+
 (with-eval-after-load 'dabbrev
   (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
@@ -1605,7 +1609,7 @@ pretending to clear it."
 (keymap-set ctl-z-r-map "c" #'eon-register-clear)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - Insertable
+;;; - insertable
 
 ;; Insert from register
 (keymap-set ctl-z-r-map "i" #'insert-register)
@@ -2665,7 +2669,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
         org-html-self-link-headlines t)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - LITERATE PROGRAMMING
+;;; - ORG LITERATE PROGRAMMING
 ;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
 ;; Activate code blocks via Babel languages
@@ -2679,7 +2683,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
-;;; Helpers for lisp-type languages
+;;; - Helpers for lisp-type languages
 
 (defvar eon-lisp-src-modes-registry
   '(;; Built-in modes
@@ -2747,7 +2751,7 @@ With SWITCH = \='hook, return ...-hook variables."
    switch))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; CHECK PARENS MODE
+;;; - Check-parens mode
 
 ;; Minor mode that prevents from accidently saving files with mismatched
 ;; parenthesis and quotes
