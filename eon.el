@@ -510,7 +510,7 @@ See also `cursor-type'"
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-select 'bar
-  "Cursor type for selecting text.
+  "Cursor type for selecting text in writing- or modal insert states.
 Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
@@ -532,7 +532,18 @@ See also `cursor-type'"
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-extra 'box
-  "Cursor type for special or command states.
+  "Cursor type for command- and modal \"normal\" states.
+Accepts an expression that returns either:
+- t or nil
+- one of the symbols: 'bar 'hbar 'box 'hollow
+- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+See also `cursor-type'"
+  :type 'sexp
+  :group 'eon-cursor-type
+  :set #'eon-cursor-type--set)
+
+(defcustom eon-cursor-type-extra-select 'hollow
+  "Cursor type for command- and modal \"normal\" states when region is active.
 Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
