@@ -1161,13 +1161,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Completions buffer
 
-;; There's now `eon-minicomp-mode', an alternative to the *Completions* buffer
-;; that displays completion candidates in the minibuffer via fuzzy search.
-;; Enable via "M-x eon-minicomp-mode".
-;;
-;; There's also a second alternative `eon-buffcomp-mode 'in the making
-;; for inline code completion, similar to Company or Corfu (but much simpler).
-
 ;; Allow the *Completions* buffer to pop up?
 (setopt completion-auto-help 'always)
 
