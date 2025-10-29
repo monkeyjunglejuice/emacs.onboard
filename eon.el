@@ -1957,6 +1957,10 @@ pretending to clear it."
   (shell (generate-new-buffer-name "*shell*")))
 (keymap-set ctl-z-e-map "S" #'eon-shell-new)
 
+;; Create Shell loacal leader keymap
+(eon-localleader-defkeymap shell-mode eon-localleader-shell-map
+  :doc "Local leader keymap for Shell")
+
 ;; _____________________________________________________________________________
 ;;; PROCED
 
