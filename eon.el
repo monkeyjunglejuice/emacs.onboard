@@ -2802,7 +2802,7 @@ With SWITCH = \='hook, return ...-hook variables."
 (setopt eval-expression-print-length nil
         eval-expression-print-level nil)
 
-;; Reach eval-expression via "<leader> x"
+;; Reach eval-expression via "<leader> e x"
 (keymap-set ctl-z-e-map "x" #'eval-expression)
 
 ;; Additional keybinding resembling other sexp-related keybindings
