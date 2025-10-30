@@ -905,7 +905,16 @@ BODY is forwarded to `defvar-keymap'."
                       :slant  'normal
                       :weight 'normal
                       :width  'normal
-                      :height 0.9))
+                      :height 0.9)
+  ;; Set the fonts for the tab bar
+  (set-face-attribute 'tab-bar nil
+                      ;; :family "Iosevka Curly"
+                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 0.9)
+  ;; Don't extend the selection background past the end of the line
+  (set-face-attribute 'region nil :extend nil))
 
 ;; _____________________________________________________________________________
 ;;; TOGGLE THEME
