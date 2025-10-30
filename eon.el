@@ -645,26 +645,6 @@ Each function is called with no args and should return either a
 ;;               ;; No XON/XOFF flow control stealing C-s/C-q
 ;;               (call-process "stty" nil nil nil "-ixon" "-ixoff"))))
 
-;; Leader implementation
-
-(defun eon-leader--set-key (sym value)
-  "Setter for `eon-leader-key'."
-  (let ((old (and (boundp sym) (symbol-value sym))))
-    (when (and old (stringp old) (> (length old) 0))
-      (keymap-global-unset old t))
-    (set-default sym value)
-    (when (boundp 'ctl-z-map)
-      (keymap-global-set value ctl-z-map))
-    (when (and old (string= eon-localleader-key old))
-      (eon-localleader--set-key 'eon-localleader-key value))))
-
-(defcustom eon-leader-key
-  (if (display-graphic-p) "C-," "C-z")
-  "Leader prefix key. GUI default: \"C-,\"; TTY default: \"C-z\".
-Use the Customization UI to change, or `setopt' in Elisp code."
-  :group 'eon
-  :type 'string
-  :set #'eon-leader--set-key)
 
 ;; Localleader implementation
 
@@ -730,6 +710,27 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   :group 'eon
   :type 'string
   :set #'eon-localleader--set-key)
+
+;; Leader key
+
+(defun eon-leader--set-key (sym value)
+  "Setter for `eon-leader-key'."
+  (let ((old (and (boundp sym) (symbol-value sym))))
+    (when (and old (stringp old) (> (length old) 0))
+      (keymap-global-unset old t))
+    (set-default sym value)
+    (when (boundp 'ctl-z-map)
+      (keymap-global-set value ctl-z-map))
+    (when (and old (string= eon-localleader-key old))
+      (eon-localleader--set-key 'eon-localleader-key value))))
+
+(defcustom eon-leader-key
+  (if (display-graphic-p) "C-," "C-z")
+  "Leader prefix key. GUI default: \"C-,\"; TTY default: \"C-z\".
+Use the Customization UI to change, or `setopt' in Elisp code."
+  :group 'eon-leader
+  :type 'string
+  :set #'eon-leader--set-key)
 
 ;; Sub-keymaps under the leader:
 
