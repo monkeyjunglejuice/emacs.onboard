@@ -685,7 +685,7 @@ Don't bind any keys/commands to this keymap.")
       (keymap-set ctl-z-map value ctl-z-localleader-map)))
   (set-default sym value))
 
-;; Empty named prefix, so which-key shows the label "Local".
+;; Empty named prefix, so which-key shows the label "Local"
 (defvar-keymap ctl-z-localleader-map
   :doc "Local leader"
   :name "Local")
