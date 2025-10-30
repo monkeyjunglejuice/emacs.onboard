@@ -2812,6 +2812,9 @@ With SWITCH = \='hook, return ...-hook variables."
 (mapc (lambda (mode) (add-hook mode #'eon-check-parens-mode))
       (eon-lisp-src-modes 'hook))
 
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Further settings
+
 ;; Enable Flymake for Emacs Lisp, but never for `lisp-interaction-mode'
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
