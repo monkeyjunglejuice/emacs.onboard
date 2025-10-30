@@ -722,7 +722,7 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   :set #'eon-localleader--set-key)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Leader implementation
+;;; - Leader implementation
 
 (defun eon-leader--set-key (sym value)
   "Setter for `eon-leader-key'."
@@ -1168,7 +1168,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode))
 
-;; Make TAB try completion when appropriate.
+;; Make TAB try completion when appropriate
 (setopt tab-always-indent 'complete)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -1391,8 +1391,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (defun eon-bury-buffer (&optional restore)
   "Bury the current buffer.
 If visiting a file and modified, ask to save first; then bury the buffer.
-If called from the minibuffer, exit via `abort-recursive-edit'.
-With prefix arg RESTORE is non-nil, bring the buffer back."
+When prefix arg RESTORE is non-nil, bring the buffer back.
+If called from the minibuffer, exit via `abort-recursive-edit'."
   (interactive "P")
   (if (minibufferp)
       (abort-recursive-edit)
@@ -1409,7 +1409,7 @@ With prefix arg RESTORE is non-nil, bring the buffer back."
 (defun eon-bury-window (&optional restore)
   "Bury the current buffer.
 If visiting a file and modified, ask to save first; then bury the buffer.
-With prefix arg RESTORE non-nil, restore the previous window configuration.
+When prefix arg RESTORE is non-nil, restore the previous window configuration.
 If called from the minibuffer, exit via `abort-recursive-edit'."
   (interactive "P")
   (if (minibufferp)
