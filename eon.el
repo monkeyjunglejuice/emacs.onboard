@@ -308,8 +308,12 @@ Cancel the previous one if present."
 ;; Activate GCMH mode (idle timer) after Emacs startup
 (add-hook 'emacs-startup-hook #'eon-gcmh-mode)
 
-;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; DIAGNOSTICS
+;; _____________________________________________________________________________
+;;; DEBUG / DIAGNOSTICS
+
+;; Enter debugger if an error is signaled
+(when init-file-debug
+  (setopt debug-on-error t))
 
 ;; Show Emacs init time and how many garbage collections happened during init
 (add-hook 'window-setup-hook
