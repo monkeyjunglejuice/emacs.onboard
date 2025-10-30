@@ -2698,7 +2698,24 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
-;;; - Helpers for lisp-type languages
+;; Define local leader keymap for `emacs-lisp-mode'
+(eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
+  :doc "Local leader keymap for Emacs Lisp buffers."
+  "d"   #'edebug-defun
+  "e"   #'eval-last-sexp
+  "E"   #'elisp-eval-region-or-buffer
+  "h"   #'describe-symbol
+  "l"   #'load-file
+  "m"   #'pp-macroexpand-last-sexp
+  "M"   #'emacs-lisp-macroexpand
+  "p"   #'pp-eval-last-sexp
+  "x"   #'eval-defun
+  "C-b" #'elisp-byte-compile-buffer
+  "C-f" #'elisp-byte-compile-file
+  "C-n" #'emacs-lisp-native-compile)
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Lisp modes registry
 
 (defvar eon-lisp-src-modes-registry
   '(;; Built-in modes
@@ -2810,22 +2827,6 @@ With SWITCH = \='hook, return ...-hook variables."
 
 ;; Additional keybinding resembling other sexp-related keybindings
 (keymap-global-set "C-M-DEL" #'backward-kill-sexp)
-
-;; Define local leader keymap for `emacs-lisp-mode'
-(eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
-  :doc "Local leader keymap for Emacs Lisp buffers."
-  "d"   #'edebug-defun
-  "e"   #'eval-last-sexp
-  "E"   #'elisp-eval-region-or-buffer
-  "h"   #'describe-symbol
-  "l"   #'load-file
-  "m"   #'pp-macroexpand-last-sexp
-  "M"   #'emacs-lisp-macroexpand
-  "p"   #'pp-eval-last-sexp
-  "x"   #'eval-defun
-  "C-b" #'elisp-byte-compile-buffer
-  "C-f" #'elisp-byte-compile-file
-  "C-n" #'emacs-lisp-native-compile)
 
 ;; _____________________________________________________________________________
 ;;; SERVER
