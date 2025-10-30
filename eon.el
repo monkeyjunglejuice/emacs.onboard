@@ -839,8 +839,8 @@ BODY is forwarded to `defvar-keymap'."
 
 (with-eval-after-load 'viper
   (setopt
-   viper-inhibit-startup-message t    ; don't show viper's start up message
-   viper-expert-level            '5   ; use max Emacs experience level [1,5]
+   viper-inhibit-startup-message t    ; don't show Viper's start up message
+   viper-expert-level            '5   ; use max Emacs experience level
    viper-case-fold-search        t    ; ingore case when searching
    viper-ex-style-editing        nil  ; delete past line's beginning
    viper-ex-style-motion         nil  ; move past line's beginning
@@ -1012,9 +1012,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Set some defaults for the Modus themes; doesn't affect other themes.
 ;; These variables must be set before loading the Modus themes.
+
+;; Allow bold and italic fonts?
 (setopt modus-themes-bold-constructs t
         modus-themes-italic-constructs nil
         modus-themes-mixed-fonts t)
+;; Remove the border around the mode line
 (setopt modus-themes-common-palette-overrides
         '((border-mode-line-active bg-mode-line-active)
           (border-mode-line-inactive bg-mode-line-inactive)))
