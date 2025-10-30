@@ -1602,7 +1602,7 @@ pretending to clear it."
 (keymap-set ctl-z-r-map "c" #'eon-register-clear)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - insertable
+;;; - Insertable
 
 ;; Insert from register
 (keymap-set ctl-z-r-map "i" #'insert-register)
