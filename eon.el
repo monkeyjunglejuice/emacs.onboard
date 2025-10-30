@@ -650,6 +650,10 @@ Each function is called with no args and should return either a
 ;;               ;; No XON/XOFF flow control stealing C-s/C-q
 ;;               (call-process "stty" nil nil nil "-ixon" "-ixoff"))))
 
+;; Group for customizations
+(defgroup eon-leader nil
+  "Customize leader key and local leader key behavior."
+  :group 'eon)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Local leader implementation
@@ -713,7 +717,7 @@ localleader is shown."
 GUI default: \"C-,\" -> reach local leader via \"C-, C-,\"
 TTY default: \"C-z\" -> reach local leader via \"C-z C-z\"
 Use the Customization UI to change, or `setopt' in Elisp code."
-  :group 'eon
+  :group 'eon-leader
   :type 'string
   :set #'eon-localleader--set-key)
 
