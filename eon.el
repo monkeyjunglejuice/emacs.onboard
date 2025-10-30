@@ -788,10 +788,71 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   ;; Add dynamic localleader keymap
   eon-localleader-key `("Local" . ,ctl-z-localleader-map))
 
-;; Initial binding of the leader prefix to the leader keymap
-(keymap-global-set eon-leader-key ctl-z-map)
+;; Don't like the pre-defined keybindings of the default leader keymap?
+;; There is an alternative, empty leader keymap
+(defvar-keymap eon-leader-user-map
+  :doc "Alternative top-level leader keymap, initially empty.
+Ready to populate with your own sub-keymaps and keybindings:
 
-;; Make the leader available in the minibuffer too
+- How to add single commands to the `eon-leader-user-map' top-level
+  (keymap-set eon-leader-user-map \"f\" #'find-file)
+
+- How to add new sub-keymaps
+1. Define a sub-keymap:
+   (defvar-keymap my-leader-g-map :doc \"Goto\")
+2. Add your sub-keymap to the `eon-leader-user-map':
+   (keymap-set eon-leader-user-map \"g\" `(\"Goto\" . ,my-leader-g-map))
+
+- How to add a keybinding to your previously defined sub-keymap
+  (keymap-set my-leader-g-map \"w\" #'browse-web)
+
+In order to activate this keymap instead of the default leader keymap,
+customize `eon-leader-map-active'."
+  ;; Add dynamic localleader keymap
+  eon-localleader-key `("Local" . ,ctl-z-localleader-map))
+
+;; TODO Setter should set the active leader keymap immediately
+(defun eon-leader-map--set-active (sym value)
+  "Setter for `eon-leader-map-active', storing VALUE in SYM.
+Warns if VALUE is bound but not a keymap; allows unbound symbols."
+  (set-default sym value)
+  (when (and (symbolp value) (boundp value)
+             (not (keymapp (symbol-value value))))
+    (message "Warning: %S is bound, but not to a keymap." value)))
+
+(defcustom eon-leader-map-active 'ctl-z-map
+   "Specify the keymap that will act as the top-level leader keymap.
+
+- 'Default leader keymap' sets `ctl-z-map':
+  The keymap is active per default and contains a useful set
+  of pre-defined keybindings.
+
+- 'User leader keymap' sets `eon-leader-user-map':
+  This keymap is initially empty, for you to roll your own keybindings.
+  See `eon-leader-user-map' for examples how to set them.
+
+- 'Other keymap':
+  Specify a symbol bound to a keymap or expression that evaluates to a symbol
+  bound to a keymap. You can use any keymap you like as your leader keymap."
+  :group 'eon-leader
+  :type '(choice
+          (const :tag "Default leader keymap" ctl-z-map)
+          (const :tag "User leader keymap" eon-leader-user-map)
+          (symbol :tag "Other keymap"))
+  :set #'eon-leader-map--set-active)
+
+(defun eon-leader-active-map ()
+  "Return the keymap designated by `eon-leader-map-active'.
+Signals a user error if the symbol is not currently a keymap."
+  (let ((sym eon-leader-map-active))
+    (if (keymapp (symbol-value sym))
+        (symbol-value sym)
+      (user-error "%S is not bound to a keymap" sym))))
+
+;; Initial binding of the leader prefix to the enabled top-level leader keymap
+(keymap-global-set eon-leader-key (eon-leader-active-map))
+
+;; Make the leader key available in the minibuffer too
 (add-hook 'minibuffer-setup-hook
           (lambda ()
             (when (keymapp (current-local-map))
