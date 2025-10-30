@@ -1578,7 +1578,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; _____________________________________________________________________________
 ;;; REGISTERS
 
-;; (setopt register-use-preview t)
+;; Better register preview
+(setopt register-use-preview t)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - General keybindings
