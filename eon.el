@@ -2779,7 +2779,7 @@ With SWITCH = \='hook, return ...-hook variables."
 
 (define-minor-mode eon-check-parens-mode
   "Ask when saving with mismatching parens or quotes."
-  :group 'eon
+  :group 'eon-misc
   :global t
   :init-value t
   (if eon-check-parens-mode
