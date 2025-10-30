@@ -651,7 +651,8 @@ Each function is called with no args and should return either a
 ;;               (call-process "stty" nil nil nil "-ixon" "-ixoff"))))
 
 
-;; Localleader implementation
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Local leader implementation
 
 (defvar-keymap eon-localleader-global-map
   :doc "Global local leader keymap (fallback for all major and minor modes).
@@ -716,7 +717,8 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   :type 'string
   :set #'eon-localleader--set-key)
 
-;; Leader key
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; Leader implementation
 
 (defun eon-leader--set-key (sym value)
   "Setter for `eon-leader-key'."
