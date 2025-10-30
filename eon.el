@@ -838,7 +838,7 @@ BODY is forwarded to `defvar-keymap'."
 
 ;; _____________________________________________________________________________
 ;;; FONTS
-;;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
 
 ;; You can use this function definition as a template to define your own font
 ;; set, then call your personal function via `eon-load-after-light-theme-hook'
