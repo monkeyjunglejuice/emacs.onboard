@@ -755,7 +755,7 @@ Use the Customization UI to change, or `setopt' in Elisp code."
 ;; Top-level leader keymap, referencing the sub-keymaps defined previously:
 
 (defvar-keymap ctl-z-map
-  :doc "Leader (top-level) keymap."
+  :doc "Top-level leader keymap."
   "b"   `("Buffer"   . ,ctl-z-b-map)
   "c"   `("Code"     . ,ctl-z-c-map)
   "e"   `("Exec"     . ,ctl-z-e-map)
