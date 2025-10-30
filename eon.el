@@ -2817,9 +2817,9 @@ With SWITCH = \='hook, return ...-hook variables."
   "h"   #'describe-symbol
   "l"   #'load-file
   "m"   #'pp-macroexpand-last-sexp
+  "M"   #'emacs-lisp-macroexpand
   "p"   #'pp-eval-last-sexp
   "x"   #'eval-defun
-  "C-m" #'emacs-lisp-macroexpand
   "C-b" #'elisp-byte-compile-buffer
   "C-f" #'elisp-byte-compile-file
   "C-n" #'emacs-lisp-native-compile)
