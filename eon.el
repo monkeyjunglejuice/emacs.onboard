@@ -753,6 +753,7 @@ Use the Customization UI to change, or `setopt' in Elisp code."
 (defvar-keymap ctl-z-ret-map :doc "Bookmark")
 
 ;; Top-level leader keymap, referencing the sub-keymaps defined previously:
+;; TODO Rename  ctl-z-... prefix to eon-leader-...
 
 (defvar-keymap ctl-z-map
   :doc "Top-level leader keymap."
