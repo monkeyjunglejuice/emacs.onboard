@@ -712,7 +712,7 @@ localleader is shown."
                   eon-localleader-global-map))))
     (set-keymap-parent ctl-z-localleader-map map)))
 
-;; Keep the UI prefix parent fresh when modes change, even without which-key.
+;; Keep the UI prefix parent fresh when modes change, even without which-key
 (add-hook 'after-change-major-mode-hook
           #'eon-localleader--sync-local-prefix-parent)
 
