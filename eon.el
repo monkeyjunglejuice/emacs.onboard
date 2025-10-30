@@ -1042,39 +1042,31 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; - Set 'light or 'dark as your default theme variant:
 ;; (setopt eon-theme-variant-default 'light)
 
-;; The hooks below can be used to run additional functions before or after
+;;; - Theme hooks
+
+;; The hooks can be used to run additional functions before or after
 ;; loading the selected light and dark theme. That's useful for setting
 ;; variables that otherwise would get overwritten by themes.
 ;; Restart Emacs to take effect after changing the hooks.
 
-;;; - Light theme hooks
+;; Light theme hooks
 
-;; Call a function before/after loading the light theme
+;; Call a function before/after loading the light theme.
 ;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-light-post-load-hook #'my-interactive-function)
-;; Normal functions not designated as "(interactive)" must be wrapped in lambdas:
-(add-hook 'eon-theme-light-post-load-hook
-          (lambda ()
-            ;; Extend `region' background past the end of the line?
-            (set-face-attribute 'region nil :extend nil)
-            ))
+;; Functions not designated as "(interactive)" must be wrapped in lambdas.
 
 ;; Load the default font set; if you want to load a different font set,
 ;; "unhook" `eon-fonts-default' first via:
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
 (add-hook 'eon-theme-light-post-load-hook #'eon-fonts-default)
 
-;;; - Dark theme hooks
+;; Dark theme hooks
 
-;; Call a function before/after loading the dark theme
+;; Call a function before/after loading the dark theme.
 ;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-dark-post-load-hook #'my-interactive-function)
-;; Normal functions not designated as "(interactive)" must be wrapped in lambdas:
-(add-hook 'eon-theme-dark-post-load-hook
-          (lambda ()
-            ;; Extend `region' background past the end of the line?
-            (set-face-attribute 'region nil :extend nil)
-            ))
+;; Functions not designated as "(interactive)" must be wrapped in lambdas.
 
 ;; Load the default font set; if you want to load your own font set,
 ;; "unhook" `eon-fonts-default' first via:
