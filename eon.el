@@ -1917,7 +1917,7 @@ pretending to clear it."
 (setopt eshell-list-files-after-cd t)
 
 ;; Jump to Eshell prompts
-(add-hook eshell-mode-hook
+(add-hook 'eshell-mode-hook
           (lambda () (setq outline-regexp eshell-prompt-regexp)))
 
 ;; Launch an Eshell buffer: "<leader> e e"; re-visit the buffer by repeating
