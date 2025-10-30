@@ -630,17 +630,18 @@ Each function is called with no args and should return either a
 
 ;; To avoid clashes, new keybindings introduced by Emacs ONBOARD will usually
 ;; live under the leader prefix (with only a few exceptions).
-
-;;; ---> Defaults for graphical Emacs:
+;;
+;;; - Defaults for graphical Emacs:
 ;; "C-," is the leader key, reach the local leader via "C-, C-,"
 ;;
-;;; ---> Defaults for Emacs with terminal UI (invoked by "emacs -nw"):
+;;; - Defaults for Emacs with terminal UI (invoked by "emacs -nw"):
 ;; "C-z" is the leader key, reach the local leader via "C-z C-z"
-
+;;
 ;; Terminal note: In `emacs -nw`, "C-z" is normally bound to suspend Emacs.
 ;; We rebind it as a leader, and it works in modern terminals (e.g. WezTerm).
 ;; If your TTY converts C-z to SIGTSTP before Emacs sees it (rare), disable
 ;; the suspend char or move it (see optional snippet below).
+
 ;; (add-hook 'tty-setup-hook
 ;;           (lambda ()
 ;;             (ignore-errors
