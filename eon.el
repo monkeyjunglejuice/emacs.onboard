@@ -789,7 +789,7 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   eon-localleader-key `("Local" . ,ctl-z-localleader-map))
 
 ;; Don't like the pre-defined keybindings of the default leader keymap?
-;; There is an alternative, empty leader keymap
+;; There is an alternative, empty leader keymap.
 (defvar-keymap eon-leader-user-map
   :doc "Alternative top-level leader keymap, initially empty.
 Ready to populate with your own sub-keymaps and keybindings:
