@@ -835,10 +835,9 @@ Warns if VALUE is bound but not a keymap; allows unbound symbols."
   Specify a symbol bound to a keymap or expression that evaluates to a symbol
   bound to a keymap. You can use any keymap you like as your leader keymap."
   :group 'eon-leader
-  :type '(choice
-          (const :tag "Default leader keymap" ctl-z-map)
-          (const :tag "User leader keymap" eon-leader-user-map)
-          (symbol :tag "Other keymap"))
+  :type '(choice (const :tag "Default leader keymap" ctl-z-map)
+                 (const :tag "User leader keymap" eon-leader-user-map)
+                 (symbol :tag "Other keymap"))
   :set #'eon-leader-map--set-active)
 
 (defun eon-leader-active-map ()
