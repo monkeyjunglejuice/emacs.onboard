@@ -1336,6 +1336,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Don't accumulate customization buffers
 (setopt custom-buffer-done-kill t)
 
+;; No line wrapping in descriptions
+(add-hook 'Custom-mode-hook (lambda () (setq-local truncate-lines t)))
+
 ;; _____________________________________________________________________________
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
