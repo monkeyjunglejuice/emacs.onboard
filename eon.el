@@ -922,54 +922,53 @@ BODY is forwarded to `defvar-keymap'."
 (defun eon-fonts-default ()
   "The height value is in 1/10 pt, so 140 will give 14 pt."
   (interactive)
-  ;; Set the default monospaced font
+  ;; Default font
   (set-face-attribute 'default nil
                       ;; :family "Iosevka Curly"
-                      :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 140)
-  ;; Set an alternative monospaced font. Can be the same as above.
-  ;; It should have the same character width as the default font
+  ;; Alternative monospaced font; can be the same as above
+  ;; Should have the same character width as the default font
   (set-face-attribute 'fixed-pitch nil
                       ;; :family "Iosevka Curly"
-                      :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 1.0)
-  ;; Set an alternative monospaced font, preferably with serifs (optional)
-  ;; It should have the same character width as the other two fonts above
+  ;; Alternative monospaced font, e.g. with serifs; optional
+  ;; Should have the same character width as the other two fonts above
   (set-face-attribute 'fixed-pitch-serif nil
                       ;; :family "Iosevka Slab"
-                      :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 1.0)
-  ;; Set the proportional font (toggle by "M-x variable-pitch-mode")
+  ;; Proportional font; toggle by "M-x variable-pitch-mode"
   (set-face-attribute 'variable-pitch nil
                       ;; :family "Iosevka Etoile"
-                      :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 1.0)
-  ;; Set the fonts for the active mode line
+  ;; Active mode line
   (set-face-attribute 'mode-line nil
                       ;; :family "Iosevka Curly"
-                      :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 0.9)
-  ;; Set the fonts for the inactive mode line
+  ;; Inactive mode line
   (set-face-attribute 'mode-line-inactive nil
                       ;; :family "Iosevka Curly"
-                      :slant  'normal
                       :weight 'normal
                       :width  'normal
                       :height 0.9)
-  ;; Set the fonts for the tab bar
+  ;; Tab bar
   (set-face-attribute 'tab-bar nil
                       ;; :family "Iosevka Curly"
-                      :slant  'normal
+                      :weight 'normal
+                      :width  'normal
+                      :height 0.9)
+  ;; Tab line
+  (set-face-attribute 'tab-line nil
+                      ;; :family "Iosevka Curly"
                       :weight 'normal
                       :width  'normal
                       :height 0.9)
