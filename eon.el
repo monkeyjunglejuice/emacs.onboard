@@ -163,24 +163,20 @@ Examples (LIST-SYM value starts as (a b)):
         (if (boundp list-sym) (symbol-value list-sym) nil)
         elements append compare-fn)))
 
-(defmacro eon-add-to-list-setopt
-    (list-sym elements &optional append compare-fn)
-  "Like `eon-add-to-list' but via `setopt'.
+(defun eon-add-to-list-setopt (list-sym elements &optional append compare-fn)
+  "Adjoin ELEMENTS to the *default* value of LIST-SYM.
 
-LIST-SYM must be a quoted symbol, e.g. 'my-var. ELEMENTS may be an
-item or a list. If APPEND is non-nil, append items left->right;
-otherwise prepend while preserving ELEMENTS order. COMPARE-FN defaults
-to `equal'. See `eon-add-to-list' for examples."
-  (declare (debug (sexp form &optional form function)))
-  (unless (and (consp list-sym)
-               (eq (car list-sym) 'quote)
-               (symbolp (cadr list-sym)))
-    (error "eon-add-to-list-setopt: LIST-SYM must be quoted: 'my-var"))
-  (let ((sym (cadr list-sym)))
-    `(setopt ,sym
-             (eon-list-adjoin
-              (if (boundp ',sym) ,sym nil)
-              ,elements ,append ,compare-fn))))
+If LIST-SYM is a user option, use `customize-set-variable` so its :set
+runs; otherwise use `set-default`. Returns the new default value.
+See `eon-add-to-list' for examples."
+  (unless (symbolp list-sym)
+    (error "eon-add-to-list-setopt: LIST-SYM must be a symbol"))
+  (let* ((cur (and (default-boundp list-sym) (default-value list-sym)))
+         (new (eon-list-adjoin cur elements append compare-fn)))
+    (if (custom-variable-p list-sym)
+        (customize-set-variable list-sym new 'setopt)
+      (set-default list-sym new))
+    new))
 
 ;; Get all the parent major modes
 (defun eon-get-parent-modes ()
