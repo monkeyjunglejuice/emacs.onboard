@@ -71,7 +71,7 @@
 ;; _____________________________________________________________________________
 ;;; CUSTOMIZATION GROUPS
 
-;; Customize the most importan Emacs ONBOARD settings via "<leader> x C"
+;; Customize the most important Emacs ONBOARD settings via "<leader> x C"
 
 (defgroup eon nil
   "Emacs ONBOARD starter kit & ONTOP extension layer."
