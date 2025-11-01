@@ -2925,15 +2925,14 @@ With SWITCH = \='hook, return ...-hook variables."
   (add-hook 'server-mode-hook
             (lambda ()
               "Run functions after entering or leaving server-mode."
-              (eon-frame-title)))
+              (eon-frame-title))))
 
-  ;; Shutdown the Emacs server process
-  (defun eon-server-stop ()
-    "Save buffers, quit and shutdown (kill) server."
-    (interactive)
-    (save-some-buffers)
-    (kill-emacs))
-  (keymap-set ctl-z-q-map "s" #'eon-server-stop))
+(defun eon-server-stop ()
+  "Save buffers, quit and shutdown (kill) server."
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs))
+(keymap-set ctl-z-q-map "s" #'eon-server-stop)
 
 ;; Start the server?
 (add-hook 'after-init-hook #'server-start)
