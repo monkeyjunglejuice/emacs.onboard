@@ -69,9 +69,9 @@
 ;;; Code:
 
 ;; _____________________________________________________________________________
-;;; GLOBAL DEFINITIONS & UTILITIES
+;;; CUSTOMIZATION GROUPS
 
-;; Define groups for Customizations
+;; Customize Emacs ONBOARD via "<leader> x C"
 
 (defgroup eon nil
   "Emacs ONBOARD starter kit & ONTOP extension layer."
@@ -80,143 +80,6 @@
 (defgroup eon-misc nil
   "Various settings that don't belong to another group."
   :group 'eon)
-
-;; Simplify writing of operating-system-specific Elisp code
-
-(defun eon-linp ()
-  "True if `system-type' is Linux or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
-
-(defun eon-winp ()
-  "True if `system-type' is Windows or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (memq system-type '(windows-nt cygwin ms-dos)))
-
-(defun eon-androidp ()
-  "True if `system-type' is Android or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (eq system-type 'android))
-
-(defun eon-macp ()
-  "True if `system-type' is MacOS or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (eq system-type 'darwin))
-
-;; Extended `add-to-list' and friends
-
-(defun eon-list-adjoin (cur elements &optional append compare-fn)
-  "Return a new list like CUR with ELEMENTS added once.
-
-ELEMENTS may be an item or a list. If APPEND is non-nil, append items
-left->right; otherwise prepend while preserving ELEMENTS order.
-COMPARE-FN is the membership predicate (default `equal').
-
-Examples:
-  (eon-list-adjoin '(a b) 'c)                                 ; => (c a b)
-  (eon-list-adjoin '(a b) '(c a))                             ; => (c a b)
-  (eon-list-adjoin '(a b) '(d) t)                             ; => (a b d)
-  (eon-list-adjoin '(a b) '(\"x\" \"x\") nil #'string-equal)  ; => (\"x\" a b)"
-  (declare (pure t) (side-effect-free t))
-  (let* ((xs   (if (consp elements) elements (list elements)))
-         (test (or compare-fn #'equal)))
-    (cl-labels
-        ((prepend-step (res items)
-           (if (null items)
-               res
-             (let ((x (car items)))
-               (prepend-step
-                (if (cl-find x res :test test) res (cons x res))
-                (cdr items)))))
-         (append-step (res items seen extra)
-           (if (null items)
-               (append res (nreverse extra))
-             (let ((x (car items)))
-               (if (cl-find x seen :test test)
-                   (append-step res (cdr items) seen extra)
-                 (append-step res (cdr items)
-                              (cons x seen) (cons x extra)))))))
-      (if append
-          (append-step cur xs cur nil)
-        ;; Preserve ELEMENTS order when prepending
-        (prepend-step cur (reverse xs))))))
-
-(defun eon-add-to-list (list-sym elements &optional append compare-fn)
-  "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
-
-LIST-SYM is a symbol naming a list variable whose *current binding*
-will be modified (i.e. buffer-local if such exists, otherwise global).
-
-ELEMENTS may be a single item or a list of items to add to LIST-SYM.
-If APPEND is non-nil, append items left→right; otherwise prepend them
-while preserving the order of ELEMENTS.
-
-COMPARE-FN, if non-nil, is a function used to test for membership; it
-defaults to `equal`.
-
-Returns the new current value of LIST-SYM.
-
-Examples (assuming LIST-SYM initially holds (a b)):
-  (eon-add-to-list 'v 'c)           ; => (c a b)
-  (eon-add-to-list 'v '(c a))       ; => (c a b)
-  (eon-add-to-list 'v '(d) t)       ; => (a b d)"
-  (unless (symbolp list-sym)
-    (error "eon-add-to-list: LIST-SYM must be quoted: 'my-var"))
-  (set list-sym
-       (eon-list-adjoin
-        (if (boundp list-sym) (symbol-value list-sym) nil)
-        elements append compare-fn)))
-
-(defun eon-add-to-list-setopt (list-sym elements &optional append compare-fn)
-  "Adjoin ELEMENTS to the *default* value of LIST-SYM.
-
-LIST-SYM is a symbol naming a variable or user option.  ELEMENTS may be
-a single item or a list of items to add to the variable’s *default* (global)
-value.
-
-If APPEND is non-nil, append items left->right; otherwise prepend them
-while preserving the order of ELEMENTS.
-
-COMPARE-FN, if non-nil, is a function used to test for membership; it
-defaults to `equal`.
-
-If LIST-SYM is a user option (see `custom-variable-p`), use
-`customize-set-variable` so its :set function and type checks are
-applied.  Otherwise, use `set-default` to modify the variable’s global
-default value directly.
-
-Returns the new default value of LIST-SYM.
-
-See `eon-add-to-list' for examples."
-  (unless (symbolp list-sym)
-    (error "eon-add-to-list-setopt: LIST-SYM must be a symbol"))
-  (let* ((cur (and (default-boundp list-sym) (default-value list-sym)))
-         (new (eon-list-adjoin cur elements append compare-fn)))
-    (if (custom-variable-p list-sym)
-        (customize-set-variable list-sym new 'setopt)
-      (set-default list-sym new))
-    new))
-
-;; Get all the parent major modes
-(defun eon-get-parent-modes ()
-  "Return major-mode and its parents (child first).
-When called interactively, also echo the result."
-  (interactive)
-  (cl-labels ((collect (mode)
-                (if-let ((p (get mode 'derived-mode-parent)))
-                    (cons mode (collect p))
-                  (list mode))))
-    (let ((parents (collect major-mode)))
-      (if (called-interactively-p 'interactive)
-          (message "%S" parents)
-        parents))))
-
-(defvar eon-user-directory (expand-file-name "~/")
-  "The user's home directory with a trailing slash.")
 
 ;; _____________________________________________________________________________
 ;;; GARBAGE COLLECTION
@@ -328,6 +191,41 @@ Cancel the previous one if present."
 (add-hook 'emacs-startup-hook #'eon-gcmh-mode)
 
 ;; _____________________________________________________________________________
+;;; ELISP NATIVE COMPILATION / BYTECODE
+
+;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
+(setopt load-prefer-newer t)
+
+;; Natively compile packages at first use or immediately after installation?
+(setopt package-native-compile t)
+
+;; Native-compile .elc files asynchronously?
+(setopt native-comp-jit-compilation t)
+
+;; Ask whether to terminate asynchronous compilations on exit?
+;; Prevents from interrupted compilations and leftover artifacts.
+(setopt native-comp-async-query-on-exit t)
+
+;; This options are not set if Emacs is started via "emacs --debug-init"
+(unless init-file-debug
+  (setopt
+   ;; When to bring the buffer to the foreground?
+   warning-minimum-level :warning
+   ;; Allow bytecode compilation to be verbose?
+   byte-compile-verbose nil
+   ;; Turn off minor warnings
+   byte-compile-warnings (not '(callargs
+                                docstrings
+                                empty-body
+                                free-vars
+                                lexical
+                                noruntime
+                                obsolete))
+   ;; Reduce native code compilation verbosity?
+   native-comp-async-report-warnings-errors nil
+   native-comp-warning-on-missing-source nil))
+
+;; _____________________________________________________________________________
 ;;; DEBUG / DIAGNOSTICS
 
 ;; Enter debugger if an error is signaled
@@ -373,39 +271,128 @@ Cancel the previous one if present."
   )
 
 ;; _____________________________________________________________________________
-;;; ELISP NATIVE COMPILATION / BYTECODE
+;;; GLOBAL DEFINITIONS & UTILITIES
 
-;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
-(setopt load-prefer-newer t)
+;; Simplify writing of operating-system-specific Elisp code
 
-;; Natively compile packages at first use or immediately after installation?
-(setopt package-native-compile t)
+(defun eon-linp ()
+  "True if `system-type' is Linux or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
 
-;; Native-compile .elc files asynchronously?
-(setopt native-comp-jit-compilation t)
+(defun eon-winp ()
+  "True if `system-type' is Windows or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (memq system-type '(windows-nt cygwin ms-dos)))
 
-;; Ask whether to terminate asynchronous compilations on exit?
-;; Prevents from interrupted compilations and leftover artifacts.
-(setopt native-comp-async-query-on-exit t)
+(defun eon-androidp ()
+  "True if `system-type' is Android or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (eq system-type 'android))
 
-;; This options are not set if Emacs is started via "emacs --debug-init"
-(unless init-file-debug
-  (setopt
-   ;; When to bring the buffer to the foreground?
-   warning-minimum-level :error
-   ;; Allow bytecode compilation to be verbose?
-   byte-compile-verbose nil
-   ;; Turn off minor warnings
-   byte-compile-warnings (not '(callargs
-                                docstrings
-                                empty-body
-                                free-vars
-                                lexical
-                                noruntime
-                                obsolete))
-   ;; Reduce native code compilation verbosity?
-   native-comp-async-report-warnings-errors nil
-   native-comp-warning-on-missing-source nil))
+(defun eon-macp ()
+  "True if `system-type' is MacOS or something compatible.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (eq system-type 'darwin))
+
+;; Extended `add-to-list' and friends
+
+(require 'cl-lib)
+
+(defun eon-adjoin (cur elements &optional append compare-fn)
+  "Return a new list like CUR with ELEMENTS added once.
+
+ELEMENTS may be an item or a list. If APPEND is non-nil, append items
+left->right; otherwise prepend while preserving ELEMENTS order.
+COMPARE-FN is the membership predicate (default `equal').
+
+Examples:
+  (eon-adjoin '(a b) 'c)                                 ; => (c a b)
+  (eon-adjoin '(a b) '(c a))                             ; => (c a b)
+  (eon-adjoin '(a b) '(d) t)                             ; => (a b d)
+  (eon-adjoin '(a b) '(\"x\" \"x\") nil #'string-equal)  ; => (\"x\" a b)"
+  (declare (pure t) (side-effect-free t))
+  (let* ((xs   (if (consp elements) elements (list elements)))
+         (test (or compare-fn #'equal))
+         (cand (if append (append cur xs) (append xs cur))))
+    (cl-remove-duplicates cand :test test)))
+
+(defun eon-add-to-list (list-sym elements &optional append compare-fn)
+  "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
+
+LIST-SYM is a symbol naming a list variable whose *current binding*
+will be modified (i.e. buffer-local if such exists, otherwise global).
+
+ELEMENTS may be a single item or a list of items to add to LIST-SYM.
+If APPEND is non-nil, append items left→right; otherwise prepend them
+while preserving the order of ELEMENTS.
+
+COMPARE-FN, if non-nil, is a function used to test for membership; it
+defaults to `equal`.
+
+Returns the new current value of LIST-SYM.
+
+Examples (assuming LIST-SYM initially holds (a b)):
+  (eon-add-to-list 'v 'c)           ; => (c a b)
+  (eon-add-to-list 'v '(c a))       ; => (c a b)
+  (eon-add-to-list 'v '(d) t)       ; => (a b d)"
+  (unless (symbolp list-sym)
+    (error "eon-add-to-list: LIST-SYM must be quoted: 'my-var"))
+  (set list-sym
+       (eon-adjoin
+        (if (boundp list-sym) (symbol-value list-sym) nil)
+        elements append compare-fn)))
+
+(defun eon-add-to-list-setopt (list-sym elements &optional append compare-fn)
+  "Adjoin ELEMENTS to the *default* value of LIST-SYM.
+
+LIST-SYM is a symbol naming a variable or user option.  ELEMENTS may be
+a single item or a list of items to add to the variable’s *default* (global)
+value.
+
+If APPEND is non-nil, append items left->right; otherwise prepend them
+while preserving the order of ELEMENTS.
+
+COMPARE-FN, if non-nil, is a function used to test for membership; it
+defaults to `equal`.
+
+If LIST-SYM is a user option (see `custom-variable-p`), use
+`customize-set-variable` so its :set function and type checks are
+applied.  Otherwise, use `set-default` to modify the variable’s global
+default value directly.
+
+Returns the new default value of LIST-SYM.
+
+See `eon-add-to-list' for examples."
+  (unless (symbolp list-sym)
+    (error "eon-add-to-list-setopt: LIST-SYM must be a symbol"))
+  (let* ((cur (and (default-boundp list-sym) (default-value list-sym)))
+         (new (eon-adjoin cur elements append compare-fn)))
+    (if (custom-variable-p list-sym)
+        (customize-set-variable list-sym new 'setopt)
+      (set-default list-sym new))
+    new))
+
+;; Get all the parent major modes
+(defun eon-get-parent-modes ()
+  "Return major-mode and its parents (child first).
+When called interactively, also echo the result."
+  (interactive)
+  (cl-labels ((collect (mode)
+                (if-let ((p (get mode 'derived-mode-parent)))
+                    (cons mode (collect p))
+                  (list mode))))
+    (let ((parents (collect major-mode)))
+      (if (called-interactively-p 'interactive)
+          (message "%S" parents)
+        parents))))
+
+(defvar eon-user-directory (expand-file-name "~/")
+  "The user's home directory with a trailing slash.")
 
 ;; _____________________________________________________________________________
 ;;; EMACS SYSTEM LIMITS
