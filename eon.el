@@ -148,11 +148,19 @@ Examples:
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
   "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
 
-LIST-SYM is a symbol naming a list variable. ELEMENTS may be an item or
-a list. APPEND/COMPARE-FN as in `eon-list-adjoin'. Returns the new
-value of LIST-SYM.
+LIST-SYM is a symbol naming a list variable whose *current binding*
+will be modified (i.e. buffer-local if such exists, otherwise global).
 
-Examples (LIST-SYM value starts as (a b)):
+ELEMENTS may be a single item or a list of items to add to LIST-SYM.
+If APPEND is non-nil, append items left→right; otherwise prepend them
+while preserving the order of ELEMENTS.
+
+COMPARE-FN, if non-nil, is a function used to test for membership; it
+defaults to `equal`.
+
+Returns the new current value of LIST-SYM.
+
+Examples (assuming LIST-SYM initially holds (a b)):
   (eon-add-to-list 'v 'c)           ; => (c a b)
   (eon-add-to-list 'v '(c a))       ; => (c a b)
   (eon-add-to-list 'v '(d) t)       ; => (a b d)"
@@ -166,8 +174,23 @@ Examples (LIST-SYM value starts as (a b)):
 (defun eon-add-to-list-setopt (list-sym elements &optional append compare-fn)
   "Adjoin ELEMENTS to the *default* value of LIST-SYM.
 
-If LIST-SYM is a user option, use `customize-set-variable` so its :set
-runs; otherwise use `set-default`. Returns the new default value.
+LIST-SYM is a symbol naming a variable or user option.  ELEMENTS may be
+a single item or a list of items to add to the variable’s *default* (global)
+value.
+
+If APPEND is non-nil, append items left->right; otherwise prepend them
+while preserving the order of ELEMENTS.
+
+COMPARE-FN, if non-nil, is a function used to test for membership; it
+defaults to `equal`.
+
+If LIST-SYM is a user option (see `custom-variable-p`), use
+`customize-set-variable` so its :set function and type checks are
+applied.  Otherwise, use `set-default` to modify the variable’s global
+default value directly.
+
+Returns the new default value of LIST-SYM.
+
 See `eon-add-to-list' for examples."
   (unless (symbolp list-sym)
     (error "eon-add-to-list-setopt: LIST-SYM must be a symbol"))
