@@ -522,7 +522,7 @@ See also `cursor-type'"
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
-(defcustom eon-cursor-type-view 'hbar
+(defcustom eon-cursor-type-view '(hbar . 3)
   "Cursor type for read-only buffers.
 Accepts an expression that returns either:
 - t or nil
