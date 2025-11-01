@@ -827,7 +827,7 @@ Warns if VALUE is bound but not a keymap; allows unbound symbols."
     (message "Warning: %S is bound, but not to a keymap." value)))
 
 (defcustom eon-leader-map-active 'ctl-z-map
-   "Specify the keymap that will act as the top-level leader keymap.
+  "Specify the keymap that will act as the top-level leader keymap.
 
 - 'Default leader keymap' sets `ctl-z-map':
   The keymap is active per default and contains a useful set
