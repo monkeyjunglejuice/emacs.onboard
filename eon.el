@@ -1319,10 +1319,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
   ;; Open the package manager interface: "<leader> x p"
   (keymap-set ctl-z-x-map "P" #'list-packages)
 
-  ;; Highlight current line in the package manager
-  (add-hook 'package-menu-mode-hook
-            (lambda ()
-              (hl-line-mode 1))))
+  ;; Highlight current line in the package manager?
+  (add-hook 'package-menu-mode-hook (lambda () (hl-line-mode 1))))
 
 ;; _____________________________________________________________________________
 ;;; CUSTOMIZATION UI SETTINGS
@@ -1564,10 +1562,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;;; - Ibuffer, the buffer manager
 ;; <https://protesilaos.com/codelog/2020-04-02-emacs-intro-ibuffer/>
 
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-auto-mode 1)))
-
+(add-hook 'ibuffer-mode-hook (lambda () (ibuffer-auto-mode 1)))
 
 (keymap-global-set "C-x C-b" #'ibuffer)
 (keymap-set ctl-z-b-map "i" #'ibuffer)
