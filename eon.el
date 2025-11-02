@@ -1568,8 +1568,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
           (lambda ()
             (ibuffer-auto-mode 1)))
 
-;; Hide the boring buffers from Ibuffer too?
-;; (setopt ibuffer-never-show-predicates eon-boring-buffers)
 
 (keymap-global-set "C-x C-b" #'ibuffer)
 (keymap-set ctl-z-b-map "i" #'ibuffer)
