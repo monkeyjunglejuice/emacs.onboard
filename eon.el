@@ -689,16 +689,16 @@ Don't bind any keys/commands to this keymap.")
   (let ((old (and (boundp sym) (symbol-value sym))))
     (when (boundp 'ctl-z-map)
       (when old (keymap-unset ctl-z-map old))
-      (keymap-set ctl-z-map value ctl-z-localleader-map)))
+      (keymap-set ctl-z-map value eon-localleader-map)))
   (set-default sym value))
 
 ;; Empty named prefix, so which-key shows the label "Local"
-(defvar-keymap ctl-z-localleader-map
+(defvar-keymap eon-localleader-map
   :doc "Local leader"
   :name "Local")
 
 (defun eon-localleader--sync-local-prefix-parent ()
-  "Make `ctl-z-localleader-map' inherit the effective local leader keymap.
+  "Make `eon-localleader-map' inherit the effective local leader keymap.
 Respects the which-key origin window so that the correct buffer's
 localleader is shown."
   (let* ((win (eon-localleader--context-window))
@@ -707,7 +707,7 @@ localleader is shown."
                 (if (keymapp eon-localleader--map)
                     eon-localleader--map
                   eon-localleader-global-map))))
-    (set-keymap-parent ctl-z-localleader-map map)))
+    (set-keymap-parent eon-localleader-map map)))
 
 ;; Keep the UI prefix parent fresh when modes change, even without which-key
 (add-hook 'after-change-major-mode-hook
@@ -793,10 +793,10 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   "x"   `("Misc"     . ,ctl-z-x-map)
   "RET" `("Bookmark" . ,ctl-z-ret-map)
   ;; Add dynamic localleader keymap
-  eon-localleader-key `("Local" . ,ctl-z-localleader-map))
+  eon-localleader-key `("Local" . ,eon-localleader-map))
 
 ;; Don't like the pre-defined keybindings of the default leader keymap?
-;; There is an alternative, empty leader keymap.
+;; There is an alternative, empty leader keymap:
 (defvar-keymap eon-leader-user-map
   :doc "Alternative top-level leader keymap, initially empty.
 Ready to populate with your own sub-keymaps and keybindings:
@@ -816,7 +816,7 @@ Ready to populate with your own sub-keymaps and keybindings:
 In order to activate this keymap instead of the default leader keymap,
 customize `eon-leader-map-active'."
   ;; Add dynamic localleader keymap
-  eon-localleader-key `("Local" . ,ctl-z-localleader-map))
+  eon-localleader-key `("Local" . ,eon-localleader-map))
 
 ;; TODO Setter should set the active leader keymap immediately
 (defun eon-leader-map--set-active (sym value)
