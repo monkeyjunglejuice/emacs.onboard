@@ -1536,7 +1536,7 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
     "\\`\\*tramp"
     "\\`\\*EGLOT"
     ;; And some hidden buffers can be visited by ...
-    "\\`\\*Bookmark List"  ; "C-x r l"
+    "\\`\\*Bookmark List"  ; "<leader> RET l"
     "\\`\\*Ibuffer"        ; "<leader> b i"
     "\\`\\*Messages"       ; "<leader> h e"
     )
