@@ -1227,6 +1227,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completion-category-overrides
         '((file (styles . (basic partial-completion)))))
 
+;; Make TAB try completion when appropriate
+(setopt tab-always-indent 'complete)
+
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Dabbrev
 
@@ -1234,9 +1237,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
   (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
   (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode))
-
-;; Make TAB try completion when appropriate
-(setopt tab-always-indent 'complete)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Completions buffer
