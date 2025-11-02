@@ -1371,13 +1371,14 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Search and replace
 ;; If text is selected, then the commands act on that region only
 
-;; The 'query-' variant asks for each string.
-;; Confirm with "SPC", or jump to the next via "n"
-(keymap-global-set "M-%"    #'query-replace-regexp)
-(keymap-set ctl-z-s-map "r" #'query-replace-regexp)
+;; The 'query-' variant asks for each replacement
+;; Confirm with "SPC" / "y", or jump to the next via "n"
+(keymap-global-set      "M-%"   #'query-replace-regexp)
+(keymap-set ctl-z-s-map "r"     #'query-replace-regexp)
+(keymap-set ctl-z-s-map "R"     #'query-replace)
 ;; Replace all strings immediately
-(keymap-global-set "C-M-%"  #'replace-regexp)
-(keymap-set ctl-z-s-map "R" #'replace-regexp)
+(keymap-global-set      "C-M-%" #'replace-regexp)
+(keymap-set ctl-z-s-map "C-r"   #'replace-regexp)
 
 ;; _____________________________________________________________________________
 ;;; IMENU
