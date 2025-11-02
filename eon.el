@@ -1198,10 +1198,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (minibuffer-depth-indicate-mode 1)
 
 ;; Do not allow the cursor in the minibuffer prompt
-(setq minibuffer-prompt-properties
-      '( read-only t
-         cursor-intangible t
-         face minibuffer-prompt))
+(eon-add-to-list-setopt 'minibuffer-prompt-properties '(cursor-intangible t))
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
 ;; Prevent visual line wrapping in narrow frames
