@@ -986,7 +986,7 @@ BODY is forwarded to `defvar-keymap'."
 ;;; TOGGLE THEME
 
 ;; Default/fallback definitions – don't change them here,
-;; but further down in 'THEME CONFIG' - or set them in your init.el.
+;; but set them in your init.el. For examples, see THEME CONFIG.
 ;; TODO Refactor in order to dissolve duplication
 ;; TODO Add setters to custom variables
 
@@ -1097,7 +1097,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
         '((border-mode-line-active bg-mode-line-active)
           (border-mode-line-inactive bg-mode-line-inactive)))
 
-;; Customize via "M-x eon-customize-group" or via `setopt' in your init.el
+;; Customize via "M-x eon-customize-group" or via `setopt' in your init.el:
 
 ;;; - Set your light theme:
 ;; (setopt eon-theme-light 'modus-operandi-tinted)
@@ -1482,7 +1482,8 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
 ;; Get the buffer out of the way and close the window
 (defun eon-bury-window (&optional restore)
   "Bury the current buffer.
-If visiting a file and modified, ask to save first; then bury the buffer.
+If visiting a file and modified, ask to save first;
+then bury the buffer and delete the window.
 When prefix arg RESTORE is non-nil, restore the previous window configuration.
 If called from the minibuffer, exit via `abort-recursive-edit'."
   (interactive "P")
@@ -1519,8 +1520,15 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
 ;; Uniquify buffer names for buffers that would have identical names
 (setopt uniquify-buffer-name-style 'forward)
 
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Boring buffers
+
 ;; Define boring buffers globally, so they can be hidden. These buffers
 ;; remain accessible via Ibuffer: "C-x C-b" or "<leader> b i"
+
+;; Hide the boring buffers from Ibuffer too?
+;; (setopt ibuffer-never-show-predicates eon-boring-buffers)
+
 (defcustom eon-boring-buffers
   '("\\` "
     "\\`\\*Echo Area"
@@ -1627,9 +1635,9 @@ Called without argument just syncs `eon-boring-buffers' to other places."
                filename))))
 (keymap-set ctl-z-f-map "M-w" #'eon-copy-file-path)
 
-;; Simple alternative for 'yank-pop' – present a selection of the kill ring
+;; Simple alternative for `yank-pop' – present a selection of the kill ring
 (defun eon-yank-from-kill-ring ()
-  "Select and insert an item from the \=`'kill-ring'."
+  "Select and insert an item from the `kill-ring'."
   (interactive)
   (insert (completing-read "Yank: " kill-ring nil t)))
 (keymap-global-set "M-y" #'eon-yank-from-kill-ring)
