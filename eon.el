@@ -209,8 +209,8 @@ Cancel the previous one if present."
 ;; This options are not set if Emacs is started via "emacs --debug-init"
 (unless init-file-debug
   (setopt
-   ;; When to bring the buffer to the foreground?
-   warning-minimum-level :warning
+   ;; When to bring the buffer to the foreground? Defaults to :warning
+   warning-minimum-level :error
    ;; Allow bytecode compilation to be verbose?
    byte-compile-verbose nil
    ;; Turn off minor warnings
