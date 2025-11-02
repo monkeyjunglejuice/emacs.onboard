@@ -350,7 +350,7 @@ Examples (assuming LIST-SYM initially holds (a b)):
 (defun eon-add-to-list-setopt (list-sym elements &optional append compare-fn)
   "Adjoin ELEMENTS to the *default* value of LIST-SYM.
 
-LIST-SYM is a symbol naming a variable or user option.  ELEMENTS may be
+LIST-SYM is a symbol naming a variable or user option. ELEMENTS may be
 a single item or a list of items to add to the variable’s *default* (global)
 value.
 
