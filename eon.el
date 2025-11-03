@@ -1709,10 +1709,10 @@ pretending to clear it."
 ;; Jump to a "jumpable" register
 (keymap-set ctl-z-r-map "j" #'jump-to-register)
 
-;; Save the state of the selected frame's windows in register
-(keymap-set ctl-z-r-map "w" #'window-configuration-to-register)
 ;; Save the state of all frames in register
 (keymap-set ctl-z-r-map "f" #'frameset-to-register)
+;; Save the state of the selected frame's windows in register
+(keymap-set ctl-z-r-map "w" #'window-configuration-to-register)
 ;; Store keyboard macro in register
 (keymap-set ctl-z-r-map "k" #'kmacro-to-register)
 ;; Record the position of point and the current buffer in register
