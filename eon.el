@@ -1733,7 +1733,6 @@ pretending to clear it."
 ;;; HISTORY
 
 ;; Which histories to save between Emacs sessions?
-(savehist-mode 1)
 (eon-add-to-list-setopt 'savehist-additional-variables
                         '(kill-ring  ; CAUTION, persists copied text - see below
                           register-alist
@@ -1741,17 +1740,20 @@ pretending to clear it."
                           regexp-search-ring
                           compile-command))
 
+;; Enable `savehist-mode' after setting the variables
+(savehist-mode 1)
+
 ; Wipe Emacs' kill ring and quit via "<leader> q Q"
-(defun eon-wipe-kill-ring ()
-  "Wipe the kill ring; do not touch the system clipboard."
+(defun eon-clear-kill-ring ()
+  "Clear the kill ring; do not touch the system clipboard."
   (interactive)
   (setq kill-ring nil
         kill-ring-yank-pointer nil))
 
-(defun eon-quit-wipe-kill-ring ()
-  "Wipe kill ring (not the system clipboard), save buffers, then quit Emacs."
+(defun eon-quit-clear-kill-ring ()
+  "Clear kill ring (not the system clipboard), save buffers, then quit Emacs."
   (interactive)
-  (eon-wipe-kill-ring)
+  (eon-clear-kill-ring)
   (save-buffers-kill-terminal))
 (keymap-set ctl-z-q-map "Q" #'eon-quit-clear-kill-ring)
 
