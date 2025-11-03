@@ -1834,7 +1834,8 @@ pretending to clear it."
 (defun eon-visit-user-init-file ()
   "Visit the init file."
   (interactive)
-  (find-file user-init-file))
+  (when user-init-file (find-file user-init-file)))
+(keymap-set ctl-z-x-map "i" #'eon-visit-user-init-file)
 
 ;; _____________________________________________________________________________
 ;;; RECENT FILES
