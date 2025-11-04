@@ -694,7 +694,17 @@ Don't bind any keys/commands to this keymap.")
 
 ;; Empty named prefix, so which-key shows the label "Local"
 (defvar-keymap eon-localleader-map
-  :doc "Local leader"
+  :doc "Don't bind keys/commands in this keymap.
+It's a frontend to make the local leader keymap machinery to appear
+like a regular keymap.
+
+- If you want to bind/rebind a key/command to a mode-specific local leader
+  keymap, then use `keymap-set'.
+  Example: (keymap-set eon-localleader-elisp-map \"x\" #'eval-defun)
+- If you want to define a local leader keymap for a specific mode,
+  use `eon-localleader-defkeymap'.
+- If you want to bind a certain key/command in all mode-specific local leader
+  keymaps, bind the key/command to `eon-localleader-global-map'."
   :name "Local")
 
 (defun eon-localleader--sync-local-prefix-parent ()
