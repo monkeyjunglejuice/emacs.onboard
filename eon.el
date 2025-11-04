@@ -2912,6 +2912,9 @@ With SWITCH = \='hook, return ...-hook variables."
 ;; Reach eval-expression via "<leader> e x"
 (keymap-set ctl-z-e-map "x" #'eval-expression)
 
+;; Load an Emacs Lisp file (executes the code)
+(keymap-set ctl-z-f-map "l" #'load-file)
+
 ;; Additional keybinding resembling other sexp-related keybindings
 (keymap-global-set "C-M-DEL" #'backward-kill-sexp)
 
