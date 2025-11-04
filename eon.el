@@ -2680,7 +2680,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (keymap-set eon-localleader-org-mode-map "c" #'org-ctrl-c-ctrl-c)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - ORG CAPTURE
+;;; - Org capture
 ;; <https://orgmode.org/org.html#Capture>
 
 ;; Capture a note via `C-z o c'
@@ -2700,7 +2700,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (keymap-set ctl-z-o-map "o" #'eon-visit-org-notes)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - ORG TODO
+;;; - Org todo
 ;; <https://orgmode.org/org.html#TODO-Items>
 
 ;; Set some sensible default states for todo-items
@@ -2710,7 +2710,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
           (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - ORG AGENDA
+;;; - Org agenda
 ;; <https://orgmode.org/org.html#Agenda-Views>
 
 (setopt org-agenda-files (list org-directory))
@@ -2724,7 +2724,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
             (hl-line-mode 1)))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - ORG LINKS
+;;; - Org links
 ;; <https://orgmode.org/org.html#Hyperlinks>
 
 ;; Store a link via "<localleader> L"
@@ -2737,7 +2737,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (keymap-set eon-localleader-org-mode-map "M-l" #'org-toggle-link-display)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - ORG PUBLISH
+;;; - Org publish
 
 ;; Select a project to publish a project via "<localleader> p";
 ;; This can be used to generate and publish a static blog, ebooks, etc.
@@ -2760,7 +2760,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
            (message "Don't re-export unchanged files (default)"))))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - ORG EXPORT
+;;; - Org export
 
 ;; HTML export
 (setopt org-html-checkbox-type 'unicode
@@ -2768,15 +2768,11 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
         org-html-self-link-headlines t)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - ORG LITERATE PROGRAMMING
+;;; - Org code blocks / literate programming
 ;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
 ;; Activate code blocks via Babel languages
 (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)))
-
-;; In case you're using the Emacs ONTOP extensions, further languages
-;; should not be configured here, but within their specific ONTOP modules
-;; ("eon-*.el" files)
 
 ;; _____________________________________________________________________________
 ;;; LISP
