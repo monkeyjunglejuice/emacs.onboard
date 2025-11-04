@@ -957,7 +957,7 @@ BODY is forwarded to `defvar-keymap'."
 ;; (setopt eon-font-default "Iosevka Curly"      ; font name
 ;;         eon-font-default-size 150             ; base size in 1/10 pt
 ;;         eon-font-proportional "Gentium Plus"  ; font name
-;;         eon-font-proportional-size 170        ; size in 1/10 pt
+;;         eon-font-proportional-size 160        ; size in 1/10 pt
 ;;         eon-font-marginal-size 0.9)           ; 90% for mode line and tabs
 
 (defgroup eon-font-settings nil
