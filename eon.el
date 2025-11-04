@@ -826,55 +826,74 @@ Ready to populate with your own sub-keymaps and keybindings:
   (keymap-set my-leader-g-map \"w\" #'browse-web)
 
 In order to activate this keymap instead of the default leader keymap,
-customize `eon-leader-map-active'."
+customize `eon-leader-map-name'."
   ;; Add dynamic localleader keymap
   eon-localleader-key `("Local" . ,eon-localleader-map))
 
-;; TODO Setter should set the active leader keymap immediately
-(defun eon-leader-map--set-active (sym value)
-  "Setter for `eon-leader-map-active', storing VALUE in SYM.
+(defvar eon-leader-map nil
+  "Resolved leader keymap from `eon-leader-map-name'.
+This variable always holds the actual keymap object currently selected
+as the leader keymap.
+
+You usually should bind keys in the source keymap you selected,
+because changing `eon-leader-map-name' will make this variable
+point to a different keymap. The source keymaps are:
+- `ctl-z-map'; contains default leader keybindings
+- `eon-leader-user-map'; a pre-defined but clean-slate leader keymap
+- Other keymap you specified via `eon-leader-map-name'")
+
+(defun eon-leader-map--set (sym value)
+  "Setter for `eon-leader-map-name', storing VALUE in SYM.
 Warns if VALUE is bound but not a keymap; allows unbound symbols."
   (set-default sym value)
-  (when (and (symbolp value) (boundp value)
-             (not (keymapp (symbol-value value))))
-    (message "Warning: %S is bound, but not to a keymap." value)))
+  (cond
+   ;; Bound, but not a keymap
+   ((and (symbolp value) (boundp value)
+         (not (keymapp (symbol-value value))))
+    (setq eon-leader-map nil)
+    (message "Warning: %S is bound, but not to a keymap." value))
+   ;; Bound and a keymap: resolve + rebind
+   ((and (symbolp value) (boundp value)
+         (keymapp (symbol-value value)))
+    (setq eon-leader-map (symbol-value value))
+    (when (boundp 'eon-leader-key)
+      (keymap-global-set eon-leader-key eon-leader-map)))
+   ;; Unbound symbol allowed, but nothing to bind yet
+   (t
+    (setq eon-leader-map nil))))
 
-(defcustom eon-leader-map-active 'ctl-z-map
-  "Specify the keymap that will act as the top-level leader keymap.
+(defcustom eon-leader-map-name 'ctl-z-map
+  "Name of the keymap that will act as the top-level leader keymap.
 
-- 'Default leader keymap' sets `ctl-z-map':
+When setting this variable from Lisp, make sure to quote the symbol.
+Example: (setopt eon-leader-map-name 'eon-leader-user-map)
+
+- 'Default leader keymap' points to `ctl-z-map':
   The keymap is active per default and contains a useful set
   of pre-defined keybindings.
 
-- 'User leader keymap' sets `eon-leader-user-map':
+- 'User leader keymap' points to `eon-leader-user-map':
   This keymap is initially empty, for you to roll your own keybindings.
   See `eon-leader-user-map' for examples how to set them.
 
 - 'Other keymap':
-  Specify a symbol bound to a keymap or expression that evaluates to a symbol
-  bound to a keymap. You can use any keymap you like as your leader keymap."
+  Specify a symbol bound to a keymap, or expression that evaluates to
+  a quoted symbol bound to a keymap. You can use any keymap you like."
   :group 'eon-leader
   :type '(choice (const :tag "Default leader keymap" ctl-z-map)
                  (const :tag "User leader keymap" eon-leader-user-map)
                  (symbol :tag "Other keymap"))
-  :set #'eon-leader-map--set-active)
-
-(defun eon-leader-active-map ()
-  "Return the keymap designated by `eon-leader-map-active'.
-Signals a user error if the symbol is not currently a keymap."
-  (let ((sym eon-leader-map-active))
-    (if (keymapp (symbol-value sym))
-        (symbol-value sym)
-      (user-error "%S is not bound to a keymap" sym))))
+  :set #'eon-leader-map--set)
 
 ;; Initial binding of the leader prefix to the enabled top-level leader keymap
-(keymap-global-set eon-leader-key (eon-leader-active-map))
+(keymap-global-set eon-leader-key eon-leader-map)
 
 ;; Make the leader key available in the minibuffer too
 (add-hook 'minibuffer-setup-hook
           (lambda ()
             (when (keymapp (current-local-map))
-              (keymap-set (current-local-map) eon-leader-key ctl-z-map))))
+              (keymap-set (current-local-map)
+                          eon-leader-key eon-leader-map))))
 
 (defmacro eon-localleader-defkeymap (mode map-sym &rest body)
   "Define MAP-SYM for MODE; inherit global localleader and activate it.
