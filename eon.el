@@ -951,65 +951,132 @@ BODY is forwarded to `defvar-keymap'."
 ;;; FONTS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fonts>
 
-;; You can use this function definition as a template to define your own font
-;; set, then call your personal function via `eon-load-after-light-theme-hook'
-;; and `eon-load-after-light-theme-hook' (under section 'THEME CONFIG').
-;; TODO Make it easy to configure by setting a font, the size, etc.
-;; TODO Decouple from eon-load-.*-theme-hook
+;; Either set your preferred fonts with the Customization UI "<leader> x C"
+;; or in your 'init.el' (fonts must be installed on your computer).
+;; Example:
+;; (setopt eon-font-default "Iosevka Curly"      ; font name
+;;         eon-font-default-size 150             ; base size in 1/10 pt
+;;         eon-font-proportional "Gentium Plus"  ; font name
+;;         eon-font-proportional-size 170        ; size in 1/10 pt
+;;         eon-font-marginal-size 0.9)           ; 90% for mode line and tabs
 
-(defun eon-fonts-default ()
-  "The height value is in 1/10 pt, so 140 will give 14 pt."
+(defgroup eon-font-settings nil
+  "Font settings."
+  :group 'eon)
+
+(defcustom eon-font-default nil
+  "Name of the default font; set it to a monospaced or duospaced font you like.
+If not set explicitly, choosen by Emacs according to your system's default."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-default-size 140
+  "Set the default font size in 1/10 of the desired point size.
+Example: 140 -> 14 pt
+You must specify an absolute size as an integer."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-fixed eon-font-default
+  "Optionally name a fixed-width font.
+When `eon-font-default' is set to a fixed-width font,
+the font specified here should have the same character width.
+If not set explicitly, fall back to `eon-font-default'."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-fixed-alt eon-font-fixed
+  "Optionally name an alternative fixed-width font.
+It should have the same character width as `eon-font-fixed'.
+If not set explicitly, fall back to `eon-font-fixed'."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-proportional nil
+  "Name for the proportional font, used for text that isn't code.
+If not set explicitly, choosen by Emacs according to your system's default."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-proportional-size eon-font-default-size
+  "Set the size for the proportinal font.
+You can specify an absolute size as an integer, or a relative size as a float.
+Examples: 140 -> 14 pt / 0.9 -> 90% of `eon-font-default-size'.
+If not set explicitly, fall back to `eon-font-default-size'."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-marginal-size 0.9
+  "Size for `eon-font-mode-line', `eon-font-tab-bar' and `eon-font-tab-line'.
+You can specify an absolute size as an integer, or a relative size as a float.
+Examples: 140 -> 14 pt / 0.9 -> 90% of `eon-font-default-size'.
+If not set explicitly, fall back to 90% of `eon-font-default-size'."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-mode-line eon-font-default
+  "Base font face for the mode-line.
+If not set explicitly, fall back to `eon-font-default'."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-tab-bar eon-font-mode-line
+  "Base font face used for the tab bar.
+When not set explicitly, fall back to `eon-font-mode-line'."
+  :group 'eon-font-settings)
+
+(defcustom eon-font-tab-line eon-font-tab-bar
+  "Base font face for the tab line.
+When not set explicitly, fall back to `eon-font-tab-bar'."
+  :group 'eon-font-settings)
+
+(defun eon-fonts ()
+  "Set the font faces.
+Per default, the function is called by the hooks:
+`eon-theme-light-post-load-hook' - set font faces after loading the light theme;
+`eon-theme-dark-post-load-hook' - set font faces after loading the dark theme."
   (interactive)
   ;; Default font
   (set-face-attribute 'default nil
-                      ;; :family "Iosevka Curly"
+                      :family eon-font-default
                       :weight 'normal
                       :width  'normal
-                      :height 140)
-  ;; Alternative monospaced font; can be the same as above
-  ;; Should have the same character width as the default font
+                      :height eon-font-default-size)
+  ;; Fixed-width font face
   (set-face-attribute 'fixed-pitch nil
-                      ;; :family "Iosevka Curly"
+                      :family eon-font-fixed
                       :weight 'normal
                       :width  'normal
                       :height 1.0)
-  ;; Alternative monospaced font, e.g. with serifs; optional
-  ;; Should have the same character width as the other two fonts above
+  ;; Alternative fixed-width font face
   (set-face-attribute 'fixed-pitch-serif nil
-                      ;; :family "Iosevka Slab"
+                      :family eon-font-fixed-alt
                       :weight 'normal
                       :width  'normal
                       :height 1.0)
-  ;; Proportional font; toggle by "M-x variable-pitch-mode"
+  ;; Proportional font face;
+  ;; can be toggled for the current buffer via "M-x variable-pitch-mode"
   (set-face-attribute 'variable-pitch nil
-                      ;; :family "Iosevka Etoile"
+                      :family eon-font-proportional
                       :weight 'normal
                       :width  'normal
-                      :height 1.0)
-  ;; Active mode line
+                      :height eon-font-proportional-size)
+  ;; Base font face for the active mode line
   (set-face-attribute 'mode-line nil
-                      ;; :family "Iosevka Curly"
+                      :family eon-font-mode-line
                       :weight 'normal
                       :width  'normal
-                      :height 0.9)
-  ;; Inactive mode line
+                      :height eon-font-marginal-size)
+  ;; Base font face for the inactive mode line
   (set-face-attribute 'mode-line-inactive nil
-                      ;; :family "Iosevka Curly"
+                      :family eon-font-mode-line
                       :weight 'normal
                       :width  'normal
-                      :height 0.9)
-  ;; Tab bar
+                      :height eon-font-marginal-size)
+  ;; Base font face for the tab bar
   (set-face-attribute 'tab-bar nil
-                      ;; :family "Iosevka Curly"
+                      :family eon-font-tab-bar
                       :weight 'normal
                       :width  'normal
-                      :height 0.9)
-  ;; Tab line
+                      :height eon-font-marginal-size)
+  ;; Base font face for the tab line
   (set-face-attribute 'tab-line nil
-                      ;; :family "Iosevka Curly"
+                      :family eon-font-tab-line
                       :weight 'normal
                       :width  'normal
-                      :height 0.9)
+                      :height eon-font-marginal-size)
   ;; Don't extend the selection background past the end of the line
   (set-face-attribute 'region nil :extend nil))
 
@@ -1154,9 +1221,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Functions not designated as "(interactive)" must be wrapped in lambdas.
 
 ;; Load the default font set; if you want to load a different font set,
-;; "unhook" `eon-fonts-default' first via:
-;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
-(add-hook 'eon-theme-light-post-load-hook #'eon-fonts-default)
+;; "unhook" `eon-fonts' first via:
+;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
+(add-hook 'eon-theme-light-post-load-hook #'eon-fonts)
 
 ;; Dark theme hooks
 
@@ -1166,9 +1233,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Functions not designated as "(interactive)" must be wrapped in lambdas.
 
 ;; Load the default font set; if you want to load your own font set,
-;; "unhook" `eon-fonts-default' first via:
-;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
-(add-hook 'eon-theme-dark-post-load-hook #'eon-fonts-default)
+;; "unhook" `eon-fonts' first via:
+;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
+(add-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
 
 ;; Load the theme
 (eon-theme-load-default)
