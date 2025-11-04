@@ -2787,14 +2787,14 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   :doc "Local leader keymap for Emacs Lisp buffers."
   "d"   #'edebug-defun
   "e"   #'eval-last-sexp
-  "E"   #'elisp-eval-region-or-buffer
+  "E"   #'pp-eval-last-sexp
   "h"   #'describe-symbol
   "l"   #'load-file
   "m"   #'pp-macroexpand-last-sexp
   "M"   #'emacs-lisp-macroexpand
-  "p"   #'pp-eval-last-sexp
   "x"   #'eval-defun
   "C-b" #'elisp-byte-compile-buffer
+  "C-e" #'elisp-eval-region-or-buffer
   "C-f" #'elisp-byte-compile-file
   "C-n" #'emacs-lisp-native-compile)
 
