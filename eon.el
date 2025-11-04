@@ -2219,6 +2219,14 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; or set it for all programming modes. Goto line via "M-g M-g"
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode -1)))
 
+;; If line numbers are enabled, we don't need to show them in the mode line;
+;; so only the column number still appears there.
+(add-hook 'display-line-numbers-mode-hook
+          (lambda ()
+            (if display-line-numbers-mode
+                (line-number-mode -1)
+              (line-number-mode 1))))
+
 ;; _____________________________________________________________________________
 ;;; LINE WRAPPING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Line-Truncation>
