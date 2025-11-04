@@ -760,7 +760,7 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   :type 'string
   :set #'eon-leader--set-key)
 
-;; Sub-keymaps under the leader:
+;; Sub-keymaps under the leader
 
 (defvar-keymap ctl-z-b-map   :doc "Buffer")
 (defvar-keymap ctl-z-c-map   :doc "Code")
@@ -780,8 +780,9 @@ Use the Customization UI to change, or `setopt' in Elisp code."
 (defvar-keymap ctl-z-x-map   :doc "Misc")
 (defvar-keymap ctl-z-ret-map :doc "Bookmark")
 
-;; Default Top-level leader keymap, referencing the sub-keymaps:
-;; TODO Rename ctl-z-.*-map to eon-leader-.*-map
+;; Default Top-level leader keymap, referencing the sub-keymaps
+;; TODO Rename ctl-z-.*-map to eon-leader-default-.*-map;
+;; the ctl-z-... part is merely historical
 
 (defvar-keymap ctl-z-map
   :doc "Top-level leader keymap."
@@ -806,7 +807,8 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   eon-localleader-key `("Local" . ,eon-localleader-map))
 
 ;; Don't like the pre-defined keybindings of the default leader keymap?
-;; There is an alternative, empty leader keymap:
+;; There is an alternative, blank-slate leader keymap.
+;; The only bound key/command is the local leader.
 (defvar-keymap eon-leader-user-map
   :doc "Alternative top-level leader keymap, initially empty.
 Ready to populate with your own sub-keymaps and keybindings:
@@ -1170,7 +1172,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
         hscroll-margin 1
         hscroll-step 1)
 
-;; Enable pixel-based scrolling
+;; Enable pixel-based scrolling?
 (when (fboundp #'pixel-scroll-precision-mode)
   (pixel-scroll-precision-mode 1))
 
@@ -1184,15 +1186,19 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Compress the mode line?
 ;; If non-nil, repeating spaces are compressed into a single space.
-;; If 'long, this is only done when the mode line is longer than
-;; the current window width (in columns).
+;; If 'long, this is only done when the mode line is longer
+;; than the current window width in columns.
 (setopt mode-line-compact 'long)
 
 ;; Show the buffer size in the modeline?
 (size-indication-mode 1)
 
 ;; Show the current line number along with column number in mode line?
+;; This is nice if you think line numbers on the left margin are distracting.
+;; The line number indicator turnes off if you enable
+;; `display-line-numbers-mode' or `global-display-line-numbers-mode'.
 (column-number-mode 1)
+(line-number-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; MINIBUFFER
@@ -1202,7 +1208,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Recursive-Edit>
 ;; Allow minibuffer commands while in the minibuffer!
 ;; There are two commands to get out of recursive minibuffers:
-;; "C-M-c" exit-recursive-edit and "C-]" abort-recursive-edit
+;; "C-M-c" `exit-recursive-edit' and "C-]" `abort-recursive-edit'.
 (setopt enable-recursive-minibuffers t)
 ;; Show how deep you're in there?
 (minibuffer-depth-indicate-mode 1)
@@ -1215,14 +1221,14 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Prevent visual line wrapping in narrow frames
 (add-hook 'minibuffer-setup-hook (lambda () (setq-local truncate-lines t)))
 
-;; For mouse commands to ask questions, use dialog box instead of minibuffer?
+;; For mouse commands to ask questions, use a dialog box instead of minibuffer?
 (setopt use-dialog-box nil)
 
 ;; Grow and shrink the minibuffer according to its lines of content?
-;; If there's too much jumping, set it to 'grow-only.
+;; If you experience too much jumping, set it to 'grow-only.
 (setopt resize-mini-windows t)
 
-;; Allow for shorter responses? "y" for "yes" and "n" for "no"
+;; Allow for shorter responses? Lets you type "y" for "yes" and "n" for "no"
 (setopt read-answer-short t)
 (setopt use-short-answers t)
 
@@ -1278,7 +1284,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Icomplete
 
-;; Tweaking Icomplete
+;; Make Icomplete snappy and tweak it further
 (with-eval-after-load 'icomplete
   (setopt icomplete-compute-delay 0.01
           icomplete-delay-completions-threshold 256
@@ -1290,11 +1296,11 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; The default vertical minibuffer completion UI for Emacs ONBOARD
 
-;; Prevent jumping minibuffer window when the number of candidates changes.
+;; Prevent minibuffer window from jumping when the number of candidates changes
 (add-hook 'icomplete-minibuffer-setup-hook
           (lambda () (setq-local resize-mini-windows 'grow-only)))
 
-;; TAB accepts the current candidates in Icomplete/Fido minibuffers
+;; Let TAB accept the current candidates in Icomplete/Fido minibuffers
 (with-eval-after-load 'icomplete
   (keymap-set icomplete-minibuffer-map "TAB" #'icomplete-force-complete)
   (keymap-set icomplete-minibuffer-map "<tab>" #'icomplete-force-complete)
@@ -1309,6 +1315,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
+;; Make commonly used help commands available under the leader key
 (keymap-set ctl-z-h-map "," `("..." . ,help-map))
 (keymap-set ctl-z-h-map "e" #'view-echo-area-messages)
 (keymap-set ctl-z-h-map "f" #'describe-function)
@@ -1319,7 +1326,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Focus a help window when it appears?
 (setopt help-window-select t)
 
-;; Show all options when running 'apropos' "C-h a" (fulltext search)
+;; Show all options when running `apropos' (fulltext search)? Keybinding: "C-h a"
 (setopt apropos-do-all t)
 
 ;; _____________________________________________________________________________
@@ -1327,10 +1334,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 (when package-enable-at-startup
 
-  ;; Open the package manager interface: "<leader> x p"
+  ;; Open the package manager interface: "<leader> x P"
   (keymap-set ctl-z-x-map "P" #'list-packages)
 
-  ;; Highlight current line in the package manager?
+  ;; Highlight current line in the package manager UI?
   (add-hook 'package-menu-mode-hook (lambda () (hl-line-mode 1))))
 
 ;; _____________________________________________________________________________
@@ -1346,10 +1353,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 (keymap-set ctl-z-x-map "C" #'eon-customize-group)
 
-;; Don't accumulate customization buffers
+;; Don't accumulate customization buffers?
 (setopt custom-buffer-done-kill t)
 
-;; No line wrapping in descriptions
+;; No line wrapping in descriptions?
 (add-hook 'Custom-mode-hook (lambda () (setq-local truncate-lines t)))
 
 ;; _____________________________________________________________________________
@@ -1363,6 +1370,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
         eldoc-echo-area-prefer-doc-buffer nil
         eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
 
+;; Open the documentation buffer via "<leader> c d"
 (keymap-set ctl-z-c-map "d" #'eldoc)
 
 ;; _____________________________________________________________________________
@@ -1375,20 +1383,22 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-global-set "C-S-s" #'isearch-forward)
 (keymap-global-set "C-S-r" #'isearch-backward)
 
-;; Search and replace
+;;; - Search and replace
 ;; If text is selected, then the commands act on that region only
 
 ;; The 'query-' variant asks for each replacement
-;; Confirm with "SPC" / "y", or jump to the next via "n"
+;; Confirm with "SPC" / "y", or deny and jump to the next via "n"
 (keymap-global-set      "M-%"   #'query-replace-regexp)
 (keymap-set ctl-z-s-map "r"     #'query-replace-regexp)
 (keymap-set ctl-z-s-map "R"     #'query-replace)
+
 ;; Replace all strings immediately
 (keymap-global-set      "C-M-%" #'replace-regexp)
 (keymap-set ctl-z-s-map "C-r"   #'replace-regexp)
 
 ;; _____________________________________________________________________________
 ;;; IMENU
+;; Imenu provides navigation for buffer content, e.g. code, outlines and more
 
 (keymap-set ctl-z-g-map "i" #'imenu)
 
@@ -1566,7 +1576,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   (setopt switch-to-prev-buffer-skip-regexp eon-boring-buffers
           switch-to-next-buffer-skip-regexp eon-boring-buffers))
 
-;; Hide boring buffers from `next-buffer' and `prev-buffer'.
+;; Hide boring buffers
 (with-eval-after-load 'window (eon-boring-buffers-add))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -1583,12 +1593,11 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 
 ;; Set an initial major mode for the *scratch* buffer:
 
-;; Lisp-interaction-mode is the default mode for the scratch buffer
+;; `lisp-interaction-mode' is the default mode for the scratch buffer
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Interaction>
-;; (setopt initial-major-mode #'lisp-interaction-mode)
 
-;; You can set the scratch buffer to Org-mode which may be more useful
-;; for quick notes, writing and literate programming
+;; You can set the scratch buffer to `org-mode' or `text-mode',
+;; which may be more useful for quick notes or writing.
 ;; (setopt initial-major-mode #'org-mode)
 
 ;; Should the *scratch* buffer contain some initial content?
@@ -1619,8 +1628,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; Allow Emacs to copy to and paste from the GUI clipboard
 ;; when running in a text terminal
 ;; --> recommended 3rd-party package 'xclip'
-;; If you would like to install this 3rd-party package, uncomment and evaluate
-;; the following expression – either via "C-M-x", or simply restart Emacs:
+;; If you want to install this 3rd-party package, set this in your `init.el'
+;; and then restart Emacs:
 ;; (use-package xclip :ensure t)
 
 ;; Copy the full path of the current file
@@ -1644,7 +1653,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (keymap-global-set "M-y" #'eon-yank-from-kill-ring)
 
 ;; Copy & paste between Windows and Emacs running within WSL
-;; (Windows Subsystem for Linux) - which is technically a Linux, not Windows
+;; (Windows Subsystem for Linux)
 
 ;; Copy "kill" text from an Emacs buffer for pasting it into a Windows app
 (when (and (eon-linp)
@@ -2019,6 +2028,10 @@ pretending to clear it."
 ;; that runs within Emacs. It is independent from the OS. Eshell looks like
 ;; a POSIX shell superficially, but is also a REPL for Emacs Lisp expressions.
 
+;; Create Eshell loacal leader keymap
+(eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
+  :doc "Local leader keymap for `eshell-mode'.")
+
 ;; Get rid of the Eshell startup message?
 (setopt eshell-banner-message ""
         eshell-history-size 1024
@@ -2042,16 +2055,16 @@ pretending to clear it."
   (eshell 't))
 (keymap-set ctl-z-e-map "E" #'eon-eshell-new)
 
-;; Create Eshell loacal leader keymap
-(eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
-  :doc "Local leader keymap for Eshell")
-
 ;; _____________________________________________________________________________
 ;;; SHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Shell-Mode>
 
 ;; This is also no terminal emulator, but a buffer to issue shell commands
 ;; and display their output
+
+;; Create Shell local leader keymap
+(eon-localleader-defkeymap shell-mode eon-localleader-shell-map
+  :doc "Local leader keymap for `shell-mode'.")
 
 ;; Set another shell than your default one?
 ;; (setopt shell-file-name "/usr/bin/bash")
@@ -2068,10 +2081,6 @@ pretending to clear it."
   (interactive)
   (shell (generate-new-buffer-name "*shell*")))
 (keymap-set ctl-z-e-map "S" #'eon-shell-new)
-
-;; Create Shell loacal leader keymap
-(eon-localleader-defkeymap shell-mode eon-localleader-shell-map
-  :doc "Local leader keymap for Shell")
 
 ;; _____________________________________________________________________________
 ;;; PROCED
@@ -2208,8 +2217,8 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; LINE NUMBERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom>
 
-;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode"
-;; or set it here for all programming modes. Goto line: "M-g M-g"
+;; Line numbers on or off? Toggle with "M-x display-line-numbers-mode",
+;; or set it for all programming modes. Goto line via "M-g M-g"
 (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode -1)))
 
 ;; _____________________________________________________________________________
@@ -2229,7 +2238,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; _____________________________________________________________________________
 ;;; TEXT / PROSE
 
-;; Sentences end with a single space
+;; Sentences end with a single or double spaces?
 (setopt sentence-end-double-space nil)
 
 ;; TODO Add Flyspell / Ispell presets here
