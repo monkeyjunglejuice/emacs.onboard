@@ -1542,9 +1542,6 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
 ;; Define boring buffers globally, so they can be hidden. These buffers
 ;; remain accessible via Ibuffer: "C-x C-b" or "<leader> b i"
 
-;; Hide the boring buffers from Ibuffer too?
-;; (setopt ibuffer-never-show-predicates eon-boring-buffers)
-
 (defcustom eon-boring-buffers
   '("\\` "
     "\\`\\*Echo Area"
