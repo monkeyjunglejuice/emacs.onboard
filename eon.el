@@ -273,16 +273,16 @@ Cancel the previous one if present."
 ;; _____________________________________________________________________________
 ;;; GLOBAL DEFINITIONS & UTILITIES
 
-;; Simplify writing of operating-system-specific Elisp code
+;;; - Simplify writing of operating-system-specific Elisp code
 
 (defun eon-linp ()
-  "True if `system-type' is Linux or something compatible.
+  "True if `system-type' is GNU/Linux or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
 
 (defun eon-winp ()
-  "True if `system-type' is Windows or something compatible.
+  "True if `system-type' is Microsoft Windows or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (memq system-type '(windows-nt cygwin ms-dos)))
@@ -299,8 +299,12 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'darwin))
 
-;; Extended `add-to-list' and friends
+;; TODO Create more useful predicates, e.g. eon-tuip or eon-guip
 
+;;; - Extended `add-to-list' and friends
+
+;; TODO Since we're using `cl-lib' anyway, we could use keyword arguments
+;; instead of merely positional arguments.
 (require 'cl-lib)
 
 (defun eon-adjoin (cur elements &optional append compare-fn)
@@ -334,12 +338,12 @@ while preserving the order of ELEMENTS.
 COMPARE-FN, if non-nil, is a function used to test for membership; it
 defaults to `equal`.
 
-Returns the new current value of LIST-SYM.
-
 Examples (assuming LIST-SYM initially holds (a b)):
   (eon-add-to-list 'v 'c)           ; => (c a b)
   (eon-add-to-list 'v '(c a))       ; => (c a b)
-  (eon-add-to-list 'v '(d) t)       ; => (a b d)"
+  (eon-add-to-list 'v '(d) t)       ; => (a b d)
+
+Returns the new current value of LIST-SYM."
   (unless (symbolp list-sym)
     (error "eon-add-to-list: LIST-SYM must be quoted: 'my-var"))
   (set list-sym
@@ -354,20 +358,18 @@ LIST-SYM is a symbol naming a variable or user option. ELEMENTS may be
 a single item or a list of items to add to the variable’s *default* (global)
 value.
 
-If APPEND is non-nil, append items left->right; otherwise prepend them
-while preserving the order of ELEMENTS.
+If APPEND is non-nil, append items left->right;
+otherwise prepend them while preserving the order of ELEMENTS.
 
-COMPARE-FN, if non-nil, is a function used to test for membership; it
-defaults to `equal`.
+COMPARE-FN, if non-nil, is a function used to test for membership;
+it defaults to `equal'.
 
-If LIST-SYM is a user option (see `custom-variable-p`), use
-`customize-set-variable` so its :set function and type checks are
-applied.  Otherwise, use `set-default` to modify the variable’s global
+If LIST-SYM is a user option (see `custom-variable-p'),
+use `customize-set-variable' so its :set function and type checks are
+applied. Otherwise, use `set-default' to modify the variable’s global
 default value directly.
 
-Returns the new default value of LIST-SYM.
-
-See `eon-add-to-list' for examples."
+Returns the new default value of LIST-SYM."
   (unless (symbolp list-sym)
     (error "eon-add-to-list-setopt: LIST-SYM must be a symbol"))
   (let* ((cur (and (default-boundp list-sym) (default-value list-sym)))
@@ -379,7 +381,7 @@ See `eon-add-to-list' for examples."
 
 ;; Get all the parent major modes
 (defun eon-get-parent-modes ()
-  "Return major-mode and its parents (child first).
+  "Return a list with `major-mode' as the `car' and its parents as the `cdr'.
 When called interactively, also echo the result."
   (interactive)
   (cl-labels ((collect (mode)
@@ -392,7 +394,7 @@ When called interactively, also echo the result."
         parents))))
 
 (defvar eon-user-directory (expand-file-name "~/")
-  "The user's home directory with a trailing slash.")
+  "Full path of the user's home directory with a trailing slash.")
 
 ;; _____________________________________________________________________________
 ;;; EMACS SYSTEM LIMITS
@@ -405,7 +407,7 @@ When called interactively, also echo the result."
         undo-strong-limit (* 96 1024 1024)   ; 96 MiB
         undo-outer-limit (* 960 1024 1024))  ; 960 MiB
 
-;; Increase the amount of data which Emacs reads from subprocesses
+;; Increase the amount of data that Emacs reads from subprocesses
 (setopt read-process-output-max (* 1024 1024))  ; 1 MiB
 
 ;; _____________________________________________________________________________
@@ -415,6 +417,7 @@ When called interactively, also echo the result."
 ;; while "window" refers to tiled panels within an Emacs frame. Why?
 ;; Because Emacs had it first, and today's convention what "window" means
 ;; appeared later.
+;;
 ;; In order to define properties generally, add them to `default-frame-alist';
 ;; to affect only the first frame created, add them to `initial-frame-alist'.
 
@@ -512,56 +515,56 @@ When called interactively, also echo the result."
   (force-mode-line-update t))
 
 (defcustom eon-cursor-type-write 'bar
-  "Cursor type for text input.
+  "Cursor style for text input.
 Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
-- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+- a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'"
   :type 'sexp
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-select 'bar
-  "Cursor type for selecting text in writing- or modal insert states.
+  "Cursor style for selecting text in writing- or modal insert states.
 Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
-- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+- a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'"
   :type 'sexp
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-view '(hbar . 3)
-  "Cursor type for read-only buffers.
+  "Cursor style for read-only buffers.
 Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
-- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+- a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'"
   :type 'sexp
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-extra 'box
-  "Cursor type for command- and modal \"normal\" states.
+  "Cursor style for command- and modal \"normal\" states.
 Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
-- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
+- a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'"
   :type 'sexp
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-extra-select 'hollow
-  "Cursor type for command- and modal \"normal\" states when region is active.
+  "Cursor style for command- and modal \"normal\" states when region is active.
 Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
-- a pair (SYMBOL . INTEGER) e.g., (hbar . 3).
-See also `cursor-type'"
+- a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3)
+See also `cursor-type'."
   :type 'sexp
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
@@ -584,7 +587,7 @@ Each function is called with no args and should return either a
   (setq-local cursor-type (eon-cursor-type--desired)))
 
 (define-minor-mode eon-cursor-type-mode
-  "Globally change cursor type according to status."
+  "Globally change cursor type according to state."
   :group 'eon-cursor-type
   :global t
   :init-value t
@@ -641,14 +644,14 @@ Each function is called with no args and should return either a
 ;;; - Defaults for graphical Emacs:
 ;; "C-," is the leader key, reach the local leader via "C-, C-,"
 ;;
-;;; - Defaults for Emacs with terminal UI (invoked by "emacs -nw"):
+;;; - Defaults for Emacs with terminal UI - invoked by "emacs -nw":
 ;; "C-z" is the leader key, reach the local leader via "C-z C-z"
 ;;
-;; Terminal note: In `emacs -nw`, "C-z" is normally bound to suspend Emacs.
-;; We rebind it as a leader, and it works in modern terminals (e.g. WezTerm).
+;; Terminal note: In "emacs -nw", "C-z" is normally bound to suspend Emacs.
+;; We rebind it as a leader, and it works in modern terminals - e.g. WezTerm.
 ;; If your TTY converts C-z to SIGTSTP before Emacs sees it (rare), disable
-;; the suspend char or move it (see optional snippet below).
-
+;; the suspend char or move it - see optional snippet below.
+;;
 ;; (add-hook 'tty-setup-hook
 ;;           (lambda ()
 ;;             (ignore-errors
@@ -674,8 +677,8 @@ You can bind commands here that should appear in all local leader keymaps."
   "Active localleader keymap for the current buffer.
 Don't bind any keys/commands to this keymap.")
 
-;; KLUDGE Relies currently on `which-key' internals, what's a bit of an eyesore,
-;; but seems to work reliably.
+;; KLUDGE Relies currently on `which-key' internals;
+;; that's a bit of an eyesore, but seems to work reliably.
 (defun eon-localleader--context-window ()
   "Return the window where the key sequence started."
   (cond
@@ -739,9 +742,11 @@ localleader is shown."
 (defcustom eon-localleader-key
   (if (display-graphic-p) "C-," "C-z")
   "Local leader key, pressed after the leader.
-GUI default: \"C-,\" -> reach local leader via \"C-, C-,\"
-TTY default: \"C-z\" -> reach local leader via \"C-z C-z\"
-Use the Customization UI to change, or `setopt' in Elisp code."
+
+- GUI default: \"C-,\" -> reach local leader via \"C-, C-,\"
+- TTY default: \"C-z\" -> reach local leader via \"C-z C-z\"
+
+Use `eon-customize-group' to change, or use `setopt' from Lisp."
   :group 'eon-leader
   :type 'string
   :set #'eon-localleader--set-key)
@@ -749,22 +754,22 @@ Use the Customization UI to change, or `setopt' in Elisp code."
 (defmacro eon-localleader-defkeymap (mode map-sym &rest body)
   "Define a mode-specific local leader keymap.
 
-MODE    can be any major or minor mode.
+MODE can be any major or minor mode.
 MAP-SYM can be an arbitrary name for your keymap.
-BODY    will be forwarded to `defvar-keymap'.
+BODY will be forwarded to `defvar-keymap'.
 
-1. Example how to define an empty mode-specific local leader keymap:
-   (eon-localleader-defkeymap org-mode eon-localleader-org-mode-map
-     :doc \"Localleader map for Org mode.\")
+- Example how to define an empty mode-specific local leader keymap:
+  (eon-localleader-defkeymap org-mode eon-localleader-org-mode-map
+    :doc \"Localleader map for Org mode.\")
 
-   - Bind keys/commands or sub-keymaps later via `keymap-set'.
+  Bind keys/commands or sub-keymaps with `keymap-set' later.
 
-2. Example how to define a mode-specific local leader keymap with bindings:
-   (eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
-     :doc \"Local leader keymap for Emacs Lisp buffers.\"
-     \"e\"   #'eval-last-sexp
-     \"E\"   #'pp-eval-last-sexp
-     \"h\"   #'describe-symbol)"
+- Example how to define a mode-specific local leader keymap with bindings:
+  (eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
+    :doc \"Local leader keymap for Emacs Lisp buffers.\"
+    \"e\"   #'eval-last-sexp
+    \"E\"   #'pp-eval-last-sexp
+    \"h\"   #'describe-symbol)"
   (declare (indent 2))
   (let ((hook (intern (format "%s-hook" mode))))
     `(progn
@@ -791,8 +796,8 @@ BODY    will be forwarded to `defvar-keymap'.
 
 (defcustom eon-leader-key
   (if (display-graphic-p) "C-," "C-z")
-  "Leader prefix key. GUI default: \"C-,\"; TTY default: \"C-z\".
-Use the Customization UI to change, or `setopt' in Elisp code."
+  "Leader prefix key. GUI default: \"C-,\" - TTY default: \"C-z\".
+Use `eon-customize-group' to change, or `setopt' from Lisp."
   :group 'eon-leader
   :type 'string
   :set #'eon-leader--set-key)
@@ -818,8 +823,8 @@ Use the Customization UI to change, or `setopt' in Elisp code."
 (defvar-keymap ctl-z-ret-map :doc "Bookmark")
 
 ;; Default Top-level leader keymap, referencing the sub-keymaps
-;; TODO Rename ctl-z-.*-map to eon-leader-default-.*-map;
-;; the ctl-z-... part is merely historical
+;; TODO Rename ctl-z-.*-map to eon-leader-default-.*-map, because
+;; the ctl-z-... part is merely historical and has no meaning anymore.
 
 (defvar-keymap ctl-z-map
   :doc "Top-level leader keymap."
@@ -2931,6 +2936,14 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Lisp modes registry
+
+;; Collection of known Lisp-related modes (might be incomplete).
+;; Probably useful to pre-configure Lisp-related modes when `prog-mode-hook' or
+;; targeting parent modes are insufficient.
+;;
+;; Comes with 2 functions that return a list which of these modes are installed:
+;; `eon-lisp-src-modes' and `eon-lisp-repl-modes'
+;; If called with the argument 'hook, both functions return ...-hook symbols.
 
 (defvar eon-lisp-src-modes-registry
   '(;; Built-in modes
