@@ -965,6 +965,10 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
 ;; _____________________________________________________________________________
 ;;; VI KEYBINDINGS (VIPER-MODE)
 
+;; FIXME Needs a customizable leader key;
+;; e.g. eon-viper-leader-key and eon-viper-localleader-key.
+;; Best keymap to bind it seems `viper-vi-global-user-map'.
+
 (with-eval-after-load 'viper
   (setopt
    viper-inhibit-startup-message t    ; don't show Viper's start up message
