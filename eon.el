@@ -596,25 +596,26 @@ Each function is called with no args and should return either a
         (mapc (lambda (buf)
                 (with-current-buffer buf (eon-cursor-type-update)))
               (buffer-list))
-        ;; It seems unreasonabe to use `after-command-hook'
-        ;; to update the cursor type, because of the overhead.
+        ;; It seems unreasonable to use `after-command-hook' to update
+        ;; the cursor type; better avoid that potential overhead.
         ;; Instead we're listing the triggers one-by-one.
-        (add-hook 'buffer-list-update-hook      #'eon-cursor-type-update)
-        (add-hook 'read-only-mode-hook          #'eon-cursor-type-update)
-        (add-hook 'after-change-major-mode-hook #'eon-cursor-type-update)
+        (add-hook   'buffer-list-update-hook      #'eon-cursor-type-update)
+        (add-hook   'read-only-mode-hook          #'eon-cursor-type-update)
+        (add-hook   'after-change-major-mode-hook #'eon-cursor-type-update)
         ;; React to selections
-        (add-hook 'activate-mark-hook           #'eon-cursor-type-update)
-        (add-hook 'deactivate-mark-hook         #'eon-cursor-type-update)
+        (add-hook   'activate-mark-hook           #'eon-cursor-type-update)
+        (add-hook   'deactivate-mark-hook         #'eon-cursor-type-update)
         ;; Make sure the cursor will be updated after leaving wdired
-        (advice-add 'wdired-abort-changes :after #'eon-cursor-type-update)
-        (advice-add 'wdired-finish-edit :after   #'eon-cursor-type-update))
-    (remove-hook 'buffer-list-update-hook      #'eon-cursor-type-update)
-    (remove-hook 'read-only-mode-hook          #'eon-cursor-type-update)
-    (remove-hook 'after-change-major-mode-hook #'eon-cursor-type-update)
-    (remove-hook 'activate-mark-hook           #'eon-cursor-type-update)
-    (remove-hook 'deactivate-mark-hook         #'eon-cursor-type-update)
-    (advice-remove 'wdired-abort-changes #'eon-cursor-type-update)
-    (advice-remove 'wdired-finish-edit   #'eon-cursor-type-update)))
+        (advice-add 'wdired-abort-changes :after  #'eon-cursor-type-update)
+        (advice-add 'wdired-finish-edit :after    #'eon-cursor-type-update))
+    ;; Tear down
+    (remove-hook   'buffer-list-update-hook      #'eon-cursor-type-update)
+    (remove-hook   'read-only-mode-hook          #'eon-cursor-type-update)
+    (remove-hook   'after-change-major-mode-hook #'eon-cursor-type-update)
+    (remove-hook   'activate-mark-hook           #'eon-cursor-type-update)
+    (remove-hook   'deactivate-mark-hook         #'eon-cursor-type-update)
+    (advice-remove 'wdired-abort-changes         #'eon-cursor-type-update)
+    (advice-remove 'wdired-finish-edit           #'eon-cursor-type-update)))
 
 ;; Turn it on
 (eon-cursor-type-mode 1)
