@@ -2146,8 +2146,9 @@ pretending to clear it."
 (eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
   :doc "Local leader keymap for `eshell-mode'.")
 
-;; Get rid of the Eshell startup message?
 (setopt eshell-banner-message ""
+        eshell-scroll-to-bottom-on-input t
+        eshell-buffer-maximum-lines 65536
         eshell-history-size 1024
         eshell-hist-ignoredups t
         eshell-cmpl-ignore-case t)
