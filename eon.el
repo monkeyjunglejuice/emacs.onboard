@@ -694,17 +694,25 @@ Don't bind any keys/commands to this keymap.")
 
 ;; Empty named prefix, so which-key shows the label "Local"
 (defvar-keymap eon-localleader-map
-  :doc "Don't bind keys/commands in this keymap.
-It's a frontend to make the local leader keymap machinery to appear
-like a regular keymap.
+  :doc "Frontend; lets the loacal leader machinery appear as a single keymap.
 
-- If you want to bind/rebind a key/command to a mode-specific local leader
+You may not want to bind keys/commands to this map, because they will be
+globally visible under the local leader and override commands bound
+to the same keys.
+
+- If you actually want a certain key/command always appear under the
+  local leader, bind the key/command to `eon-localleader-global-map'.
+
+- If you want to bind/rebind a key/command in a mode-specific local leader
   keymap, then use `keymap-set'.
   Example: (keymap-set eon-localleader-elisp-map \"x\" #'eval-defun)
-- If you want to define a local leader keymap for a specific mode,
-  use `eon-localleader-defkeymap'.
-- If you want to bind a certain key/command in all mode-specific local leader
-  keymaps, bind the key/command to `eon-localleader-global-map'."
+
+  Pre-defined local leader keymaps are named according to the schema
+  'eon-localleader-[mode name or purpose]-map'. You can look them up
+  via '<leader> h v'.
+
+- If you want to define a new local leader keymap for a specific mode,
+  use `eon-localleader-defkeymap'."
   :name "Local")
 
 (defun eon-localleader--sync-local-prefix-parent ()
@@ -737,6 +745,35 @@ Use the Customization UI to change, or `setopt' in Elisp code."
   :group 'eon-leader
   :type 'string
   :set #'eon-localleader--set-key)
+
+(defmacro eon-localleader-defkeymap (mode map-sym &rest body)
+  "Define a mode-specific local leader keymap.
+
+MODE    can be any major or minor mode.
+MAP-SYM can be an arbitrary name for your keymap.
+BODY    will be forwarded to `defvar-keymap'.
+
+1. Example how to define an empty mode-specific local leader keymap:
+   (eon-localleader-defkeymap org-mode eon-localleader-org-mode-map
+     :doc \"Localleader map for Org mode.\")
+
+   - Bind keys/commands or sub-keymaps later via `keymap-set'.
+
+2. Example how to define a mode-specific local leader keymap with bindings:
+   (eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
+     :doc \"Local leader keymap for Emacs Lisp buffers.\"
+     \"e\"   #'eval-last-sexp
+     \"E\"   #'pp-eval-last-sexp
+     \"h\"   #'describe-symbol)"
+  (declare (indent 2))
+  (let ((hook (intern (format "%s-hook" mode))))
+    `(progn
+       (defvar-keymap ,map-sym ,@body)
+       ;; Inherit global entries so globals are always available
+       (set-keymap-parent ,map-sym eon-localleader-global-map)
+       ;; Activate buffer-locally in this mode
+       (add-hook ',hook (lambda ()
+                          (setq-local eon-localleader--map ,map-sym))))))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Leader implementation
@@ -894,19 +931,6 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
             (when (keymapp (current-local-map))
               (keymap-set (current-local-map)
                           eon-leader-key eon-leader-map))))
-
-(defmacro eon-localleader-defkeymap (mode map-sym &rest body)
-  "Define MAP-SYM for MODE; inherit global localleader and activate it.
-BODY is forwarded to `defvar-keymap'."
-  (declare (indent 2))
-  (let ((hook (intern (format "%s-hook" mode))))
-    `(progn
-       (defvar-keymap ,map-sym ,@body)
-       ;; Inherit global entries so globals are always available
-       (set-keymap-parent ,map-sym eon-localleader-global-map)
-       ;; Activate buffer-locally in this mode
-       (add-hook ',hook (lambda ()
-                          (setq-local eon-localleader--map ,map-sym))))))
 
 ;; _____________________________________________________________________________
 ;;; GENERAL KEYBINDINGS
