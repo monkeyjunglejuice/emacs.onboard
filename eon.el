@@ -269,7 +269,7 @@ Cancel the previous one if present."
 ;; _____________________________________________________________________________
 ;;; GLOBAL DEFINITIONS & UTILITIES
 
-;;; - Simplify writing of operating-system-specific Elisp code
+;;; - Some commonly used predicates
 
 (defun eon-linp ()
   "True if `system-type' is GNU/Linux or something compatible.
