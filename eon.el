@@ -191,6 +191,18 @@ Cancel the previous one if present."
 (add-hook 'emacs-startup-hook #'eon-gcmh-mode)
 
 ;; _____________________________________________________________________________
+;;; DEBUG / DIAGNOSTICS
+
+;; Show Emacs init time and how many garbage collections happened during init
+(add-hook 'window-setup-hook
+          (lambda ()
+            (message "Emacs started in %s with %d garbage collections."
+                     (format "%.3f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
+;; _____________________________________________________________________________
 ;;; ELISP NATIVE COMPILATION / BYTECODE
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
@@ -224,22 +236,6 @@ Cancel the previous one if present."
    ;; Reduce native code compilation verbosity?
    native-comp-async-report-warnings-errors nil
    native-comp-warning-on-missing-source nil))
-
-;; _____________________________________________________________________________
-;;; DEBUG / DIAGNOSTICS
-
-;; Enter debugger if an error is signaled
-(when init-file-debug
-  (setopt debug-on-error t))
-
-;; Show Emacs init time and how many garbage collections happened during init
-(add-hook 'window-setup-hook
-          (lambda ()
-            (message "Emacs started in %s with %d garbage collections."
-                     (format "%.3f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
-                     gcs-done)))
 
 ;; _____________________________________________________________________________
 ;;; PACKAGE MANAGEMENT INIT
