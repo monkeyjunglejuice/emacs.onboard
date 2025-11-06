@@ -98,7 +98,7 @@
 This should be set to a value that makes GC unlikely but does not
 cause OS paging."
   :group 'eon-gcmh
-  :type 'number)
+  :type '(number))
 
 ;; Set the high value immediately to prevent frequent garbage collections
 ;; during initialization. Will be adjusted dynamically when eon-gcmh-mode
@@ -110,7 +110,7 @@ cause OS paging."
 This is the GC threshold used while idling. Default value is the
 same of `gc-cons-threshold' default."
   :group 'eon-gcmh
-  :type 'number)
+  :type '(number))
 
 (defcustom eon-gcmh-idle-delay 15
   "Idle time to wait in seconds before triggering GC.
@@ -123,7 +123,7 @@ If `auto', this is auto-computed based on `eon-gcmh-auto-idle-delay-factor'."
 The idle delay will be `eon-gcmh-auto-idle-delay-factor' times the
 time the last non idle garbage collection time."
   :group 'eon-gcmh
-  :type 'number)
+  :type '(number))
 
 (defcustom eon-gcmh-verbose nil
   "If t, print a message when garbage collecting."
@@ -749,7 +749,7 @@ localleader is shown."
 
 Use `eon-customize-group' to change, or use `setopt' from Lisp."
   :group 'eon-leader
-  :type 'string
+  :type '(string)
   :set #'eon-localleader--set-key)
 
 (defmacro eon-localleader-defkeymap (mode map-sym &rest body)
@@ -800,7 +800,7 @@ BODY will be forwarded to `defvar-keymap'.
   "Leader prefix key. GUI default: \"C-,\" - TTY default: \"C-z\".
 Use `eon-customize-group' to change, or `setopt' from Lisp."
   :group 'eon-leader
-  :type 'string
+  :type '(string)
   :set #'eon-leader--set-key)
 
 ;; Sub-keymaps under the leader
@@ -1001,60 +1001,70 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
 (defcustom eon-font-default nil
   "Name of the default font; set it to a monospaced or duospaced font you like.
 If not set explicitly, choosen by Emacs according to your system's default."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(string))
 
 (defcustom eon-font-default-size 140
   "Set the default font size in 1/10 of the desired point size.
 Example: 140 -> 14 pt
 You must specify an absolute size as an integer."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(integer))
 
 (defcustom eon-font-fixed eon-font-default
   "Optionally name a fixed-width font.
 When `eon-font-default' is set to a fixed-width font,
 the font specified here should have the same character width.
 If not set explicitly, fall back to `eon-font-default'."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(string))
 
 (defcustom eon-font-fixed-alt eon-font-fixed
   "Optionally name an alternative fixed-width font.
 It should have the same character width as `eon-font-fixed'.
 If not set explicitly, fall back to `eon-font-fixed'."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(string))
 
 (defcustom eon-font-proportional nil
   "Name for the proportional font, used for text that isn't code.
 If not set explicitly, choosen by Emacs according to your system's default."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(string))
 
 (defcustom eon-font-proportional-size eon-font-default-size
-  "Set the size for the proportinal font.
+  "Size for the proportinal font.
 You can specify an absolute size as an integer, or a relative size as a float.
 Examples: 140 -> 14 pt / 0.9 -> 90% of `eon-font-default-size'.
 If not set explicitly, fall back to `eon-font-default-size'."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(number))
 
 (defcustom eon-font-marginal-size 0.9
   "Size for `eon-font-mode-line', `eon-font-tab-bar' and `eon-font-tab-line'.
 You can specify an absolute size as an integer, or a relative size as a float.
 Examples: 140 -> 14 pt / 0.9 -> 90% of `eon-font-default-size'.
 If not set explicitly, fall back to 90% of `eon-font-default-size'."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(number))
 
 (defcustom eon-font-mode-line eon-font-default
   "Base font face for the mode-line.
 If not set explicitly, fall back to `eon-font-default'."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(string))
 
 (defcustom eon-font-tab-bar eon-font-mode-line
   "Base font face used for the tab bar.
 When not set explicitly, fall back to `eon-font-mode-line'."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(string))
 
 (defcustom eon-font-tab-line eon-font-tab-bar
   "Base font face for the tab line.
 When not set explicitly, fall back to `eon-font-tab-bar'."
-  :group 'eon-font-settings)
+  :group 'eon-font-settings
+  :type '(string))
 
 (defun eon-fonts ()
   "Set the font faces.
