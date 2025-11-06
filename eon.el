@@ -3117,7 +3117,8 @@ With SWITCH = \='hook, return ...-hook variables."
 (keymap-set ctl-z-q-map "s" #'eon-server-stop)
 
 ;; Start the server?
-(add-hook 'after-init-hook #'server-start)
+(unless (daemonp)
+  (add-hook 'after-init-hook #'server-start))
 
 ;; _____________________________________________________________________________
 (provide 'eon)
