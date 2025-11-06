@@ -128,7 +128,7 @@ time the last non idle garbage collection time."
 (defcustom eon-gcmh-verbose nil
   "If t, print a message when garbage collecting."
   :group 'eon-gcmh
-  :type 'boolean)
+  :type '(boolean))
 
 (defvar eon-gcmh-idle-timer nil
   "Idle timer for triggering GC.")
@@ -517,7 +517,7 @@ Accepts an expression that returns either:
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'"
-  :type 'sexp
+  :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
@@ -528,7 +528,7 @@ Accepts an expression that returns either:
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'"
-  :type 'sexp
+  :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
@@ -539,7 +539,7 @@ Accepts an expression that returns either:
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'"
-  :type 'sexp
+  :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
@@ -550,7 +550,7 @@ Accepts an expression that returns either:
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'"
-  :type 'sexp
+  :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
@@ -561,7 +561,7 @@ Accepts an expression that returns either:
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3)
 See also `cursor-type'."
-  :type 'sexp
+  :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
 
@@ -1157,22 +1157,22 @@ Per default, the function is called by the hooks:
 (defcustom eon-theme-light-pre-load-hook nil
   "Run before loading the light theme."
   :group 'eon-theme
-  :type 'hook)
+  :type '(hook))
 
 (defcustom eon-theme-light-post-load-hook nil
   "Run after loading the light theme."
   :group 'eon-theme
-  :type 'hook)
+  :type '(hook))
 
 (defcustom eon-theme-dark-pre-load-hook nil
   "Run before loading the dark theme."
   :group 'eon-theme
-  :type 'hook)
+  :type '(hook))
 
 (defcustom eon-theme-dark-post-load-hook nil
   "Run after loading the dark theme."
   :group 'eon-theme
-  :type 'hook)
+  :type '(hook))
 
 (defun eon-theme-load-light ()
   "Load the light theme and apply some modifications.
