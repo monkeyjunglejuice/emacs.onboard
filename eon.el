@@ -994,6 +994,9 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
   "Font settings."
   :group 'eon)
 
+;; FIXME Fix inheritance, so that the falllbacks are actually set
+;; TODO add a setter function to the custom variables
+
 (defcustom eon-font-default nil
   "Name of the default font; set it to a monospaced or duospaced font.
 If not set explicitly, choosen by Emacs according to your system's default."
@@ -1062,6 +1065,7 @@ When not set explicitly, fall back to `eon-font-tab-bar'."
   :group 'eon-font-settings
   :type '(string))
 
+;; TODO Refactor into a setter function for the custom variables
 (defun eon-fonts ()
   "Set the font faces.
 Per default, the function is called by the hooks:
