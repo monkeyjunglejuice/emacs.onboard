@@ -997,8 +997,8 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
   "Font settings."
   :group 'eon)
 
-;; FIXME Fix inheritance, so that the falllbacks are actually set
-;; TODO add a setter function to the custom variables
+;; FIXME Fix inheritance, so that the fallbacks are actually set
+;; TODO Add a setter function to the custom variables
 
 (defcustom eon-font-default nil
   "Name of the default font; set it to a monospaced or duospaced font.
