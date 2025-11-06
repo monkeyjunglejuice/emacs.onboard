@@ -1460,8 +1460,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Focus a help window when it appears?
 (setopt help-window-select t)
 
-;; Show all options when running `apropos' (fulltext search)? Keybinding: "C-h a"
+;; Show all options when running `apropos' and friends (fulltext search)?
+;; Keybinding: <leader> h a"
 (setopt apropos-do-all t)
+(keymap-set ctl-z-h-map "a" #'apropos)
 
 ;; _____________________________________________________________________________
 ;;; PACKAGE MANAGER UI SETTINGS
