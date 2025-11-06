@@ -985,7 +985,7 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
 ;; or in your 'init.el' (fonts must be installed on your computer).
 ;; Example:
 ;; (setopt eon-font-default "Iosevka Curly"      ; font name
-;;         eon-font-default-size 150             ; base size in 1/10 pt
+;;         eon-font-default-size 150             ; 15pt - base size in 1/10 pt
 ;;         eon-font-proportional "Gentium Plus"  ; font name
 ;;         eon-font-proportional-size 160        ; size in 1/10 pt
 ;;         eon-font-marginal-size 0.9)           ; 90% for mode line and tabs
@@ -995,7 +995,7 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
   :group 'eon)
 
 (defcustom eon-font-default nil
-  "Name of the default font; set it to a monospaced or duospaced font you like.
+  "Name of the default font; set it to a monospaced or duospaced font.
 If not set explicitly, choosen by Emacs according to your system's default."
   :group 'eon-font-settings
   :type '(string))
@@ -1037,7 +1037,7 @@ If not set explicitly, fall back to `eon-font-default-size'."
   :type '(number))
 
 (defcustom eon-font-marginal-size 0.9
-  "Size for `eon-font-mode-line', `eon-font-tab-bar' and `eon-font-tab-line'.
+  "Size for the mode line, tab bar and the tab line.
 You can specify an absolute size as an integer, or a relative size as a float.
 Examples: 140 -> 14 pt / 0.9 -> 90% of `eon-font-default-size'.
 If not set explicitly, fall back to 90% of `eon-font-default-size'."
