@@ -295,7 +295,10 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'darwin))
 
-;; TODO Create more useful predicates, e.g. eon-tuip or eon-guip
+(defun eon-terminalp ()
+  "True if Emacs does run in the terminal UI."
+  (and (tty-type)
+       (not (display-graphic-p))))
 
 ;;; - Extended `add-to-list' and friends
 
