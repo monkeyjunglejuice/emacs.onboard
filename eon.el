@@ -453,10 +453,10 @@ When called interactively, also echo the result."
 (menu-bar-mode 1)
 
 ;; Scroll bar: on/off by default?
-(when (display-graphic-p) (scroll-bar-mode -1))
+(when (fboundp #'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;; Tool bar: on/off by default?
-(when (display-graphic-p) (tool-bar-mode -1))
+(when (fboundp #'tool-bar-mode) (tool-bar-mode -1))
 
 ;; Tooltips: enable/disable?
 (tooltip-mode -1)
