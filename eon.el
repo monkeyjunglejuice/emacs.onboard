@@ -9,8 +9,8 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 
 ;; Emacs ONBOARD offers a clean slate to build your personal Emacs config.
-;; It stays as close as possible to vanilla Emacs, but offers some convenience
-;; and a much better user experience, while only relying on built-in packages.
+;; It stays close to vanilla Emacs, but offers convenience and a better
+;; user experience, while only relying on built-in packages.
 
 ;; Copyright (C) 2021–2025 Dan Dee
 ;;
