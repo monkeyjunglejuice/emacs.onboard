@@ -101,7 +101,7 @@ cause OS paging."
   :type '(number))
 
 ;; Set the high value immediately to prevent frequent garbage collections
-;; during initialization. Will be adjusted dynamically when eon-gcmh-mode
+;; during initialization. Will be adjusted dynamically when `eon-gcmh-mode'
 ;; is activated via `emacs-startup-hook'.
 (setq gc-cons-threshold eon-gcmh-high-cons-threshold)
 
@@ -1124,7 +1124,8 @@ Per default, the function is called by the hooks:
 ;;; TOGGLE THEME
 
 ;; Default/fallback definitions – don't change them here,
-;; but set them in your init.el. For examples, see THEME CONFIG.
+;; but set them in your 'init.el'. For examples, see THEME CONFIG.
+
 ;; TODO Refactor in order to dissolve duplication
 ;; TODO Add setters to custom variables
 
