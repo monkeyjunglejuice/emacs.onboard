@@ -580,8 +580,8 @@ See also `cursor-type'."
 
 (defvar eon-cursor-type-functions nil
   "Hook of functions that may compute a cursor type.
-Each function is called with no args and should return either a
-`cursor-type' or nil. The first non-nil return wins.")
+Each function is called with no args and should return either
+a `cursor-type' or nil. The first non-nil return wins.")
 
 (defun eon-cursor-type--desired ()
   "Compute desired cursor type for the current buffer."
