@@ -269,7 +269,7 @@ Cancel the previous one if present."
 ;; _____________________________________________________________________________
 ;;; GLOBAL DEFINITIONS & UTILITIES
 
-;;; - Some commonly used predicates
+;;; - Some commonly useful predicates
 
 (defun eon-linp ()
   "True if `system-type' is GNU/Linux or something compatible.
@@ -392,6 +392,7 @@ When called interactively, also echo the result."
           (message "%S" parents)
         parents))))
 
+;; Home directory
 (defvar eon-user-directory (expand-file-name "~/")
   "Full path of the user's home directory with a trailing slash.")
 
