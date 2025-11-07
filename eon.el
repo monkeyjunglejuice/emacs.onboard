@@ -509,8 +509,18 @@ When called interactively, also echo the result."
   :group 'eon)
 
 (defun eon-cursor-type--set (symbol value)
-  "Set SYMBOL to VALUE and refresh the mode line."
+  "Set SYMBOL to VALUE.
+Only `eon-cursor-type-write' updates frame cursor defaults."
   (set-default symbol value)
+  (when (eq symbol 'eon-cursor-type-write)
+    (setopt initial-frame-alist
+            (cons (cons 'cursor-type value)
+                (assq-delete-all 'cursor-type
+                                 initial-frame-alist)))
+    (setopt default-frame-alist
+            (cons (cons 'cursor-type value)
+                  (assq-delete-all 'cursor-type
+                                 default-frame-alist))))
   (force-mode-line-update t))
 
 (defcustom eon-cursor-type-write 'bar
