@@ -1470,8 +1470,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 (when package-enable-at-startup
 
-  ;; Open the package manager interface: "<leader> x P"
-  (keymap-set ctl-z-x-map "P" #'list-packages)
+  ;; Open the package manager interface: "<leader> x p"
+  (keymap-set ctl-z-x-map "p" #'list-packages)
 
   ;; Highlight current line in the package manager UI?
   (add-hook 'package-menu-mode-hook (lambda () (hl-line-mode 1))))
