@@ -529,7 +529,7 @@ Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
-See also `cursor-type'"
+See also `cursor-type'."
   :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
@@ -540,7 +540,7 @@ Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
-See also `cursor-type'"
+See also `cursor-type'."
   :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
@@ -551,7 +551,7 @@ Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
-See also `cursor-type'"
+See also `cursor-type'."
   :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
@@ -562,7 +562,7 @@ Accepts an expression that returns either:
 - t or nil
 - one of the symbols: 'bar 'hbar 'box 'hollow
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
-See also `cursor-type'"
+See also `cursor-type'."
   :type '(sexp)
   :group 'eon-cursor-type
   :set #'eon-cursor-type--set)
