@@ -2229,18 +2229,20 @@ pretending to clear it."
 (keymap-set ctl-z-e-map "S" #'eon-shell-new)
 
 ;; _____________________________________________________________________________
+
+
+
+
+;; _____________________________________________________________________________
 ;;; PROCED
 
 ;; Show and manage OS processes, like the command line programs top and htop
 
-(setopt proced-auto-update-interval 1)
-
-(setopt proced-auto-update-flag t
-        proced-enable-color-flag t
-        proced-descend t)
-
-;; _____________________________________________________________________________
-
+(with-eval-after-load 'proced
+  (setopt proced-auto-update-interval 1
+          proced-auto-update-flag t
+          proced-enable-color-flag t
+          proced-descend t))
 
 ;; _____________________________________________________________________________
 ;;; PINENTRY
