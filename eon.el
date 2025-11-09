@@ -2269,7 +2269,7 @@ pretending to clear it."
 ;; Show and manage OS processes, like the command line programs top and htop
 
 (with-eval-after-load 'proced
-  (setopt proced-auto-update-interval 1
+  (setopt proced-auto-update-interval 2
           proced-auto-update-flag t
           proced-enable-color-flag t
           proced-descend t))
