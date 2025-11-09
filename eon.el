@@ -2235,7 +2235,7 @@ pretending to clear it."
   (setopt term-input-ignoredups t
           term-buffer-maximum-size 65536))
 
-(keymap-set ctl-z-e-map "t" #'ansi-term)
+(keymap-set ctl-z-e-map "t" #'term)
 
 (defcustom eon-term-kill-on-exit t
   "Kill `term' and `ansi-term' buffers when their process exits."
