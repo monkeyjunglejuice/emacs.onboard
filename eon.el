@@ -2873,7 +2873,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
          org-tags-column 0)
 
 ;; Toggle indicator for headlines
-(setopt org-ellipsis " ▼ ")
+(setopt org-ellipsis "▼")
 
 ;; Don't add leading indentation to code blocks, remove them during export
 (setopt org-edit-src-content-indentation 0
