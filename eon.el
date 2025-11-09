@@ -2179,7 +2179,7 @@ pretending to clear it."
 
 (with-eval-after-load 'eshell
   (setopt eshell-banner-message ""
-          eshell-scroll-to-bottom-on-input t
+          eshell-scroll-to-bottom-on-input 'this
           eshell-buffer-maximum-lines 65536
           eshell-history-size 1024
           eshell-hist-ignoredups t
