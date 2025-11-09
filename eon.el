@@ -3028,6 +3028,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
     clojure-ts-mode
     clojurescript-ts-mode
     clojurec-ts-mode
+    dune-mode
     fennel-mode
     gerbil-mode
     lfe-mode
