@@ -2780,7 +2780,7 @@ Return an alist of (LANG . STATUS)."
 
 (defun eon-treesitter-add-specs (&rest specs)
   "Add SPECS to `eon-treesitter-specs' and merge them into the source alist.
-Use this if you merely want to register SPECS, but not build/install them.
+Use this if you want to register SPECS, but not yet build/install them.
 
 - SPECS can be many specs or a single list of specs.
   Each spec has the form (LANG URL [REVISION] [SOURCE-DIR]).
