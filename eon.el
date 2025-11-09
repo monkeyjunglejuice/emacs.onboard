@@ -2346,9 +2346,11 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; CALENDAR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Calendar_002fDiary>
 
-(setopt calendar-date-style 'iso
-        calendar-week-start-day 1
-        calendar-weekend-days '(6 0))
+(with-eval-after-load 'calendar
+  (setopt calendar-date-style 'iso      ; Year-Month-Day
+          calendar-week-start-day 1     ; Monday
+          calendar-weekend-days '(6 0)  ; Saturday and Sunday
+          ))
 
 ;; _____________________________________________________________________________
 ;;; EDITING
