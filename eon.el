@@ -2229,9 +2229,39 @@ pretending to clear it."
 (keymap-set ctl-z-e-map "S" #'eon-shell-new)
 
 ;; _____________________________________________________________________________
+;;; TERMINAL EMULATOR
 
+(with-eval-after-load 'term
+  (setopt term-input-ignoredups t
+          term-buffer-maximum-size 65536))
 
+(keymap-set ctl-z-e-map "t" #'ansi-term)
 
+(defcustom eon-term-kill-on-exit t
+  "Kill `term' and `ansi-term' buffers when their process exits."
+  :type 'boolean
+  :group 'eon-misc)
+
+(defun eon-term--kill-buffer-on-exit (proc _event)
+  "Kill buffer of PROC when it exits."
+  (when (and eon-term-kill-on-exit
+             (memq (process-status proc) '(exit signal)))
+    (let ((buf (process-buffer proc)))
+      (when (buffer-live-p buf)
+        (kill-buffer buf)))))
+
+(defun eon-term-init (&rest _ignore)
+  "Initialize `term' and `ansi-term' buffers."
+  (when (derived-mode-p 'term-mode)
+    (eon-cursor-update)
+    (let ((proc (get-buffer-process (current-buffer))))
+      (when proc
+        (set-process-sentinel proc
+                              #'eon-term--kill-buffer-on-exit)))))
+
+;; Trigger initialization
+(advice-add 'term :after #'eon-term-init)
+(advice-add 'ansi-term :after #'eon-term-init)
 
 ;; _____________________________________________________________________________
 ;;; PROCED
