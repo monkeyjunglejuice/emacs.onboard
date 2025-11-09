@@ -3007,6 +3007,10 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; Comes with 2 functions that return a list which of these modes are installed:
 ;; `eon-lisp-src-modes' and `eon-lisp-repl-modes'
 ;; If called with the argument 'hook, both functions return ...-hook symbols.
+;;
+;; Example how to use it:
+;; (mapc (lambda (mode) (add-hook mode #'eon-check-parens-mode))
+;;       (eon-lisp-src-modes 'hook))
 
 (defvar eon-lisp-src-modes-registry
   '(;; Built-in modes
