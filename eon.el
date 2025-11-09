@@ -3106,11 +3106,17 @@ With SWITCH = \='hook, return ...-hook variables."
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Further settings
 
-;; Enable Flymake for Emacs Lisp, but never for `lisp-interaction-mode'
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (unless (derived-mode-p 'lisp-interaction-mode)
-              (flymake-mode 1))))
+;; Enable Flymake for Emacs Lisp
+(defun eon-elisp-flymake-maybe ()
+  "Conditionally enable `flymake-mode' for Emacs Lisp.
+Don't enable in:
+- buffers without a file, e.g. created by `pp-eval-last-sexp';
+- `lisp-interaction-mode', e.g. the *scratch* buffer."
+  (when (or buffer-file-name
+            (not (derived-mode-p 'lisp-interaction-mode)))
+    (flymake-mode 1)))
+
+(add-hook 'emacs-lisp-mode-hook #'eon-elisp-flymake-maybe)
 
 ;; Emacs Lisp evaluation: don't truncate printed lists
 (setopt eval-expression-print-length nil
