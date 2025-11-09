@@ -505,7 +505,7 @@ When called interactively, also echo the result."
 ;; Example how to set your default cursor in your init.el:
 ;; (setopt eon-cursor-type-write 'box)  ; block-style cursor
 
-(defgroup eon-cursor-type nil
+(defgroup eon-cursor nil
   "Cursor styles."
   :group 'eon)
 
@@ -532,7 +532,7 @@ Accepts an expression that returns either:
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'."
   :type '(sexp)
-  :group 'eon-cursor-type
+  :group 'eon-cursor
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-select 'bar
@@ -543,7 +543,7 @@ Accepts an expression that returns either:
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'."
   :type '(sexp)
-  :group 'eon-cursor-type
+  :group 'eon-cursor
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-view '(hbar . 3)
@@ -554,7 +554,7 @@ Accepts an expression that returns either:
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'."
   :type '(sexp)
-  :group 'eon-cursor-type
+  :group 'eon-cursor
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-extra 'box
@@ -565,7 +565,7 @@ Accepts an expression that returns either:
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3).
 See also `cursor-type'."
   :type '(sexp)
-  :group 'eon-cursor-type
+  :group 'eon-cursor
   :set #'eon-cursor-type--set)
 
 (defcustom eon-cursor-type-extra-select 'hollow
@@ -576,59 +576,59 @@ Accepts an expression that returns either:
 - a pair '(SYMBOL . INTEGER), e.g. '(hbar . 3)
 See also `cursor-type'."
   :type '(sexp)
-  :group 'eon-cursor-type
+  :group 'eon-cursor
   :set #'eon-cursor-type--set)
 
-(defvar eon-cursor-type-functions nil
+(defvar eon-cursor-functions nil
   "Hook of functions that may compute a cursor type.
 Each function is called with no args and should return either
 a `cursor-type' or nil. The first non-nil return wins.")
 
 (defun eon-cursor-type--desired ()
   "Compute desired cursor type for the current buffer."
-  (or (run-hook-with-args-until-success 'eon-cursor-type-functions)
+  (or (run-hook-with-args-until-success 'eon-cursor-functions)
       (cond
        ((region-active-p) eon-cursor-type-select)
        (buffer-read-only eon-cursor-type-view)
        (t eon-cursor-type-write))))
 
-(defun eon-cursor-type-update (&rest _)
+(defun eon-cursor-update (&rest _)
   "Apply the desired cursor type to the current buffer."
   (setq-local cursor-type (eon-cursor-type--desired)))
 
-(define-minor-mode eon-cursor-type-mode
+(define-minor-mode eon-cursor-mode
   "Globally change cursor type according to state."
-  :group 'eon-cursor-type
+  :group 'eon-cursor
   :global t
   :init-value t
-  (if eon-cursor-type-mode
+  (if eon-cursor-mode
       (progn
         (mapc (lambda (buf)
-                (with-current-buffer buf (eon-cursor-type-update)))
+                (with-current-buffer buf (eon-cursor-update)))
               (buffer-list))
         ;; It seems unreasonable to use `after-command-hook' to update
         ;; the cursor type; better avoid that potential overhead.
         ;; Instead we're listing the triggers one-by-one.
-        (add-hook   'buffer-list-update-hook      #'eon-cursor-type-update)
-        (add-hook   'read-only-mode-hook          #'eon-cursor-type-update)
-        (add-hook   'after-change-major-mode-hook #'eon-cursor-type-update)
+        (add-hook   'buffer-list-update-hook      #'eon-cursor-update)
+        (add-hook   'read-only-mode-hook          #'eon-cursor-update)
+        (add-hook   'after-change-major-mode-hook #'eon-cursor-update)
         ;; React to selections
-        (add-hook   'activate-mark-hook           #'eon-cursor-type-update)
-        (add-hook   'deactivate-mark-hook         #'eon-cursor-type-update)
+        (add-hook   'activate-mark-hook           #'eon-cursor-update)
+        (add-hook   'deactivate-mark-hook         #'eon-cursor-update)
         ;; Make sure the cursor will be updated after leaving wdired
-        (advice-add 'wdired-abort-changes :after  #'eon-cursor-type-update)
-        (advice-add 'wdired-finish-edit :after    #'eon-cursor-type-update))
+        (advice-add 'wdired-abort-changes :after  #'eon-cursor-update)
+        (advice-add 'wdired-finish-edit :after    #'eon-cursor-update))
     ;; Tear down
-    (remove-hook   'buffer-list-update-hook      #'eon-cursor-type-update)
-    (remove-hook   'read-only-mode-hook          #'eon-cursor-type-update)
-    (remove-hook   'after-change-major-mode-hook #'eon-cursor-type-update)
-    (remove-hook   'activate-mark-hook           #'eon-cursor-type-update)
-    (remove-hook   'deactivate-mark-hook         #'eon-cursor-type-update)
-    (advice-remove 'wdired-abort-changes         #'eon-cursor-type-update)
-    (advice-remove 'wdired-finish-edit           #'eon-cursor-type-update)))
+    (remove-hook   'buffer-list-update-hook      #'eon-cursor-update)
+    (remove-hook   'read-only-mode-hook          #'eon-cursor-update)
+    (remove-hook   'after-change-major-mode-hook #'eon-cursor-update)
+    (remove-hook   'activate-mark-hook           #'eon-cursor-update)
+    (remove-hook   'deactivate-mark-hook         #'eon-cursor-update)
+    (advice-remove 'wdired-abort-changes         #'eon-cursor-update)
+    (advice-remove 'wdired-finish-edit           #'eon-cursor-update)))
 
 ;; Turn it on
-(eon-cursor-type-mode 1)
+(eon-cursor-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; WHICH-KEY
