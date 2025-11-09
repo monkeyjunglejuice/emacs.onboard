@@ -2492,12 +2492,12 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; and additional checkers can be installed as 3rd-party packages via
 ;; "M-x package-install <RET> flymake-".
 
-;; Style the Flymake widget in the modeline
-(setopt flymake-mode-line-format
-        '(" " "FlyM" flymake-mode-line-exception flymake-mode-line-counters))
-
-;; Stop when first/last error is reached
-(setopt flymake-wrap-around nil)
+(with-eval-after-load 'flymake
+  ;; Style the Flymake widget in the modeline
+  (setopt flymake-mode-line-format
+          '(" " "FlyM" flymake-mode-line-exception flymake-mode-line-counters))
+  ;; Stop when first/last error is reached
+  (setopt flymake-wrap-around nil))
 
 (with-eval-after-load 'flymake
   (keymap-set flymake-mode-map "M-g E" #'flymake-show-project-diagnostics)
