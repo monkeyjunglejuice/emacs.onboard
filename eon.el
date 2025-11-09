@@ -2177,22 +2177,22 @@ pretending to clear it."
 (eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
   :doc "Local leader keymap for `eshell-mode'.")
 
-(setopt eshell-banner-message ""
-        eshell-scroll-to-bottom-on-input t
-        eshell-buffer-maximum-lines 65536
-        eshell-history-size 1024
-        eshell-hist-ignoredups t
-        eshell-cmpl-ignore-case t)
-
-;; List directory content after changing into it?
-(setopt eshell-list-files-after-cd t)
-
-;; Jump to Eshell prompts
-(add-hook 'eshell-mode-hook
-          (lambda () (setq outline-regexp eshell-prompt-regexp)))
+(with-eval-after-load 'eshell
+  (setopt eshell-banner-message ""
+          eshell-scroll-to-bottom-on-input t
+          eshell-buffer-maximum-lines 65536
+          eshell-history-size 1024
+          eshell-hist-ignoredups t
+          eshell-cmpl-ignore-case t
+          eshell-list-files-after-cd t
+          eshell-destroy-buffer-when-process-dies t))
 
 ;; Launch an Eshell buffer: "<leader> e e"; re-visit the buffer by repeating
 (keymap-set ctl-z-e-map "e" #'eshell)
+
+;; Use Outline commands with Eshell prompts/buffers
+(add-hook 'eshell-mode-hook
+          (lambda () (setq outline-regexp eshell-prompt-regexp)))
 
 ;; Launch a fresh Eshell buffer: "<leader> e E"
 (defun eon-eshell-new ()
