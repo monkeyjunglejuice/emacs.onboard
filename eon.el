@@ -2240,11 +2240,7 @@ pretending to clear it."
         proced-descend t)
 
 ;; _____________________________________________________________________________
-;;; NET-UTILS
 
-(when (executable-find "netstat")
-  (setopt netstat-program "netstat"
-          netstat-program-options '("-atupe")))
 
 ;; _____________________________________________________________________________
 ;;; PINENTRY
