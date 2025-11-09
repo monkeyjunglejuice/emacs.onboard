@@ -3089,7 +3089,7 @@ With SWITCH = \='hook, return ...-hook variables."
       (user-error "OK, the file hasn't been saved"))))
 
 (define-minor-mode eon-check-parens-mode
-  "Ask when saving with mismatching parens or quotes."
+  "Ask before saving with mismatching parens or quotes."
   :group 'eon-misc
   :global t
   :init-value t
