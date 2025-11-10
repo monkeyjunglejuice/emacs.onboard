@@ -388,30 +388,22 @@ Returns the new default value of LIST-SYM."
   in the tail.
 - If KEY is not present, cons (KEY . VALUE) to the front.
 
-Does not mutate ALIST."
-  (cl-labels
-      ((walk (xs)
-         (when xs
-           (let ((pair (car xs)))
-             (if (funcall test key (car pair))
-                 (cons t
-                       (cons (cons key value)
-                             (if unique
-                                 (cl-remove-if
-                                  (lambda (p)
-                                    (funcall test key (car p)))
-                                  (cdr xs))
-                               (cdr xs))))
-               (let* ((rest (walk (cdr xs)))
-                      (found (car rest))
-                      (alist* (cdr rest)))
-                 (cons found (cons pair alist*))))))))
-    (let* ((res (walk alist))
-           (found (car res))
-           (alist* (cdr res)))
-      (if found
-          alist*
-        (cons (cons key value) alist*)))))
+Does not mutate ALIST, so if ALIST should to be set, it must be
+set explicitly."
+  (let ((found nil))
+    (setq alist
+          (cl-loop for (k . v) in alist
+                   unless (and unique
+                               found
+                               (funcall test key k))
+                   collect (if (and (not found)
+                                    (funcall test key k))
+                               (prog1 (cons key value)
+                                 (setq found t))
+                             (cons k v))))
+    (if found
+        alist
+      (cons (cons key value) alist))))
 
 ;; Get all the parent major modes
 (defun eon-get-parent-modes ()
