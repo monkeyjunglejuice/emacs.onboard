@@ -318,7 +318,6 @@ Examples:
   (eon-adjoin '(a b) '(c a))                             ; => (c a b)
   (eon-adjoin '(a b) '(d) t)                             ; => (a b d)
   (eon-adjoin '(a b) '(\"x\" \"x\") nil #'string-equal)  ; => (\"x\" a b)"
-  (declare (pure t) (side-effect-free t))
   (let* ((xs   (if (consp elements) elements (list elements)))
          (test (or compare-fn #'equal))
          (cand (if append (append cur xs) (append xs cur))))
