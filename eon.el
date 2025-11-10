@@ -377,6 +377,42 @@ Returns the new default value of LIST-SYM."
       (set-default list-sym new))
     new))
 
+;; Update association lists
+(cl-defun eon-alist-update (key value alist
+                                &key (test #'equal) unique)
+  "Return a new ALIST like ALIST but with KEY mapped to VALUE.
+
+- If KEY is present (per TEST), replace the first occurrence,
+  preserving order.
+- If UNIQUE is non-nil, also remove any later occurrences of KEY
+  in the tail.
+- If KEY is not present, cons (KEY . VALUE) to the front.
+
+Does not mutate ALIST."
+  (cl-labels
+      ((walk (xs)
+         (when xs
+           (let ((pair (car xs)))
+             (if (funcall test key (car pair))
+                 (cons t
+                       (cons (cons key value)
+                             (if unique
+                                 (cl-remove-if
+                                  (lambda (p)
+                                    (funcall test key (car p)))
+                                  (cdr xs))
+                               (cdr xs))))
+               (let* ((rest (walk (cdr xs)))
+                      (found (car rest))
+                      (alist* (cdr rest)))
+                 (cons found (cons pair alist*))))))))
+    (let* ((res (walk alist))
+           (found (car res))
+           (alist* (cdr res)))
+      (if found
+          alist*
+        (cons (cons key value) alist*)))))
+
 ;; Get all the parent major modes
 (defun eon-get-parent-modes ()
   "Return a list with `major-mode' as the `car' and its parents as the `cdr'.
