@@ -1790,13 +1790,6 @@ Called without argument just syncs `eon-boring-buffers' to other places."
                filename))))
 (keymap-set ctl-z-f-map "M-w" #'eon-copy-file-path)
 
-;; Simple alternative for `yank-pop' – present a selection of the kill ring
-(defun eon-yank-from-kill-ring ()
-  "Select and insert an item from the `kill-ring'."
-  (interactive)
-  (insert (completing-read "Yank: " kill-ring nil t)))
-(keymap-global-set "M-y" #'eon-yank-from-kill-ring)
-
 ;; Copy & paste between Windows and Emacs running within WSL
 ;; (Windows Subsystem for Linux)
 
