@@ -1928,7 +1928,7 @@ pretending to clear it."
 ;; Enable `savehist-mode' after setting the variables
 (savehist-mode 1)
 
-; Wipe Emacs' kill ring and quit via "<leader> q Q"
+;; Wipe Emacs' kill ring and quit via "<leader> q Q"
 (defun eon-clear-kill-ring ()
   "Clear the kill ring; do not touch the system clipboard."
   (interactive)
