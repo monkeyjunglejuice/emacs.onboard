@@ -324,7 +324,7 @@ Examples:
     (cl-remove-duplicates cand :test test)))
 
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
-  "Rebind LIST-SYM to a new list with ELEMENTS adjoined once.
+  "Modifies the current binding of LIST-SYM, respects buffer-local.
 
 LIST-SYM is a symbol naming a list variable whose *current binding*
 will be modified (i.e. buffer-local if such exists, otherwise global).
@@ -349,12 +349,16 @@ Returns the new current value of LIST-SYM."
         (if (boundp list-sym) (symbol-value list-sym) nil)
         elements append compare-fn)))
 
-(defun eon-add-to-list-setopt (list-sym elements &optional append compare-fn)
-  "Adjoin ELEMENTS to the *default* value of LIST-SYM.
+(defun eon-add-to-list* (list-sym elements &optional append compare-fn)
+  "Modifies the default, custom or global value of LIST-SYM.
 
-LIST-SYM is a symbol naming a variable or user option. ELEMENTS may be
-a single item or a list of items to add to the variable’s *default* (global)
-value.
+If LIST-SYM is a user option (see `custom-variable-p'), use
+`customize-set-variable' so its :set function and type checks are
+applied. Otherwise, use `set-default' to modify the variable’s global
+default value directly.
+
+ELEMENTS may be a single item or a list of items to add to the
+variable’s *default* (global) value.
 
 If APPEND is non-nil, append items left->right;
 otherwise prepend them while preserving the order of ELEMENTS.
@@ -362,14 +366,9 @@ otherwise prepend them while preserving the order of ELEMENTS.
 COMPARE-FN, if non-nil, is a function used to test for membership;
 it defaults to `equal'.
 
-If LIST-SYM is a user option (see `custom-variable-p'),
-use `customize-set-variable' so its :set function and type checks are
-applied. Otherwise, use `set-default' to modify the variable’s global
-default value directly.
-
 Returns the new default value of LIST-SYM."
   (unless (symbolp list-sym)
-    (error "eon-add-to-list-setopt: LIST-SYM must be a symbol"))
+    (error "eon-add-to-list*: LIST-SYM must be a symbol"))
   (let* ((cur (and (default-boundp list-sym) (default-value list-sym)))
          (new (eon-adjoin cur elements append compare-fn)))
     (if (custom-variable-p list-sym)
@@ -1746,8 +1745,8 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   (when regexp
     (eon-add-to-list 'eon-boring-buffers regexp))
   ;; Define other places where `eon-boring-buffers' are synced to:
-  (eon-add-to-list-setopt 'switch-to-prev-buffer-skip-regexp eon-boring-buffers)
-  (eon-add-to-list-setopt 'switch-to-next-buffer-skip-regexp eon-boring-buffers))
+  (eon-add-to-list* 'switch-to-prev-buffer-skip-regexp eon-boring-buffers)
+  (eon-add-to-list* 'switch-to-next-buffer-skip-regexp eon-boring-buffers))
 
 ;; Hide boring buffers
 (with-eval-after-load 'window (eon-boring-buffers-add))
@@ -1919,12 +1918,12 @@ pretending to clear it."
 ;;; HISTORY
 
 ;; Which histories to save between Emacs sessions?
-(eon-add-to-list-setopt 'savehist-additional-variables
-                        '(kill-ring  ; CAUTION, persists copied text - see below
-                          register-alist
-                          search-ring
-                          regexp-search-ring
-                          compile-command))
+(eon-add-to-list* 'savehist-additional-variables
+                  '(kill-ring  ; CAUTION, persists copied text - see below
+                    register-alist
+                    search-ring
+                    regexp-search-ring
+                    compile-command))
 
 ;; Enable `savehist-mode' after setting the variables
 (savehist-mode 1)
