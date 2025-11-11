@@ -543,12 +543,12 @@ Only `eon-cursor-type-write' updates frame cursor defaults."
   (when (eq symbol 'eon-cursor-type-write)
     (setopt initial-frame-alist
             (cons (cons 'cursor-type value)
-                (assq-delete-all 'cursor-type
-                                 initial-frame-alist)))
+                  (assq-delete-all 'cursor-type
+                                   initial-frame-alist)))
     (setopt default-frame-alist
             (cons (cons 'cursor-type value)
                   (assq-delete-all 'cursor-type
-                                 default-frame-alist))))
+                                   default-frame-alist))))
   (force-mode-line-update t))
 
 (defcustom eon-cursor-type-write 'bar
