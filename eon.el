@@ -3136,8 +3136,8 @@ With SWITCH = \='hook, return ...-hook variables."
 Don't enable in:
 - buffers without a file, e.g. created by `pp-eval-last-sexp';
 - `lisp-interaction-mode', e.g. the *scratch* buffer."
-  (when (or buffer-file-name
-            (not (derived-mode-p 'lisp-interaction-mode)))
+  (when (and buffer-file-name
+             (not (derived-mode-p 'lisp-interaction-mode)))
     (flymake-mode 1)))
 
 (add-hook 'emacs-lisp-mode-hook #'eon-elisp-flymake-maybe)
