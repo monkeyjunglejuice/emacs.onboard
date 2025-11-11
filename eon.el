@@ -447,29 +447,30 @@ When called interactively, also echo the result."
 ;;
 ;; In order to define properties generally, add them to `default-frame-alist';
 ;; to affect only the first frame created, add them to `initial-frame-alist'.
+;; The following examples set the default for all Emacs frames created:
 
-;; Either start Emacs maximized …
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; Either start each Emacs frame maximized …
+;; (setf (alist-get 'fullscreen default-frame-alist) 'maximized)
 
-;; … or set the default width of the Emacs frame - in columns or full width
-;; (add-to-list 'default-frame-alist '(width . 80))
-;; (add-to-list 'default-frame-alist '(fullscreen . fullwidth))
+;; … or set the default width of each frame - in columns, or full width.
+;; (setf (alist-get 'width default-frame-alist) 80)
+;; (setf (alist-get 'fullscreen default-frame-alist) 'fullwidth)
 
-;; … or set the default height of the Emacs frame - in lines or full height
-;; (add-to-list 'default-frame-alist '(height . 32))
-;; (add-to-list 'default-frame-alist '(fullscreen . fullheight))
+;; … or set the default height of each frame - in lines, or full height.
+;; (setf (alist-get 'height default-frame-alist) 32)
+;; (setf (alist-get 'fullscreen default-frame-alist) 'fullheight)
 
-;; Horizontal position: set the distance from the left screen edge in pixels
-;; That way, only the first frame created will get a fixed position:
-;; (add-to-list 'initial-frame-alist '(left . 0))
+;; Horizontal position - set the distance from the screen edge in pixels.
+;; Distance from the left edge:
+;; (setf (alist-get 'left default-frame-alist) 1)
+;; Distance from the right edge, using negative numbers:
+;; (setf (alist-get 'left default-frame-alist) -1)
 
-;; Vertical position: set the distance from the top screen edge in pixels
-;; That way, only the first frame created will get a fixed position:
-;; (add-to-list 'initial-frame-alist '(top . 0))
-
-;; Fringe: choose on which sides (not) to show it
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Fringes>
-;; (add-to-list 'default-frame-alist '(right-fringe . 0))
+;; Vertical position - set the distance from the screen edge in pixels.
+;; Distance from the top edge:
+;; (setf (alist-get 'top default-frame-alist) 1)
+;; Distance from the bottom edge, using negative numbers:
+;; (setf (alist-get 'top default-frame-alist) -1)
 
 ;; Bring frame to the front (steals focus)
 (add-hook 'window-setup-hook
