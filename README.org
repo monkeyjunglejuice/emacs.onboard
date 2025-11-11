@@ -2,11 +2,11 @@
 
 ** This is The Human-written Launch Sequence to Get You Into Space.
 
-*Emacs ONBOARDing made Easy* Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up? Or you don't want to configure Emacs at all? But ... just use it? Right now? 🤯
+*Emacs ONBOARDing made Easy.* Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up? Or you don't want to configure Emacs at all? But ... just use it? Right now? 🤯
 
 [[file:misc/emacs-onboard.jpg]]
 
-*Emacs ONBOARD aims to be a comprehensive, portable starter-kit for Emacs.*
+*Emacs ONBOARD aims to be a comprehensive, portable starter-kit.*
 It's not supposed to replace your ~init.el~, but loaded from there as a library (see installing instructions down below).
 
 ** TRY IT
@@ -56,17 +56,17 @@ Typical results:
 
 ** Goals and Principles
 
-- Be as un-opinionated as possible -- there's no "one-fits-all", and you should be able to make your Emacs whatever you want it to be. Emacs ONBOARD removes the need to care about the mundane stuff.
-- Don't be invasive: Provide an Emacs config as a library -- don't try to be a replacement, but an add-on you can build upon.
-- Portable: Should work on recent Linux/Unix, Windows and MacOS systems, while maintaining reasonable backwards-compatibility.
-- Documentation is first class -- it should be clear why something is in the code.
-- Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow (well, most of it).
-- No-code friendly: The Emacs user base isn't just programmers -- expose important preferences via GUI =M-x eon-customize-group=.
-- Emacs Lisp code should be written in contemporary style and be free from errors and warnings (iterate and refactor often).
-- Only rely on built-in packages and features enabled by the GNU Emacs distribution's default build options.
-- Extendable by 3rd-party packages without interfering or breaking things.
-- Modular: Code should not be tightly coupled, but easily modificable and separately usable.
-- Backwards-compatibility: Don't overdo -- follows the [[https://packages.debian.org/stable/editors/emacs][Emacs version in Debian Stable]].
+- *Be as un-opinionated as possible* -- there's no "one-fits-all", and you should be able to make your Emacs whatever you want it to be. Emacs ONBOARD removes the need for caring about the mundane stuff.
+- *Don't be invasive:* Provide an Emacs config as a library -- don't try to be a replacement, but an add-on you can build upon.
+- *Portable:* Should work on recent Linux/Unix, Windows and MacOS systems, while maintaining reasonable backwards-compatibility.
+- *Documentation is first class* -- it should be clear why something is in the code.
+- *Beginner-friendly:* Novice Emacs users willing to touch Elisp code should be able to follow (well, most of it).
+- *No-code friendly:* The Emacs user base isn't just programmers -- expose important preferences via GUI =M-x eon-customize-group=.
+- *Modern:* Emacs Lisp code should be written in contemporary style and be free from errors and warnings (iterate and refactor often).
+- *Only rely on built-in packages* and features enabled by the GNU Emacs distribution's default build options.
+- *Extendable* by 3rd-party packages without interfering or breaking things.
+- *Modular:* Code should not be tightly coupled, but easily modificable and separately usable.
+- *Backwards-compatibility:* Don't overdo -- follows the [[https://packages.debian.org/stable/editors/emacs][Emacs version in Debian Stable]].
 
 ** Non-goals
 
