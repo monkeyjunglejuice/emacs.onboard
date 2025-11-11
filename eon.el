@@ -2126,8 +2126,6 @@ pretending to clear it."
 (with-eval-after-load 'dired
   ;; Switch to wdired-mode and edit directory content like a text buffer
   (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode)
-  ;; Open file in associated OS application
-  (keymap-set dired-mode-map "M-RET" #'dired-do-open)
   ;; "f" opens file/directory; bring forward/backward pattern to Dired
   (keymap-set dired-mode-map "b" #'dired-up-directory))
 
