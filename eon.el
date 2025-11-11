@@ -377,7 +377,7 @@ Returns the new default value of LIST-SYM."
       (set-default list-sym new))
     new))
 
-;; Update association lists
+;; General helper to update association lists
 (cl-defun eon-alist-update (key value alist
                                 &key (test #'equal) unique)
   "Return a new ALIST like ALIST but with KEY mapped to VALUE.
