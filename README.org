@@ -2,67 +2,12 @@
 
 ** This is The Human-written Launch Sequence to Get You Into Space.
 
-Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up? Or you don't want to configure Emacs at all? But ... just use it? Right now? 🤯
-
-*Emacs ONBOARDing made Easy*
+*Emacs ONBOARDing made Easy* Overwhelmed by complex Emacs distros like Doom-Emacs or Spacemacs? You want to roll your own Emacs config bottom-up? Or you don't want to configure Emacs at all? But ... just use it? Right now? 🤯
 
 [[file:misc/emacs-onboard.jpg]]
 
 *Emacs ONBOARD aims to be a comprehensive, portable starter-kit for Emacs.*
 It's not supposed to replace your ~init.el~, but loaded from there as a library (see installing instructions down below).
-
-Emacs ONBOARD is vanilla Emacs, but gives you a vastly better user experience, without any 3rd-party packages.
-
-*It's all built-in -- all on board.*
-
-✔ One single file, ZERO dependencies
-
-✔ Beginner-friendly
-
-✔ Convenient drop-in config: just load it early from your init.el
-
-** Vastly Better Defaults
-
-Some features -- without any dependencies or "re-inventing the wheel":
-
-- Leader key & Localleader key menus (easy to extend/change).
-  It gives you quasi-infinite room for your own keybindings under the leader prefix.
-  - Graphical Emacs: the default leader key is =C-,=; reach the local leader via =C-, C-,=.
-  - Emacs in the terminal: the default leader key is =C-z=, and the local leader =C-z C-z=.
-  - Works with Evil mode (Vim keybindings etc. in Emacs) -- [[https://github.com/monkeyjunglejuice/emacs.ontop/blob/c1f7fe28df28cfa9323a4da1b6b5a5d0c64477fb/eon-evil.el][example config here]].
-    e.g. the leader key could be just =,= and the local leader =, ,=; or =SPC= as the leader and =SPC SPC= as the local leader -- or something else.
-  - 3 options for leader keybindings (customizable via GUI):
-    - Use the default leader keymap with many useful bindings.
-    - Don't like the default leader keybindings? Select the empty =eon-leader-user-map= keymap to roll your own keybindings under the leader.
-    - Bind any keymap you like to the leader key.
-- Vertical "fuzzy" completion for commands, files, etc. in the minibuffer (built-in fido-vertical-mode).
-- Check-parens-mode: Emacs warns you before accidently saving Lisp source code with mismatched parens or quotes.
-- Lets you customize the most important preferences in Emacs' Customization GUI: =<leader> x C=.
-- Toggle between your light/dark theme via =<leader> x t=; and run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the light/dark theme variant.
-- MacOS ready: the <Command> key acts as <Ctrl> key, and the <Option> key acts as <Meta> key.
-- Clipboard integration just works -- even on Windows.
-  - WSL (Windows Subsystem for Linux) copy/paste between Windows apps and Emacs.
-  - Copy the path of the current file to the clipboard via =M-x eon-copy-file-path=.
-  - Browse your kill ring (the Emacs "clipboard") via =M-y= and insert directly from a selection preview.
-- Tree-sitter grammar registry: handle language grammars and trigger build/install declaratively via ~eon-treesitter-ensure-grammar~ and/or =M-x eon-treesitter-install-all=.
-- Smooth pixel-based scrolling (Emacs doesn't do that by default).
-- Basic [[https://orgmode.org][Org mode]] setup to get started.
-- Garbage Collection tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
-- The package manager is pre-configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
-- Makes it easy to set the fonts you like -- all options in one place.
-- Dired, the most powerful file manager in existence ...
-  - doesn't accumulate used buffers.
-  - uses the OS system trash, instead of deleting files right away.
-  - opens files in desktop apps via =M-RET=.
-  - clean directory listings per default in Dired, toggle file infos via =(=.
-- Visit any file when the file name is under the cursor: =<leader> f o=.
-- Kill all buffers at once via =<leader> b K=.
-- Open Shell- and Eshell buffer via =<leader> e s= and =<leader> e e=
-- Quickly reach the =*scratch*= buffer via =<leader> z=.
-- Visit any URL in your browser via =<leader> g w= and =<leader> g W= in the  built-in Emacs web browser.
-- Emacs saves versioned backups of your files to =~/.emacs.d/backup/= before editing.
-- Send emails directly from Emacs: includes an SMTP-template for you to get started.
-- ... and much more.
 
 ** TRY IT
 
@@ -71,6 +16,16 @@ Some features -- without any dependencies or "re-inventing the wheel":
 2. Open a terminal
 
 3. Run the shell command: ~emacs -q --load ~/path/to/eon.el~
+
+Emacs ONBOARD is vanilla Emacs, but gives you a vastly better user experience, without any 3rd-party packages.
+
+** It's all built-in -- all on board
+
+✔ One single file, ZERO dependencies
+
+✔ Beginner-friendly
+
+✔ Convenient drop-in config: just load it early from your init.el
 
 ** INSTALL
 
@@ -99,21 +54,88 @@ Typical results:
   - =c:/Users/USERNAME/AppData/Roaming/.emacs=
   - =c:/Users/USERNAME/AppData/Roaming/.emacs.d/init.el=
 
-** Getting Comfortable
+** Goals and Principles
 
-The seemingly weird keybindings are not what make Emacs. They are in fact secondary. All these keybindings are just convenience shortcuts to use /commands/, but they are not the commands themselves. The commands are the really interesting things -- and they are just functions. What that means:
+- Be as un-opinionated as possible -- there's no "one-fits-all", and you should be able to make your Emacs whatever you want it to be. Emacs ONBOARD removes the need to care about the mundane stuff.
+- Don't be invasive: Provide an Emacs config as a library -- don't try to be a replacement, but an add-on you can build upon.
+- Portable: Should work on recent Linux/Unix, Windows and MacOS systems, while maintaining reasonable backwards-compatibility.
+- Documentation is first class -- it should be clear why something is in the code.
+- Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow (well, most of it).
+- No-code friendly: The Emacs user base isn't just programmers -- expose important preferences via GUI =M-x eon-customize-group=.
+- Emacs Lisp code should be written in contemporary style and be free from errors and warnings (iterate and refactor often).
+- Only rely on built-in packages and features enabled by the GNU Emacs distribution's default build options.
+- Extendable by 3rd-party packages without interfering or breaking things.
+- Modular: Code should not be tightly coupled, but easily modificable and separately usable.
+- Backwards-compatibility: Don't overdo -- follows the [[https://packages.debian.org/stable/editors/emacs][Emacs version in Debian Stable]].
 
-*** Emacs has Only 2 Really Important Keybindings:
+** Non-goals
 
-"M-x" -- Press <Alt>+<x> to show all commands
+- Providing an opinionated experience like Spacemacs or Doom-Emacs.
+- Re-configuring standard keybindings (with a few minor exceptions).
+- Re-creating complex functionality where a 3rd-party package would be a better fit.
 
-"C-g" -- Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic -- same effect!)
+** Much Better Defaults
 
-**** Examples:
+Some features -- without any dependencies:
 
-- "M-x list-packages" Install 3rd-party packages (the "Emacs app store" or "Emacs marketplace" /cough-cough capitalism cough-cough/)
-- "M-x check-parens" Check if all parens match (within Emacs Lisp code)
-- "M-x help" to reach the ultimate help menu
+- Leader key & Localleader key menus (easy to extend/change).
+  It gives you quasi-infinite room for your own keybindings under the leader prefix.
+  - Graphical Emacs: the default leader key is =C-,=; reach the local leader via =C-, C-,=.
+  - Emacs in the terminal: the default leader key is =C-z=, and the local leader =C-z C-z=.
+  - Works with Evil mode (Vim keybindings etc. in Emacs) -- [[https://github.com/monkeyjunglejuice/emacs.ontop/blob/c1f7fe28df28cfa9323a4da1b6b5a5d0c64477fb/eon-evil.el][example config here]].
+    e.g. the leader key could be just =,= and the local leader =, ,=; or =SPC= as the leader and =SPC SPC= as the local leader -- or something else.
+  - Three options for leader keybindings (customizable via GUI):
+    1. Use the default leader keymap with many useful bindings.
+    2. Don't like the default leader keybindings? Select the empty =eon-leader-user-map= keymap to roll your own keybindings under the leader.
+    3. Bind any keymap you like to the leader key.
+- Check-parens-mode: Emacs warns you before accidently saving Lisp source code with mismatched parens or quotes.
+- Vertical "fuzzy" completion for commands, files, etc. in the minibuffer (built-in fido-vertical-mode).
+- Lets you customize the most important preferences in Emacs' Customization GUI: =<leader> x C=.
+- Toggle between your light/dark theme via =<leader> x t=; and run own Elisp code triggered by switching themes, e.g. for adjusting fonts and other personal styling, depending on the light/dark theme variant.
+- MacOS ready: the <Command> key acts as <Ctrl> key, and the <Option> key acts as <Meta> key.
+- Clipboard integration just works -- even on Windows.
+  - WSL (Windows Subsystem for Linux) copy/paste between Windows apps and Emacs.
+  - Copy the path of the current file to the clipboard via =M-x eon-copy-file-path=.
+  - Browse your kill ring (the Emacs "clipboard") via =M-y= and insert directly from a selection preview.
+- Tree-sitter grammar registry: handle language grammars and trigger build/install declaratively via ~eon-treesitter-ensure-grammar~ and/or =M-x eon-treesitter-install-all=.
+- Smooth pixel-based scrolling (Emacs doesn't do that by default).
+- Basic [[https://orgmode.org][Org mode]] setup to get started.
+- Garbage Collection tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
+- The package manager is pre-configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
+- Makes it easy to set the fonts you like -- all options in one place.
+- Dired, the most powerful file manager in existence ...
+  - doesn't accumulate used buffers.
+  - uses the OS system trash, instead of deleting files right away.
+  - opens files in desktop apps via =M-RET=.
+  - clean directory listings per default in Dired, toggle file infos via =(=.
+- Visit any file when the file name is under the cursor: =<leader> f p=.
+- Kill all buffers at once via =<leader> b K=.
+- Access Shell- and Eshell buffer via =<leader> e s= and =<leader> e e=
+- Quickly reach the =*scratch*= buffer via =<leader> z=.
+- Visit any URL in your browser via =<leader> g w= and =<leader> g W= in the  built-in Emacs web browser.
+- Emacs saves versioned backups of your files to =~/.emacs.d/backup/= before editing.
+- Send emails directly from Emacs: includes an SMTP-template for you to get started.
+- ... and much more.
+
+* Getting Comfortable
+
+The seemingly weird keybindings are not what make Emacs -- these are in fact secondary. All these keybindings are just convenience shortcuts to use /commands/, but they are not the commands themselves. The commands are the really interesting things -- and they are just functions. Literally all interactions in Emacs are commands -- and therefore functions. Every keystroke calls a function; even hitting the key =e= while writing ordinary text. That way, Emacs can actually be acknowledged as the purest embodiment of the "Unix philosophy" (nevertheless Emacs is often accused as "monolithic", which is really funny).
+
+** Emacs has Only 3 Really Important Keybindings:
+
+=M-x= -- Press <Alt>+<x> to show all commands (a.k.a "interactive" functions).
+
+=C-g= -- Get out! Press <Ctrl>+<g> to cancel whatever happens (or hit 3x <ESC> in utter panic -- same effect!).
+
+=C-]= -- Get out of recursive minibuffers, also reachable via =M-x abort-recursive-edit=.
+
+*** Further Examples:
+
+- =M-x customize-group= Set preferences via GUI -- no need to write Emacs Lisp code.
+- =M-x list-packages= Install 3rd-party packages (the "Emacs app store" or "Emacs marketplace" /cough-cough capitalism cough-cough/).
+- =M-x check-parens= Check if all parens match (within Emacs Lisp code).
+- =M-x help= to reach the ultimate help menu.
+- =M-x describe-symbol= Read the documentation of each function/variable (and more).
 
 ** Why Yet Another Emacs Starter Kit?
 
@@ -127,24 +149,11 @@ Actually I use not only that config file, but have my Emacs config split into se
 
 … but this is the 💝 piece.
 
-*Backwards-compatibility* follows the Emacs version in Debian Stable.
+** What is Emacs, Anyway?
 
-** Goals
+It's often described as an ancient, weird Editor. Some call Emacs jokingly as a "operating system" -- but that's actually not that far from the truth. Like almost anything, it depends on the /perspective/ -- it depends on what categories someone is used to think in. To make it short, Emacs may be best understood as a text-based *fully introspectable and programmable computing environment*. It's also the closest thing to the mythical /Lisp Machines/, taking into account public attention and availability.
 
-- Be as un-opinionated as possible -- there's no "one-fits-all", and you should be able to make your Emacs whatever you want it to be.
-- Portable: Should work on recent Linux/Unix, Windows and MacOS systems, while maintaining reasonable backwards-compatibility.
-- Beginner-friendly: Novice Emacs users willing to touch Elisp code should be able to follow (most of the time). Elisp code should be free from errors and warnings.
-- Use only built-in packages and features enabled by the GNU Emacs distribution's default build options.
-- Extendable by 3rd-party packages without interfering or breaking things.
-- Don't be invasive: Provide an Emacs config as a library; don't try to be a replacement, rather an add-on.
-- Documentation is first class; it should be clear why something is in the code.
-- Modular simplicity: Code should not be tightly coupled, but easily modificable and separately usable.
-
-** Non-goals
-
-- Providing a whole new experience like Spacemacs or Doom-Emacs.
-- Re-configuring standard keybindings (with few exceptions).
-- (Re)creating complex functionality where a 3rd-party package would be a better fit.
+Some examples: The defining editor component of Emacs is just one thing; the VIM editor has been implemented in Emacs too, called "Evil" mode. At least one (desktop) window manager has been implemented in Emacs. Publishing systems, webservers and even a video editor were built in Emacs -- the list goes on and on. Well, the only problem (as I see it) is: Emacs is tied to the implementation of its underlying Lisp interpreter right now, which is essentially single-threaded and not that performant for such applications (well, there are some tricks). But when it comes to what can be expressed as text in the widest sense (and most programming nowadays is text-based), there's nothing else that comes even close.
 
 ** Credits
-Recently adopted some ideas from [[https://github.com/jamescherti/minimal-emacs.d][Minimal Emacs]] (mostly tweaking details) and [[https://github.com/doomemacs/doomemacs][Doom Emacs]].
+Emacs ONBOARD has grown over the years, influenced by hundereds of dotemacs configs and blog posts. As it wasn't intended as a public endeavor from the beginning, it's now impossible to trace back what originated where; so you might encounter code that you've seen somwhere else before. Recently adopted some ideas from [[https://github.com/jamescherti/minimal-emacs.d][Minimal Emacs]] (mostly tweaking details) and [[https://github.com/doomemacs/doomemacs][Doom Emacs]].
