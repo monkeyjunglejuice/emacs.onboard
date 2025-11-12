@@ -1574,9 +1574,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-s-map "r"     #'query-replace-regexp)
 (keymap-set ctl-z-s-map "R"     #'query-replace)
 
-;; Replace all strings immediately
-(keymap-global-set      "C-M-%" #'replace-regexp)
-(keymap-set ctl-z-s-map "C-r"   #'replace-regexp)
+;; Replace all occurences immediately
+(keymap-global-set      "C-M-%" #'replace-regexp-as-diff)
+(keymap-set ctl-z-s-map "C-r"   #'replace-regexp-as-diff)
 
 ;; _____________________________________________________________________________
 ;;; IMENU
