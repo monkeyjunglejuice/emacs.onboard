@@ -2017,8 +2017,8 @@ pretending to clear it."
 ;; Set the default
 (eon-trash-on)
 
-;; Inhibit using the system trash when deleting remote files?
-(setopt remote-file-name-inhibit-delete-by-moving-to-trash t)
+;; Suppress moving remote files to the local trash when deleting?
+(setopt remote-file-name-inhibit-delete-by-moving-to-trash nil)
 
 ;; Resolve symlinks so that operations are conducted from the file's directory?
 (setopt find-file-visit-truename t
