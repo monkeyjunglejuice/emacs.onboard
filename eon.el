@@ -2354,7 +2354,8 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 (eon-localleader-defkeymap eww-mode eon-localleader-eww-map
   :doc "Local leader keymap for the Emacs Web Wowser"
-  "e" #'eww-browse-with-external-browser)
+  "e" #'eww-browse-with-external-browser
+  "r" #'eww-readable)
 
 ;; _____________________________________________________________________________
 ;;; EMAIL
