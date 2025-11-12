@@ -2430,6 +2430,14 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (keymap-set ctl-z-c-map "f" `("Format" . ,ctl-z-c-f-map))
 
 ;; _____________________________________________________________________________
+;;; TEXT / PROSE
+
+;; Sentences end with a single or double spaces?
+(setopt sentence-end-double-space nil)
+
+;; TODO Add Flyspell / Ispell presets here
+
+;; _____________________________________________________________________________
 ;;; LINE NUMBERS
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Display-Custom>
 
@@ -2458,14 +2466,6 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Visual line wrapping in text mode
 (add-hook 'text-mode-hook #'visual-line-mode)
-
-;; _____________________________________________________________________________
-;;; TEXT / PROSE
-
-;; Sentences end with a single or double spaces?
-(setopt sentence-end-double-space nil)
-
-;; TODO Add Flyspell / Ispell presets here
 
 ;; _____________________________________________________________________________
 ;;; FOLDING
