@@ -1722,6 +1722,9 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
     (mapc #'kill-buffer (buffer-list))))
 (keymap-set ctl-z-b-map "C-k" #'eon-kill-all-buffers)
 
+;; Kill matching buffers - select via regexp
+(keymap-set ctl-z-b-map "M-k" #'kill-matching-buffers)
+
 ;; Uniquify buffer names for buffers that would have identical names
 (setopt uniquify-buffer-name-style 'forward)
 
