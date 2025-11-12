@@ -1184,13 +1184,13 @@ Per default, the function is called by the hooks:
   "Set your light and dark themes."
   :group 'eon)
 
-(defcustom eon-theme-light 'modus-operandi
+(defcustom eon-theme-light 'modus-operandi-tinted
   "The theme can be either a symbol, function symbol or lambda."
   :group 'eon-theme
   :type '(restricted-sexp
           :match-alternatives (functionp symbolp)))
 
-(defcustom eon-theme-dark 'modus-vivendi
+(defcustom eon-theme-dark 'modus-vivendi-tinted
   "The theme can be either a symbol, function symbol or lambda."
   :group 'eon-theme
   :type '(restricted-sexp
@@ -1290,10 +1290,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Customize via "M-x eon-customize-group" or via `setopt' in your init.el:
 
 ;;; - Set your light theme:
-;; (setopt eon-theme-light 'modus-operandi-tinted)
+;; (setopt eon-theme-light 'modus-operandi)
 
 ;;; - Set your dark theme:
-;; (setopt eon-theme-dark 'modus-vivendi-tinted)
+;; (setopt eon-theme-dark 'modus-vivendi)
 
 ;;; - Set 'light or 'dark as your default theme variant:
 ;; (setopt eon-theme-variant-default 'light)
