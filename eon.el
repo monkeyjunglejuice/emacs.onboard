@@ -2208,6 +2208,11 @@ pretending to clear it."
 ;; that runs within Emacs. It is independent from the OS. Eshell looks like
 ;; a POSIX shell superficially, but is also a REPL for Emacs Lisp expressions.
 
+;; Eshell scripts can run in batch mode.
+;; By adding the following interpreter directive to an Eshell script, you
+;; can make it executable like other shell scripts:
+;; #!/usr/bin/env -S emacs --batch -f eshell-batch-file
+
 ;; Create Eshell loacal leader keymap
 (eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
   :doc "Local leader keymap for `eshell-mode'.")
