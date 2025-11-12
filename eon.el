@@ -1549,8 +1549,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt eldoc-minor-mode-string nil
         eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
         eldoc-echo-area-display-truncation-message nil
-        eldoc-echo-area-prefer-doc-buffer nil
-        eldoc-echo-area-use-multiline-p 'truncate-sym-name-if-fit)
+        eldoc-echo-area-prefer-doc-buffer nil)
 
 ;; Open the documentation buffer via "<leader> c d"
 (keymap-set ctl-z-c-map "d" #'eldoc)
