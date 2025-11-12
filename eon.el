@@ -1513,6 +1513,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
   ;; Highlight current line in the package manager UI?
   (add-hook 'package-menu-mode-hook (lambda () (hl-line-mode 1))))
 
+(with-eval-after-load 'package-vc
+  (setopt package-vc-register-as-project nil))
+
 ;; _____________________________________________________________________________
 ;;; CUSTOMIZATION UI SETTINGS
 
