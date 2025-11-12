@@ -1649,6 +1649,11 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-t-map "d" #'dired-other-tab)
 (keymap-set ctl-z-t-map "b" #'switch-to-buffer-other-tab)
 
+;; What to do with a window whose buffer was killed?
+;; nil = no special handling. Let `set-window-configuration' decide,
+;; instead of displaying a placeholder bufffer.
+(setopt tab-bar-select-restore-windows nil)
+
 ;; _____________________________________________________________________________
 ;;; BUFFER MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
