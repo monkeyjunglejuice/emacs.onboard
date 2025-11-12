@@ -819,7 +819,16 @@ BODY will be forwarded to `defvar-keymap'.
 ;; But the leader setter for Evil and God mode in Emacs ONTOP work just fine,
 ;; and that code has to be merged anyway - it will probably fix this issue.
 (defun eon-leader--set-key (sym value)
-  "Setter for `eon-leader-key'."
+  "Setter for `eon-leader-key'.
+SYM is the variable, VALUE is the keybinding as a string.
+
+Also sets the local leader key to the same keybinding within the
+local leader keymap, so that the local leader key can be typed rapidly
+by holding down one key and hitting the other twice.
+
+Example:
+Setting the leader to \"M-SPC\" will set the local leader to \"M-SPC\".
+Customize `eon-localleader-key' explicitly to override this default."
   (let ((old (and (boundp sym) (symbol-value sym))))
     (when (and old (stringp old) (> (length old) 0))
       (keymap-global-unset old t))
