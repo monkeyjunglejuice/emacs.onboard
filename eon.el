@@ -225,15 +225,7 @@ Cancel the previous one if present."
    warning-minimum-level :error
    ;; Allow bytecode compilation to be verbose?
    byte-compile-verbose nil
-   ;; Turn off minor warnings
-   byte-compile-warnings (not '(callargs
-                                docstrings
-                                empty-body
-                                free-vars
-                                lexical
-                                noruntime
-                                obsolete))
-   ;; Reduce native code compilation verbosity?
+   ;; Allow native compilation to be verbose?
    native-comp-async-report-warnings-errors nil
    native-comp-warning-on-missing-source nil))
 
