@@ -751,7 +751,7 @@ to the same keys.
 (defun eon-localleader--sync-local-prefix-parent ()
   "Make `eon-localleader-map' inherit the effective local leader keymap.
 Respects the which-key origin window so that the correct buffer's
-localleader is shown."
+local leader is shown."
   (let* ((win (eon-localleader--context-window))
          (buf (and (window-live-p win) (window-buffer win)))
          (map (with-current-buffer (or buf (current-buffer))
