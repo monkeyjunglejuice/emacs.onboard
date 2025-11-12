@@ -2571,7 +2571,8 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Show all project keybindings in the selection?
 (setopt project-switch-use-entire-map nil)
-;; Show these insteads:
+
+;; Show these instead?
 (setopt project-switch-commands '((project-find-file   "File"   ?f)
                                   (project-find-dir    "Dired"  ?d)
                                   (project-find-regexp "Grep"   ?g)
