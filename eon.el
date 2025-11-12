@@ -2221,6 +2221,7 @@ pretending to clear it."
         eshell-scroll-to-bottom-on-input 'this
         eshell-buffer-maximum-lines 65536
         eshell-history-size 1024
+        eshell-history-append t
         eshell-hist-ignoredups t
         eshell-cmpl-ignore-case t
         eshell-list-files-after-cd t
