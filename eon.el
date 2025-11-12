@@ -813,6 +813,11 @@ BODY will be forwarded to `defvar-keymap'.
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Leader implementation
 
+;; FIXME Customizing `eon-leader-key' doesn't set the label of the alternative
+;; (mirrored) local leader kebinding/keymap, so that the local leader keybinding
+;; shows only the default "+prefix" in which-key.
+;; But the leader setter for Evil and God mode in Emacs ONTOP work just fine,
+;; and that code has to be merged anyway - it will probably fix this issue.
 (defun eon-leader--set-key (sym value)
   "Setter for `eon-leader-key'."
   (let ((old (and (boundp sym) (symbol-value sym))))
