@@ -1440,7 +1440,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
  ;; Maximum height of the *Completions* buffer in lines?
  completions-max-height 12
  ;; Enable grouping of completion candidates?
- completions-group t)
+ completions-group t
+ ;; Prefer recent completions?
+ completions-sort 'historical)
 
 ;; Prevent visual line wrapping in narrow frames
 (add-hook 'completion-list-mode-hook (lambda () (setq-local truncate-lines t)))
