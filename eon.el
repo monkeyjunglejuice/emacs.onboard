@@ -1481,6 +1481,11 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; HELP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
 
+;; Define local leader keymap for `help-mode'
+(eon-localleader-defkeymap help-mode eon-localleader-help-map
+  :doc "Local leader keymap for Help buffers."
+  "s" #'help-find-source)
+
 ;; Make commonly used help commands available under the leader key
 (keymap-set ctl-z-h-map "," `("..." . ,help-map))
 (keymap-set ctl-z-h-map "e" #'view-echo-area-messages)
