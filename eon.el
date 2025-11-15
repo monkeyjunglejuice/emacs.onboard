@@ -410,9 +410,12 @@ When called interactively, also echo the result."
           (message "%S" parents)
         parents))))
 
-;; Home directory
-(defvar eon-user-directory (expand-file-name "~/")
-  "Full path of the user's home directory with a trailing slash.")
+;; Ensure directory names have one trailing slash
+(defun eon-ensure-trailing-slash (dir)
+  "Return DIR with exactly one trailing slash."
+  (declare (important-return-value t) (side-effect-free error-free))
+  ;; Both "/tmp" and "/tmp//" result in "/tmp/"
+  (file-name-as-directory (directory-file-name dir)))
 
 ;; _____________________________________________________________________________
 ;;; EMACS SYSTEM LIMITS
@@ -425,7 +428,8 @@ When called interactively, also echo the result."
         undo-strong-limit (* 96 1024 1024)   ; 96 MiB
         undo-outer-limit (* 960 1024 1024))  ; 960 MiB
 
-;; Increase the amount of data that Emacs reads from subprocesses
+;; Increase the amount of data that Emacs reads from subprocesses in one chunk.
+;; Aims to increase performance for communication with language servers, etc.
 (setopt read-process-output-max (* 1024 1024))  ; 1 MiB
 
 ;; _____________________________________________________________________________
