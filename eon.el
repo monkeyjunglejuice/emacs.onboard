@@ -2485,6 +2485,9 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; Visual line wrapping in text mode
 (add-hook 'text-mode-hook #'visual-line-mode)
 
+;; Toggle `visual-line-mode'
+(keymap-set ctl-z-x-map "l" #'visual-line-mode)
+
 ;; _____________________________________________________________________________
 ;;; FOLDING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hideshow>
