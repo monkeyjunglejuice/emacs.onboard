@@ -2206,7 +2206,7 @@ pretending to clear it."
 (defun eon-dired-user-directory ()
   "Open the user's home directory in `dired'."
   (interactive)
-  (dired eon-user-directory))
+  (dired "~/"))
 (with-eval-after-load 'dired
   (keymap-set dired-mode-map "h" #'eon-dired-user-directory))
 
