@@ -1436,6 +1436,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Make TAB try completion when appropriate
 (setopt tab-always-indent 'complete)
+(setopt tab-first-completion 'word-or-paren-or-punct)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Dabbrev
