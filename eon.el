@@ -1607,6 +1607,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; IMENU
 ;; Imenu provides navigation for buffer content, e.g. code, outlines and more
 
+(with-eval-after-load 'imenu
+  (setopt imenu-auto-rescan t
+          imenu-max-item-length 128))
+
 (keymap-set ctl-z-g-map "i" #'imenu)
 
 ;; _____________________________________________________________________________
