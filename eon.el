@@ -1359,7 +1359,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Horizontal scrolling
 (setopt auto-window-vscroll nil
-        hscroll-margin 1
+        hscroll-margin 2
         hscroll-step 1)
 
 ;; Enable pixel-based scrolling?
