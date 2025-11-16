@@ -2633,6 +2633,8 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   (setopt eglot-confirm-server-initiated-edits nil)
   ;; Show code action indicators?
   (setopt eglot-code-action-indications nil)
+  ;; Activate Eglot in cross-referenced non-project files?
+  (setopt eglot-extend-to-xref t)
   ;; Common keybindings
   (keymap-set ctl-z-c-map "r"   #'eglot-rename)
   (keymap-set ctl-z-c-f-map "f" #'eglot-format)
