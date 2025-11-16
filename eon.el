@@ -2490,6 +2490,9 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; visual line breaks, a.k.a soft wrapping
 ;; (add-hook 'prog-mode-hook (lambda () (visual-line-mode 1)))
 
+;; Wrap lines at whitespace, rather than in the middle of a word
+(setopt word-wrap t)
+
 ;; Visual line wrapping in text mode
 (add-hook 'text-mode-hook #'visual-line-mode)
 
