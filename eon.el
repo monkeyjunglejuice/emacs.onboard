@@ -494,6 +494,12 @@ When called interactively, also echo the result."
 ;; Alarms: turn off?
 (setopt ring-bell-function 'ignore)
 
+;; Window dividers - draw extra hairlines between windows
+(window-divider-mode 1)
+(setopt window-divider-default-bottom-width 1
+        window-divider-default-places t
+        window-divider-default-right-width 1)
+
 ;; _____________________________________________________________________________
 ;;; CURSOR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
