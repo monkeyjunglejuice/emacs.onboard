@@ -2066,11 +2066,11 @@ pretending to clear it."
         ediff-split-window-function 'split-window-horizontally)
 
 ;; Emacs knows where your init file is (open and edit '.emacs' or 'init.el')
-(defun eon-visit-user-init-file ()
+(defun eon-goto-init-file ()
   "Visit the init file."
   (interactive)
   (when user-init-file (find-file user-init-file)))
-(keymap-set ctl-z-x-map "i" #'eon-visit-user-init-file)
+(keymap-set ctl-z-x-map "i" #'eon-goto-init-file)
 
 ;; _____________________________________________________________________________
 ;;; RECENT FILES
@@ -2211,18 +2211,18 @@ pretending to clear it."
    image-dired-thumbnail-storage 'standard-large))
 
 ;; Open '~/.emacs.d' directory in Dired
-(defun eon-dired-user-emacs-directory ()
+(defun eon-goto-init-dir ()
   "Open the Emacs directory in Dired, which is usually '~/.emacs.d'."
   (interactive)
   (dired user-emacs-directory))
 
 ;; Open home directory in Dired
-(defun eon-dired-user-directory ()
+(defun eon-goto-home-dir ()
   "Open the user's home directory in `dired'."
   (interactive)
   (dired "~/"))
 (with-eval-after-load 'dired
-  (keymap-set dired-mode-map "h" #'eon-dired-user-directory))
+  (keymap-set dired-mode-map "h" #'eon-goto-home-dir))
 
 ;; _____________________________________________________________________________
 ;;; COMINT
@@ -2937,13 +2937,12 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; that directory anywhere you like
 (setopt org-directory (expand-file-name "~/Documents/org/"))
 
-(defun eon-visit-org-directory ()
+(defun eon-goto-org-dir ()
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
-
 ;; Visit the `org-directory' in Dired via `C-z o d'
-(keymap-set ctl-z-o-map "d" #'eon-visit-org-directory)
+(keymap-set ctl-z-o-map "d" #'eon-goto-org-dir)
 
 ;; Turn on visual word wrapping
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Visual-Line-Mode>
@@ -2975,13 +2974,12 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; Set a default target for storing notes
 (setopt org-default-notes-file (concat org-directory "notes.org"))
 
-(defun eon-visit-org-notes ()
+(defun eon-goto-org-notes ()
   "Visit the Org notes file."
   (interactive)
   (find-file org-default-notes-file))
-
 ;; Visit the default notes file via `C-z o o'
-(keymap-set ctl-z-o-map "o" #'eon-visit-org-notes)
+(keymap-set ctl-z-o-map "o" #'eon-goto-org-notes)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Org todo
