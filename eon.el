@@ -2077,18 +2077,17 @@ pretending to clear it."
 ;; _____________________________________________________________________________
 ;;; RECENT FILES
 
+(setopt recentf-max-menu-items 10
+        recentf-max-saved-items 256
+        recentf-auto-cleanup 'mode)
+
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
 
-(setopt recentf-max-menu-items 10
-        recentf-max-saved-items 128)
-
 ;; Ignore some recently visited files, eg. to prevent them from showing up
 ;; amongst recent files after package upgrades
-(add-to-list 'recentf-exclude
-             (expand-file-name (concat user-emacs-directory "elpa/")))
-(add-to-list 'recentf-exclude
-             "^/\\(?:ssh\\|su\\|sudo\\)?:")
+(with-eval-after-load 'recentf
+  (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:"))
 
 ;; Select from recently opened files via "<leader> f r"
 (keymap-set ctl-z-f-map "h" #'recentf-open)
