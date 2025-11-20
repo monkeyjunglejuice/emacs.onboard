@@ -2193,7 +2193,8 @@ pretending to clear it."
    ;; Mimic dual-pane file managers?
    dired-dwim-target t
    ;; Check for directory modifications?
-   dired-auto-revert-buffer t))
+   dired-auto-revert-buffer #'dired-directory-changed-p
+   dired-do-revert-buffer #'dired-directory-changed-p))
 
 ;; Hide details in file listings? Toggle via "(" or "<localleader> d"
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
