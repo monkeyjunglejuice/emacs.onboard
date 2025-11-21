@@ -2628,11 +2628,12 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (keymap-set ctl-z-v-map "," `("..." . ,vc-prefix-map))
 
 ;; _____________________________________________________________________________
-;;; CODE NAVIGATION AND DOCUMENTATION LOOKUP
+;;; CODE NAVIGATION AND LOOKUP
 
-(keymap-set ctl-z-c-map "r" #'xref-find-references)
 (keymap-set ctl-z-c-map "d" #'xref-find-definitions)
-(keymap-set ctl-z-c-map "D" #'xref-find-apropos)
+(keymap-set ctl-z-c-map "a" #'xref-find-apropos)
+(keymap-set ctl-z-c-map "r" #'xref-find-references)
+(keymap-set ctl-z-c-map "R" #'xref-find-references-and-replace)
 
 ;; _____________________________________________________________________________
 ;;; EGLOT LANGUAGE SERVER CLIENT (LSP)
@@ -2648,10 +2649,10 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   ;; Activate Eglot in cross-referenced non-project files?
   (setopt eglot-extend-to-xref t)
   ;; Common keybindings
-  (keymap-set ctl-z-c-map "r"   #'eglot-rename)
+  (keymap-set ctl-z-c-map   "R" #'eglot-rename)
   (keymap-set ctl-z-c-f-map "f" #'eglot-format)
-  (keymap-set ctl-z-c-f-map "b" #'eglot-format-buffer)
-  (keymap-set ctl-z-c-map "a"   #'eglot-code-actions))
+  (keymap-set ctl-z-c-f-map "F" #'eglot-format-buffer)
+  (keymap-set ctl-z-c-map   "c" #'eglot-code-actions))
 
 ;; Eglot comes with a fairly complete set of associations of major-modes
 ;; to popular language servers predefined. If you need to add server
