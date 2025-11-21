@@ -2649,6 +2649,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
   ;; Activate Eglot in cross-referenced non-project files?
   (setopt eglot-extend-to-xref t)
   ;; Common keybindings
+  ;; TODO Don't set keybindings after load, but when Eglot is actually active
   (keymap-set ctl-z-c-map   "R" #'eglot-rename)
   (keymap-set ctl-z-c-f-map "f" #'eglot-format)
   (keymap-set ctl-z-c-f-map "F" #'eglot-format-buffer)
