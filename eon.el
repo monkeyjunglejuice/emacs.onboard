@@ -1580,9 +1580,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
         eldoc-echo-area-display-truncation-message nil
         eldoc-echo-area-prefer-doc-buffer nil)
 
-;; Open the documentation buffer via "<leader> c d"
-(keymap-set ctl-z-c-map "d" #'eldoc)
-
 ;; _____________________________________________________________________________
 ;;; SEARCH
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
@@ -2629,6 +2626,13 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 (keymap-set ctl-z-v-map "g" #'vc-git-grep)
 (keymap-set ctl-z-v-map "r" #'vc-rename-file)
 (keymap-set ctl-z-v-map "," `("..." . ,vc-prefix-map))
+
+;; _____________________________________________________________________________
+;;; CODE NAVIGATION AND DOCUMENTATION LOOKUP
+
+(keymap-set ctl-z-c-map "r" #'xref-find-references)
+(keymap-set ctl-z-c-map "d" #'xref-find-definitions)
+(keymap-set ctl-z-c-map "D" #'xref-find-apropos)
 
 ;; _____________________________________________________________________________
 ;;; EGLOT LANGUAGE SERVER CLIENT (LSP)
