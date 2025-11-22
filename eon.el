@@ -2950,7 +2950,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   "Show the Org directory in Dired."
   (interactive)
   (dired org-directory))
-;; Visit the `org-directory' in Dired via `C-z o d'
+;; Visit the `org-directory' in Dired via "<leader> o d"
 (keymap-set ctl-z-o-map "d" #'eon-goto-org-dir)
 
 ;; Turn on visual word wrapping
@@ -2975,7 +2975,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; - Org capture
 ;; <https://orgmode.org/org.html#Capture>
 
-;; Capture a note via `C-z o c'
+;; Capture a note via "<leader> o c"
 (keymap-set ctl-z-o-map "c" #'org-capture)
 ;; Put newer notes on top of the file
 (setopt org-reverse-note-order t)
@@ -2987,7 +2987,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
   "Visit the Org notes file."
   (interactive)
   (find-file org-default-notes-file))
-;; Visit the default notes file via `C-z o o'
+;; Visit the default notes file via "<leader> o o"
 (keymap-set ctl-z-o-map "o" #'eon-goto-org-notes)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -3006,7 +3006,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 
 (setopt org-agenda-files (list org-directory))
 
-;; Visit your Org agenda via `C-z o a'
+;; Visit your Org agenda via "<leader> o a"
 (keymap-set ctl-z-o-map "a" #'org-agenda)
 
 (add-hook 'org-agenda-mode-hook
