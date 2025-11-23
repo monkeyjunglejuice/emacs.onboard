@@ -3069,11 +3069,21 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;;; LISP
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Executing-Lisp>
 
+;; Make local leader binding behave like "C-x C-e" when Edebug is active
+(defun eon-eval-last-sexp (&optional arg)
+  "Eval last sexp; use Edebug variant when active.
+With prefix ARG, pass it through to the underlying command."
+  (interactive "P")
+  (if (and (bound-and-true-p edebug-active)
+           (fboundp 'edebug-eval-last-sexp))
+      (call-interactively #'edebug-eval-last-sexp)
+    (call-interactively #'eval-last-sexp)))
+
 ;; Define local leader keymap for `emacs-lisp-mode'
 (eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
   :doc "Local leader keymap for Emacs Lisp buffers."
   "d"   #'edebug-defun
-  "e"   #'eval-last-sexp
+  "e"   #'eon-eval-last-sexp
   "E"   #'pp-eval-last-sexp
   "h"   #'describe-symbol
   "l"   #'load-file
