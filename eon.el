@@ -2233,15 +2233,25 @@ pretending to clear it."
 ;; _____________________________________________________________________________
 ;;; ESHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eshell.html>
+;; <https://www.masteringemacs.org/article/complete-guide-mastering-eshell>
 
 ;; Eshell is not a terminal emulator, but a shell equivalent to Bash or Fish
 ;; that runs within Emacs. It is independent from the OS. Eshell looks like
-;; a POSIX shell superficially, but is also a REPL for Emacs Lisp expressions.
-
-;; Eshell scripts can run in batch mode.
+;; a POSIX shell superficially, but is also a REPL for Emacs Lisp expressions
+;; - meaning you get the full Emacs power.
+;;
+;; Eshell scripts can also run in batch mode:
 ;; By adding the following interpreter directive to an Eshell script, you
 ;; can make it executable like other shell scripts:
 ;; #!/usr/bin/env -S emacs --batch -f eshell-batch-file
+;;
+;; Subshells that evaluate Emacs list are created with $( ... ) or ( ... ).
+;; You can use $( ... ) to in-line an elisp form and use its output in much
+;; the same way as you would in bash, e.g. echo $(+ 1 2 3).
+;;
+;; There's another one, which is more like an actual subshell: ${ ... }
+;; but this is not as versatile as a regular subshell you may know from
+;; bash and others.
 
 ;; Create Eshell loacal leader keymap
 (eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
