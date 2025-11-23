@@ -3030,9 +3030,10 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Org publish
 
-;; Select a project to publish a project via "<localleader> p";
+;; Select a project to publish a project via "<leader> o p";
 ;; This can be used to generate and publish a static blog, ebooks, etc.
-(keymap-set eon-localleader-org-mode-map "p" #'org-publish)
+(keymap-set ctl-z-o-map "p" #'org-publish)
+(keymap-set eon-localleader-org-mode-map "p" #'org-publish-current-project)
 
 ;; Speed up publishing by skipping files that haven't been changed
 (setopt org-publish-list-skipped-files nil)
@@ -3041,7 +3042,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
 (setopt org-publish-timestamp-directory
         (concat user-emacs-directory "org-timestamps/"))
 
-(defun org-publish-unchanged-files-toggle ()
+(defun eon-org-publish-unchanged-files-toggle ()
   "Toggle whether to re-export Org files that haven't been changed."
   (interactive)
   (if org-publish-use-timestamps-flag
@@ -3049,6 +3050,7 @@ Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
              (message "Re-export unchanged files"))
     (progn (setopt org-publish-use-timestamps-flag t)
            (message "Don't re-export unchanged files (default)"))))
+(keymap-set ctl-z-o-map "C-p" #'eon-org-publish-unchanged-files-toggle)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Org export
