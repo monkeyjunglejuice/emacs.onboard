@@ -3169,26 +3169,35 @@ With SWITCH = \='hook, return ...-hook variables."
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Check-parens mode
 
-;; Minor mode that prevents from accidently saving files with mismatched
-;; parenthesis and quotes
+;; Minor mode that prevents accidentally saving files with mismatched
+;; parentheses and quotes.
 
 (defun eon-check-parens--ask ()
   "Check parens; prompt to proceed on mismatch."
-  (if (condition-case nil (progn (check-parens) t) (error nil))
+  (if (condition-case nil
+          (progn (check-parens) t)
+        (error nil))
       nil
     (if (y-or-n-p
-         "Didn't save file: unmatched paren or quote. Save anyway? ")
+         "Buffer contains unmatched parens or quotes. Save anyway? ")
         nil
-      (user-error "OK, the file hasn't been saved"))))
+      (user-error "OK, the file has not been saved"))))
 
 (define-minor-mode eon-check-parens-mode
-  "Ask before saving with mismatching parens or quotes."
+  "Ask before saving with mismatching parens or quotes.
+
+When enabled, `check-parens' is run before saving. If mismatches
+are found, ask whether to save anyway; answering no aborts the
+save with a `user-error'."
   :group 'eon-misc
-  :global t
   :init-value t
   (if eon-check-parens-mode
-      (add-hook 'write-contents-functions #'eon-check-parens--ask nil t)
-    (remove-hook 'write-contents-functions #'eon-check-parens--ask t)))
+      (add-hook 'write-contents-functions
+                #'eon-check-parens--ask
+                nil t)
+    (remove-hook 'write-contents-functions
+                 #'eon-check-parens--ask
+                 t)))
 
 ;; Enable minor mode per default; toggle via "M-x eon-check-parens-mode".
 ;; How to remove the hook permanently from a specific lisp major mode:
