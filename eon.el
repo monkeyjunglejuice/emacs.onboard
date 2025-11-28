@@ -2120,23 +2120,40 @@ pretending to clear it."
 ;;; AUTO-SAVE FILES
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Auto-Save>
 
-;; Enable auto-save to safeguard against data loss?
-;; The `recover-file' or `recover-session' functions can be used
-;; to restore auto-saved data
-(setopt auto-save-default t)
-(setopt auto-save-no-message t)
+;; Enable auto-save to safeguard against data loss
+;; Use `recover-file' or `recover-session' commands to restore auto-saved data
 
-;; Do not auto-disable auto-save after deleting large chunks of text
-(setopt auto-save-include-big-deletions t)
+(setopt auto-save-default t
+        auto-save-no-message t
+        auto-save-include-big-deletions t
+        kill-buffer-delete-auto-save-files t)
 
-;; Auto-save locations
-(setopt auto-save-list-file-prefix
-        (expand-file-name "autosave/" user-emacs-directory))
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Location for auto-save files
+;; Per default, auto-save files are stored alongside their original file.
+;; Let's not clutter the file system with auto-save "#filename.ext#" files,
+;; but place them into separate directories for remote and local files under
+;; the Emacs init directory.
+
+;; Ensure auto-save directories exist
+(make-directory (expand-file-name "auto-save/" user-emacs-directory) t)
+
+;; Directory for auto-save files accessed via Tramp (mostly remote, but also
+;; local files accessed via Tramp, e.g. when sudo functionality used)
 (setopt tramp-auto-save-directory
-        (expand-file-name "autosave-tramp/" user-emacs-directory))
+        (expand-file-name "auto-save/" user-emacs-directory))
 
-;; Auto save options
-(setopt kill-buffer-delete-auto-save-files t)
+;; Where the actual auto-saved files go
+(setopt auto-save-file-name-transforms
+        `(;; Tramp (remote) files; pattern: /method:host:/path/to/file
+          ("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'"
+           ,(concat (expand-file-name "auto-save/" user-emacs-directory)
+                    "\\2")
+           t)
+          ;; Everything else (local files)
+          (".*"
+           ,(expand-file-name "auto-save/" user-emacs-directory)
+           t)))
 
 ;; _____________________________________________________________________________
 ;;; LOCKFILES
