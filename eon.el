@@ -1430,7 +1430,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt completion-styles '(basic partial-completion flex))
 (setopt completion-category-defaults nil)
 (setopt completion-category-overrides
-        '((file (styles . (basic partial-completion)))))
+        '((file (styles . (partial-completion basic)))))
 
 ;; Make TAB try completion when appropriate
 (setopt tab-always-indent 'complete)
