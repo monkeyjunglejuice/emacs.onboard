@@ -269,6 +269,14 @@ For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
 
+(defun eon-wslp ()
+  "True if `system-type' is GNU/Linux or compatible and WSLENV exists.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (and (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd))
+       (or (getenv "WSLENV")
+           (getenv "WSL_DISTRO_NAME"))))
+
 (defun eon-winp ()
   "True if `system-type' is Microsoft Windows or something compatible.
 For finer granularity, use the variables `system-type'
@@ -1864,7 +1872,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 ;; (Windows Subsystem for Linux)
 
 ;; Copy "kill" text from an Emacs buffer for pasting it into a Windows app
-(when (and (eon-linp)
+(when (and (eon-wslp)
            (file-exists-p "/mnt/c/Windows/System32/clip.exe"))
   (defun eon-wsl-copy (start end)
     "Copy selected text into the Windows clipboard."
@@ -1874,7 +1882,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   (keymap-set ctl-z-map "C-w" #'eon-wsl-copy))
 
 ;; Paste "yank" text into Emacs buffer that has been copied from a Windows app
-(when (and (eon-linp)
+(when (and (eon-wslp)
            (file-exists-p "/mnt/c/Windows/System32/clip.exe"))
   (defun eon-wsl-paste ()
     "Paste contents from the Windows clipboard into the Emacs buffer."
