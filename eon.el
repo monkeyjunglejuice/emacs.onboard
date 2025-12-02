@@ -1590,6 +1590,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://emacsredux.com/blog/2025/03/18/you-have-no-idea-how-powerful-isearch-is>
 
 ;;; - Isearch
+
+;; When isearching, enable M-<, M->, C-v and M-v to skip between matches
+;; in an intuitive fashion.
+(setopt isearch-allow-motion t
+        isearch-motion-changes-direction t)
+
 ;; Swap search functions to make regexp-search the default
 ;; (keymap-global-set "C-s"   #'isearch-forward-regexp)
 ;; (keymap-global-set "C-r"   #'isearch-backward-regexp)
