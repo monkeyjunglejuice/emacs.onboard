@@ -1587,12 +1587,14 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; _____________________________________________________________________________
 ;;; SEARCH
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
+;; <https://emacsredux.com/blog/2025/03/18/you-have-no-idea-how-powerful-isearch-is>
 
+;;; - Isearch
 ;; Swap search functions to make regexp-search the default
-(keymap-global-set "C-s"   #'isearch-forward-regexp)
-(keymap-global-set "C-r"   #'isearch-backward-regexp)
-(keymap-global-set "C-S-s" #'isearch-forward)
-(keymap-global-set "C-S-r" #'isearch-backward)
+;; (keymap-global-set "C-s"   #'isearch-forward-regexp)
+;; (keymap-global-set "C-r"   #'isearch-backward-regexp)
+;; (keymap-global-set "C-S-s" #'isearch-forward)
+;; (keymap-global-set "C-S-r" #'isearch-backward)
 
 ;;; - Search and replace
 ;; If text is selected, then the commands act on that region only
