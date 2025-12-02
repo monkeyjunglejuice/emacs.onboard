@@ -270,7 +270,7 @@ or `system-configuration' directly."
   (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
 
 (defun eon-wslp ()
-  "True if `system-type' is GNU/Linux or compatible and WSLENV exists.
+  "True if `system-type' is GNU/Linux or compatible within WSL.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (and (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd))
