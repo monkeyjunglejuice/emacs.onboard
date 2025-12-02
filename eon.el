@@ -2226,6 +2226,11 @@ pretending to clear it."
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (keymap-set eon-localleader-dired-map "d" #'dired-hide-details-mode)
 
+;; Also omit dotfiles in listings? Toggle via "<localleader> o"
+(with-eval-after-load 'dired-x
+  (setopt dired-omit-files (concat dired-omit-files "\\|\\`\\.[^.].*")))
+(keymap-set eon-localleader-dired-map "o" #'dired-omit-mode)
+
 ;; Highlight current line in Dired?
 (add-hook 'dired-mode-hook #'hl-line-mode)
 
@@ -3170,6 +3175,7 @@ With prefix ARG, pass it through to the underlying command."
     dune-mode
     fennel-mode
     gerbil-mode
+    janet-ts-mode
     lfe-mode
     racket-mode
     stumpwm-mode)
@@ -3182,6 +3188,7 @@ With prefix ARG, pass it through to the underlying command."
     inferior-lisp-mode
     inferior-scheme-mode
     ;; 3rd-party packages
+    ajrepl-mode
     cider-repl-mode
     fennel-repl-mode
     geiser-repl-mode
