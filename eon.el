@@ -1589,7 +1589,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Search>
 ;; <https://emacsredux.com/blog/2025/03/18/you-have-no-idea-how-powerful-isearch-is>
 
-;;; - Isearch
+;;; - Isearch: "C-s" and "C-r"
 
 ;; When isearching, enable M-<, M->, C-v and M-v to skip between matches
 ;; in an intuitive fashion.
