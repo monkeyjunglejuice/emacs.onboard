@@ -1027,6 +1027,21 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
 ;; Restart Emacs
 (keymap-set ctl-z-q-map "r" #'restart-emacs)
 
+;; Smarter `keyboard-quit' that gets you out of recursive minibuffers via "C-g"
+(defun eon-keyboard-quit ()
+  "Smarter version of the built-in `keyboard-quit'.
+
+The generic `keyboard-quit' does not do the expected thing when
+the minibuffer is open. Whereas we want it to close the
+minibuffer, even without explicitly focusing it."
+  (interactive)
+  (if (active-minibuffer-window)
+      (if (minibufferp)
+          (minibuffer-keyboard-quit)
+        (abort-recursive-edit))
+    (keyboard-quit)))
+(global-set-key [remap keyboard-quit] #'eon-keyboard-quit)
+
 ;; _____________________________________________________________________________
 ;;; VI KEYBINDINGS (VIPER-MODE)
 
