@@ -1040,6 +1040,7 @@ minibuffer, even without explicitly focusing it."
           (minibuffer-keyboard-quit)
         (abort-recursive-edit))
     (keyboard-quit)))
+;; Remap all referencing keybindings to the new command
 (global-set-key [remap keyboard-quit] #'eon-keyboard-quit)
 
 ;; _____________________________________________________________________________
