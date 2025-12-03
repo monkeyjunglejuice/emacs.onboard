@@ -3148,7 +3148,7 @@ With prefix ARG, pass it through to the underlying command."
   "e"   #'eon-eval-last-sexp
   "E"   #'pp-eval-last-sexp
   "h"   #'describe-symbol
-  "l"   #'load-file
+  "f"   #'load-file
   "m"   #'pp-macroexpand-last-sexp
   "M"   #'emacs-lisp-macroexpand
   "x"   #'eval-defun
