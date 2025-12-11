@@ -2225,7 +2225,8 @@ pretending to clear it."
    ;; Don't accumulate useless Dired buffers
    dired-kill-when-opening-new-dired-buffer t
    ;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
-   dired-listing-switches "-lhFA -v --group-directories-first"
+   dired-listing-switches
+   "-l --almost-all --classify=auto --human-readable --group-directories-first --no-group"
    ;; Copy files/directories with sub-directories?
    dired-recursive-copies 'always
    ;; Create directories if they don't exist?
