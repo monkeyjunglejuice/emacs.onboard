@@ -2225,7 +2225,7 @@ pretending to clear it."
    dired-kill-when-opening-new-dired-buffer t
    ;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
    dired-listing-switches
-   "-l --almost-all --classify=auto --human-readable --group-directories-first --no-group"
+   "-l --almost-all --classify=always --human-readable --group-directories-first --no-group"
    ;; Copy files/directories with sub-directories?
    dired-recursive-copies 'always
    ;; Create directories if they don't exist?
