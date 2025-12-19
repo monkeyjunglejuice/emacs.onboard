@@ -790,7 +790,7 @@ local leader is shown."
                 (eon-localleader--sync-local-prefix-parent))))
 
 (defcustom eon-localleader-key
-  (if (not (eon-terminalp)) "C-," "C-z")
+  (if (eon-terminalp) "C-z" "C-,")
   "Local leader key, pressed after the leader.
 
 - GUI default: \"C-,\" -> reach local leader via \"C-, C-,\"
@@ -859,7 +859,7 @@ Customize `eon-localleader-key' explicitly to override this default."
       (eon-localleader--set-key 'eon-localleader-key value))))
 
 (defcustom eon-leader-key
-  (if (not (eon-terminalp)) "C-," "C-z")
+  (if (eon-terminalp) "C-z" "C-,")
   "Leader prefix key. GUI default: \"C-,\" - TTY default: \"C-z\".
 Use `eon-customize-group' to change, or `setopt' from Lisp."
   :group 'eon-leader
