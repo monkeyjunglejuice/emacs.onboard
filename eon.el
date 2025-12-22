@@ -677,7 +677,7 @@ a `cursor-type' or nil. The first non-nil return wins.")
 
 (setopt which-key-lighter ""
         which-key-separator " "
-        which-key-idle-delay 0.4
+        which-key-idle-delay 0.3
         which-key-idle-secondary-delay 0.0
         which-key-sort-uppercase-first nil
         which-key-sort-order 'which-key-key-order-alpha
