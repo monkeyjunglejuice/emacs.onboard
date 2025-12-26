@@ -1630,6 +1630,49 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-global-set      "C-M-%" #'replace-regexp-as-diff)
 (keymap-set ctl-z-s-map "C-r"   #'replace-regexp-as-diff)
 
+;;; - Web search
+
+;; Bind `webjump' under the leader key "<leader> s w"
+(keymap-set ctl-z-s-map "w" #'webjump)
+
+(with-eval-after-load 'webjump
+  (setopt webjump-sites
+          '(("DuckDuckGo"
+             . [simple-query
+                "https://duckduckgo.com/?q="
+                "https://duckduckgo.com/?q=" ""])
+            ("GitHub"
+             . [simple-query
+                "https://github.com/search?ref=simplesearch&q="
+                "https://github.com/search?ref=simplesearch&q=" ""])
+            ("Codeberg"
+             . [simple-query
+                "https://codeberg.org/explore/repos?sort=moststars&q="
+                "https://codeberg.org/explore/repos?sort=moststars&q="
+                ""])
+            ("Stack Overflow"
+             . [simple-query
+                "https://stackoverflow.com/search?q="
+                "https://stackoverflow.com/search?q=" ""])
+            ("Wikipedia (en)"
+             . [simple-query
+                "https://www.wikipedia.org/search-redirect.php?language=en&go=Go&search="
+                "https://www.wikipedia.org/search-redirect.php?language=en&go=Go&search="
+                ""])
+            ("Wolfram Alpha"
+             . [simple-query
+                "https://www.wolframalpha.com/input/?i="
+                "https://www.wolframalpha.com/input/?i=" ""])
+            ("Google Maps"
+             . [simple-query
+                "https://maps.google.com/maps?q="
+                "https://maps.google.com/maps?q=" ""])
+            ("OpenStreetMap"
+             . [simple-query
+                "https://www.openstreetmap.org/search?query="
+                "https://www.openstreetmap.org/search?query="
+                ""]))))
+
 ;; _____________________________________________________________________________
 ;;; IMENU
 ;; Imenu provides navigation for buffer content, e.g. code, outlines and more
