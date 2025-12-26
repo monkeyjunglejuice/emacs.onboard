@@ -2433,7 +2433,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
              "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
     ('w3m
      (setopt url-user-agent
-             "w3m/0.5.3+git2020050"))
+             "w3m/0.5.3+git20230121"))
     (_
      (setopt url-user-agent 'default))))
 
