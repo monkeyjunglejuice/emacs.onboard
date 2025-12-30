@@ -2346,6 +2346,10 @@ pretending to clear it."
 ;; but this is not as versatile as a regular subshell you may know from
 ;; bash and others.
 
+(defgroup eon-eshell nil
+  "Eshell configuration."
+  :group 'eon)
+
 ;; Create Eshell loacal leader keymap
 (eon-localleader-defkeymap eshell-mode eon-localleader-eshell-map
   :doc "Local leader keymap for `eshell-mode'.")
