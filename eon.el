@@ -2268,7 +2268,7 @@ pretending to clear it."
    dired-kill-when-opening-new-dired-buffer t
    ;; Listing columns; Switch arguments with "C-u s" e.g. hide backups with -B
    dired-listing-switches
-   "-l --almost-all --classify=always --human-readable --group-directories-first --no-group"
+   "-l --almost-all --classify=always --human-readable --group-directories-first"
    ;; Copy files/directories with sub-directories?
    dired-recursive-copies 'always
    ;; Create directories if they don't exist?
@@ -2373,6 +2373,100 @@ pretending to clear it."
   (interactive)
   (eshell 't))
 (keymap-set ctl-z-e-map "E" #'eon-eshell-new)
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; Faster Eshell cd command; similar to Zoxide
+
+(defun eshell/d (&optional regexp)
+  "Navigate to a previously visited directory in Eshell.
+
+If REGEXP is non-nil, jump to the most recent previous directory matching
+REGEXP. Otherwise, prompt with `completing-read' over `eshell-last-dir-ring'."
+  (let* ((eshell-dirs
+          (seq-uniq
+           (mapcar #'abbreviate-file-name
+                   (ring-elements eshell-last-dir-ring))
+           #'string=))
+         (target
+          (if regexp
+              (or (eshell-find-previous-directory regexp)
+                  (user-error "No previous directory matching %S" regexp))
+            (completing-read "Change directory: " eshell-dirs nil nil))))
+    (eshell/cd (substring-no-properties target))))
+
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; Eshell aliases
+
+;; Define Eshell aliases directly in your init file without external
+;; `/.emacs.d/eshell/alias' file.
+
+(defun eon-eshell--name (key)
+  "Return KEY as an Eshell alias name string.
+
+K may be a symbol (e.g. `ll`) or a string (e.g. \"ll\").
+Signal an error for any other type."
+  (cond ((symbolp key) (symbol-name key))
+        ((stringp key) key)
+        (t (error "Alias key must be symbol or string: %S" key))))
+
+(defun eon-eshell--install-aliases (aliases)
+  "Install ALIASES into Eshell without persisting them to disk.
+
+ALIASES must be an alist of (NAME . DEF) pairs, where NAME is a symbol
+or string and DEF is an Eshell alias expansion string.
+
+If an alias NAME already exists, it is deleted first and then redefined.
+Alias persistence is disabled by binding `eshell-aliases-file'
+to `null-device'."
+  (require 'em-alias)
+  (let ((eshell-aliases-file null-device))
+    (mapc
+     (lambda (cell)
+       (let* ((key (car cell))
+              (val (cdr cell))
+              (name (if (symbolp key) (symbol-name key) key)))
+         (when (eshell-lookup-alias name)
+           (eshell/alias name))   ; delete existing alias
+         (eshell/alias name val)))  ; define alias
+     aliases)))
+
+(defun eon-eshell-apply-aliases ()
+  "Apply `eon-eshell-aliases' to Eshell now."
+  (interactive)
+  (eon-eshell--install-aliases eon-eshell-aliases))
+
+(defun eon-eshell--set-aliases (sym value)
+  "Setter for the user option `eon-eshell-aliases'.
+
+Set SYM's default value to VALUE. If the Eshell alias module
+`em-alias' is already loaded, also install VALUE immediately."
+  (set-default sym value)
+  (when (featurep 'em-alias)
+    (eon-eshell--install-aliases value)))
+
+(defcustom eon-eshell-aliases
+  '(("e"     . "find-file $@*")
+    ("f"     . "find-file $@*")
+    ("l"     . "ls $@*")
+    ("ll"    . "ls -l -h $@*")
+    ("la"    . "ls -lA -h $@*")
+    ("targ"  . "tar cfvz $@*")
+    ("targx" . "tar xfvz $@*")
+    ("tarb"  . "tar cfvj $@*")
+    ("tarbx" . "tar xfvj $@*")
+    ("q"     . "exit"))
+  "Alist of Eshell aliases: ((NAME . DEF) ...).
+
+Add/override an alias with `add-to-list', or add/override multiple aliases
+via `eon-add-to-list'."
+  :type '(alist :key-type (choice string symbol)
+                :value-type string)
+  :set #'eon-eshell--set-aliases)
+
+(with-eval-after-load 'em-alias
+  ;; Ensure they exist when Eshell initializes/loads aliases
+  (add-hook 'eshell-first-time-mode-hook #'eon-eshell-apply-aliases)
+  (add-hook 'eshell-alias-load-hook #'eon-eshell-apply-aliases))
 
 ;; _____________________________________________________________________________
 ;;; SHELL
