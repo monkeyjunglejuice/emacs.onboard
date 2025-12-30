@@ -1721,8 +1721,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (keymap-set ctl-z-w-map "o" #'other-window-prefix)
 (keymap-set ctl-z-w-map "q" #'quit-window)
 (keymap-set ctl-z-w-map "s" #'split-window-below)
-(keymap-set ctl-z-w-map "t" #'window-toggle-side-windows)
-(keymap-set ctl-z-w-map "T" #'toggle-window-dedicated)
+(keymap-set ctl-z-w-map "t" #'toggle-window-dedicated)
+(keymap-set ctl-z-w-map "T" #'window-toggle-side-windows)
 (keymap-set ctl-z-w-map "v" #'split-window-right)
 (keymap-set ctl-z-w-map "w" #'other-window)
 
