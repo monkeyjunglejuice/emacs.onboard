@@ -3189,6 +3189,7 @@ With prefix ARG, pass it through to the underlying command."
   :doc "Local leader keymap for Emacs Lisp buffers."
   "d"   #'edebug-defun
   "e"   #'eon-eval-last-sexp
+  "b"   #'eval-buffer
   "r"   #'elisp-eval-region-or-buffer
   "h"   #'describe-symbol
   "l"   #'load-file
