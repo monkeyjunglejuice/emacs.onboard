@@ -1713,7 +1713,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Common window management commands under the leader key
 (keymap-set ctl-z-w-map "=" #'balance-windows)
-(keymap-set ctl-z-w-map "T" #'window-toggle-side-windows)
+(keymap-set ctl-z-w-map "P" #'window-toggle-side-windows)
 (keymap-set ctl-z-w-map "b" #'display-buffer)
 (keymap-set ctl-z-w-map "c" #'delete-window)
 (keymap-set ctl-z-w-map "d" #'dired-other-window)
