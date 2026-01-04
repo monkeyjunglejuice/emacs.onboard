@@ -715,6 +715,12 @@ a `cursor-type' or nil. The first non-nil return wins.")
   "Customize leader key and local leader key behavior."
   :group 'eon)
 
+;; Minor mode keymap that installs the leader prefix with higher precedence
+;; than major-mode keymaps (e.g. Org binding `C-,').
+(defvar-keymap eon-leader-mode-map
+  :doc "Keymap for `eon-leader-mode'."
+  :name "EON-Leader-Mode")
+
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Local leader implementation
 
@@ -736,14 +742,6 @@ Don't bind any keys/commands to this keymap.")
          (window-live-p which-key--original-window))
     which-key--original-window)
    (t (selected-window))))
-
-(defun eon-localleader--set-key (sym value)
-  "Setter for `eon-localleader-key'."
-  (let ((old (and (boundp sym) (symbol-value sym))))
-    (when (boundp 'ctl-z-map)
-      (when old (keymap-unset ctl-z-map old))
-      (keymap-set ctl-z-map value eon-localleader-map)))
-  (set-default sym value))
 
 ;; Empty named prefix, so which-key shows the label "Local"
 (defvar-keymap eon-localleader-map
@@ -780,14 +778,41 @@ local leader is shown."
                   eon-localleader-global-map))))
     (set-keymap-parent eon-localleader-map map)))
 
-;; Keep the UI prefix parent fresh when modes change, even without which-key
-(add-hook 'after-change-major-mode-hook
-          #'eon-localleader--sync-local-prefix-parent)
+(defun eon-localleader--window-selection-change (_win)
+  "Keep the local leader UI in sync when the selected window changes."
+  (eon-localleader--sync-local-prefix-parent))
 
-(with-eval-after-load 'which-key
-  (advice-add 'which-key--update :before
-              (lambda (&rest _)
-                (eon-localleader--sync-local-prefix-parent))))
+(defvar eon-localleader--which-key-advice-installed nil
+  "Non-nil when the which-key advice has been installed.")
+
+(defun eon-localleader--which-key-advice (&rest _)
+  "Advice for `which-key--update'."
+  (eon-localleader--sync-local-prefix-parent))
+
+(defun eon-localleader--which-key-enable ()
+  "Enable which-key integration for local leader."
+  (when (and (featurep 'which-key)
+             (not eon-localleader--which-key-advice-installed))
+    (advice-add 'which-key--update :before #'eon-localleader--which-key-advice)
+    (setq eon-localleader--which-key-advice-installed t)))
+
+(defun eon-localleader--which-key-disable ()
+  "Disable which-key integration for local leader."
+  (when (and (featurep 'which-key)
+             eon-localleader--which-key-advice-installed)
+    (advice-remove 'which-key--update #'eon-localleader--which-key-advice)
+    (setq eon-localleader--which-key-advice-installed nil)))
+
+(defun eon-localleader--set-key (sym value)
+  "Setter for `eon-localleader-key'."
+  (let ((old (and (boundp sym) (symbol-value sym))))
+    (set-default sym value)
+    (when (and (boundp 'eon-leader-map) (keymapp eon-leader-map))
+      (when (and (stringp old) (> (length old) 0))
+        (ignore-errors
+          (keymap-unset eon-leader-map old t)))
+      (keymap-set eon-leader-map value
+                  `("Local" . ,eon-localleader-map)))))
 
 (defcustom eon-localleader-key
   (if (eon-terminalp) "C-z" "C-,")
@@ -833,11 +858,6 @@ BODY will be forwarded to `defvar-keymap'.
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Leader implementation
 
-;; FIXME Customizing `eon-leader-key' doesn't set the label of the alternative
-;; (mirrored) local leader kebinding/keymap, so that the local leader keybinding
-;; shows only the default "+prefix" in which-key.
-;; But the leader setter for Evil and God mode in Emacs ONTOP work just fine,
-;; and that code has to be merged anyway - it will probably fix this issue.
 (defun eon-leader--set-key (sym value)
   "Setter for `eon-leader-key'.
 SYM is the variable, VALUE is the keybinding as a string.
@@ -850,11 +870,14 @@ Example:
 Setting the leader to \"M-SPC\" will set the local leader to \"M-SPC\".
 Customize `eon-localleader-key' explicitly to override this default."
   (let ((old (and (boundp sym) (symbol-value sym))))
-    (when (and old (stringp old) (> (length old) 0))
-      (keymap-global-unset old t))
     (set-default sym value)
-    (when (boundp 'ctl-z-map)
-      (keymap-global-set value ctl-z-map))
+    (when (and (boundp 'eon-leader-mode-map) (keymapp eon-leader-mode-map))
+      (when (and (stringp old) (> (length old) 0))
+        (ignore-errors
+          (keymap-unset eon-leader-mode-map old t)))
+      (when (boundp 'eon-leader-map)
+        (eon-leader--sync-prefix-parent)
+        (keymap-set eon-leader-mode-map value eon-leader-map)))
     (when (and old (string= eon-localleader-key old))
       (eon-localleader--set-key 'eon-localleader-key value))))
 
@@ -910,13 +933,10 @@ Use `eon-customize-group' to change, or `setopt' from Lisp."
   "v"   `("VC/Git"   . ,ctl-z-v-map)
   "w"   `("Window"   . ,ctl-z-w-map)
   "x"   `("Misc"     . ,ctl-z-x-map)
-  "RET" `("Bookmark" . ,ctl-z-ret-map)
-  ;; Add dynamic localleader keymap
-  eon-localleader-key `("Local" . ,eon-localleader-map))
+  "RET" `("Bookmark" . ,ctl-z-ret-map))
 
 ;; Don't like the pre-defined keybindings of the default leader keymap?
 ;; There is an alternative, blank-slate leader keymap.
-;; The only bound key/command is the local leader.
 (defvar-keymap eon-leader-user-map
   :doc "Alternative top-level leader keymap, initially empty.
 Ready to populate with your own sub-keymaps and keybindings:
@@ -934,11 +954,19 @@ Ready to populate with your own sub-keymaps and keybindings:
   (keymap-set my-leader-g-map \"w\" #'browse-web)
 
 In order to activate this keymap instead of the default leader keymap,
-customize `eon-leader-map-name'."
-  ;; Add dynamic localleader keymap
-  eon-localleader-key `("Local" . ,eon-localleader-map))
+customize `eon-leader-map-name'.")
 
-(defvar eon-leader-map nil
+;; The local leader binding is provided by the frontend leader keymap
+;; `eon-leader-map'.
+(defvar-keymap eon-leader-map
+  :doc "Frontend leader keymap. Its parent is `eon-leader--map'."
+  :name "Leader")
+
+(defun eon-leader--sync-prefix-parent ()
+  "Make `eon-leader-map' inherit the resolved leader keymap."
+  (set-keymap-parent eon-leader-map eon-leader--map))
+
+(defvar eon-leader--map nil
   "Resolved leader keymap from `eon-leader-map-name'.
 This variable always holds the actual keymap object currently selected
 as the leader keymap.
@@ -958,17 +986,16 @@ Warns if VALUE is bound but not a keymap; allows unbound symbols."
    ;; Bound, but not a keymap
    ((and (symbolp value) (boundp value)
          (not (keymapp (symbol-value value))))
-    (setq eon-leader-map nil)
+    (setq eon-leader--map nil)
     (message "Warning: %S is bound, but not to a keymap." value))
    ;; Bound and a keymap: resolve + rebind
    ((and (symbolp value) (boundp value)
          (keymapp (symbol-value value)))
-    (setq eon-leader-map (symbol-value value))
-    (when (boundp 'eon-leader-key)
-      (keymap-global-set eon-leader-key eon-leader-map)))
+    (setq eon-leader--map (symbol-value value))
+    (eon-leader--sync-prefix-parent))
    ;; Unbound symbol allowed, but nothing to bind yet
    (t
-    (setq eon-leader-map nil))))
+    (setq eon-leader--map nil))))
 
 (defcustom eon-leader-map-name 'ctl-z-map
   "Name of the keymap that will act as the top-level leader keymap.
@@ -993,15 +1020,50 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
                  (symbol :tag "Other keymap"))
   :set #'eon-leader-map--set)
 
-;; Initial binding of the leader prefix to the enabled top-level leader keymap
-(keymap-global-set eon-leader-key eon-leader-map)
+(defun eon-leader--enable ()
+  "Enable the leader machinery."
+  (eon-leader-map--set 'eon-leader-map-name eon-leader-map-name)
+  (eon-leader--sync-prefix-parent)
+  (keymap-set eon-leader-mode-map eon-leader-key eon-leader-map)
+  (keymap-set eon-leader-map eon-localleader-key
+              `("Local" . ,eon-localleader-map))
+  (add-hook 'after-change-major-mode-hook
+            #'eon-localleader--sync-local-prefix-parent)
+  (add-hook 'window-selection-change-functions
+            #'eon-localleader--window-selection-change)
+  (eon-localleader--sync-local-prefix-parent)
+  (eon-localleader--which-key-enable))
 
-;; Make the leader key available in the minibuffer too
-(add-hook 'minibuffer-setup-hook
-          (lambda ()
-            (when (keymapp (current-local-map))
-              (keymap-set (current-local-map)
-                          eon-leader-key eon-leader-map))))
+(defun eon-leader--disable ()
+  "Disable the leader machinery."
+  (ignore-errors
+    (keymap-unset eon-leader-mode-map eon-leader-key t))
+  (remove-hook 'after-change-major-mode-hook
+               #'eon-localleader--sync-local-prefix-parent)
+  (remove-hook 'window-selection-change-functions
+               #'eon-localleader--window-selection-change)
+  (eon-localleader--which-key-disable)
+  (set-keymap-parent eon-localleader-map eon-localleader-global-map))
+
+(define-minor-mode eon-leader-mode
+  "Enable the Emacs ONBOARD leader key and local leader key.
+
+This is a global minor mode, so the leader prefix wins over major-mode
+bindings - e.g. Org binding \"C-,\")."
+  :global t
+  :init-value t
+  :lighter ""
+  :keymap eon-leader-mode-map
+  (if eon-leader-mode
+      (eon-leader--enable)
+    (eon-leader--disable)))
+
+(with-eval-after-load 'which-key
+  (when (bound-and-true-p eon-leader-mode)
+    (eon-localleader--which-key-enable)))
+
+;; Initial binding of the leader prefix is performed by `eon-leader-mode'.
+(eon-leader-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; GENERAL KEYBINDINGS
@@ -2806,7 +2868,7 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;;; PROJECT MANAGEMENT
 ;; Setup for Emacs' built-in project management
 
-;; Switch to current project buffers: "<leader> n"
+;; Switch to current project buffers: "<leader> SPC"
 (keymap-set ctl-z-map "SPC" #'project-switch-to-buffer)
 
 ;; "<leader> p" inherits all commands from the `project-prefix-map'
