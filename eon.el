@@ -858,6 +858,9 @@ BODY will be forwarded to `defvar-keymap'.
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Leader implementation
 
+;; TODO Refactor and target leader and local leader separately.
+;; As it is right now, it leads to unexpected behaviour when the variable
+;; is customized, as the setter also sets the local leader key.
 (defun eon-leader--set-key (sym value)
   "Setter for `eon-leader-key'.
 SYM is the variable, VALUE is the keybinding as a string.
