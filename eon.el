@@ -1611,6 +1611,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt isearch-allow-motion t
         isearch-motion-changes-direction t)
 
+;; Bind some Isearch commands under the leader
+(keymap-set ctl-z-s-map "p" #'isearch-forward-thing-at-point)
+(keymap-set ctl-z-s-map "P" #'isearch-forward-symbol-at-point)
+
 ;; Swap search functions to make regexp-search the default
 ;; (keymap-global-set "C-s"   #'isearch-forward-regexp)
 ;; (keymap-global-set "C-r"   #'isearch-backward-regexp)
