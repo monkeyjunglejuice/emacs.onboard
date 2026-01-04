@@ -1452,12 +1452,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html>
 ;; The order within the list determines their priority.
 (setopt completion-styles '(flex basic))
+(setopt completion-category-defaults nil)
 (setopt completion-category-overrides
         '((file (styles . (partial-completion)))))
 
 ;; Make TAB try completion when appropriate
 (setopt tab-always-indent 'complete)
-(setopt tab-first-completion 'word-or-paren-or-punct)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Dabbrev
