@@ -421,7 +421,6 @@ When called interactively, also echo the result."
 ;; Ensure directory names have one trailing slash
 (defun eon-ensure-trailing-slash (dir)
   "Return DIR with exactly one trailing slash."
-  (declare (important-return-value t) (side-effect-free error-free))
   ;; Both "/tmp" and "/tmp//" result in "/tmp/"
   (file-name-as-directory (directory-file-name dir)))
 
