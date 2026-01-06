@@ -1022,8 +1022,14 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
                  (symbol :tag "Other keymap"))
   :set #'eon-leader-map--set)
 
+;; The leader key functionality is a global minor mode - this has 2 advantages:
+;; a) You can turn it off completely if you don't want a leader key;
+;; b) The leader keybinding defined within a minor mode takes precedence over
+;;    arbitrary major mode keybindings, so it's unlikely your leader key
+;;    will be shadowed by other keybindings;
+
 (defun eon-leader--enable ()
-  "Enable the leader machinery."
+  "Enable the leader key machinery."
   (eon-leader-map--set 'eon-leader-map-name eon-leader-map-name)
   (eon-leader--sync-prefix-parent)
   (keymap-set eon-leader-mode-map eon-leader-key eon-leader-map)
@@ -1037,7 +1043,7 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
   (eon-localleader--which-key-enable))
 
 (defun eon-leader--disable ()
-  "Disable the leader machinery."
+  "Disable the leader key machinery."
   (ignore-errors
     (keymap-unset eon-leader-mode-map eon-leader-key t))
   (remove-hook 'after-change-major-mode-hook
@@ -1095,7 +1101,7 @@ bindings - e.g. Org binding \"C-,\")."
 (defun eon-keyboard-quit ()
   "Smarter version of the built-in `keyboard-quit'.
 
-The generic `keyboard-quit' does not do the expected thing when
+The original `keyboard-quit' does not do the expected thing when
 the minibuffer is open. Whereas we want it to close the
 minibuffer, even without explicitly focusing it."
   (interactive)
@@ -1110,7 +1116,8 @@ minibuffer, even without explicitly focusing it."
 ;; _____________________________________________________________________________
 ;;; VI KEYBINDINGS (VIPER-MODE)
 
-;; FIXME Needs a customizable leader key;
+;; TODO It's an old mode and behaves a bit strangely; needs review
+;; FIXME Needs a customizable leader key
 ;; e.g. eon-viper-leader-key and eon-viper-localleader-key.
 ;; Best keymap to bind it seems `viper-vi-global-user-map'.
 
@@ -2045,7 +2052,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
 (defun eon-register-clear ()
   "Pick a register with the built-in preview and clear it.
 Prompts using `register-read-with-preview', the same UI `view-register'
-uses.  After selection, remove the entry from `register-alist'.
+uses. After selection, remove the entry from `register-alist'.
 If the chosen register is empty, signal a user error instead of
 pretending to clear it."
   (interactive)
@@ -2220,12 +2227,11 @@ pretending to clear it."
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
 
-;; Ignore some recently visited files, eg. to prevent them from showing up
-;; amongst recent files after package upgrades
+;; Ignore some recently visited files
 (with-eval-after-load 'recentf
   (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:"))
 
-;; Select from recently opened files via "<leader> f r"
+;; Select from recently opened files via "<leader> f h"
 (keymap-set ctl-z-f-map "h" #'recentf-open)
 
 ;; _____________________________________________________________________________
