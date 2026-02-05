@@ -31,7 +31,7 @@
 ;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Created: 28 Apr 2021
-;; Version: 2.4.4
+;; Version: 2.4.5
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
 ;; Keywords: config dotemacs convenience
@@ -410,9 +410,10 @@ set explicitly."
 When called interactively, also echo the result."
   (interactive)
   (cl-labels ((collect (mode)
-                (if-let ((p (get mode 'derived-mode-parent)))
-                    (cons mode (collect p))
-                  (list mode))))
+                (let ((parent (get mode 'derived-mode-parent)))
+                  (if parent
+                      (cons mode (collect parent))
+                    (list mode)))))
     (let ((parents (collect major-mode)))
       (if (called-interactively-p 'interactive)
           (message "%S" parents)
