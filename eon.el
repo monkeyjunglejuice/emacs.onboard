@@ -31,7 +31,7 @@
 ;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Created: 28 Apr 2021
-;; Version: 2.4.6
+;; Version: 2.4.7
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
 ;; Keywords: config dotemacs convenience
@@ -1598,31 +1598,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (fido-vertical-mode 1)
 
 ;; _____________________________________________________________________________
-;;; HELP
-;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
-
-;; Define local leader keymap for `help-mode'
-(eon-localleader-defkeymap help-mode eon-localleader-help-map
-  :doc "Local leader keymap for Help buffers."
-  "s" #'help-find-source)
-
-;; Make commonly used help commands available under the leader key
-(keymap-set ctl-z-h-map "," `("..." . ,help-map))
-(keymap-set ctl-z-h-map "e" #'view-echo-area-messages)
-(keymap-set ctl-z-h-map "f" #'describe-function)
-(keymap-set ctl-z-h-map "k" #'describe-key)
-(keymap-set ctl-z-h-map "o" #'describe-symbol)
-(keymap-set ctl-z-h-map "v" #'describe-variable)
-
-;; Focus a help window when it appears?
-(setopt help-window-select t)
-
-;; Show all options when running `apropos' and friends (fulltext search)?
-;; Keybinding: <leader> h a"
-(setopt apropos-do-all t)
-(keymap-set ctl-z-h-map "a" #'apropos)
-
-;; _____________________________________________________________________________
 ;;; PACKAGE MANAGER UI SETTINGS
 
 (when package-enable-at-startup
@@ -1662,6 +1637,31 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (add-hook 'Custom-mode-hook (lambda () (setq-local truncate-lines t)))
 
 ;; _____________________________________________________________________________
+;;; HELP
+;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Help>
+
+;; Define local leader keymap for `help-mode'
+(eon-localleader-defkeymap help-mode eon-localleader-help-map
+  :doc "Local leader keymap for Help buffers."
+  "s" #'help-find-source)
+
+;; Make commonly used help commands available under the leader key
+(keymap-set ctl-z-h-map "," `("..." . ,help-map))
+(keymap-set ctl-z-h-map "e" #'view-echo-area-messages)
+(keymap-set ctl-z-h-map "f" #'describe-function)
+(keymap-set ctl-z-h-map "k" #'describe-key)
+(keymap-set ctl-z-h-map "o" #'describe-symbol)
+(keymap-set ctl-z-h-map "v" #'describe-variable)
+
+;; Focus a help window when it appears?
+(setopt help-window-select t)
+
+;; Show all options when running `apropos' and friends (fulltext search)?
+;; Keybinding: <leader> h a"
+(setopt apropos-do-all t)
+(keymap-set ctl-z-h-map "a" #'apropos)
+
+;; _____________________________________________________________________________
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
 ;; <https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc>
@@ -1669,7 +1669,29 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt eldoc-minor-mode-string nil
         eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
         eldoc-echo-area-display-truncation-message nil
-        eldoc-echo-area-prefer-doc-buffer nil)
+        eldoc-echo-area-prefer-doc-buffer t)
+
+;; Prevent documentation from vanishing when switching to the doc buffer
+(require 'eldoc)
+
+(defun eon-eldoc-help-buffer ()
+  "Show current ElDoc documentation in a real Help window.
+
+This copies the current ElDoc text into `*Help*`, so the result
+behaves like an ordinary Help buffer instead of a live `*eldoc*`
+buffer."
+  (interactive)
+  (let ((eldoc-buffer (eldoc-doc-buffer)))
+    (let ((help-buffer-under-preparation t))
+      (help-setup-xref
+       (list #'eon-eldoc-help-buffer)
+       (called-interactively-p 'interactive))
+      (with-help-window (help-buffer)
+        (with-current-buffer standard-output
+          (insert-buffer-substring eldoc-buffer))))))
+
+;; Add the keybinding as "<leader> c h"
+(keymap-set ctl-z-c-map "h" #'eon-eldoc-help-buffer)
 
 ;; _____________________________________________________________________________
 ;;; SEARCH
