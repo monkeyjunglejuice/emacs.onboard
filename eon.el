@@ -1672,11 +1672,11 @@ Some themes may come as functions -- wrap these ones in lambdas."
         eldoc-echo-area-prefer-doc-buffer t)
 
 ;; Prevent documentation from vanishing when switching to the doc buffer
+
 (require 'eldoc)
 
-(defun eon-eldoc-help-buffer ()
+(defun eon-eldoc-help ()
   "Show current ElDoc documentation in a real Help window.
-
 This copies the current ElDoc text into `*Help*`, so the result
 behaves like an ordinary Help buffer instead of a live `*eldoc*`
 buffer."
@@ -1684,14 +1684,14 @@ buffer."
   (let ((eldoc-buffer (eldoc-doc-buffer)))
     (let ((help-buffer-under-preparation t))
       (help-setup-xref
-       (list #'eon-eldoc-help-buffer)
+       (list #'eon-eldoc-help)
        (called-interactively-p 'interactive))
       (with-help-window (help-buffer)
         (with-current-buffer standard-output
           (insert-buffer-substring eldoc-buffer))))))
 
-;; Add the keybinding as "<leader> c h"
-(keymap-set ctl-z-c-map "h" #'eon-eldoc-help-buffer)
+;; Add the keybinding "<leader> c h"
+(keymap-set ctl-z-c-map "h" #'eon-eldoc-help)
 
 ;; _____________________________________________________________________________
 ;;; SEARCH
