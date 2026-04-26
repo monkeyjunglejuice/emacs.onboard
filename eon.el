@@ -717,8 +717,7 @@ a `cursor-type' or nil. The first non-nil return wins.")
 ;; Minor mode keymap that installs the leader prefix with higher precedence
 ;; than major-mode keymaps (e.g. Org binding `C-,').
 (defvar-keymap eon-leader-mode-map
-  :doc "Keymap for `eon-leader-mode'."
-  :name "EON-Leader-Mode")
+  :doc "Keymap for `eon-leader-mode'.")
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Local leader implementation
@@ -762,8 +761,7 @@ to the same keys.
   via '<leader> h v'.
 
 - If you want to define a new local leader keymap for a specific mode,
-  use `eon-localleader-defkeymap'."
-  :name "Local")
+  use `eon-localleader-defkeymap'.")
 
 (defun eon-localleader--sync-local-prefix-parent ()
   "Make `eon-localleader-map' inherit the effective local leader keymap.
@@ -879,7 +877,8 @@ Customize `eon-localleader-key' explicitly to override this default."
           (keymap-unset eon-leader-mode-map old t)))
       (when (boundp 'eon-leader-map)
         (eon-leader--sync-prefix-parent)
-        (keymap-set eon-leader-mode-map value eon-leader-map)))
+        (keymap-set eon-leader-mode-map value
+                    `("Leader" . ,eon-leader-map))))
     (when (and old (string= eon-localleader-key old))
       (eon-localleader--set-key 'eon-localleader-key value))))
 
@@ -961,8 +960,7 @@ customize `eon-leader-map-name'.")
 ;; The local leader binding is provided by the frontend leader keymap
 ;; `eon-leader-map'.
 (defvar-keymap eon-leader-map
-  :doc "Frontend leader keymap. Its parent is `eon-leader--map'."
-  :name "Leader")
+  :doc "Frontend leader keymap. Its parent is `eon-leader--map'.")
 
 (defun eon-leader--sync-prefix-parent ()
   "Make `eon-leader-map' inherit the resolved leader keymap."
@@ -1032,7 +1030,8 @@ Example: (setopt eon-leader-map-name 'eon-leader-user-map)
   "Enable the leader key machinery."
   (eon-leader-map--set 'eon-leader-map-name eon-leader-map-name)
   (eon-leader--sync-prefix-parent)
-  (keymap-set eon-leader-mode-map eon-leader-key eon-leader-map)
+  (keymap-set eon-leader-mode-map eon-leader-key
+              `("Leader" . ,eon-leader-map))
   (keymap-set eon-leader-map eon-localleader-key
               `("Local" . ,eon-localleader-map))
   (add-hook 'after-change-major-mode-hook
