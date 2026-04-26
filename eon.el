@@ -672,8 +672,6 @@ a `cursor-type' or nil. The first non-nil return wins.")
 ;;; WHICH-KEY
 ;; Show a menu with available keybindings
 
-(which-key-mode 1)
-
 (setopt which-key-lighter ""
         which-key-separator " "
         which-key-idle-delay 0.3
@@ -681,8 +679,10 @@ a `cursor-type' or nil. The first non-nil return wins.")
         which-key-sort-uppercase-first nil
         which-key-sort-order 'which-key-key-order-alpha
         which-key-preserve-window-configuration t
-        which-key-show-remaining-keys t
-        which-key-show-transient-maps t)
+        which-key-show-remaining-keys nil
+        which-key-show-transient-maps nil)
+
+(which-key-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; LEADER-KEY / LOCAL LEADER-KEY and KEYMAPS
