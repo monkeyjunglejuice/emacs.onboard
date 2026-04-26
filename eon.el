@@ -2178,7 +2178,7 @@ pretending to clear it."
 ;; Open any resource under the cursor: "<leader> f ."
 (keymap-set ctl-z-f-map "." #'find-file-at-point)
 ;; Display a list of all resources mentioned in this buffer: "<leader> C-."
-(keymap-set ctl-z-f-map "C-." #'ffap-menu)
+(keymap-set ctl-z-f-map "M-." #'ffap-menu)
 
 ;; Open file in another window: "<leader> f o"
 (keymap-set ctl-z-f-map "o" #'find-file-other-window)
