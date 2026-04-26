@@ -1,5 +1,6 @@
 ;;; eon.el --- Emacs ONBOARD Starter Kit -*- lexical-binding: t; no-byte-compile: t; -*-
-
+;;
+;;
 ;;    ▒░▒░▒░   ▒░     ▒░ ▒░▒░▒░▒░     ▒░▒░▒░      ▒░    ▒░▒░▒░▒░    ▒░▒░▒░▒░
 ;;   ▒░    ▒░  ▒░▒░   ▒░  ▒░     ▒░  ▒░    ▒░    ▒░▒░    ▒░     ▒░   ▒░    ▒░
 ;;  ▒░      ▒░ ▒░ ▒░  ▒░  ▒░     ▒░ ▒░      ▒░  ▒░  ▒░   ▒░     ▒░   ▒░     ▒░
@@ -7,12 +8,19 @@
 ;;  ▒░      ▒░ ▒░   ▒░▒░  ▒░     ▒░ ▒░      ▒░ ▒░▒░▒░▒░  ▒░   ▒░     ▒░     ▒░
 ;;   ▒░    ▒░  ▒░     ▒░  ▒░     ▒░  ▒░    ▒░ ▒░      ▒░ ▒░     ▒░   ▒░    ▒░
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
-
-;; Emacs ONBOARD offers a clean slate to build your personal Emacs config.
-;; It stays close to vanilla Emacs, but offers convenience and a better
-;; user experience, while only relying on built-in packages.
-
-;; Copyright (C) 2021–2025 Dan Dee
+;;
+;;
+;; Version: 2.5.0
+;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
+;; Package: eon
+;; Package-Requires: ((emacs "30.1"))
+;; Keywords: eon config dotemacs convenience
+;; Author: Dan Dee <monkeyjunglejuice@pm.me>
+;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
+;; Created: 28 Apr 2021
+;; This file is not part of GNU Emacs.
+;; SPDX-License-Identifier: GPL-3.0-or-later
+;; Copyright (C) 2021-2026 Dan Dee
 ;;
 ;; Emacs ONBOARD is free software: you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the Free
@@ -27,18 +35,11 @@
 ;; You should have received a copy of the GNU General Public License along with
 ;; this program. If not, see <https://www.gnu.org/licenses/>.
 
-;; Author: Dan Dee <monkeyjunglejuice@pm.me>
-;; Maintainer: Dan Dee <monkeyjunglejuice@pm.me>
-;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
-;; Created: 28 Apr 2021
-;; Version: 2.4.8
-;; Package: eon
-;; Package-Requires: ((emacs "30.1"))
-;; Keywords: config dotemacs convenience
-;; SPDX-License-Identifier: GPL-3.0-or-later
-;; This file is not part of GNU Emacs.
-
 ;;; Commentary:
+;;
+;; Emacs ONBOARD offers a clean slate to build your personal Emacs config.
+;; It stays close to vanilla Emacs, but offers convenience and a better
+;; user experience, while only relying on built-in packages.
 ;;
 ;; Keybindings:
 ;;
