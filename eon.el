@@ -2175,10 +2175,10 @@ pretending to clear it."
 ;; Open the file in another window: "<leader> f A"
 (keymap-set ctl-z-f-map "A" #'find-alternate-file-other-window)
 
-;; Open any resource under the cursor: "<leader> f p"
-(keymap-set ctl-z-f-map "p" #'find-file-at-point)
-;; Display a list of all resources mentioned in this buffer: "<leader> f P"
-(keymap-set ctl-z-f-map "P" #'ffap-menu)
+;; Open any resource under the cursor: "<leader> f ."
+(keymap-set ctl-z-f-map "." #'find-file-at-point)
+;; Display a list of all resources mentioned in this buffer: "<leader> C-."
+(keymap-set ctl-z-f-map "C-." #'ffap-menu)
 
 ;; Open file in another window: "<leader> f o"
 (keymap-set ctl-z-f-map "o" #'find-file-other-window)
