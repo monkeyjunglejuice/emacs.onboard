@@ -2638,6 +2638,7 @@ via `eon-add-to-list'."
   (setopt proced-auto-update-interval 2
           proced-auto-update-flag t
           proced-enable-color-flag t
+          proced-format 'medium
           proced-descend t))
 
 ;; _____________________________________________________________________________
