@@ -2248,9 +2248,9 @@ pretending to clear it."
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
 
-;; Ignore some recently visited files
-(with-eval-after-load 'recentf
-  (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:"))
+;; Ignore some recently visited files?
+;; (with-eval-after-load 'recentf
+;;   (add-to-list 'recentf-exclude "^/\\(?:ssh\\|su\\|sudo\\)?:"))
 
 ;; Select from recently opened files via "<leader> f h"
 (keymap-set ctl-z-f-map "h" #'recentf-open)
