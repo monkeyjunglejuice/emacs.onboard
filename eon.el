@@ -3380,10 +3380,11 @@ With prefix ARG, pass it through to the underlying command."
 ;; Define local leader keymap for `emacs-lisp-mode'
 (eon-localleader-defkeymap emacs-lisp-mode eon-localleader-elisp-map
   :doc "Local leader keymap for Emacs Lisp buffers."
-  "d"   #'edebug-defun
+  "c"   #'eval-defun
   "e"   #'eon-eval-last-sexp
   "b"   #'eval-buffer
   "r"   #'elisp-eval-region-or-buffer
+  "d"   #'edebug-defun
   "h"   #'describe-symbol
   "l"   #'load-file
   "m"   #'pp-macroexpand-last-sexp
