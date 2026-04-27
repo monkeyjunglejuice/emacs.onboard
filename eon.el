@@ -1782,8 +1782,8 @@ buffer."
 ;; _____________________________________________________________________________
 ;;; FRAME MANAGEMENT
 
-(keymap-set ctl-z-x-map "f" #'toggle-frame-maximized)
-(keymap-set ctl-z-x-map "F" #'toggle-frame-fullscreen)
+(keymap-set ctl-z-w-map "M" #'toggle-frame-maximized)
+(keymap-set ctl-z-w-map "C-m" #'toggle-frame-fullscreen)
 
 ;; _____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
@@ -2236,7 +2236,7 @@ pretending to clear it."
   "Visit the init file."
   (interactive)
   (when user-init-file (find-file user-init-file)))
-(keymap-set ctl-z-x-map "i" #'eon-goto-init-file)
+(keymap-set ctl-z-f-map "i" #'eon-goto-init-file)
 
 ;; _____________________________________________________________________________
 ;;; RECENT FILES
