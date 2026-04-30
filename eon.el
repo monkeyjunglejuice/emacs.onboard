@@ -101,11 +101,6 @@ cause OS paging."
   :group 'eon-gcmh
   :type '(number))
 
-;; Set the high value immediately to prevent frequent garbage collections
-;; during initialization. Will be adjusted dynamically when `eon-gcmh-mode'
-;; is activated via `emacs-startup-hook'.
-(setq gc-cons-threshold eon-gcmh-high-cons-threshold)
-
 (defcustom eon-gcmh-low-cons-threshold 800000
   "Low cons GC threshold.
 This is the GC threshold used while idling. Default value is the
@@ -188,8 +183,8 @@ Cancel the previous one if present."
     (remove-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
     (remove-hook 'post-command-hook #'eon-gcmh-register-idle-gc)))
 
-;; Activate GCMH mode (idle timer) after Emacs startup
-(add-hook 'emacs-startup-hook #'eon-gcmh-mode)
+;; Activate GCMH mode (idle timer)
+(eon-gcmh-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; DEBUG / DIAGNOSTICS
