@@ -437,13 +437,13 @@ When called interactively, also echo the result."
 (setopt large-file-warning-threshold (* 64 1024 1024))  ; 64 MiB
 
 ;; Increase undo limit
-(setopt undo-limit (* 64 1024 1024)  ; 64 MiB
-        undo-strong-limit (* 96 1024 1024)   ; 96 MiB
-        undo-outer-limit (* 960 1024 1024))  ; 960 MiB
+(setopt undo-limit (* 8 1024 1024)          ; 8 MiB
+        undo-strong-limit (* 12 1024 1024)  ; 12 MiB
+        undo-outer-limit (* 32 1024 1024))  ; 32 MiB
 
 ;; Increase the amount of data that Emacs reads from subprocesses in one chunk.
 ;; Aims to increase performance for communication with language servers, etc.
-(setopt read-process-output-max (* 1024 1024))  ; 1 MiB
+(setopt read-process-output-max (* 1 1024 1024))  ; 1 MiB
 
 ;; _____________________________________________________________________________
 ;;; DEFAULT AND INITIAL FRAME
