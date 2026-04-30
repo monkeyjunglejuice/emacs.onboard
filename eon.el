@@ -2245,7 +2245,6 @@ pretending to clear it."
 (setopt recentf-max-menu-items 10
         recentf-max-saved-items 256
         recentf-auto-cleanup 'mode)
-
 ;; Turn on recent file mode to visit recently edited files
 (recentf-mode 1)
 
