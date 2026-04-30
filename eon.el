@@ -210,6 +210,9 @@ Cancel the previous one if present."
 (setopt load-prefer-newer t)
 
 ;; Natively compile packages at first use or immediately after installation?
+;; May cause high load initially when many packgages are installed at once.
+;; You may prefer setting this to nil on a computer with less memory / weaak CPU
+;; e.g. Raspberry Pi Zero.
 (setopt package-native-compile t)
 
 ;; Native-compile .elc files asynchronously?
