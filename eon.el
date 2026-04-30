@@ -209,10 +209,11 @@ Cancel the previous one if present."
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
 (setopt load-prefer-newer t)
 
-;; Natively compile packages at first use or immediately after installation?
-;; May cause high load initially when many packgages are installed at once.
-;; You may prefer setting this to nil on a computer with less memory / weaak CPU
-;; e.g. Raspberry Pi Zero.
+;; Natively compile packages when they are installed?
+;; This can cause noticeable CPU load, memory pressure, and disk I/O when
+;; many packages are installed or upgraded at once. On low-power machines,
+;; e.g. a Raspberry Pi Zero, setting this to nil may make package installation
+;; less heavy.
 (setopt package-native-compile t)
 
 ;; Native-compile .elc files asynchronously?
