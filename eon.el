@@ -10,7 +10,7 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 ;;
 ;;
-;; Version: 2.5.4
+;; Version: 2.5.5
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
@@ -2224,8 +2224,7 @@ pretending to clear it."
 
 ;; Auto refresh buffers when contents change?
 (setopt global-auto-revert-non-file-buffers t
-        auto-revert-stop-on-user-input t
-        auto-revert-verbose t)
+        auto-revert-verbose nil)
 (global-auto-revert-mode 1)
 
 ;; Configure Ediff to use a single frame and split windows horizontally
