@@ -10,7 +10,7 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 ;;
 ;;
-;; Version: 2.5.3
+;; Version: 2.5.4
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
@@ -2645,6 +2645,14 @@ via `eon-add-to-list'."
 ;;; PINENTRY
 
 (setopt epg-pinentry-mode 'loopback)
+
+;; _____________________________________________________________________________
+;;; REMOTE EDITING / TRAMP
+
+(with-eval-after-load 'tramp
+  ;; Ensure that Tramp can find a proper `ls' on a Guix-based host
+  ;; <https://blog.smith-manor.us/tramp_and_guix>
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
 ;; _____________________________________________________________________________
 ;;; WEB BROWSERS
