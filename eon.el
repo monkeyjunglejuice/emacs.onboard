@@ -2646,7 +2646,8 @@ via `eon-add-to-list'."
 (setopt epg-pinentry-mode 'loopback)
 
 ;; _____________________________________________________________________________
-;;; REMOTE EDITING / TRAMP
+;;; TRAMP / REMOTE EDITING
+;; <https://www.gnu.org/software/tramp>
 
 (with-eval-after-load 'tramp
   ;; Ensure that Tramp can find a proper `ls' on a Guix-based host
