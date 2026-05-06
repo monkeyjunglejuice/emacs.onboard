@@ -1516,6 +1516,19 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt use-short-answers t)
 
 ;; _____________________________________________________________________________
+;;; REPEAT
+;; <https://emacsredux.com/blog/2026/04/04/repeat-mode>
+;; <https://karthinks.com/software/it-bears-repeating>
+
+;; Repeat commands with single-key shortcuts.
+;; Example:
+;;   "C-x u" "C-x u" "C-x u" (undo 3 times) becomes
+;;   "C-x u u u"
+;; Invoke command "<leader> m describe-repeat-maps RET" for a list of
+;; all default repeatable commands. You can create your own repetitions too.
+(repeat-mode 1)
+
+;; _____________________________________________________________________________
 ;;; COMPLETION
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Icomplete>
 
