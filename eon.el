@@ -1631,6 +1631,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Define local leader keymap for `Custom-mode'
 (eon-localleader-defkeymap Custom-mode eon-localleader-customzation-map
+
   :doc "Local leader keymap for Customization buffers."
   ;; Pop up a  buffer to edit the settings in '.dir-locals.el'
   "d" #'customize-dirlocals)
