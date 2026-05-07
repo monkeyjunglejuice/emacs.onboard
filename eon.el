@@ -1793,8 +1793,8 @@ buffer."
 ;; _____________________________________________________________________________
 ;;; FRAME MANAGEMENT
 
-(keymap-set ctl-z-w-map "M" #'toggle-frame-maximized)
-(keymap-set ctl-z-w-map "C-m" #'toggle-frame-fullscreen)
+(keymap-set ctl-z-w-map "M-f" #'toggle-frame-maximized)
+(keymap-set ctl-z-w-map "C-f" #'toggle-frame-fullscreen)
 
 ;; _____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
