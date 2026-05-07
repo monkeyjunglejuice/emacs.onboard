@@ -1557,6 +1557,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
  completion-show-help nil
  ;; Cycle completion candidates instead?
  completion-cycle-threshold nil
+ ;; Continuously update *Completions* buffer while typing?
+ completion-eager-update t
  ;; Show docstrings for completion candidates?
  completions-detailed t
  ;; Automatically select the *Completions* buffer?
