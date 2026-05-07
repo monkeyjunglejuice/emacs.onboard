@@ -529,9 +529,6 @@ When called interactively, also echo the result."
 ;; Show a cursor in inactive windows?
 (setopt cursor-in-non-selected-windows nil)
 
-;; Make sure to highlight the current line only in the active window
-(setopt hl-line-sticky-flag nil)
-
 ;; Highlight current line in special modes?
 (add-hook 'special-mode-hook (lambda () (hl-line-mode 1)))
 
