@@ -2201,10 +2201,13 @@ pretending to clear it."
 ;; Write buffer to file ("save file as ..."): "<leader> f w"
 (keymap-set ctl-z-f-map "w" #'write-file)
 
-;; Rename a file via "<leader> f r"
+;; Rename a file: "<leader> f r"
 ;; Reach the VC/Git aware renaming command via "<leader> v r"
 (keymap-set ctl-z-f-map "r" #'rename-visited-file)
 (keymap-set ctl-z-f-map "R" #'rename-file)
+
+;; Re-open file with sudo: "<leader f @>"
+(keymap-set ctl-z-f-map "@" #'tramp-revert-buffer-with-sudo)
 
 ;; Deleting files
 
