@@ -1842,15 +1842,16 @@ buffer."
 ;;; TAB MANAGEMENT
 
 ;; Create new tab
-(keymap-set ctl-z-t-map "t" #'tab-new-to)
+(keymap-set ctl-z-t-map "n" #'tab-new-to)
 
 ;; Close tab
 (keymap-set ctl-z-t-map "c" #'tab-close)
 (keymap-set ctl-z-t-map "C" #'tab-close-other)
 
 ;; Fast tab switching
-(keymap-set ctl-z-t-map "p" #'tab-previous)
-(keymap-set ctl-z-t-map "n" #'tab-next)
+(keymap-set ctl-z-t-map "t" #'tab-switch)
+(keymap-set ctl-z-t-map "[" #'tab-previous)
+(keymap-set ctl-z-t-map "]" #'tab-next)
 
 ;; Run commands in a new tab
 (keymap-set ctl-z-t-map "f" #'find-file-other-tab)
@@ -1867,9 +1868,9 @@ buffer."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Buffers>
 
 ;; Fast buffer switching
-(keymap-set ctl-z-b-map "p" #'previous-buffer)
-(keymap-set ctl-z-b-map "n" #'next-buffer)
 (keymap-set ctl-z-b-map "b" #'switch-to-buffer)
+(keymap-set ctl-z-b-map "[" #'previous-buffer)
+(keymap-set ctl-z-b-map "]" #'next-buffer)
 
 ;; Reload buffer; when visiting a file, discard all unsaved changes
 (keymap-set ctl-z-b-map "C-r" #'revert-buffer)
