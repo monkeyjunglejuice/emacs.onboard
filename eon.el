@@ -622,6 +622,10 @@ See also `cursor-type'."
 Each function is called with no args and should return either
 a `cursor-type' or nil. The first non-nil return wins.")
 
+;; TODO API is buggy; when mode is off, cursor must switch back to its
+;; default state and cursor changes must not happen when initiated
+;; from outside.
+
 (defun eon-cursor-type--desired ()
   "Compute desired cursor type for the current buffer."
   (or (run-hook-with-args-until-success 'eon-cursor-functions)
