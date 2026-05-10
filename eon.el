@@ -2186,8 +2186,14 @@ pretending to clear it."
 (setopt history-delete-duplicates t)
 
 ;; Remember where the cursor was, the last time you visited that file?
+
 (setopt save-place-limit 1024)
 (save-place-mode 1)
+
+;; Center view when visiting file with saved cursor position
+(advice-add 'save-place-find-file-hook :after
+            (lambda (&rest _)
+              (when buffer-file-name (ignore-errors (recenter)))))
 
 ;; _____________________________________________________________________________
 ;;; FILE MANAGEMENT
