@@ -2259,10 +2259,6 @@ pretending to clear it."
         auto-revert-verbose nil)
 (global-auto-revert-mode 1)
 
-;; Make file executable according to umask if not already executable
-(add-hook 'after-save-hook
-          #'executable-make-buffer-file-executable-if-script-p t)
-
 ;; Configure Ediff to use a single frame and split windows horizontally
 (setopt ediff-window-setup-function 'ediff-setup-windows-plain
         ediff-split-window-function 'split-window-horizontally)
