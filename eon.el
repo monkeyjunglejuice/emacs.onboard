@@ -438,7 +438,7 @@ When called interactively, also echo the result."
 
 ;; Increase the amount of data that Emacs reads from subprocesses in one chunk.
 ;; Aims to increase performance for communication with language servers, etc.
-(setopt read-process-output-max (* 1 1024 1024))  ; 1 MiB
+(setopt read-process-output-max (* 8 1024 1024))  ; 8 MiB
 
 ;; _____________________________________________________________________________
 ;;; DEFAULT AND INITIAL FRAME
