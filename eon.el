@@ -1841,27 +1841,35 @@ buffer."
 ;; _____________________________________________________________________________
 ;;; TAB MANAGEMENT
 
+;; What to do with a window whose buffer was killed?
+;; nil = no special handling. Let `set-window-configuration' decide,
+;; instead of displaying a placeholder bufffer.
+(setopt tab-bar-select-restore-windows nil)
+
+;; Show tab numbers
+(setopt tab-bar-tab-hints t)
+
 ;; Create new tab
-(keymap-set ctl-z-t-map "n" #'tab-new-to)
+(keymap-set ctl-z-t-map "n" #'tab-new)
+(keymap-set ctl-z-t-map "N" #'tab-new-to)
 
 ;; Close tab
 (keymap-set ctl-z-t-map "c" #'tab-close)
 (keymap-set ctl-z-t-map "C" #'tab-close-other)
 
 ;; Fast tab switching
-(keymap-set ctl-z-t-map "t" #'tab-switch)
+(keymap-set ctl-z-t-map "t" #'tab-select)
+(keymap-set ctl-z-t-map "T" #'tab-switch)
 (keymap-set ctl-z-t-map "[" #'tab-previous)
 (keymap-set ctl-z-t-map "]" #'tab-next)
+(keymap-set ctl-z-t-map "r" #'tab-recent)
 
 ;; Run commands in a new tab
 (keymap-set ctl-z-t-map "f" #'find-file-other-tab)
 (keymap-set ctl-z-t-map "d" #'dired-other-tab)
 (keymap-set ctl-z-t-map "b" #'switch-to-buffer-other-tab)
-
-;; What to do with a window whose buffer was killed?
-;; nil = no special handling. Let `set-window-configuration' decide,
-;; instead of displaying a placeholder bufffer.
-(setopt tab-bar-select-restore-windows nil)
+(keymap-set ctl-z-t-map "o" #'other-tab-prefix)
+(keymap-set ctl-z-t-map "p" #'project-other-tab-command)
 
 ;; _____________________________________________________________________________
 ;;; BUFFER MANAGEMENT
