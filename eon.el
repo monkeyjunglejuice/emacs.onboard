@@ -486,8 +486,6 @@ When called interactively, also echo the result."
 
 ;; Menu bar: on/off by default?
 (menu-bar-mode 1)
-;; Toggle menu bar via "<leader> x M-m"
-(keymap-set ctl-z-x-map "M-m" #'menu-bar-mode)
 
 ;; Scroll bar: on/off by default?
 (when (fboundp #'scroll-bar-mode) (scroll-bar-mode -1))
