@@ -94,7 +94,7 @@
   "Garbage collection tuning."
   :group 'eon)
 
-(defcustom eon-gcmh-high-cons-threshold (* 1024 1024 1024)  ; 1 GiB
+(defcustom eon-gcmh-high-cons-threshold (* 512 1024 1024)  ; 512 MiB
   "High cons GC threshold.
 This should be set to a value that makes GC unlikely but does not
 cause OS paging."
