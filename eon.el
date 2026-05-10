@@ -2480,6 +2480,37 @@ pretending to clear it."
         eshell-list-files-after-cd t
         eshell-destroy-buffer-when-process-dies t)
 
+;; Prevent from accidently referring to local root in Tramp connections
+;; When `default-directory' is remote and the command is a Lisp
+;; function, typing "/" as the first character of an argument inserts
+;; the current Tramp prefix, such as "/method:host:".  Typing another
+;; "/" undoes this, which is useful when a local path is intended.
+;; Typing "~/" also inserts the Tramp prefix.  This does not apply to
+;; external commands.
+;;
+;; This means Eshell usually inserts the remote prefix only when
+;; needed, so you do not have to remember whether a command is
+;; implemented as a Lisp function or run externally.
+;;
+;; For example:
+;;
+;;   cd /ssh:root@example.com:
+;;   find /etc -name "*gnu*"
+;;
+;; Suppose the output shows "/etc/gnugnu", and you want to move it to
+;; "/tmp":
+;;
+;;   mv /etc/gnugnu /tmp
+;;
+;; In Eshell, `mv' is the local Lisp function `eshell/mv', so without
+;; `eshell-elecslash' this refers to the local "/etc/gnugnu" and local
+;; "/tmp".  With `eshell-elecslash', typing that command inserts the
+;; intended remote paths:
+;;
+;;   mv /ssh:root@example.com:/etc/gnugnu /ssh:root@example.com:/tmp
+(with-eval-after-load 'eshell
+  (add-to-list 'eshell-modules-list 'eshell-elecslash))
+
 ;; Launch an Eshell buffer: "<leader> e e"; re-visit the buffer by repeating
 (keymap-set ctl-z-e-map "e" #'eshell)
 
