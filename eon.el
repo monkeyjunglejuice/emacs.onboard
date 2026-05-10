@@ -2030,7 +2030,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
  select-enable-primary t
  ;; When one selects something in another program to pastes it into Emacs,
  ;; but kills something in Emacs before actually pasting it,
- ;; this selection is gone unless this variable is non-nil
+ ;; this selection is gone unless this variable is non-nil.
  save-interprogram-paste-before-kill t
  ;; Mouse yank commands yank at point instead of at click.
  mouse-yank-at-point t)
