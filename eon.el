@@ -1529,6 +1529,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; all default repeatable commands. You can create your own repetitions too.
 (repeat-mode 1)
 
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Other repeat settings
+
 ;; Repeat mark popping:
 ;; after "C-u C-SPC" or "<leader> u C-SPC" just keep pressing "C-SPC"
 (setopt mark-command-repeat-pop t)
