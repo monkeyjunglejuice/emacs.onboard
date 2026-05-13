@@ -3519,7 +3519,7 @@ With prefix ARG, pass it through to the underlying command."
 
 (defvar eon-lisp-repl-modes-registry
   '(;; Built-in modes
-    eshell-mode
+    ;; eshell-mode
     inferior-emacs-lisp-mode
     inferior-lisp-mode
     inferior-scheme-mode
