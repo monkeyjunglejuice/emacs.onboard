@@ -2699,10 +2699,11 @@ via `eon-add-to-list'."
 
 (with-eval-after-load 'proced
   (setopt proced-auto-update-interval 2
-          proced-auto-update-flag t
+          proced-auto-update-flag 'visible
           proced-enable-color-flag t
           proced-format 'medium
-          proced-descend t))
+          proced-descend t
+          proced-filter 'user))
 
 ;; _____________________________________________________________________________
 ;;; PINENTRY
