@@ -3606,7 +3606,8 @@ save with a `user-error'."
 ;; Enable minor mode per default; toggle via "M-x eon-check-parens-mode".
 ;; How to remove the hook permanently from a specific lisp major mode:
 ;; (remove-hook 'emacs-lisp-mode-hook #'eon-check-parens-mode)
-(mapc (lambda (mode) (add-hook mode #'eon-check-parens-mode))
+(mapc (lambda (mode)
+        (add-hook mode #'eon-check-parens-mode))
       (eon-lisp-src-modes 'hook))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
