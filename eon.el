@@ -2830,6 +2830,11 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; in order to make it available via "<leader> c f"
 (keymap-set ctl-z-c-map "f" `("Format" . ,ctl-z-c-f-map))
 
+;; Insert unicode characters, emoji
+;; <https://www.rahuljuliato.com/posts/unicode-emojis>
+(keymap-set ctl-z-i-map "c" `("Characters" . ,iso-transl-ctl-x-8-map))
+(keymap-set ctl-z-i-map "e" #'emoji-insert)
+
 ;; _____________________________________________________________________________
 ;;; TEXT / PROSE
 
