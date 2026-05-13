@@ -3546,22 +3546,32 @@ Calling SWITCH with \='hook returns corresponding ...-hook symbols."
                    modes))
     (_ modes)))
 
-(defun eon-lisp-src-modes (&optional switch)
-  "Return installed Lisp-related source modes from the registry.
-With SWITCH = \='hook, return ...-hook variables."
+(defun eon-lisp-src-modes (&optional switch installedp)
+  "Return Lisp-related source modes from the registry.
+
+SWITCH     -> \='hook, return mode identifiers with ...-hook suffix;
+INSTALLEDP -> return only available modes."
   (eon-lisp--modes-transform
-   (seq-filter #'fboundp eon-lisp-src-modes-registry)
+   ;; Care only about installed modes?
+   (if installedp
+       (seq-filter #'fboundp eon-lisp-src-modes-registry)
+     eon-lisp-src-modes-registry)
    switch))
 
-(defun eon-lisp-repl-modes (&optional switch)
-  "Return installed Lisp-related REPL modes from the registry.
-With SWITCH = \='hook, return ...-hook variables."
+(defun eon-lisp-repl-modes (&optional switch installedp)
+  "Return Lisp-related REPL modes from the registry.
+
+SWITCH     ->  \='hook, return mode identifiers with ...-hook suffix;
+INSTALLEDP -> return only available modes."
   (eon-lisp--modes-transform
-   (seq-filter #'fboundp eon-lisp-repl-modes-registry)
+   ;; Care only about installled modes?
+   (if installedp
+       (seq-filter #'fboundp eon-lisp-repl-modes-registry)
+     eon-lisp-repl-modes-registry)
    switch))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; - Check-parens mode
+;;; - Check parens mode
 
 ;; Minor mode that prevents accidentally saving files with mismatched
 ;; parentheses and quotes.
