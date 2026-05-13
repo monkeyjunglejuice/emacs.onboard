@@ -1842,12 +1842,15 @@ buffer."
 (keymap-set ctl-z-w-map "o"   #'other-window-prefix)
 (keymap-set ctl-z-w-map "q"   #'quit-window)
 (keymap-set ctl-z-w-map "s"   #'split-window-below)
-(keymap-set ctl-z-w-map "v"   #'split-window-right)
+(keymap-set ctl-z-w-map "S"   #'split-window-right)
 (keymap-set ctl-z-w-map "w"   #'other-window)
 
 ;; Default window navigation – simply switch to the next window in order.
 ;; Added for convenience; the default keybinding is "C-x o"
 (keymap-global-set "M-o" #'other-window)
+
+;; Rotate window layout
+
 
 ;; _____________________________________________________________________________
 ;;; TAB MANAGEMENT
