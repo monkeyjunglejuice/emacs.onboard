@@ -1863,6 +1863,9 @@ buffer."
 ;; instead of displaying a placeholder bufffer.
 (setopt tab-bar-select-restore-windows nil)
 
+;; Create a fresh tab with *scratch* buffer only
+(setopt tab-bar-new-tab-choice "*scratch*")
+
 ;; Show tab numbers
 (setopt tab-bar-tab-hints t)
 
@@ -1887,6 +1890,16 @@ buffer."
 (keymap-set ctl-z-t-map "b" #'switch-to-buffer-other-tab)
 (keymap-set ctl-z-t-map "o" #'other-tab-prefix)
 (keymap-set ctl-z-t-map "p" #'project-other-tab-command)
+
+;; Enable tabs
+(tab-bar-mode 1)
+
+;; Go back/forward trough tab layouts
+(keymap-set ctl-z-t-map "<" #'tab-bar-history-back)
+(keymap-set ctl-z-t-map ">" #'tab-bar-history-forward)
+
+;; Enable tab bar history
+(tab-bar-history-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; BUFFER MANAGEMENT
