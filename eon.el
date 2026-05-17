@@ -1679,6 +1679,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Focus a help window when it appears?
 (setopt help-window-select t)
 
+;; Reuse help windows?
+(setopt help-window-keep-selected t)
+
 ;; Show all options when running `apropos' and friends (fulltext search)?
 ;; Keybinding: <leader> h a"
 (setopt apropos-do-all t)
