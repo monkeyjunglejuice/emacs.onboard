@@ -1984,6 +1984,9 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
 ;; Uniquify buffer names for buffers that would have identical names
 (setopt uniquify-buffer-name-style 'forward)
 
+;; Should `switch-to-buffer' use `pop-to-buffer-same-window'?
+(setopt switch-to-buffer-obey-display-actions t)
+
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Boring buffers
 
