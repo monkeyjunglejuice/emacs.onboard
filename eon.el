@@ -1684,6 +1684,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt apropos-do-all t)
 (keymap-set ctl-z-h-map "a" #'apropos)
 
+(when (>= emacs-major-version 31)
+  ;; Auto-update "C-h l" buffer
+  (setopt view-lossage-auto-refresh t))
+
 ;; _____________________________________________________________________________
 ;;; ELDOC
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Lisp-Doc>
