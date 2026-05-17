@@ -911,6 +911,7 @@ Use `eon-customize-group' to change, or `setopt' from Lisp."
 (defvar-keymap ctl-z-t-map   :doc "Tab/WS")
 (defvar-keymap ctl-z-v-map   :doc "VC/Git")
 (defvar-keymap ctl-z-w-map   :doc "Window")
+(defvar-keymap ctl-z-W-map   :doc "Frame")
 (defvar-keymap ctl-z-x-map   :doc "Misc")
 (defvar-keymap ctl-z-ret-map :doc "Bookmark")
 
@@ -936,6 +937,7 @@ Use `eon-customize-group' to change, or `setopt' from Lisp."
   "t"   `("Tab/WS"   . ,ctl-z-t-map)
   "v"   `("VC/Git"   . ,ctl-z-v-map)
   "w"   `("Window"   . ,ctl-z-w-map)
+  "W"   `("Frame"    . ,ctl-z-W-map)
   "x"   `("Misc"     . ,ctl-z-x-map)
   "RET" `("Bookmark" . ,ctl-z-ret-map))
 
@@ -1805,8 +1807,8 @@ buffer."
 ;; _____________________________________________________________________________
 ;;; FRAME MANAGEMENT
 
-(keymap-set ctl-z-w-map "M-f" #'toggle-frame-maximized)
-(keymap-set ctl-z-w-map "C-f" #'toggle-frame-fullscreen)
+(keymap-set ctl-z-W-map "m" #'toggle-frame-maximized)
+(keymap-set ctl-z-W-map "f" #'toggle-frame-fullscreen)
 
 ;; _____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
