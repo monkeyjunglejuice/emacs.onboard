@@ -3063,6 +3063,10 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 ;; _____________________________________________________________________________
 ;;; TREE-SITTER
 
+(when (>= emacs-major-version 31)
+  (setopt treesit-auto-install-grammar 'ask
+          treesit-enabled-modes t))
+
 ;; Define grammar specs for ts-modes already built into Emacs.
 ;; Grammars can be built and installed via:
 ;; - `eon-treesitter-ensure-grammar' (declarative in your Elisp code)
