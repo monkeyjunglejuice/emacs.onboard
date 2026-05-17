@@ -1826,6 +1826,14 @@ buffer."
 ;; Set to nil to leave the window configuration alone.
 (setopt even-window-sizes 'height-only)
 
+;; When quitting a window, rather delete window entirely than switching
+;; to some unrelated buffer that hasn't been shown before
+;; HACK User option is declared as type boolean in Emacs 31.60, but documented
+;; to accept the symbol 'skip-first; hence set it via `setq' instead to avoid
+;; the type check.
+(when (>= emacs-major-version 31)
+  (setq quit-restore-window-no-switch 'skip-first))
+
 ;; Focus follows mouse?
 (setopt mouse-autoselect-window nil
         focus-follows-mouse nil)
