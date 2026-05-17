@@ -2541,7 +2541,7 @@ pretending to clear it."
 (keymap-set ctl-z-e-map "E" #'eon-eshell-new)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-;;; Faster Eshell cd command; similar to Zoxide
+;;; - Faster Eshell cd command; similar to Zoxide
 
 (defun eshell/d (&optional regexp)
   "Navigate to a previously visited directory in Eshell.
