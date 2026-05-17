@@ -2488,7 +2488,7 @@ pretending to clear it."
 (setopt eshell-banner-message ""
         eshell-scroll-to-bottom-on-input 'this
         eshell-buffer-maximum-lines 65536
-        eshell-history-size 1024
+        eshell-history-size 65536
         eshell-history-append t
         eshell-hist-ignoredups t
         eshell-cmpl-ignore-case t
