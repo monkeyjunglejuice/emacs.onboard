@@ -2413,8 +2413,6 @@ pretending to clear it."
 
 ;; Keybindings in Dired
 (with-eval-after-load 'dired
-  ;; Switch to wdired-mode and edit directory content like a text buffer
-  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode)
   ;; "f" opens file/directory; bring forward/backward pattern to Dired
   (keymap-set dired-mode-map "b" #'dired-up-directory))
 
@@ -2447,6 +2445,14 @@ pretending to clear it."
 
 ;; Highlight current line in Dired?
 (add-hook 'dired-mode-hook #'hl-line-mode)
+
+;; Edit directory file listings like an ordinary text buffer?
+(with-eval-after-load 'dired
+  (keymap-set dired-mode-map "e" #'wdired-change-to-wdired-mode))
+
+(with-eval-after-load 'wdired
+  (setopt wdired-allow-to-redirect-links t
+          wdired-allow-to-change-permissions t))
 
 ;; Images
 (with-eval-after-load 'image-dired
