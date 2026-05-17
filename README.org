@@ -6,8 +6,9 @@
 
 [[file:misc/emacs-onboard.jpg]]
 
-*Emacs ONBOARD aims to be a comprehensive, portable starter-kit.*
-It's not supposed to replace your ~init.el~, but loaded from there as a library (see installing instructions down below).
+*Emacs onboarding made easy – single-file Emacs starter kit without 3rd-party packages.*
+Almost vanilla Emacs, with just the right amount of sweetness to flatten the learning curve.
+Unlike others, it's not supposed to replace your ~init.el~, but loaded from there as a library (see installing instructions down below).
 
 ** TRY IT
 
