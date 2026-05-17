@@ -2627,7 +2627,8 @@ Add/override an alias with `add-to-list', or add/override multiple aliases
 via `eon-add-to-list'."
   :type '(alist :key-type (choice string symbol)
                 :value-type string)
-  :set #'eon-eshell--set-aliases)
+  :set #'eon-eshell--set-aliases
+  :group 'eon-eshell)
 
 (with-eval-after-load 'em-alias
   ;; Ensure they exist when Eshell initializes/loads aliases
