@@ -481,6 +481,9 @@ When called interactively, also echo the result."
             (when (display-graphic-p)
               (select-frame-set-input-focus (selected-frame)))))
 
+;; Avoid gaps in some window managers
+(setopt frame-resize-pixelwise t)
+
 ;; _____________________________________________________________________________
 ;;; USER INTERFACE
 
@@ -2261,7 +2264,7 @@ pretending to clear it."
 
 ;; Auto refresh buffers when contents change?
 (setopt global-auto-revert-non-file-buffers t
-        auto-revert-verbose nil)
+        auto-revert-verbose t)
 (global-auto-revert-mode 1)
 
 ;; Configure Ediff to use a single frame and split windows horizontally
