@@ -646,9 +646,8 @@ a `cursor-type' or nil. The first non-nil return wins.")
         (mapc (lambda (buf)
                 (with-current-buffer buf (eon-cursor-update)))
               (buffer-list))
-        ;; It seems unreasonable to use `after-command-hook' to update
-        ;; the cursor type; better avoid that potential overhead.
-        ;; Instead we're listing the triggers one-by-one.
+        ;; It may be unreasonable to use `post-command-hook' to update the
+        ;; cursor type; better avoid that and list the triggers one-by-one.
         (add-hook   'buffer-list-update-hook      #'eon-cursor-update)
         (add-hook   'read-only-mode-hook          #'eon-cursor-update)
         (add-hook   'after-change-major-mode-hook #'eon-cursor-update)
@@ -657,7 +656,8 @@ a `cursor-type' or nil. The first non-nil return wins.")
         (add-hook   'deactivate-mark-hook         #'eon-cursor-update)
         ;; Make sure the cursor will be updated after leaving wdired
         (advice-add 'wdired-abort-changes :after  #'eon-cursor-update)
-        (advice-add 'wdired-finish-edit :after    #'eon-cursor-update))
+        (advice-add 'wdired-finish-edit :after    #'eon-cursor-update)
+        )
     ;; Tear down
     (remove-hook   'buffer-list-update-hook      #'eon-cursor-update)
     (remove-hook   'read-only-mode-hook          #'eon-cursor-update)
@@ -665,7 +665,8 @@ a `cursor-type' or nil. The first non-nil return wins.")
     (remove-hook   'activate-mark-hook           #'eon-cursor-update)
     (remove-hook   'deactivate-mark-hook         #'eon-cursor-update)
     (advice-remove 'wdired-abort-changes         #'eon-cursor-update)
-    (advice-remove 'wdired-finish-edit           #'eon-cursor-update)))
+    (advice-remove 'wdired-finish-edit           #'eon-cursor-update)
+    ))
 
 ;; Turn it on
 (eon-cursor-mode 1)
