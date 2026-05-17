@@ -1831,6 +1831,8 @@ buffer."
         focus-follows-mouse nil)
 
 ;; Make window splits more evenly sized?
+(setopt window-resize-pixelwise nil)
+
 ;; Window splitting
 (setopt split-width-threshold 160
         split-height-threshold 40)
