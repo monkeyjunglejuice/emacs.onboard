@@ -1858,11 +1858,10 @@ buffer."
 (keymap-set ctl-z-w-map "w"   #'other-window)
 
 ;; Default window navigation – simply switch to the next window in order.
-;; Added for convenience; the default keybinding is "C-x o"
+;; Added for convenience; the default keybindings are "C-x o" and "C-x O".
 (keymap-global-set "M-o" #'other-window)
-
-;; Rotate window layout
-
+(when (>= emacs-major-version 31)
+  (keymap-global-set "M-O" #'other-window-backward))
 
 ;; _____________________________________________________________________________
 ;;; TAB MANAGEMENT
