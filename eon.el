@@ -2259,6 +2259,13 @@ pretending to clear it."
 ;; Re-open file with sudo: "<leader f @>"
 (keymap-set ctl-z-f-map "@" #'tramp-revert-buffer-with-sudo)
 
+;; Add option "d" to whenever using "C-x s", "<leader> f S" or "C-x C-c",
+;; allowing a diff preview of what you're asked to save.
+(add-to-list 'save-some-buffers-action-alist
+             (list "d"
+                   (lambda (buffer) (diff-buffer-with-file (buffer-file-name buffer)))
+                   "show diff between the buffer and its file"))
+
 ;; Deleting files
 
 (defun eon-trash-on ()
