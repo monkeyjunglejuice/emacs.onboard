@@ -1586,7 +1586,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
  completions-sort 'historical)
 
 ;; Prevent visual line wrapping in narrow frames
-(add-hook 'completion-list-mode-hook (lambda () (setq-local truncate-lines t)))
+(defun eon-completion-list-setup ()
+  "Configure display behavior for completion list buffers."
+  (setq-local truncate-lines t)
+  (setq-local word-wrap nil))
+
+(add-hook 'completion-list-mode-hook #'eon-completion-list-setup)
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Icomplete
