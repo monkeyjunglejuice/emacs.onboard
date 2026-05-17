@@ -1445,8 +1445,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;;; DISPLAY & SCROLLING
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Scrolling>
 
-(setopt mouse-wheel-scroll-amount '(1 ((shift) . 1))
-        mouse-wheel-progressive-speed t
+(setopt mouse-wheel-progressive-speed t
         mouse-wheel-follow-mouse t)
 
 (setopt scroll-preserve-screen-position t
