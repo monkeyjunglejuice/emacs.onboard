@@ -1831,6 +1831,9 @@ buffer."
         focus-follows-mouse nil)
 
 ;; Make window splits more evenly sized?
+;; Window splitting
+(setopt split-width-threshold 160
+        split-height-threshold 40)
 
 ;; Undo/redo window layouts
 (setopt winner-dont-bind-my-keys t)
