@@ -683,10 +683,7 @@ a `cursor-type' or nil. The first non-nil return wins.")
         which-key-idle-delay 0.3
         which-key-idle-secondary-delay 0.0
         which-key-sort-uppercase-first nil
-        which-key-sort-order 'which-key-key-order-alpha
-        which-key-preserve-window-configuration t
-        which-key-show-remaining-keys nil
-        which-key-show-transient-maps nil)
+        which-key-sort-order 'which-key-key-order-alpha)
 
 (which-key-mode 1)
 
