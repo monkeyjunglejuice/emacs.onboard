@@ -1701,7 +1701,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; <https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc>
 
 (setopt eldoc-minor-mode-string nil
-        eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
+        eldoc-documentation-strategy 'eldoc-documentation-compose
         eldoc-echo-area-display-truncation-message nil
         eldoc-echo-area-prefer-doc-buffer t)
 
