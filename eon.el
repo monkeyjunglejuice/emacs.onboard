@@ -1745,10 +1745,10 @@ buffer."
 (keymap-set ctl-z-s-map "P" #'isearch-forward-symbol-at-point)
 
 ;; Swap search functions to make regexp-search the default
-;; (keymap-global-set "C-s"   #'isearch-forward-regexp)
-;; (keymap-global-set "C-r"   #'isearch-backward-regexp)
-;; (keymap-global-set "C-S-s" #'isearch-forward)
-;; (keymap-global-set "C-S-r" #'isearch-backward)
+(keymap-global-set "C-s"   #'isearch-forward-regexp)
+(keymap-global-set "C-r"   #'isearch-backward-regexp)
+(keymap-global-set "C-S-s" #'isearch-forward)
+(keymap-global-set "C-S-r" #'isearch-backward)
 
 ;;; - Search and replace
 ;; If text is selected, then the commands act on that region only
