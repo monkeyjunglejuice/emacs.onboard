@@ -2677,9 +2677,9 @@ Set SYM's default value to VALUE. If the Eshell alias module
     (q     . "exit"))
   "Alist of Eshell aliases: ((NAME . DEF) ...).
 
-Add/override an alias with `add-to-list', or add/override multiple aliases
-via `eon-add-to-list'."
-  :type '(alist :key-type (choice string symbol)
+NAME can be a symbol or a string. Add/override a single alias with
+`add-to-list', or add/override multiple aliases via `eon-add-to-list'."
+  :type '(alist :key-type (choice symbol string)
                 :value-type string)
   :set #'eon-eshell--set-aliases
   :group 'eon-eshell)
