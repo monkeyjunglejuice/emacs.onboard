@@ -2881,7 +2881,8 @@ which sets the default `eww' user-agent according to `url-privacy-level'."
 
 ;; Define a keymap in order to group formatting commands
 (defvar-keymap ctl-z-c-f-map :doc "Formatting"
-               "a" #'align-regexp
+               "a" #'align
+               "A" #'align-regexp
                ;; Tipps: <https://susam.github.io/sorting-in-emacs.html>
                "s" #'sort-lines
                "S" #'sort-fields)
