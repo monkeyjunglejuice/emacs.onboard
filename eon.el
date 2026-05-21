@@ -1449,9 +1449,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
         mouse-wheel-follow-mouse t)
 
 (setopt scroll-preserve-screen-position t
-        scroll-margin 1
-        scroll-up-aggressively 0.01
-        scroll-down-aggressively 0.01)
+        scroll-margin 2
+        scroll-conservatively 0
+        scroll-up-aggressively 0.0
+        scroll-down-aggressively 0.0)
 
 ;; Horizontal scrolling
 (setopt auto-window-vscroll nil
