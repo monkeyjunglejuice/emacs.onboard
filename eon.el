@@ -2665,16 +2665,16 @@ Set SYM's default value to VALUE. If the Eshell alias module
     (eon-eshell--install-aliases value)))
 
 (defcustom eon-eshell-aliases
-  '(("e"     . "find-file $@*")
-    ("f"     . "find-file $@*")
-    ("l"     . "ls $@*")
-    ("ll"    . "ls -l -h $@*")
-    ("la"    . "ls -lA -h $@*")
-    ("targ"  . "tar cfvz $@*")
-    ("targx" . "tar xfvz $@*")
-    ("tarb"  . "tar cfvj $@*")
-    ("tarbx" . "tar xfvj $@*")
-    ("q"     . "exit"))
+  '((e     . "find-file $@*")
+    (f     . "find-file $@*")
+    (l     . "ls $@*")
+    (ll    . "ls -l -h $@*")
+    (la    . "ls -l -h -A $@*")
+    (targ  . "tar cfvz $@*")
+    (targx . "tar xfvz $@*")
+    (tarb  . "tar cfvj $@*")
+    (tarbx . "tar xfvj $@*")
+    (q     . "exit"))
   "Alist of Eshell aliases: ((NAME . DEF) ...).
 
 Add/override an alias with `add-to-list', or add/override multiple aliases
