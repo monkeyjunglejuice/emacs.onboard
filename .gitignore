@@ -9,4 +9,7 @@
 
 # Undo-tree save-files
 *.~undo-tree
+
+# Misc
 /.DS_Store
+/.agent-shell/
