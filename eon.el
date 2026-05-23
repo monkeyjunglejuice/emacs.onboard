@@ -1294,7 +1294,11 @@ Per default, the function is called by the hooks:
                       :weight 'normal
                       :width  'normal
                       :height eon-font-marginal-size)
-  ;; Don't extend the selection background past the end of the line
+(defun eon-region-face ()
+  "Don't extend the selection background past the end of the line.
+Per default, the function is called by the hooks:
+`eon-theme-light-post-load-hook' - set region face after loading the light theme;
+`eon-theme-dark-post-load-hook' - set region face after loading the dark theme."
   (set-face-attribute 'region nil :extend nil))
 
 ;; _____________________________________________________________________________
@@ -1436,8 +1440,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Load the default font set; if you want to load a different font set,
 ;; "unhook" `eon-fonts' first via:
-;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
+;; (remove-hook 'eon-theme-light-post-load-hook #'eon-fonts)
 (add-hook 'eon-theme-light-post-load-hook #'eon-fonts)
+(add-hook 'eon-theme-light-post-load-hook #'eon-region-face)
 
 ;; Dark theme hooks
 
@@ -1450,6 +1455,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; "unhook" `eon-fonts' first via:
 ;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
 (add-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
+(add-hook 'eon-theme-dark-post-load-hook #'eon-region-face)
 
 ;; Load the theme
 (eon-theme-load-default)
