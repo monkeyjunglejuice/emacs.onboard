@@ -228,6 +228,8 @@ Cancel the previous one if present."
    warning-minimum-level :error
    ;; Allow bytecode compilation to be verbose?
    byte-compile-verbose nil
+   ;; Suppress noisy byte-compiler warnings?
+   byte-compile-warnings '(not docstrings)
    ;; Allow native compilation to be verbose?
    native-comp-async-report-warnings-errors nil
    native-comp-warning-on-missing-source nil))
