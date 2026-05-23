@@ -161,7 +161,8 @@ Cancel the previous one if present."
         (message "Garbage collecting...")
         (condition-case-unless-debug e
             (message "Garbage collecting...done (%.3fs)"
-                     (setf eon-gcmh-last-gc-time (eon-gcmh-time (garbage-collect))))
+                     (setf eon-gcmh-last-gc-time
+                           (eon-gcmh-time (garbage-collect))))
           (error (message "Garbage collecting...failed")
                  (signal (car e) (cdr e)))))
     (setf eon-gcmh-last-gc-time (eon-gcmh-time (garbage-collect))))
