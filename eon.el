@@ -179,8 +179,10 @@ Cancel the previous one if present."
         ;; Release severe GC strategy before the user restart to working
         (add-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
         (add-hook 'post-command-hook #'eon-gcmh-register-idle-gc))
-    (setf gc-cons-threshold eon-gcmh-low-cons-threshold
-          eon-gcmh-idle-timer nil)
+    (setf gc-cons-threshold eon-gcmh-low-cons-threshold)
+    (when (timerp eon-gcmh-idle-timer)
+      (cancel-timer eon-gcmh-idle-timer))
+    (setf eon-gcmh-idle-timer nil)
     (remove-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
     (remove-hook 'post-command-hook #'eon-gcmh-register-idle-gc)))
 
