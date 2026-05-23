@@ -1167,50 +1167,75 @@ minibuffer, even without explicitly focusing it."
   "Font settings."
   :group 'eon)
 
-;; FIXME Fix inheritance, so that the fallbacks are actually set
-;; TODO Add a setter function to the custom variables
+(defun eon-font--set (symbol value)
+  "Set SYMBOL to VALUE and reapply the EON font faces when possible."
+  (set-default-toplevel-value symbol value)
+  (when (fboundp 'eon-fonts)
+    (eon-fonts)))
+
+(defun eon-font--family (font fallback)
+  "Return FONT, or FALLBACK when FONT is nil or an empty string."
+  (if (and (stringp font) (not (string= font "")))
+      font
+    fallback))
 
 (defcustom eon-font-default nil
   "Name of the default font; set it to a monospaced or duospaced font.
 If not set explicitly, choosen by Emacs according to your system's default."
   :group 'eon-font-settings
-  :type '(string))
+  :set #'eon-font--set
+  :type '(choice
+          (const :tag "System default" nil)
+          string))
 
 (defcustom eon-font-default-size 140
   "Set the default font size in 1/10 of the desired point size.
 Example: 140 -> 14 pt
 You must specify an absolute size as an integer."
   :group 'eon-font-settings
+  :set #'eon-font--set
   :type '(integer))
 
-(defcustom eon-font-fixed eon-font-default
+(defcustom eon-font-fixed nil
   "Optionally name a fixed-width font.
 When `eon-font-default' is set to a fixed-width font,
 the font specified here should have the same character width.
 If not set explicitly, fall back to `eon-font-default'."
   :group 'eon-font-settings
-  :type '(string))
+  :set #'eon-font--set
+  :type '(choice
+          (const :tag "Fall back to default font" nil)
+          string))
 
-(defcustom eon-font-fixed-alt eon-font-fixed
+(defcustom eon-font-fixed-alt nil
   "Optionally name an alternative fixed-width font.
 It should have the same character width as `eon-font-fixed'.
 If not set explicitly, fall back to `eon-font-fixed'."
   :group 'eon-font-settings
-  :type '(string))
+  :set #'eon-font--set
+  :type '(choice
+          (const :tag "Fall back to fixed-width font" nil)
+          string))
 
 (defcustom eon-font-proportional nil
   "Name for the proportional font, used for text that isn't code.
 If not set explicitly, choosen by Emacs according to your system's default."
   :group 'eon-font-settings
-  :type '(string))
+  :set #'eon-font--set
+  :type '(choice
+          (const :tag "System default" nil)
+          string))
 
-(defcustom eon-font-proportional-size eon-font-default-size
+(defcustom eon-font-proportional-size nil
   "Size for the proportinal font.
 You can specify an absolute size as an integer, or a relative size as a float.
 Examples: 140 -> 14 pt / 0.9 -> 90% of `eon-font-default-size'.
 If not set explicitly, fall back to `eon-font-default-size'."
   :group 'eon-font-settings
-  :type '(number))
+  :set #'eon-font--set
+  :type '(choice
+          (const :tag "Fall back to default font size" nil)
+          number))
 
 (defcustom eon-font-marginal-size 0.9
   "Size for the mode line, tab bar and the tab line.
@@ -1218,82 +1243,85 @@ You can specify an absolute size as an integer, or a relative size as a float.
 Examples: 140 -> 14 pt / 0.9 -> 90% of `eon-font-default-size'.
 If not set explicitly, fall back to 90% of `eon-font-default-size'."
   :group 'eon-font-settings
+  :set #'eon-font--set
   :type '(number))
 
-(defcustom eon-font-mode-line eon-font-default
+(defcustom eon-font-mode-line nil
   "Base font face for the mode-line.
 If not set explicitly, fall back to `eon-font-default'."
   :group 'eon-font-settings
-  :type '(string))
+  :set #'eon-font--set
+  :type '(choice
+          (const :tag "Fall back to default font" nil)
+          string))
 
-(defcustom eon-font-tab-bar eon-font-mode-line
+(defcustom eon-font-tab-bar nil
   "Base font face used for the tab bar.
 When not set explicitly, fall back to `eon-font-mode-line'."
   :group 'eon-font-settings
-  :type '(string))
+  :set #'eon-font--set
+  :type '(choice
+          (const :tag "Fall back to mode-line font" nil)
+          string))
 
-(defcustom eon-font-tab-line eon-font-tab-bar
+(defcustom eon-font-tab-line nil
   "Base font face for the tab line.
 When not set explicitly, fall back to `eon-font-tab-bar'."
   :group 'eon-font-settings
-  :type '(string))
+  :set #'eon-font--set
+  :type '(choice
+          (const :tag "Fall back to tab-bar font" nil)
+          string))
 
-;; TODO Refactor into a setter function for the custom variables
 (defun eon-fonts ()
   "Set the font faces.
 Per default, the function is called by the hooks:
 `eon-theme-light-post-load-hook' - set font faces after loading the light theme;
 `eon-theme-dark-post-load-hook' - set font faces after loading the dark theme."
   (interactive)
-  ;; Default font
-  (set-face-attribute 'default nil
-                      :family eon-font-default
-                      :weight 'normal
-                      :width  'normal
-                      :height eon-font-default-size)
-  ;; Fixed-width font face
-  (set-face-attribute 'fixed-pitch nil
-                      :family eon-font-fixed
-                      :weight 'normal
-                      :width  'normal
-                      :height 1.0)
-  ;; Alternative fixed-width font face
-  (set-face-attribute 'fixed-pitch-serif nil
-                      :family eon-font-fixed-alt
-                      :weight 'normal
-                      :width  'normal
-                      :height 1.0)
-  ;; Proportional font face;
-  ;; can be toggled for the current buffer via "M-x variable-pitch-mode"
-  (set-face-attribute 'variable-pitch nil
-                      :family eon-font-proportional
-                      :weight 'normal
-                      :width  'normal
-                      :height eon-font-proportional-size)
-  ;; Base font face for the active mode line
-  (set-face-attribute 'mode-line nil
-                      :family eon-font-mode-line
-                      :weight 'normal
-                      :width  'normal
-                      :height eon-font-marginal-size)
-  ;; Base font face for the inactive mode line
-  (set-face-attribute 'mode-line-inactive nil
-                      :family eon-font-mode-line
-                      :weight 'normal
-                      :width  'normal
-                      :height eon-font-marginal-size)
-  ;; Base font face for the tab bar
-  (set-face-attribute 'tab-bar nil
-                      :family eon-font-tab-bar
-                      :weight 'normal
-                      :width  'normal
-                      :height eon-font-marginal-size)
-  ;; Base font face for the tab line
-  (set-face-attribute 'tab-line nil
-                      :family eon-font-tab-line
-                      :weight 'normal
-                      :width  'normal
-                      :height eon-font-marginal-size)
+  (let* ((default-family (eon-font--family eon-font-default nil))
+         (fixed-family (eon-font--family eon-font-fixed default-family))
+         (fixed-alt-family (eon-font--family eon-font-fixed-alt fixed-family))
+         (proportional-size (or eon-font-proportional-size
+                                eon-font-default-size))
+         (proportional-family (eon-font--family eon-font-proportional nil))
+         (mode-line-family (eon-font--family eon-font-mode-line default-family))
+         (tab-bar-family (eon-font--family eon-font-tab-bar mode-line-family))
+         (tab-line-family (eon-font--family eon-font-tab-line tab-bar-family)))
+    ;; Default font
+    (set-face-attribute 'default nil
+                        :family default-family
+                        :height eon-font-default-size)
+    ;; Fixed-width font face
+    (set-face-attribute 'fixed-pitch nil
+                        :family fixed-family
+                        :height 1.0)
+    ;; Alternative fixed-width font face
+    (set-face-attribute 'fixed-pitch-serif nil
+                        :family fixed-alt-family
+                        :height 1.0)
+    ;; Proportional font face;
+    ;; can be toggled for the current buffer via "M-x variable-pitch-mode"
+    (set-face-attribute 'variable-pitch nil
+                        :family proportional-family
+                        :height proportional-size)
+    ;; Base font face for the active mode line
+    (set-face-attribute 'mode-line nil
+                        :family mode-line-family
+                        :height eon-font-marginal-size)
+    ;; Base font face for the inactive mode line
+    (set-face-attribute 'mode-line-inactive nil
+                        :family mode-line-family
+                        :height eon-font-marginal-size)
+    ;; Base font face for the tab bar
+    (set-face-attribute 'tab-bar nil
+                        :family tab-bar-family
+                        :height eon-font-marginal-size)
+    ;; Base font face for the tab line
+    (set-face-attribute 'tab-line nil
+                        :family tab-line-family
+                        :height eon-font-marginal-size)))
+
 (defun eon-region-face ()
   "Don't extend the selection background past the end of the line.
 Per default, the function is called by the hooks:
