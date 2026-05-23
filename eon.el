@@ -323,8 +323,15 @@ Examples:
                  elements
                (list elements)))
          (test (or compare-fn #'equal))
-         (cand (if append (append cur xs) (append xs cur))))
-    (cl-remove-duplicates cand :test test)))
+         (new (cl-remove-duplicates
+               (seq-remove (lambda (x)
+                             (cl-member x cur :test test))
+                           xs)
+               :test test
+               :from-end t)))
+    (if append
+        (append cur new)
+      (append new cur))))
 
 (defun eon-add-to-list (list-sym elements &optional append compare-fn)
   "Modifies the current binding of LIST-SYM, respects buffer-local.
