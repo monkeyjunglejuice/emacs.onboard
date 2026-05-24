@@ -523,10 +523,10 @@ When called interactively, also echo the result."
 ;; Draw extra space/lines between windows?
 ;; Helps if a certain theme makes the window boundaries indistinguishable,
 ;; or if you prefer to have some space between windows.
-(window-divider-mode -1)
 (setopt window-divider-default-places t
         window-divider-default-bottom-width 1
         window-divider-default-right-width 1)
+(window-divider-mode -1)
 
 ;; _____________________________________________________________________________
 ;;; CURSOR
