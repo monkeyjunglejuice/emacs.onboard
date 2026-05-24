@@ -2009,15 +2009,18 @@ If called from the minibuffer, exit via `abort-recursive-edit'."
   "Bury the current buffer.
 If visiting a file and modified, ask to save first;
 then bury the buffer and delete the window.
-When prefix arg RESTORE is non-nil, restore the previous window configuration.
+When prefix arg RESTORE is non-nil, show the last buried buffer in a new
+window.
 If called from the minibuffer, exit via `abort-recursive-edit'."
   (interactive "P")
   (if (minibufferp)
       (abort-recursive-edit)
     (if restore
-        (progn
-          (winner-undo)
-          (unbury-buffer))
+        (pop-to-buffer (save-window-excursion
+                         (unbury-buffer)
+                         (current-buffer))
+                       '((display-buffer-reuse-window
+                          display-buffer-pop-up-window)))
       (when (and buffer-file-name (buffer-modified-p))
         (when (y-or-n-p (format "Save buffer %s before bury? "
                                 (buffer-name)))
