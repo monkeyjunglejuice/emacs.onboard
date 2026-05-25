@@ -2846,37 +2846,89 @@ NAME can be a symbol or a string. Add/override a single alias with
 ;; - EWW, a built-in web browser
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
 
-(setopt url-privacy-level '(email lastloc cookies))
-(url-setup-privacy-info)
-
-;; TODO Refactor to make the user-agent string customizable/selectable
-(defun eon-user-agent (browser-name)
-  "Accepts a symbol in order to return a pre-defined user-agent string.
-BROWSER-NAME can be either \='safari-macos, \='safari-iphone, \='w3m or t -
-which sets the default `eww' user-agent according to `url-privacy-level'."
-  (pcase browser-name
-    ('safari-macos
-     (setopt url-user-agent
-             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/11.0.1 Safari/603.3.8"))
-    ('safari-iphone
-     (setopt url-user-agent
-             "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Mobile/15E148 Safari/604.1"))
-    ('w3m
-     (setopt url-user-agent
-             "w3m/0.5.3+git20230121"))
-    (_
-     (setopt url-user-agent 'default))))
-
-;; Set the user agent for the internal web browser
-(eon-user-agent 'safari-iphone)
-
-;; Browse web with EWW, the internal web browser
+;; Browse web with EWW, the built-in web browser
 (keymap-set ctl-z-g-map "w" #'browse-web)
 
 (eon-localleader-defkeymap eww-mode eon-localleader-eww-map
   :doc "Local leader keymap for the Emacs Web Wowser"
   "e" #'eww-browse-with-external-browser
-  "r" #'eww-readable)
+  "r" #'eww-readable
+  "a" #'eon-eww-user-agent)
+
+(setopt url-privacy-level '(email lastloc cookies))
+(url-setup-privacy-info)
+
+(defgroup eon-web nil
+  "Web browsing settings."
+  :group 'eon)
+
+(defun eon-eww-user-agent--profile (profile)
+  "Return normalized user-agent PROFILE."
+  (pcase profile
+    ('nil eon-eww-user-agent-profile)
+    ('t 'eww-default)
+    ((pred stringp) (intern profile))
+    (_ profile)))
+
+(defun eon-eww-user-agent--profile-names ()
+  "Return `eon-eww-user-agent-profiles' keys as strings."
+  (mapcar (lambda (profile)
+            (symbol-name (car profile)))
+          eon-eww-user-agent-profiles))
+
+(defun eon-eww-user-agent--set-profile (symbol value)
+  "Set SYMBOL to VALUE and apply the selected EWW user-agent profile."
+  (if (and (boundp 'eon-eww-user-agent-profiles)
+           (fboundp 'eon-eww-user-agent))
+      (eon-eww-user-agent value)
+    (set-default symbol (eon-eww-user-agent--profile value))))
+
+(defcustom eon-eww-user-agent-profiles
+  `((eww-default . default)
+    (safari-macos
+     . ,(concat "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) "
+                "AppleWebKit/603.3.8 (KHTML, like Gecko) "
+                "Version/11.0.1 Safari/603.3.8"))
+    (safari-iphone
+     . ,(concat "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) "
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+                "Version/18.2 Mobile/15E148 Safari/604.1"))
+    (w3m
+     . "w3m/0.5.3+git20230121"))
+  "Named user-agent profiles for `eon-eww-user-agent'."
+  :group 'eon-web
+  :type '(alist :key-type symbol
+                :value-type (choice (const :tag "EWW default" default)
+                                    string)))
+
+(defcustom eon-eww-user-agent-profile 'safari-iphone
+  "Default profile selected by `eon-eww-user-agent'.
+The value must be a key in `eon-eww-user-agent-profiles'."
+  :group 'eon-web
+  :set #'eon-eww-user-agent--set-profile
+  :type 'symbol)
+
+(defun eon-eww-user-agent (&optional profile)
+  "Set `url-user-agent' according to PROFILE.
+PROFILE must be nil, a string, or a key in `eon-eww-user-agent-profiles'.  When
+nil, use `eon-eww-user-agent-profile'. PROFILE may also be t, which selects
+the default EWW user-agent according to `url-privacy-level'.
+When called interactively, select PROFILE with completion."
+  (interactive
+   (list (completing-read "User agent: "
+                          (eon-eww-user-agent--profile-names)
+                          nil t nil nil
+                          (symbol-name eon-eww-user-agent-profile))))
+  (let* ((profile (eon-eww-user-agent--profile profile))
+         (user-agent (alist-get profile eon-eww-user-agent-profiles
+                                nil nil #'eq)))
+    (unless user-agent
+      (user-error "Unknown user-agent profile: %s" profile))
+    (setq eon-eww-user-agent-profile profile
+          url-user-agent user-agent)))
+
+;; Set the user agent for the internal web browser
+(eon-eww-user-agent)
 
 ;; _____________________________________________________________________________
 ;;; EMAIL
