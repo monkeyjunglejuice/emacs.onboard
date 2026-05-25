@@ -2607,7 +2607,7 @@ pretending to clear it."
 ;; function, typing "/" as the first character of an argument inserts
 ;; the current Tramp prefix, such as "/method:host:".  Typing another
 ;; "/" undoes this, which is useful when a local path is intended.
-;; Typing "~/" also inserts the Tramp prefix.  This does not apply to
+;; Typing "~/" also inserts the Tramp prefix. This does not apply to
 ;; external commands.
 ;;
 ;; This means Eshell usually inserts the remote prefix only when
