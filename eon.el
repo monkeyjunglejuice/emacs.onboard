@@ -2834,6 +2834,14 @@ NAME can be a symbol or a string. Add/override a single alias with
 ;; _____________________________________________________________________________
 ;;; WEB BROWSERS
 
+;; Primary browser
+;; Prefer the built-in web browser to follow URLs
+(setopt browse-url-browser-function #'eww-browse-url)
+
+;; Secondary browser
+;; Use the system default browser as the alternative
+(setopt browse-url-secondary-browser-function #'browse-url-default-browser)
+
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;; - EWW, a built-in web browser
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/eww.html#Top>
