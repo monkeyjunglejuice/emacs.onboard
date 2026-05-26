@@ -79,7 +79,7 @@ Some features -- without any dependencies:
 - Tree-sitter grammar registry: handle language grammars and trigger build/install declaratively via ~eon-treesitter-ensure-grammar~.
 - Smooth pixel-based scrolling (Emacs doesn't do that by default).
 - Basic [[https://orgmode.org][Org mode]] setup to get started.
-- Garbage collector tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
+- Garbage collector tuning: includes the "[[The Emacs Garbage Collection Magic Hack][Emacs Garbage Collection Magic Hack]]".
 - The package manager is pre-configured with [[https://melpa.org/#/][MELPA]]: install from over 5500 Emacs packages right away.
 - Makes it easy to set the fonts you like -- all options in one place.
 - Dired, the most powerful file manager in existence ...
