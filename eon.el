@@ -834,7 +834,7 @@ local leader is shown."
   "Local leader key, pressed after the leader.
 
 - GUI default: \"C-,\" -> reach local leader via \"C-, C-,\"
-- TTY default: \"C-z\" -> reach local leader via \"C-z C-z\"
+- TUI default: \"C-z\" -> reach local leader via \"C-z C-z\"
 
 Use `eon-customize-group' to change, or use `setopt' from Lisp."
   :group 'eon-leader
@@ -902,7 +902,7 @@ Customize `eon-localleader-key' explicitly to override this default."
 
 (defcustom eon-leader-key
   (if (eon-terminalp) "C-z" "C-,")
-  "Leader prefix key. GUI default: \"C-,\" - TTY default: \"C-z\".
+  "Leader prefix key. GUI default: \"C-,\" - TUI default: \"C-z\".
 Use `eon-customize-group' to change, or `setopt' from Lisp."
   :group 'eon-leader
   :type '(string)
