@@ -1933,7 +1933,7 @@ buffer."
 
 ;; What to do with a window whose buffer was killed?
 ;; nil = no special handling. Let `set-window-configuration' decide,
-;; instead of displaying a placeholder bufffer.
+;; instead of displaying a placeholder buffer.
 (setopt tab-bar-select-restore-windows nil)
 
 ;; Create a fresh tab with *scratch* buffer only
