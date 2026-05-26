@@ -3241,7 +3241,6 @@ When called interactively, select PROFILE with completion."
 ;; Grammars can be built and installed via:
 ;; - `eon-treesitter-ensure-grammar' (declarative in your Elisp code)
 ;; - `treesit-install-language-grammar' (interactive, single grammar)
-;; - `eon-treesitter-install-all' (interactive, all grammars)
 (defvar eon-treesitter-specs
   '((bash       "https://github.com/tree-sitter/tree-sitter-bash")
     (c          "https://github.com/tree-sitter/tree-sitter-c")
@@ -3472,17 +3471,6 @@ Returns an alist of (LANG . STATUS) where STATUS is one of:
     (when (null elems)
       (user-error "eon-treesitter-ensure-grammar: No specs provided"))
     (eon-treesitter--ensure-impl elems nil)))
-
-(cl-defun eon-treesitter-install-all (&key reinstall)
-  "Install all grammars in `eon-treesitter-specs'.
-
-Accepts keyword arg :REINSTALL (non-nil to rebuild grammar even if present).
-
-When called interactively with a prefix argument, acts like :reinstall t.
-
-Returns the same (LANG . STATUS) alist as `eon-treesitter-ensure-grammar'."
-  (interactive (list :reinstall current-prefix-arg))
-  (eon-treesitter--ensure-impl eon-treesitter-specs (and reinstall t)))
 
 ;; _____________________________________________________________________________
 ;;; ORG MODE
