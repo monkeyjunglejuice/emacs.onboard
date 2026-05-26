@@ -76,7 +76,7 @@ Some features -- without any dependencies:
 - Clipboard integration just works -- even on Windows.
   - WSL (Windows Subsystem for Linux) copy/paste between Windows apps and Emacs.
   - Copy the path of the current file to the clipboard via =M-x eon-copy-file-path=.
-- Tree-sitter grammar registry: handle language grammars and trigger build/install declaratively via ~eon-treesitter-ensure-grammar~ and/or interactively via =M-x eon-treesitter-install-all=.
+- Tree-sitter grammar registry: handle language grammars and trigger build/install declaratively via ~eon-treesitter-ensure-grammar~.
 - Smooth pixel-based scrolling (Emacs doesn't do that by default).
 - Basic [[https://orgmode.org][Org mode]] setup to get started.
 - Garbage collector tuning: includes "[[The Emacs Garbage Collection Magic Hack][The Emacs Garbage Collection Magic Hack]]".
