@@ -2636,16 +2636,16 @@ pretending to clear it."
 ;; Launch an Eshell buffer: "<leader> e e"; re-visit the buffer by repeating
 (keymap-set ctl-z-e-map "e" #'eshell)
 
-;; Use Outline commands with Eshell prompts/buffers
-(add-hook 'eshell-mode-hook
-          (lambda () (setq outline-regexp eshell-prompt-regexp)))
-
 ;; Launch a fresh Eshell buffer: "<leader> e E"
 (defun eon-eshell-new ()
   "Open a new eshell instance."
   (interactive)
   (eshell 't))
 (keymap-set ctl-z-e-map "E" #'eon-eshell-new)
+
+;; Use Outline commands with Eshell prompts/buffers
+(add-hook 'eshell-mode-hook
+          (lambda () (setq outline-regexp eshell-prompt-regexp)))
 
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Faster Eshell cd command; similar to Zoxide
