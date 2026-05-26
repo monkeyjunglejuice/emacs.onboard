@@ -1695,8 +1695,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Open the GUI via "<leader> x C"
 
 ;; Define local leader keymap for `Custom-mode'
-(eon-localleader-defkeymap Custom-mode eon-localleader-customzation-map
-
+(eon-localleader-defkeymap Custom-mode eon-localleader-customization-map
   :doc "Local leader keymap for Customization buffers."
   ;; Pop up a  buffer to edit the settings in '.dir-locals.el'
   "d" #'customize-dirlocals)
@@ -1705,7 +1704,6 @@ Some themes may come as functions -- wrap these ones in lambdas."
   "Set preferences via GUI."
   (interactive)
   (customize-group 'eon))
-
 (keymap-set ctl-z-x-map "C" #'eon-customize-group)
 
 ;; Don't accumulate customization buffers?
