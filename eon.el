@@ -3502,9 +3502,6 @@ Returns an alist of (LANG . STATUS) where STATUS is one of:
 (setopt  org-auto-align-tags t
          org-tags-column 0)
 
-;; Toggle indicator for headlines
-(setopt org-ellipsis "▼")
-
 ;; Don't add leading indentation to code blocks, remove them during export
 (setopt org-edit-src-content-indentation 0
         org-src-preserve-indentation nil)
