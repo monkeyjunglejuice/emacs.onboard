@@ -2905,13 +2905,13 @@ only the command marker, using `#' for root and `$' otherwise."
   "Web browsing settings."
   :group 'eon)
 
-(defun eon-eww-user-agent--profile (profile)
+(defun eon-eww-user-agent--normalize-profile (profile)
   "Return normalized user-agent PROFILE."
   (pcase profile
-    ('nil eon-eww-user-agent-profile)
     ('t 'eww-default)
     ((pred stringp) (intern profile))
-    (_ profile)))
+    ((pred symbolp) profile)
+    (_ (user-error "Invalid user-agent profile: %s" profile))))
 
 (defun eon-eww-user-agent--profile-names ()
   "Return `eon-eww-user-agent-profiles' keys as strings."
@@ -2919,32 +2919,64 @@ only the command marker, using `#' for root and `$' otherwise."
             (symbol-name (car profile)))
           eon-eww-user-agent-profiles))
 
+(defun eon-eww-user-agent--profile-value (profile &optional profiles)
+  "Return the `url-user-agent' value for PROFILE in PROFILES."
+  (let* ((missing (make-symbol "missing"))
+         (value (alist-get profile (or profiles eon-eww-user-agent-profiles)
+                           missing nil #'eq)))
+    (if (eq value missing)
+        (user-error "Unknown user-agent profile: %s" profile)
+      value)))
+
+(defun eon-eww-user-agent--apply-profile (profile)
+  "Apply PROFILE to `url-user-agent'."
+  (setopt url-user-agent (eon-eww-user-agent--profile-value profile)))
+
+(defun eon-eww-user-agent--set-profiles (symbol value)
+  "Set SYMBOL to VALUE and reapply the selected user-agent profile."
+  (when (boundp 'eon-eww-user-agent-profile)
+    (eon-eww-user-agent--profile-value eon-eww-user-agent-profile value))
+  (set-default symbol value)
+  (when (boundp 'eon-eww-user-agent-profile)
+    (eon-eww-user-agent--apply-profile eon-eww-user-agent-profile)))
+
 (defun eon-eww-user-agent--set-profile (symbol value)
   "Set SYMBOL to VALUE and apply the selected EWW user-agent profile."
-  (if (and (boundp 'eon-eww-user-agent-profiles)
-           (fboundp 'eon-eww-user-agent))
-      (eon-eww-user-agent value)
-    (set-default symbol (eon-eww-user-agent--profile value))))
+  (let ((profile (eon-eww-user-agent--normalize-profile value)))
+    (eon-eww-user-agent--profile-value profile)
+    (set-default symbol profile)
+    (eon-eww-user-agent--apply-profile profile)))
 
 (defcustom eon-eww-user-agent-profiles
-  `((eww-default . default)
+  `((chrome-windows
+     . ,(concat "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/131.0.0.0 Safari/537.36"))
+    (chrome-android
+     . ,(concat "Mozilla/5.0 (Linux; Android 10; K) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/131.0.0.0 Mobile Safari/537.36"))
     (safari-macos
-     . ,(concat "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) "
-                "AppleWebKit/603.3.8 (KHTML, like Gecko) "
-                "Version/11.0.1 Safari/603.3.8"))
+     . ,(concat "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+                "Version/18.2 Safari/605.1.15"))
     (safari-iphone
      . ,(concat "Mozilla/5.0 (iPhone; CPU iPhone OS 18_2 like Mac OS X) "
                 "AppleWebKit/605.1.15 (KHTML, like Gecko) "
-                "Version/18.2 Mobile/15E148 Safari/604.1"))
-    (w3m
-     . "w3m/0.5.3+git20230121"))
-  "Named user-agent profiles for `eon-eww-user-agent'."
+                "Version/18.2 Mobile/15E148 Safari/605.1.15"))
+    (w3m . "w3m/0.5.3+git20230121")
+    (eww-default . default)
+    (none . nil))
+  "Named `url-user-agent' profiles for `eon-eww-user-agent'."
   :group 'eon-web
+  :set #'eon-eww-user-agent--set-profiles
   :type '(alist :key-type symbol
                 :value-type (choice (const :tag "EWW default" default)
+                                    (const :tag "No User-Agent" nil)
+                                    function
                                     string)))
 
-(defcustom eon-eww-user-agent-profile 'safari-iphone
+(defcustom eon-eww-user-agent-profile 'chrome-android
   "Default profile selected by `eon-eww-user-agent'.
 The value must be a key in `eon-eww-user-agent-profiles'."
   :group 'eon-web
@@ -2952,26 +2984,19 @@ The value must be a key in `eon-eww-user-agent-profiles'."
   :type 'symbol)
 
 (defun eon-eww-user-agent (&optional profile)
-  "Set `url-user-agent' according to PROFILE.
-PROFILE must be nil, a string, or a key in `eon-eww-user-agent-profiles'.  When
-nil, use `eon-eww-user-agent-profile'. PROFILE may also be t, which selects
-the default EWW user-agent according to `url-privacy-level'.
+  "Select EWW user-agent PROFILE.
+PROFILE must name a key in `eon-eww-user-agent-profiles'.  When nil, use
+`eon-eww-user-agent-profile'.  PROFILE may also be t, which selects the default
+EWW user-agent according to `url-privacy-level'.
 When called interactively, select PROFILE with completion."
   (interactive
    (list (completing-read "User agent: "
                           (eon-eww-user-agent--profile-names)
                           nil t nil nil
                           (symbol-name eon-eww-user-agent-profile))))
-  (let* ((profile (eon-eww-user-agent--profile profile))
-         (user-agent (alist-get profile eon-eww-user-agent-profiles
-                                nil nil #'eq)))
-    (unless user-agent
-      (user-error "Unknown user-agent profile: %s" profile))
-    (setq eon-eww-user-agent-profile profile
-          url-user-agent user-agent)))
-
-;; Set the user agent for the internal web browser
-(eon-eww-user-agent)
+  (setopt eon-eww-user-agent-profile
+          (eon-eww-user-agent--normalize-profile
+           (or profile eon-eww-user-agent-profile))))
 
 ;; _____________________________________________________________________________
 ;;; EMAIL
