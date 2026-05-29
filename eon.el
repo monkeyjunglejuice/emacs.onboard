@@ -2742,6 +2742,46 @@ NAME can be a symbol or a string. Add/override a single alias with
   (add-hook 'eshell-first-time-mode-hook #'eon-eshell-apply-aliases)
   (add-hook 'eshell-alias-load-hook #'eon-eshell-apply-aliases))
 
+;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+;;; - Prompt styling
+
+(defun eon-eshell--cwd ()
+  "Return the current Eshell directory for prompt display.
+
+For remote TRAMP directories, strip the TRAMP prefix and show only the
+path on the remote host.  For local directories, abbreviate the path in
+the usual Emacs way."
+  (let ((dir (directory-file-name (eshell/pwd))))
+    (if (file-remote-p dir)
+        (file-local-name dir)
+      (abbreviate-file-name dir))))
+
+(defun eon-eshell-prompt ()
+  "Build a two-line Eshell prompt with status, user, host, and directory.
+
+The first line shows the previous command's non-zero exit status, the
+current user/host, and the current directory.  The second line contains
+only the command marker, using `#' for root and `$' otherwise."
+  (let* ((status (or eshell-last-command-status 0))
+         (remote-user (file-remote-p default-directory 'user))
+         (remote-host (file-remote-p default-directory 'host))
+         (user (or remote-user (user-login-name)))
+         (host (or remote-host (system-name)))
+         (cwd (eon-eshell--cwd))
+         (marker (if (string= user "root") "# " "$ ")))
+    (concat
+     (propertize
+      (format "%s[%s@%s] %s"
+              (if (zerop status) "" (format "[%d] " status))
+              user
+              host
+              cwd)
+      'face 'bold)
+     "\n"
+     marker)))
+
+(setopt eshell-prompt-function #'eon-eshell-prompt)
+
 ;; _____________________________________________________________________________
 ;;; SHELL
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Shell-Mode>
