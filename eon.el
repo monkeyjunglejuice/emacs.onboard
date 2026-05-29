@@ -2869,7 +2869,10 @@ only the command marker, using `#' for root and `$' otherwise."
 (with-eval-after-load 'tramp
   ;; Ensure that Tramp can find a proper `ls' on a Guix-based host
   ;; <https://blog.smith-manor.us/tramp_and_guix>
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  ;; Speed up Tramp
+  (setopt tramp-use-scp-direct-remote-copying t
+          remote-file-name-inhibit-locks t))
 
 ;; _____________________________________________________________________________
 ;;; WEB BROWSERS
