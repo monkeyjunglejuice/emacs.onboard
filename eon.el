@@ -2649,7 +2649,7 @@ pretending to clear it."
 ;; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 ;;; - Faster Eshell cd command; similar to Zoxide
 
-(defun eshell/d (&optional regexp)
+(defun eshell/D (&optional regexp)
   "Navigate to a previously visited directory in Eshell.
 
 If REGEXP is non-nil, jump to the most recent previous directory matching
@@ -2719,6 +2719,7 @@ Set SYM's default value to VALUE. If the Eshell alias module
 (defcustom eon-eshell-aliases
   '((e     . "find-file $@*")
     (f     . "find-file $@*")
+    (d     . "dired $@*")
     (l     . "ls $@*")
     (ll    . "ls -l -h $@*")
     (la    . "ls -l -h -A $@*")
