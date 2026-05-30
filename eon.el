@@ -3573,8 +3573,8 @@ Returns an alist of (LANG . STATUS) where STATUS is one of:
 (add-hook 'org-mode-hook #'visual-line-mode)
 
 ;; Alignment of tags at the end of headlines
-(setopt  org-auto-align-tags t
-         org-tags-column 0)
+(setopt org-auto-align-tags t
+        org-tags-column 0)
 
 ;; Don't add leading indentation to code blocks, remove them during export
 (setopt org-edit-src-content-indentation 0
