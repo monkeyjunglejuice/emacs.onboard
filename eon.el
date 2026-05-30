@@ -3237,6 +3237,10 @@ When called interactively, select PROFILE with completion."
 ;;; VERSION CONTROL / GIT
 ;; Setup for Emacs' built-in VC management
 
+;; Reduce load by setting VC recognized backends to the most commonly used ones
+(with-eval-after-load 'vc-hooks
+  (setopt vc-handled-backends '(Git Hg SVN)))
+
 (keymap-set ctl-z-v-map "v" #'vc-dir)
 (keymap-set ctl-z-v-map "V" #'project-vc-dir)
 (keymap-set ctl-z-v-map "g" #'vc-git-grep)
