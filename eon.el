@@ -3677,7 +3677,8 @@ Returns an alist of (LANG . STATUS) where STATUS is one of:
 ;; <https://orgmode.org/worg/org-contrib/babel/intro.html>
 
 ;; Activate code blocks via Babel languages
-(org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t)))
+(with-eval-after-load 'org
+  (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t))))
 
 ;; _____________________________________________________________________________
 ;;; LISP
