@@ -2876,12 +2876,22 @@ only the command marker, using `#' for root and `$' otherwise."
 ;; <https://www.gnu.org/software/tramp>
 
 (with-eval-after-load 'tramp
+
   ;; Ensure that Tramp can find a proper `ls' on a Guix-based host
   ;; <https://blog.smith-manor.us/tramp_and_guix>
-  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+  (add-to-list 'tramp-remote-path #'tramp-own-remote-path)
+
   ;; Speed up Tramp
-  (setopt tramp-use-scp-direct-remote-copying t
-          remote-file-name-inhibit-locks t))
+  ;; <https://coredumped.dev/2025/06/18/making-tramp-go-brrrr.>
+  (setopt tramp-verbose 2
+          tramp-default-method "ssh"
+          tramp-copy-size-limit (* 1 1024 1024)  ; 1 MiB
+          tramp-use-scp-direct-remote-copying t
+          tramp-direct-async-process t
+          tramp-completion-reread-directory-timeout 60
+          remote-file-name-inhibit-cache 60
+          remote-file-name-inhibit-locks t
+          remote-file-name-inhibit-auto-save-visited t))
 
 ;; _____________________________________________________________________________
 ;;; WEB BROWSERS
