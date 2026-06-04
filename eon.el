@@ -910,25 +910,25 @@ Use `eon-customize-group' to change, or `setopt' from Lisp."
 
 ;; Sub-keymaps under the leader
 
-(defvar-keymap ctl-z-b-map   :doc "Buffer")
-(defvar-keymap ctl-z-c-map   :doc "Code")
-(defvar-keymap ctl-z-e-map   :doc "Exec")
-(defvar-keymap ctl-z-f-map   :doc "File")
-(defvar-keymap ctl-z-g-map   :doc "Goto")
-(defvar-keymap ctl-z-h-map   :doc "Help")
-(defvar-keymap ctl-z-i-map   :doc "Insert")
-(defvar-keymap ctl-z-j-map   :doc "User")
-(defvar-keymap ctl-z-o-map   :doc "Org")
-(defvar-keymap ctl-z-p-map   :doc "Project")
-(defvar-keymap ctl-z-q-map   :doc "Quit")
-(defvar-keymap ctl-z-r-map   :doc "Register")
-(defvar-keymap ctl-z-s-map   :doc "Search")
-(defvar-keymap ctl-z-t-map   :doc "Tab/WS")
-(defvar-keymap ctl-z-v-map   :doc "VC/Git")
-(defvar-keymap ctl-z-w-map   :doc "Window")
-(defvar-keymap ctl-z-W-map   :doc "Frame")
-(defvar-keymap ctl-z-x-map   :doc "Misc")
-(defvar-keymap ctl-z-ret-map :doc "Bookmark")
+(defvar-keymap ctl-z-b-map   :doc "Buffer"   :prefix t)
+(defvar-keymap ctl-z-c-map   :doc "Code"     :prefix t)
+(defvar-keymap ctl-z-e-map   :doc "Exec"     :prefix t)
+(defvar-keymap ctl-z-f-map   :doc "File"     :prefix t)
+(defvar-keymap ctl-z-g-map   :doc "Goto"     :prefix t)
+(defvar-keymap ctl-z-h-map   :doc "Help"     :prefix t)
+(defvar-keymap ctl-z-i-map   :doc "Insert"   :prefix t)
+(defvar-keymap ctl-z-j-map   :doc "User"     :prefix t)
+(defvar-keymap ctl-z-o-map   :doc "Org"      :prefix t)
+(defvar-keymap ctl-z-p-map   :doc "Project"  :prefix t)
+(defvar-keymap ctl-z-q-map   :doc "Quit"     :prefix t)
+(defvar-keymap ctl-z-r-map   :doc "Register" :prefix t)
+(defvar-keymap ctl-z-s-map   :doc "Search"   :prefix t)
+(defvar-keymap ctl-z-t-map   :doc "Tab/WS"   :prefix t)
+(defvar-keymap ctl-z-v-map   :doc "VC/Git"   :prefix t)
+(defvar-keymap ctl-z-w-map   :doc "Window"   :prefix t)
+(defvar-keymap ctl-z-W-map   :doc "Frame"    :prefix t)
+(defvar-keymap ctl-z-x-map   :doc "Misc"     :prefix t)
+(defvar-keymap ctl-z-ret-map :doc "Bookmark" :prefix t)
 
 ;; Default Top-level leader keymap, referencing the sub-keymaps
 ;; TODO Rename ctl-z-.*-map to eon-leader-default-.*-map, because
@@ -936,6 +936,7 @@ Use `eon-customize-group' to change, or `setopt' from Lisp."
 
 (defvar-keymap ctl-z-map
   :doc "Top-level leader keymap."
+  :prefix t
   "b"   `("Buffer"   . ,ctl-z-b-map)
   "c"   `("Code"     . ,ctl-z-c-map)
   "e"   `("Exec"     . ,ctl-z-e-map)
@@ -3061,7 +3062,7 @@ When called interactively, select PROFILE with completion."
 (keymap-global-set "M-z" #'zap-up-to-char)
 
 ;; Define a keymap in order to group formatting commands
-(defvar-keymap ctl-z-c-f-map :doc "Formatting"
+(defvar-keymap ctl-z-c-f-map :doc "Formatting" :prefix t
                "a" #'align
                "A" #'align-regexp
                ;; Tipps: <https://susam.github.io/sorting-in-emacs.html>
