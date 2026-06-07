@@ -221,8 +221,15 @@ Cancel the previous one if present."
 ;; Prevents from interrupted compilations and leftover artifacts.
 (setopt native-comp-async-query-on-exit t)
 
+;; Don't waste battery on native compilation?
+(setopt native-comp-async-on-battery-power nil)
+
+;; Compiler optimization level; default 2
+(setopt native-comp-speed 3)
+
 ;; This options are not set if Emacs is started via "emacs --debug-init"
 (unless init-file-debug
+
   (setopt
    ;; When to bring the buffer to the foreground? Defaults to :warning
    warning-minimum-level :error
