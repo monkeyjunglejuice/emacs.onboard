@@ -1892,12 +1892,12 @@ buffer."
 (setopt mouse-autoselect-window nil
         focus-follows-mouse nil)
 
-;; Make window splits more evenly sized?
-(setopt window-resize-pixelwise t)
-
 ;; Window splitting
 (setopt split-width-threshold 160
         split-height-threshold 32)
+
+;; Make window splits more evenly sized?
+(setopt window-resize-pixelwise t)
 
 ;; Undo/redo window layouts
 (setopt winner-dont-bind-my-keys t)
@@ -1938,16 +1938,18 @@ buffer."
 ;; _____________________________________________________________________________
 ;;; TAB MANAGEMENT
 
-;; What to do with a window whose buffer was killed?
-;; nil = no special handling. Let `set-window-configuration' decide,
-;; instead of displaying a placeholder buffer.
-(setopt tab-bar-select-restore-windows nil)
+;; Tabs hold entire window layouts, not just a single buffer.
 
 ;; Create a fresh tab with *scratch* buffer only
 (setopt tab-bar-new-tab-choice "*scratch*")
 
 ;; Show tab numbers
 (setopt tab-bar-tab-hints t)
+
+;; What to do with a window whose buffer was killed?
+;; nil = no special handling. Let `set-window-configuration' decide,
+;; instead of displaying a placeholder buffer.
+(setopt tab-bar-select-restore-windows nil)
 
 ;; Create new tab
 (keymap-set ctl-z-t-map "n" #'tab-new)
