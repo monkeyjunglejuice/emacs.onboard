@@ -202,7 +202,7 @@ Cancel the previous one if present."
                      gcs-done)))
 
 ;; _____________________________________________________________________________
-;;; ELISP NATIVE COMPILATION / BYTECODE
+;;; ELISP NATIVE & BYTECODE COMPILATION
 
 ;; Prevent stale elisp bytecode from shadowing more up-to-date source files?
 (setopt load-prefer-newer t)
@@ -227,7 +227,7 @@ Cancel the previous one if present."
 ;; Compiler optimization level; default 2
 (setopt native-comp-speed 3)
 
-;; This options are not set if Emacs is started via "emacs --debug-init"
+;; Following options are not set if Emacs starts via "emacs --debug-init"
 (unless init-file-debug
 
   (setopt
@@ -533,6 +533,8 @@ When called interactively, also echo the result."
 (setopt window-divider-default-places t
         window-divider-default-bottom-width 1
         window-divider-default-right-width 1)
+
+;; Pre-configured, but keep it off
 (window-divider-mode -1)
 
 ;; _____________________________________________________________________________
@@ -1145,7 +1147,8 @@ minibuffer, even without explicitly focusing it."
 ;; _____________________________________________________________________________
 ;;; VI KEYBINDINGS (VIPER-MODE)
 
-;; TODO It's an old mode and behaves a bit strangely; needs review
+;; TODO It's an old mode and behaves a bit strangely; needs review.
+;; Viper also messes with `completing-read' and/or `fido-vertical-mode'.
 ;; FIXME Needs a customizable leader key
 ;; e.g. eon-viper-leader-key and eon-viper-localleader-key.
 ;; Best keymap to bind it seems `viper-vi-global-user-map'.
@@ -1348,7 +1351,7 @@ Per default, the function is called by the hooks:
 ;; _____________________________________________________________________________
 ;;; TOGGLE THEME
 
-;; Default/fallback definitions – don't change them here,
+;; Default/fallback definitions; don't change them here,
 ;; but set them in your 'init.el'. For examples, see THEME CONFIG.
 
 ;; TODO Refactor in order to dissolve duplication
@@ -1452,20 +1455,20 @@ Some themes may come as functions -- wrap these ones in lambdas."
 (setopt modus-themes-bold-constructs t
         modus-themes-italic-constructs nil
         modus-themes-mixed-fonts t)
-;; Remove the border around the mode line
+;; Remove the border around the mode line?
 (setopt modus-themes-common-palette-overrides
         '((border-mode-line-active bg-mode-line-active)
           (border-mode-line-inactive bg-mode-line-inactive)))
 
 ;; Customize via "M-x eon-customize-group" or via `setopt' in your init.el:
 
-;;; - Set your light theme:
+;; Set your light theme:
 ;; (setopt eon-theme-light 'modus-operandi-tinted)
 
-;;; - Set your dark theme:
+;; Set your dark theme:
 ;; (setopt eon-theme-dark 'modus-vivendi-tinted)
 
-;;; - Set 'light or 'dark as your default theme variant:
+;; Set 'light or 'dark as your default theme variant:
 ;; (setopt eon-theme-variant-default 'light)
 
 ;;; - Theme hooks
@@ -1540,7 +1543,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Show the current line number along with column number in mode line?
 ;; This is nice if you think line numbers on the left margin are distracting.
-;; The line number indicator turnes off if you enable
+;; The line number indicator turns off if you enable
 ;; `display-line-numbers-mode' or `global-display-line-numbers-mode'.
 (column-number-mode 1)
 (line-number-mode 1)
@@ -1699,8 +1702,8 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; _____________________________________________________________________________
 ;;; CUSTOMIZATION UI SETTINGS
 
-;; The most important Emacs ONBOARD preferences are customizable via GUI.
-;; Open the GUI via "<leader> x C"
+;; The most important Emacs ONBOARD preferences are customizable via UI.
+;; Open the UI via "<leader> x C"
 
 ;; Define local leader keymap for `Custom-mode'
 (eon-localleader-defkeymap Custom-mode eon-localleader-customization-map
@@ -1709,7 +1712,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
   "d" #'customize-dirlocals)
 
 (defun eon-customize-group ()
-  "Set preferences via GUI."
+  "Set preferences via UI."
   (interactive)
   (customize-group 'eon))
 (keymap-set ctl-z-x-map "C" #'eon-customize-group)
