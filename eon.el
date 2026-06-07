@@ -1817,8 +1817,8 @@ buffer."
         isearch-motion-changes-direction t)
 
 ;; Bind some Isearch commands under the leader
-(keymap-set ctl-z-s-map "p" #'isearch-forward-thing-at-point)
-(keymap-set ctl-z-s-map "P" #'isearch-forward-symbol-at-point)
+(keymap-set ctl-z-s-map "."   #'isearch-forward-thing-at-point)
+(keymap-set ctl-z-s-map "M-." #'isearch-forward-symbol-at-point)
 
 ;; Swap search functions to make regexp-search the default
 (keymap-global-set "C-s"   #'isearch-forward-regexp)
