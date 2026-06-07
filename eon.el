@@ -229,8 +229,8 @@ Cancel the previous one if present."
    ;; Allow bytecode compilation to be verbose?
    byte-compile-verbose nil
    ;; Allow native compilation to be verbose?
-   native-comp-async-report-warnings-errors nil
-   native-comp-warning-on-missing-source nil)
+   native-comp-async-report-warnings-errors nil)
+
   ;; Suppress noisy byte-compiler warnings?
   (setq byte-compile-warnings '(not docstrings)))
 
