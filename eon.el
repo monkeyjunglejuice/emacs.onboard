@@ -448,17 +448,33 @@ When called interactively, also echo the result."
 ;; _____________________________________________________________________________
 ;;; EMACS SYSTEM LIMITS
 
-;; Increase warning threshold
+;; Increase warning threshold when visiting files
 (setopt large-file-warning-threshold (* 64 1024 1024))  ; 64 MiB
 
 ;; Increase undo limit
-(setopt undo-limit (* 8 1024 1024)          ; 8 MiB
+(setopt undo-limit (* 8 1024 1024)          ;  8 MiB
         undo-strong-limit (* 12 1024 1024)  ; 12 MiB
         undo-outer-limit (* 32 1024 1024))  ; 32 MiB
 
-;; Increase the amount of data that Emacs reads from subprocesses in one chunk.
-;; Aims to increase performance for communication with language servers, etc.
-(setopt read-process-output-max (* 8 1024 1024))  ; 8 MiB
+;; Adjust the amount of data Emacs reads from subprocesses in one chunk. Aims to
+;; increase performance for communication with async processes like language
+;; servers, etc. On GNU/Linux systems, the value should not exceed
+;; /proc/sys/fs/pipe-max-size. The Linux default pipe capacity is usually 1 MiB.
+;; If you want to push your Emacs speed even higher (e.g., setting
+;; read-process-output-max to > 1 MiB), you will also need to increase the
+;; /proc/sys/fs/pipe-max-size kernel ceiling, otherwise setting a higher value
+;; won't have any effect. On MacOS/BSD, the default pipe capacity is fixed to 64
+;; KiB; setting `read-process-output-max' to a higher value won't have any
+;; effect. On Windows there's no hard limit, but will be adjusted dynamically.
+(setopt read-process-output-max (cond
+                                 ((eon-linp)     (* 1 1024 1024))  ;  1 MiB
+                                 ((eon-wslp)     (* 1 1024 1024))  ;  1 MiB
+                                 ((eon-androidp) (*     64 1024))  ; 64 KiB
+                                 ((eon-bsdp)     (*     64 1024))  ; 64 KiB
+                                 ((eon-macp)     (*     64 1024))  ; 64 KiB
+                                 ((eon-winp)     (* 2 1024 1024))  ;  2 MiB
+                                 ;; Keep the default value everywhere else
+                                 (t              read-process-output-max)))
 
 ;; _____________________________________________________________________________
 ;;; DEFAULT AND INITIAL FRAME
