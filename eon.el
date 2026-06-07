@@ -314,8 +314,6 @@ or `system-configuration' directly."
 
 ;;; - Extended `add-to-list' and friends
 
-;; TODO Since we're using `cl-lib' anyway, we could use keyword arguments
-;; instead of merely positional arguments.
 (require 'cl-lib)
 
 (defun eon-adjoin (cur elements &optional append compare-fn)
@@ -1177,6 +1175,11 @@ minibuffer, even without explicitly focusing it."
 ;;         eon-font-proportional "Gentium Plus"  ; font name
 ;;         eon-font-proportional-size 160        ; size in 1/10 pt
 ;;         eon-font-marginal-size 0.9)           ; 90% for mode line and tabs
+
+;; TODO Maybe add font profiles to switch between different font sets easily,
+;; e.g. depending on the dark/light theme. Could be an argument to `eon-fonts'.
+;; TODO Make the distinction between font, family and face correct & clear,
+;; ergo rename affected variables and update related documentation.
 
 (defgroup eon-font-settings nil
   "Font settings."
