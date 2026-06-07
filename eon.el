@@ -1310,8 +1310,12 @@ Per default, the function is called by the hooks:
     (set-face-attribute 'variable-pitch nil
                         :family proportional-family
                         :height proportional-size)
-    ;; Base font face for the active mode line
+    ;; Base font face for mode line elements
     (set-face-attribute 'mode-line nil
+                        :family mode-line-family
+                        :height eon-font-marginal-size)
+    ;; Base font face for the active mode line
+    (set-face-attribute 'mode-line-active nil
                         :family mode-line-family
                         :height eon-font-marginal-size)
     ;; Base font face for the inactive mode line
