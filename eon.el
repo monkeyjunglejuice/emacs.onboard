@@ -1483,20 +1483,12 @@ Some themes may come as functions -- wrap these ones in lambdas."
 
 ;; Light theme hooks
 ;; Call a function before/after loading the light theme.
-;; Example for commands ("interactive" functions):
-;; (add-hook 'eon-theme-light-post-load-hook #'my-interactive-function)
-;; Functions not designated as "(interactive)" must be wrapped in lambdas.
-
 ;; Load the default font set
 (add-hook 'eon-theme-light-post-load-hook #'eon-fonts)
 (add-hook 'eon-theme-light-post-load-hook #'eon-region-face)
 
 ;; Dark theme hooks
 ;; Call a function before/after loading the dark theme.
-;; Example for commands ("interactive" functions):
-;; (add-hook 'eon-theme-dark-post-load-hook #'my-interactive-function)
-;; Functions not designated as "(interactive)" must be wrapped in lambdas.
-
 ;; Load the default font set
 (add-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
 (add-hook 'eon-theme-dark-post-load-hook #'eon-region-face)
