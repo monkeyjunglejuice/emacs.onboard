@@ -1672,7 +1672,7 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Make Icomplete snappy and tweak it further
 (with-eval-after-load 'icomplete
   (setopt icomplete-compute-delay 0.01
-          icomplete-delay-completions-threshold 256
+          icomplete-delay-completions-threshold 1024
           icomplete-show-matches-on-no-input t
           icomplete-hide-common-prefix nil))
 
