@@ -186,7 +186,7 @@ Cancel the previous one if present."
     (remove-hook 'pre-command-hook #'eon-gcmh-set-high-threshold)
     (remove-hook 'post-command-hook #'eon-gcmh-register-idle-gc)))
 
-;; Activate GCMH mode (idle timer)
+;; Activate GCMH mode
 (eon-gcmh-mode 1)
 
 ;; _____________________________________________________________________________
@@ -490,7 +490,7 @@ When called interactively, also echo the result."
 ;; Distance from the bottom edge, using negative numbers:
 ;; (setf (alist-get 'top default-frame-alist) -1)
 
-;; Bring frame to the front (steals focus)
+;; Bring frame to the front; steals focus
 (add-hook 'window-setup-hook
           (lambda ()
             (when (display-graphic-p)
@@ -1463,28 +1463,22 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Restart Emacs to take effect after changing the hooks.
 
 ;; Light theme hooks
-
 ;; Call a function before/after loading the light theme.
 ;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-light-post-load-hook #'my-interactive-function)
 ;; Functions not designated as "(interactive)" must be wrapped in lambdas.
 
-;; Load the default font set; if you want to load a different font set,
-;; "unhook" `eon-fonts' first via:
-;; (remove-hook 'eon-theme-light-post-load-hook #'eon-fonts)
+;; Load the default font set
 (add-hook 'eon-theme-light-post-load-hook #'eon-fonts)
 (add-hook 'eon-theme-light-post-load-hook #'eon-region-face)
 
 ;; Dark theme hooks
-
 ;; Call a function before/after loading the dark theme.
 ;; Example for commands ("interactive" functions):
 ;; (add-hook 'eon-theme-dark-post-load-hook #'my-interactive-function)
 ;; Functions not designated as "(interactive)" must be wrapped in lambdas.
 
-;; Load the default font set; if you want to load your own font set,
-;; "unhook" `eon-fonts' first via:
-;; (remove-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
+;; Load the default font set
 (add-hook 'eon-theme-dark-post-load-hook #'eon-fonts)
 (add-hook 'eon-theme-dark-post-load-hook #'eon-region-face)
 
