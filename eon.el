@@ -279,30 +279,36 @@ Cancel the previous one if present."
   "True if `system-type' is GNU/Linux or something compatible.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
-  (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd)))
+  (memq system-type '(gnu/linux gnu)))
 
 (defun eon-wslp ()
-  "True if `system-type' is GNU/Linux or compatible, running within WSL.
+  "True if `system-type' is GNU/Linux running within WSL.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
-  (and (memq system-type '(gnu/linux berkeley-unix gnu gnu/kfreebsd))
+  (and (memq system-type '(gnu/linux gnu))
        (or (getenv "WSLENV")
            (getenv "WSL_DISTRO_NAME"))))
 
-(defun eon-winp ()
-  "True if `system-type' is Microsoft Windows or something compatible.
-For finer granularity, use the variables `system-type'
-or `system-configuration' directly."
-  (memq system-type '(windows-nt cygwin ms-dos)))
-
 (defun eon-androidp ()
-  "True if `system-type' is Android or something compatible.
+  "True if `system-type' is Android.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'android))
 
+(defun eon-winp ()
+  "True if `system-type' is Microsoft Windows.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (memq system-type '(windows-nt cygwin ms-dos)))
+
+(defun eon-bsdp ()
+  "True if `system-type' is BSD derivate; except MacOS.
+For finer granularity, use the variables `system-type'
+or `system-configuration' directly."
+  (memq system-type '(berkeley-unix gnu/kfreebsd)))
+
 (defun eon-macp ()
-  "True if `system-type' is MacOS or something compatible.
+  "True if `system-type' is MacOS.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (eq system-type 'darwin))
