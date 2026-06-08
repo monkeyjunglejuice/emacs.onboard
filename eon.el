@@ -10,7 +10,7 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 ;;
 ;;
-;; Version: 2.6.13
+;; Version: 2.6.14
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
@@ -1902,6 +1902,12 @@ buffer."
 ;;; WINDOW MANAGEMENT
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Windows>
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Window-Convenience>
+
+;; Normally, splitting halves the currently active one, which leads to smaller
+;; and smaller windows, while the other windows in the same split direction stay
+;; large. Resize the other windows in the split direction to even height or
+;; width instead?
+(setopt window-combination-resize t)
 
 ;; Should `display-buffer' try to even window sizes?
 ;; Set to nil to leave the window configuration alone.
