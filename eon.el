@@ -10,7 +10,7 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 ;;
 ;;
-;; Version: 2.6.14
+;; Version: 2.6.15
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
@@ -1895,8 +1895,81 @@ buffer."
 ;; _____________________________________________________________________________
 ;;; FRAME MANAGEMENT
 
-(keymap-set ctl-z-W-map "m" #'toggle-frame-maximized)
-(keymap-set ctl-z-W-map "f" #'toggle-frame-fullscreen)
+;; In Emacs terminology, "frames" are Emacs ordinary desktop windows, so
+;; these commands are about managing Emacs desktop windows from within Emacs.
+
+;; Create new frame
+(keymap-set ctl-z-W-map "n"   #'make-frame)
+(keymap-set ctl-z-W-map "N"   #'clone-frame)
+(keymap-set ctl-z-W-map "M-n" #'make-frame-on-monitor)
+(keymap-set ctl-z-W-map "C-n" #'make-frame-on-display)
+
+;; Close frame
+(keymap-set ctl-z-W-map "c"   #'delete-frame)
+(keymap-set ctl-z-W-map "C"   #'delete-other-frames)
+
+;; Frame switching
+(keymap-set ctl-z-W-map "w"   #'select-frame-by-name)
+(keymap-set ctl-z-W-map "W"   #'other-frame)
+
+;; Run commands in a new frame
+(keymap-set ctl-z-W-map "b"   #'display-buffer-other-frame)
+(keymap-set ctl-z-W-map "f"   #'find-file-other-frame)
+(keymap-set ctl-z-W-map "d"   #'dired-other-frame)
+(keymap-set ctl-z-W-map "o"   #'other-frame-prefix)
+(keymap-set ctl-z-W-map "p"   #'project-other-frame-command)
+
+;; Change frame display
+(keymap-set ctl-z-W-map "f"   #'toggle-frame-fullscreen)
+(keymap-set ctl-z-W-map "m"   #'toggle-frame-maximized)
+
+;; _____________________________________________________________________________
+;;; TAB MANAGEMENT
+
+;; Tabs hold entire window layouts, not just a single buffer.
+
+;; Create a fresh tab with *scratch* buffer only
+(setopt tab-bar-new-tab-choice "*scratch*")
+
+;; Show tab numbers
+(setopt tab-bar-tab-hints t)
+
+;; What to do with a window whose buffer was killed?
+;; nil = no special handling. Let `set-window-configuration' decide,
+;; instead of displaying a placeholder buffer.
+(setopt tab-bar-select-restore-windows nil)
+
+;; Create new tab
+(keymap-set ctl-z-t-map "n" #'tab-new)
+(keymap-set ctl-z-t-map "N" #'tab-new-to)
+
+;; Close tab
+(keymap-set ctl-z-t-map "c" #'tab-close)
+(keymap-set ctl-z-t-map "C" #'tab-close-other)
+
+;; Fast tab switching
+(keymap-set ctl-z-t-map "t" #'tab-select)
+(keymap-set ctl-z-t-map "T" #'tab-switch)
+(keymap-set ctl-z-t-map "[" #'tab-previous)
+(keymap-set ctl-z-t-map "]" #'tab-next)
+(keymap-set ctl-z-t-map "r" #'tab-recent)
+
+;; Run commands in a new tab
+(keymap-set ctl-z-t-map "f" #'find-file-other-tab)
+(keymap-set ctl-z-t-map "d" #'dired-other-tab)
+(keymap-set ctl-z-t-map "b" #'switch-to-buffer-other-tab)
+(keymap-set ctl-z-t-map "o" #'other-tab-prefix)
+(keymap-set ctl-z-t-map "p" #'project-other-tab-command)
+
+;; Enable tabs
+(tab-bar-mode 1)
+
+;; Go back/forward trough tab layouts
+(keymap-set ctl-z-t-map "<" #'tab-bar-history-back)
+(keymap-set ctl-z-t-map ">" #'tab-bar-history-forward)
+
+;; Enable tab bar history
+(tab-bar-history-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; WINDOW MANAGEMENT
@@ -1967,54 +2040,6 @@ buffer."
 (keymap-global-set "M-o" #'other-window)
 (when (>= emacs-major-version 31)
   (keymap-global-set "M-O" #'other-window-backward))
-
-;; _____________________________________________________________________________
-;;; TAB MANAGEMENT
-
-;; Tabs hold entire window layouts, not just a single buffer.
-
-;; Create a fresh tab with *scratch* buffer only
-(setopt tab-bar-new-tab-choice "*scratch*")
-
-;; Show tab numbers
-(setopt tab-bar-tab-hints t)
-
-;; What to do with a window whose buffer was killed?
-;; nil = no special handling. Let `set-window-configuration' decide,
-;; instead of displaying a placeholder buffer.
-(setopt tab-bar-select-restore-windows nil)
-
-;; Create new tab
-(keymap-set ctl-z-t-map "n" #'tab-new)
-(keymap-set ctl-z-t-map "N" #'tab-new-to)
-
-;; Close tab
-(keymap-set ctl-z-t-map "c" #'tab-close)
-(keymap-set ctl-z-t-map "C" #'tab-close-other)
-
-;; Fast tab switching
-(keymap-set ctl-z-t-map "t" #'tab-select)
-(keymap-set ctl-z-t-map "T" #'tab-switch)
-(keymap-set ctl-z-t-map "[" #'tab-previous)
-(keymap-set ctl-z-t-map "]" #'tab-next)
-(keymap-set ctl-z-t-map "r" #'tab-recent)
-
-;; Run commands in a new tab
-(keymap-set ctl-z-t-map "f" #'find-file-other-tab)
-(keymap-set ctl-z-t-map "d" #'dired-other-tab)
-(keymap-set ctl-z-t-map "b" #'switch-to-buffer-other-tab)
-(keymap-set ctl-z-t-map "o" #'other-tab-prefix)
-(keymap-set ctl-z-t-map "p" #'project-other-tab-command)
-
-;; Enable tabs
-(tab-bar-mode 1)
-
-;; Go back/forward trough tab layouts
-(keymap-set ctl-z-t-map "<" #'tab-bar-history-back)
-(keymap-set ctl-z-t-map ">" #'tab-bar-history-forward)
-
-;; Enable tab bar history
-(tab-bar-history-mode 1)
 
 ;; _____________________________________________________________________________
 ;;; BUFFER MANAGEMENT
