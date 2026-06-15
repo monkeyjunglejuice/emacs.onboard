@@ -10,7 +10,7 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 ;;
 ;;
-;; Version: 2.6.15
+;; Version: 2.6.16
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
