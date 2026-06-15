@@ -463,24 +463,26 @@ When called interactively, also echo the result."
         undo-outer-limit (* 32 1024 1024))  ; 32 MiB
 
 ;; Adjust the amount of data Emacs reads from subprocesses in one chunk. Aims to
-;; increase performance for communication with async processes like language
-;; servers, etc. On GNU/Linux systems, the value should not exceed
-;; /proc/sys/fs/pipe-max-size. The Linux default pipe capacity is usually 1 MiB.
-;; If you want to push your Emacs speed even higher (e.g., setting
-;; read-process-output-max to > 1 MiB), you will also need to increase the
-;; /proc/sys/fs/pipe-max-size kernel ceiling, otherwise setting a higher value
-;; won't have any effect. On MacOS/BSD, the default pipe capacity is fixed to 64
-;; KiB; setting `read-process-output-max' to a higher value won't have any
-;; effect. On Windows there's no hard limit, but will be adjusted dynamically.
-(setopt read-process-output-max (cond
-                                 ((eon-linp)     (* 1 1024 1024))  ;  1 MiB
-                                 ((eon-wslp)     (* 1 1024 1024))  ;  1 MiB
-                                 ((eon-androidp) (*     64 1024))  ; 64 KiB
-                                 ((eon-bsdp)     (*     64 1024))  ; 64 KiB
-                                 ((eon-macp)     (*     64 1024))  ; 64 KiB
-                                 ((eon-winp)     (* 2 1024 1024))  ;  2 MiB
-                                 ;; Keep the default value everywhere else
-                                 (t              read-process-output-max)))
+;; increase performance for communication with async processes, e.g. language
+;; servers. Higher values come with an overhead and may have negative effects,
+;; e.g. on responsivity.
+;; - On GNU/Linux systems, the value should not exceed
+;;   /proc/sys/fs/pipe-max-size, which is usually 1 MiB. If you want to push
+;;   higher (e.g., setting read-process-output-max to > 1 MiB), you will also
+;;   need to increase the /proc/sys/fs/pipe-max-size kernel ceiling, otherwise
+;;   setting a higher value won't have a positive effect.
+;; - On MacOS/BSD, the default pipe capacity is fixed to 64 KiB; setting
+;;   `read-process-output-max' to a higher value won't have a positive effect.
+;; - On Windows there's no hard limit, the pipe capacity will be adjusted
+;;   dynamically.
+(setopt read-process-output-max (cond ((eon-linp)     (* 1 1024 1024))  ;  1 MiB
+                                      ((eon-wslp)     (* 1 1024 1024))  ;  1 MiB
+                                      ((eon-androidp) (*     64 1024))  ; 64 KiB
+                                      ((eon-bsdp)     (*     64 1024))  ; 64 KiB
+                                      ((eon-macp)     (*     64 1024))  ; 64 KiB
+                                      ((eon-winp)     (* 1 1024 1024))  ;  1 MiB
+                                      ;; Keep the default value everywhere else
+                                      (t              read-process-output-max)))
 
 ;; _____________________________________________________________________________
 ;;; DEFAULT AND INITIAL FRAME
