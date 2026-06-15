@@ -3970,15 +3970,8 @@ Don't enable in:
                   (when (server-running-p)
                     (concat " " server-name)))))
 
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              "Run functions after loading init files"
-              (eon-frame-title)))
-
-  (add-hook 'server-mode-hook
-            (lambda ()
-              "Run functions after entering or leaving server-mode."
-              (eon-frame-title))))
+  (add-hook 'emacs-startup-hook #'eon-frame-title)
+  (add-hook 'server-mode-hook #'eon-frame-title))
 
 (defun eon-server-stop ()
   "Save buffers, quit and shutdown (kill) server."
