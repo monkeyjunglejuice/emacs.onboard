@@ -1895,7 +1895,7 @@ buffer."
 ;; _____________________________________________________________________________
 ;;; FRAME MANAGEMENT
 
-;; In Emacs terminology, "frames" are Emacs ordinary desktop windows, so
+;; In Emacs terminology, "frames" are Emacs' ordinary desktop windows, so
 ;; these commands are about managing Emacs desktop windows from within Emacs.
 
 ;; Create new frame
