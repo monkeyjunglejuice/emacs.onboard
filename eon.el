@@ -1572,8 +1572,10 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; Recursive minibuffers
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Recursive-Edit>
 ;; Allow minibuffer commands while in the minibuffer!
-;; There are two commands to get out of recursive minibuffers:
-;; "C-M-c" `exit-recursive-edit' and "C-]" `abort-recursive-edit'.
+;; There are normally two commands to get out of recursive minibuffers:
+;; "C-M-c" `exit-recursive-edit' and "C-]" `abort-recursive-edit',
+;; But Emacs ONboard defines `eon-keyboard-quit' so that "C-g" gets you out
+;; of recursive minibuffers too.
 (setopt enable-recursive-minibuffers t)
 ;; Show how deep you're in there?
 (minibuffer-depth-indicate-mode 1)
