@@ -3143,7 +3143,7 @@ When called interactively, select PROFILE with completion."
 (keymap-global-set "M-z" #'zap-up-to-char)
 
 ;; Define a keymap in order to group formatting commands
-(defvar-keymap ctl-z-c-f-map :doc "Formatting" :prefix t
+(defvar-keymap ctl-z-c-f-map :doc "Formatting"
                "a" #'align
                "A" #'align-regexp
                ;; Tipps: <https://susam.github.io/sorting-in-emacs.html>
