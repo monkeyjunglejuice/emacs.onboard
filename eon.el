@@ -302,7 +302,7 @@ or `system-configuration' directly."
   (memq system-type '(windows-nt cygwin ms-dos)))
 
 (defun eon-bsdp ()
-  "True if `system-type' is BSD derivate; except MacOS.
+  "True if `system-type' is a BSD derivate; except MacOS.
 For finer granularity, use the variables `system-type'
 or `system-configuration' directly."
   (memq system-type '(berkeley-unix gnu/kfreebsd)))
@@ -1382,6 +1382,8 @@ Per default, the function is called by the hooks:
 
 ;; TODO Refactor in order to dissolve duplication
 ;; TODO Add setters to custom variables
+;; TODO Combine disabling/loading into `eon-theme-load' as an alternative
+;; to `load-theme' and add alias `eon-load-theme'.
 
 (defgroup eon-theme nil
   "Set your light and dark themes."
@@ -2402,7 +2404,7 @@ pretending to clear it."
 (add-to-list 'save-some-buffers-action-alist
              (list "d"
                    (lambda (buffer) (diff-buffer-with-file (buffer-file-name buffer)))
-                   "show diff between the buffer and its file"))
+                   "Show diff between the buffer and its file"))
 
 ;; Deleting files
 
@@ -2469,7 +2471,7 @@ pretending to clear it."
 ;; ---> CAUTION: This mode makes copies of the files you are editing.
 ;; If you're editing files with sensitive data (e.g. on temporally mounted,
 ;; encrypted devices), either disable this mode or specify the location
-;; via regexp where to save (or not to save) backup copies of these files.
+;; via regexp where to save (to not save) backup copies of these files.
 
 ;; Make backup before editing?
 (setopt make-backup-files t)
@@ -2676,7 +2678,7 @@ pretending to clear it."
   ;; Prevent from accidently referring to local root in Tramp connections
   ;; When `default-directory' is remote and the command is a Lisp
   ;; function, typing "/" as the first character of an argument inserts
-  ;; the current Tramp prefix, such as "/method:host:".  Typing another
+  ;; the current Tramp prefix, such as "/method:host:". Typing another
   ;; "/" undoes this, which is useful when a local path is intended.
   ;; Typing "~/" also inserts the Tramp prefix. This does not apply to
   ;; external commands.
@@ -2832,7 +2834,7 @@ the usual Emacs way."
   "Build a two-line Eshell prompt with status, user, host, and directory.
 
 The first line shows the previous command's non-zero exit status, the
-current user/host, and the current directory.  The second line contains
+current user/host, and the current directory. The second line contains
 only the command marker, using `#' for root and `$' otherwise."
   (let* ((status (or eshell-last-command-status 0))
          (remote-user (file-remote-p default-directory 'user))
@@ -2859,7 +2861,7 @@ only the command marker, using `#' for root and `$' otherwise."
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Shell-Mode>
 
 ;; This is also no terminal emulator, but a buffer to issue shell commands
-;; and display their output
+;; and display their output.
 
 ;; Create Shell local leader keymap
 (eon-localleader-defkeymap shell-mode eon-localleader-shell-map
