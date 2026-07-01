@@ -3128,7 +3128,7 @@ When called interactively, select PROFILE with completion."
 
 ;; While a text selection is active, typing characters will replace
 ;; the selection with the typed characters (default: -1 = off)
-(delete-selection-mode -1)
+(delete-selection-mode 1)
 
 ;; Save always with a final new line?
 (setopt require-final-newline t)
