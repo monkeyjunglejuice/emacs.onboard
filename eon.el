@@ -2980,7 +2980,7 @@ only the command marker, using `#' for root and `$' otherwise."
 
   ;; Ensure that Tramp can find a proper `ls' on a Guix-based host
   ;; <https://blog.smith-manor.us/tramp_and_guix>
-  (add-to-list 'tramp-remote-path #'tramp-own-remote-path)
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
   ;; Speed up Tramp
   ;; <https://coredumped.dev/2025/06/18/making-tramp-go-brrrr.>
