@@ -2829,6 +2829,7 @@ Set SYM's default value to VALUE. If the Eshell alias module
   '((e     . "find-file $@*")
     (f     . "find-file $@*")
     (d     . "dired $@*")
+    (v     . "eshell-exec-visual $@*")
     (l     . "ls $@*")
     (ll    . "ls -l -h $@*")
     (la    . "ls -l -h -A $@*")
