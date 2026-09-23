@@ -3384,6 +3384,8 @@ When called interactively, select PROFILE with completion."
   (setopt eglot-autoshutdown t)
   ;; Allow edits without confirmation?
   (setopt eglot-confirm-server-initiated-edits nil)
+  ;; Block Emacs until connected?
+  (setopt eglot-sync-connect nil)
   ;; Show code action indicators?
   (setopt eglot-code-action-indications nil)
   ;; Activate Eglot in cross-referenced non-project files?
