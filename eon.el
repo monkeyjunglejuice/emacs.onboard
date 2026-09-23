@@ -1661,7 +1661,9 @@ Some themes may come as functions -- wrap these ones in lambdas."
 ;; There are many matching styles available, see `completion-styles-alist'
 ;; <https://www.gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html>
 ;; The order within the list determines their priority.
-(setopt completion-styles '(basic flex))
+(setopt completion-styles '(basic flex)
+        completion-category-overrides
+        '((file (styles basic partial-completion))))
 
 ;; Make TAB try completion when appropriate
 (setopt tab-always-indent 'complete)
