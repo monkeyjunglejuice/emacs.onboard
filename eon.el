@@ -548,10 +548,14 @@ When called interactively, also echo the result."
 ;; (setf (alist-get 'top default-frame-alist) -1)
 
 ;; Bring frame to the front; steals focus
-(add-hook 'window-setup-hook
-          (lambda ()
-            (when (display-graphic-p)
-              (select-frame-set-input-focus (selected-frame)))))
+(defun eon-focus-frame ()
+  "Give the current graphical Emacs frame input focus."
+  (when (display-graphic-p)
+    (select-frame-set-input-focus (selected-frame))))
+;; Hook for standalone Emacs
+(add-hook 'window-setup-hook #'eon-focus-frame)
+;; Hook for Emacs running as a daemon
+(add-hook 'server-after-make-frame-hook #'eon-focus-frame)
 
 ;; Avoid gaps in some window managers
 (setopt frame-resize-pixelwise t)
