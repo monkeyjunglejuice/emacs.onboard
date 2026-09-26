@@ -405,9 +405,9 @@ Returns the new current value of LIST-SYM."
 (defmacro eon-add-to-list* (list-sym elements &optional append compare-fn)
   "Modify the default, Custom or global value of LIST-SYM.
 
-LIST-SYM must be a quoted symbol naming a list variable.  Use `setopt'
-semantics so a Custom setter is applied and the value is checked
-against the option's declared type.
+LIST-SYM must be a quoted symbol naming an existing list variable.
+Use `setopt' semantics so a Custom setter is applied and the value is
+checked against the option's declared type.
 
 ELEMENTS may be a single item or a list of items to add to the
 variable's *default* (global) value.
@@ -424,8 +424,7 @@ Returns the new default value of LIST-SYM."
                (null (cddr list-sym)))
     (error "eon-add-to-list*: LIST-SYM must be a quoted symbol"))
   (let ((symbol (cadr list-sym)))
-    `(let* ((cur (and (default-boundp ',symbol)
-                      (default-value ',symbol)))
+    `(let* ((cur (default-value ',symbol))
             (new (eon-adjoin cur ,elements ,append ,compare-fn)))
        (setopt ,symbol new)
        new)))
