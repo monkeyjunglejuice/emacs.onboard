@@ -2194,8 +2194,7 @@ Called without argument just syncs `eon-boring-buffers' to other places."
   (when regexp
     (eon-add-to-list 'eon-boring-buffers regexp))
   ;; Define other places where `eon-boring-buffers' are synced to:
-  (eon-add-to-list* 'switch-to-prev-buffer-skip-regexp eon-boring-buffers)
-  (eon-add-to-list* 'switch-to-next-buffer-skip-regexp eon-boring-buffers))
+  (eon-add-to-list* 'switch-to-prev-buffer-skip-regexp eon-boring-buffers))
 
 ;; Hide boring buffers
 (with-eval-after-load 'window (eon-boring-buffers-add))
