@@ -2366,12 +2366,13 @@ pretending to clear it."
 ;;; HISTORY
 
 ;; Which histories to save between Emacs sessions?
-(eon-add-to-list* 'savehist-additional-variables
-                  '(kill-ring  ; CAUTION, persists copied text - see below
-                    register-alist
-                    search-ring
-                    regexp-search-ring
-                    compile-command))
+(with-eval-after-load 'savehist
+  (eon-add-to-list* 'savehist-additional-variables
+                    '(kill-ring  ; CAUTION, persists copied text - see below
+                      register-alist
+                      search-ring
+                      regexp-search-ring
+                      compile-command)))
 
 ;; Enable `savehist-mode' after setting the variables
 (savehist-mode 1)
