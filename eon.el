@@ -2793,6 +2793,7 @@ REGEXP. Otherwise, prompt with `completing-read' over `eshell-last-dir-ring'."
 ;; Define Eshell aliases directly in your init file without external
 ;; `/.emacs.d/eshell/alias' file.
 
+;; TODO Dead code
 (defun eon-eshell--name (key)
   "Return KEY as an Eshell alias name string.
 
