@@ -2797,8 +2797,8 @@ REGEXP. Otherwise, prompt with `completing-read' over `eshell-last-dir-ring'."
 (defun eon-eshell--name (key)
   "Return KEY as an Eshell alias name string.
 
-K may be a symbol (e.g. `ll`) or a string (e.g. \"ll\").
-Signal an error for any other type."
+  K may be a symbol (e.g. `ll`) or a string (e.g. \"ll\").
+  Signal an error for any other type."
   (cond ((symbolp key) (symbol-name key))
         ((stringp key) key)
         (t (error "Alias key must be symbol or string: %S" key))))
@@ -2806,12 +2806,12 @@ Signal an error for any other type."
 (defun eon-eshell--install-aliases (aliases)
   "Install ALIASES into Eshell without persisting them to disk.
 
-ALIASES must be an alist of (NAME . DEF) pairs, where NAME is a symbol
-or string and DEF is an Eshell alias expansion string.
+  ALIASES must be an alist of (NAME . DEF) pairs, where NAME is a symbol
+  or string and DEF is an Eshell alias expansion string.
 
-If an alias NAME already exists, it is deleted first and then redefined.
-Alias persistence is disabled by binding `eshell-aliases-file'
-to `null-device'."
+  If an alias NAME already exists, it is deleted first and then redefined.
+  Alias persistence is disabled by binding `eshell-aliases-file'
+  to `null-device'."
   (require 'em-alias)
   (let ((eshell-aliases-file null-device))
     (mapc
@@ -2832,8 +2832,8 @@ to `null-device'."
 (defun eon-eshell--set-aliases (sym value)
   "Setter for the user option `eon-eshell-aliases'.
 
-Set SYM's default value to VALUE. If the Eshell alias module
-`em-alias' is already loaded, also install VALUE immediately."
+  Set SYM's default value to VALUE. If the Eshell alias module
+  `em-alias' is already loaded, also install VALUE immediately."
   (set-default sym value)
   (when (featurep 'em-alias)
     (eon-eshell--install-aliases value)))
@@ -2853,8 +2853,8 @@ Set SYM's default value to VALUE. If the Eshell alias module
     (q     . "exit"))
   "Alist of Eshell aliases: ((NAME . DEF) ...).
 
-NAME can be a symbol or a string. Add/override a single alias with
-`add-to-list', or add/override multiple aliases via `eon-add-to-list'."
+  NAME can be a symbol or a string. Add/override a single alias with
+  `add-to-list', or add/override multiple aliases via `eon-add-to-list'."
   :type '(alist :key-type (choice symbol string)
                 :value-type string)
   :set #'eon-eshell--set-aliases
@@ -2871,9 +2871,9 @@ NAME can be a symbol or a string. Add/override a single alias with
 (defun eon-eshell--cwd ()
   "Return the current Eshell directory for prompt display.
 
-For remote TRAMP directories, strip the TRAMP prefix and show only the
-path on the remote host.  For local directories, abbreviate the path in
-the usual Emacs way."
+  For remote TRAMP directories, strip the TRAMP prefix and show only the
+  path on the remote host.  For local directories, abbreviate the path in
+  the usual Emacs way."
   (let ((dir (directory-file-name (eshell/pwd))))
     (if (file-remote-p dir)
         (file-local-name dir)
@@ -2882,9 +2882,9 @@ the usual Emacs way."
 (defun eon-eshell-prompt ()
   "Build a two-line Eshell prompt with status, user, host, and directory.
 
-The first line shows the previous command's non-zero exit status, the
-current user/host, and the current directory. The second line contains
-only the command marker, using `#' for root and `$' otherwise."
+  The first line shows the previous command's non-zero exit status, the
+  current user/host, and the current directory. The second line contains
+  only the command marker, using `#' for root and `$' otherwise."
   (let* ((status (or eshell-last-command-status 0))
          (remote-user (file-remote-p default-directory 'user))
          (remote-host (file-remote-p default-directory 'host))
