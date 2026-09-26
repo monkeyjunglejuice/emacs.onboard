@@ -2740,7 +2740,7 @@ pretending to clear it."
   ;; remote default-directory, and shell expansion.
   (add-to-list 'eshell-modules-list 'eshell-tramp))
 
-(with-eval-after-load 'eshell
+(with-eval-after-load 'em-term
   ;; Eshell is a an extremely powerful shell, but in a line-oriented interface,
   ;; not a terminal emulator. That means it can not run TUI programs like Vim in
   ;; the line-oriented UI; therefore TUI commands must be delegated to an actual
