@@ -2742,17 +2742,18 @@ pretending to clear it."
   (add-to-list 'eshell-modules-list 'eshell-tramp))
 
 (with-eval-after-load 'eshell
-  ;; Eshell is a shell in a line-oriented interface, not a terminal emulator.
-  ;; That means it can not run TUI programs like Vim in the line-oriented UI;
-  ;; Therefore TUI commands must be delegated to an actual terminal emulator
-  ;; running within Emacs. TUI commands are called "visual commands". You can
-  ;; delegate any TUI programs to the terminal emulator with "v" - e.g. "v
-  ;; mytuicommand". The variable `eshell-visual-commands' contains all TUI
-  ;; commands Eshell recognizes. You can add more like so:
+  ;; Eshell is a an extremely powerful shell, but in a line-oriented interface,
+  ;; not a terminal emulator. That means it can not run TUI programs like Vim in
+  ;; the line-oriented UI; therefore TUI commands must be delegated to an actual
+  ;; terminal emulator running within Emacs. TUI commands are called "visual
+  ;; commands". You can delegate any visual commands to the terminal emulator
+  ;; with "v" - e.g. "v mytuicommand". The variable `eshell-visual-commands'
+  ;; contains all TUI commands Eshell recognizes.
+  ;; You can add more commands benefitting from running in a terminal emulator:
   (eon-add-to-list* 'eshell-visual-commands
-                    '("hx" "nnn" "bat" "w3m" "nmtui" "brew"
-                      "pi" "codex" "autolith"
-                      "julia" "ghcup" "utop" "iex")))
+                    '("hx" "nnn" "bat" "w3m" "fzf" "nmtui" "nix" "brew"
+                      "pi" "codex" "claude" "autolith"
+                      "julia" "utop" "iex" "ghcup")))
 
 ;; Launch an Eshell buffer: "<leader> e e"; re-visit the buffer by repeating
 (keymap-set ctl-z-e-map "e" #'eshell)
