@@ -1959,8 +1959,8 @@ buffer."
 (keymap-set ctl-z-W-map "p"   #'project-other-frame-command)
 
 ;; Change frame display
-(keymap-set ctl-z-W-map "f"   #'toggle-frame-fullscreen)
 (keymap-set ctl-z-W-map "m"   #'toggle-frame-maximized)
+(keymap-set ctl-z-W-map "M"   #'toggle-frame-fullscreen)
 
 ;; _____________________________________________________________________________
 ;;; TAB MANAGEMENT
