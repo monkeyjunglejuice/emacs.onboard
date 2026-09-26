@@ -397,22 +397,20 @@ Examples (assuming LIST-SYM initially holds (a b)):
 
 Returns the new current value of LIST-SYM."
   (unless (symbolp list-sym)
-    (error "eon-add-to-list: LIST-SYM must be quoted: 'my-var"))
+    (error "eon-add-to-list: LIST-SYM must be a symbol"))
   (set list-sym
-       (eon-adjoin
-        (if (boundp list-sym) (symbol-value list-sym) nil)
-        elements append compare-fn)))
+       (eon-adjoin (symbol-value list-sym)
+                   elements append compare-fn)))
 
-(defun eon-add-to-list* (list-sym elements &optional append compare-fn)
-  "Modifies the default, custom or global value of LIST-SYM.
+(defmacro eon-add-to-list* (list-sym elements &optional append compare-fn)
+  "Modify the default, Custom or global value of LIST-SYM.
 
-If LIST-SYM is a user option (see `custom-variable-p'), use
-`customize-set-variable' so its :set function and type checks are
-applied. Otherwise, use `set-default' to modify the variable’s global
-default value directly.
+LIST-SYM must be a quoted symbol naming a list variable.  Use `setopt'
+semantics so a Custom setter is applied and the value is checked
+against the option's declared type.
 
 ELEMENTS may be a single item or a list of items to add to the
-variable’s *default* (global) value.
+variable's *default* (global) value.
 
 If APPEND is non-nil, append items left->right;
 otherwise prepend them while preserving the order of ELEMENTS.
@@ -421,14 +419,16 @@ COMPARE-FN, if non-nil, is a function used to test for membership;
 it defaults to `equal'.
 
 Returns the new default value of LIST-SYM."
-  (unless (symbolp list-sym)
-    (error "eon-add-to-list*: LIST-SYM must be a symbol"))
-  (let* ((cur (and (default-boundp list-sym) (default-value list-sym)))
-         (new (eon-adjoin cur elements append compare-fn)))
-    (if (custom-variable-p list-sym)
-        (customize-set-variable list-sym new 'setopt)
-      (set-default list-sym new))
-    new))
+  (unless (and (eq (car-safe list-sym) 'quote)
+               (symbolp (cadr list-sym))
+               (null (cddr list-sym)))
+    (error "eon-add-to-list*: LIST-SYM must be a quoted symbol"))
+  (let ((symbol (cadr list-sym)))
+    `(let* ((cur (and (default-boundp ',symbol)
+                      (default-value ',symbol)))
+            (new (eon-adjoin cur ,elements ,append ,compare-fn)))
+       (setopt ,symbol new)
+       new)))
 
 ;; General helper to update association lists
 (cl-defun eon-alist-update (key value alist
