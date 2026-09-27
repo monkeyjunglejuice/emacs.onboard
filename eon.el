@@ -10,7 +10,7 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 ;;
 ;;
-;; Version: 2.7.0
+;; Version: 2.7.1
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
@@ -2759,9 +2759,9 @@ pretending to clear it."
 
 ;; Launch a fresh Eshell buffer: "<leader> e E"
 (defun eon-eshell-new ()
-  "Open a new eshell instance."
+  "Open a new Eshell instance."
   (interactive)
-  (eshell 't))
+  (eshell t))
 (keymap-set ctl-z-e-map "E" #'eon-eshell-new)
 
 ;; Use Outline commands with Eshell prompts/buffers
