@@ -2750,7 +2750,7 @@ pretending to clear it."
   ;; contains all TUI commands Eshell recognizes.
   ;; You can add more commands benefitting from running in a terminal emulator:
   (eon-add-to-list* 'eshell-visual-commands
-                    '("hx" "nnn" "bat" "w3m" "fzf" "nmtui" "nix" "brew"
+                    '("hx" "nnn" "bat" "w3m" "fzf" "nmtui" "brew"
                       "pi" "codex" "claude" "autolith"
                       "julia" "utop" "iex" "ghcup")))
 
