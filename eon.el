@@ -717,7 +717,7 @@ a `cursor-type' or nil. The first non-nil return wins.")
   (setq-local cursor-type (eon-cursor-type--desired)))
 
 (define-minor-mode eon-cursor-mode
-  "Globally change cursor type according to state."
+  "Change cursor type according to state."
   :group 'eon-cursor
   :global t
   :init-value t
