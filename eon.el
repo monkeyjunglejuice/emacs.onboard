@@ -10,7 +10,7 @@
 ;;    ▒░▒░▒░  ▒░      ▒░ ▒░▒░▒░▒░     ▒░▒░▒░  ▒░      ▒░ ▒░      ▒░ ▒░▒░▒░▒░
 ;;
 ;;
-;; Version: 2.7.1
+;; Version: 2.7.2
 ;; URL: https://github.com/monkeyjunglejuice/emacs.onboard
 ;; Package: eon
 ;; Package-Requires: ((emacs "30.1"))
@@ -4049,7 +4049,7 @@ Don't enable in:
   (interactive)
   (save-some-buffers)
   (kill-emacs))
-(keymap-set ctl-z-q-map "s" #'eon-server-stop)
+(keymap-set ctl-z-q-map "S" #'eon-server-stop)
 
 ;; Start the server?
 (unless (daemonp)
