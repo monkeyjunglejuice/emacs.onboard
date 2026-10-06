@@ -2611,8 +2611,6 @@ pretending to clear it."
    dired-create-destination-dirs 'ask
    ;; Register file renaming in underlying version control system?
    dired-vc-rename-file t
-   ;; Mimic dual-pane file managers?
-   dired-dwim-target t
    ;; Check for directory modifications?
    dired-auto-revert-buffer #'dired-directory-changed-p
    dired-do-revert-buffer #'dired-directory-changed-p))
