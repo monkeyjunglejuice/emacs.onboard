@@ -1359,7 +1359,11 @@ Per default, the function is called by the hooks:
          (proportional-family (eon-font--family eon-font-proportional nil))
          (mode-line-family (eon-font--family eon-font-mode-line default-family))
          (tab-bar-family (eon-font--family eon-font-tab-bar mode-line-family))
-         (tab-line-family (eon-font--family eon-font-tab-line tab-bar-family)))
+         (tab-line-family (eon-font--family eon-font-tab-line tab-bar-family))
+         (marginal-size (if (integerp eon-font-marginal-size)
+                            eon-font-marginal-size
+                          (round (* eon-font-default-size
+                                    eon-font-marginal-size)))))
     ;; Default font
     (set-face-attribute 'default nil
                         :family default-family
@@ -1380,23 +1384,23 @@ Per default, the function is called by the hooks:
     ;; Base font face for mode line elements
     (set-face-attribute 'mode-line nil
                         :family mode-line-family
-                        :height eon-font-marginal-size)
+                        :height marginal-size)
     ;; Base font face for the active mode line
     (set-face-attribute 'mode-line-active nil
                         :family mode-line-family
-                        :height eon-font-marginal-size)
+                        :height marginal-size)
     ;; Base font face for the inactive mode line
     (set-face-attribute 'mode-line-inactive nil
                         :family mode-line-family
-                        :height eon-font-marginal-size)
+                        :height marginal-size)
     ;; Base font face for the tab bar
     (set-face-attribute 'tab-bar nil
                         :family tab-bar-family
-                        :height eon-font-marginal-size)
+                        :height marginal-size)
     ;; Base font face for the tab line
     (set-face-attribute 'tab-line nil
                         :family tab-line-family
-                        :height eon-font-marginal-size)))
+                        :height marginal-size)))
 
 (defun eon-region-face ()
   "Don't extend the selection background past the end of the line.
