@@ -594,6 +594,10 @@ When called interactively, also echo the result."
 ;;; CURSOR
 ;; <https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Cursor-Display>
 
+;; Try to update cursor appearance on text terminals?
+;; This works only for Xterm-compatible text terminals.
+(setopt xterm-update-cursor 'type)
+
 ;; Turn on/off cursor blinking by default? 1 means 'on' and -1 means 'off'
 (blink-cursor-mode -1)
 
