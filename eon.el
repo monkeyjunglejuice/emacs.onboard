@@ -62,16 +62,14 @@
 ;; Emacs ONBOARD comes with a pre-configured leader- and a local leader key.
 ;;
 ;; The leader key groups frequently used keybindings under a quickly accessible,
-;; menu-like structure. You can reach the leader key menu via:
-;; "C-,"     in graphical Emacs;
-;; "C-z"     if Emacs runs within a terminal emulator.
+;; menu-like structure. Press "C-," in graphical or terminal Emacs.
 ;;
 ;; The local leader key provides a selection of commonly used keybindings for
-;; specific modes. Reach it either via:
-;; "C-, C-," in graphical Emacs
-;;           hold down <CTRL> (CMD on macOS) and hit the <,> key 2 times;
-;; "C-z C-z" in the terminal
-;;           hold down <CTRL> (CMD on macOS) and hit the <z> key 2 times.
+;; specific modes. Hold down Control and press comma twice: "C-, C-,".
+;; In graphical macOS builds that map Command to Control, use Command.
+;;
+;; If your terminal doesn't recognize "C-,", run
+;; "M-x eon-customize-group RET", set both leader keys to "C-z", and save.
 ;;
 ;; You can change these keybindings and more - customize the variables
 ;; `eon-leader-key' and `eon-localleader-key' via "<leader> x C",
@@ -792,12 +790,11 @@ a `cursor-type' or nil. The first non-nil return wins.")
 ;; "C-," is the leader key, reach the local leader via "C-, C-,"
 ;;
 ;;; - Defaults for Emacs with terminal UI - invoked by "emacs -nw":
-;; "C-z" is the leader key, reach the local leader via "C-z C-z"
+;; "C-," is the leader key, reach the local leader via "C-, C-,"
 ;;
 ;; Terminal note: In "emacs -nw", "C-z" is normally bound to suspend Emacs.
-;; We rebind it as a leader, and it works in modern terminals - e.g. WezTerm.
-;; If your TTY converts C-z to SIGTSTP before Emacs sees it (rare), disable
-;; the suspend char or move it - see optional snippet below.
+;; If you choose "C-z" as your leader and your TTY converts it to SIGTSTP
+;; before Emacs sees it (rare), disable or move the suspend char as below.
 ;;
 ;; (add-hook 'tty-setup-hook
 ;;           (lambda ()
@@ -910,11 +907,10 @@ local leader is shown."
                   `("Local" . ,eon-localleader-map)))))
 
 (defcustom eon-localleader-key
-  (if (eon-terminalp) "C-z" "C-,")
+  (if (eon-terminalp) "C-," "C-,")
   "Local leader key, pressed after the leader.
 
-- GUI default: \"C-,\" -> reach local leader via \"C-, C-,\"
-- TUI default: \"C-z\" -> reach local leader via \"C-z C-z\"
+In graphical and terminal Emacs, press \"C-, C-,\" by default.
 
 Use `eon-customize-group' to change, or use `setopt' from Lisp."
   :group 'eon-leader
@@ -981,8 +977,8 @@ Customize `eon-localleader-key' explicitly to override this default."
       (eon-localleader--set-key 'eon-localleader-key value))))
 
 (defcustom eon-leader-key
-  (if (eon-terminalp) "C-z" "C-,")
-  "Leader prefix key. GUI default: \"C-,\" - TUI default: \"C-z\".
+  (if (eon-terminalp) "C-," "C-,")
+  "Leader prefix key. Default: \"C-,\" in graphical and terminal Emacs.
 Use `eon-customize-group' to change, or `setopt' from Lisp."
   :group 'eon-leader
   :type '(string)

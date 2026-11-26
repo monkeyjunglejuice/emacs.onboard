@@ -61,8 +61,11 @@ Some features -- without any dependencies:
 
 - Leader key & local leader key bindings (easy to extend/change).
   This gives you quasi-infinite room for your own keybindings under the leader prefix.
-  - Graphical Emacs: the default leader key is =C-,=; reach the local leader via =C-, C-,=.
-  - Emacs in the terminal: the default leader key is =C-z=, and the local leader =C-z C-z=.
+  - In graphical and terminal Emacs, use =C-,= for the leader and
+    =C-, C-,= for the local leader.
+  - If your terminal doesn't recognize =C-,=, run
+    =M-x eon-customize-group RET=, set =eon-leader-key= and
+    =eon-localleader-key= to =C-z=, and save the settings.
   - Works with Evil mode (Vim keybindings etc. in Emacs) -- [[https://github.com/monkeyjunglejuice/emacs.ontop/blob/c1f7fe28df28cfa9323a4da1b6b5a5d0c64477fb/eon-evil.el][example config here]]; e.g. the leader key could be just =,= and the local leader =, ,=; or =SPC= as the leader and =SPC SPC= as the local leader -- or something else.
   - Three options for leader keybindings (customizable via GUI):
     1. Use the pre-configured leader keymap with many useful bindings.
