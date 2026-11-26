@@ -562,8 +562,20 @@ When called interactively, also echo the result."
 ;; _____________________________________________________________________________
 ;;; USER INTERFACE
 
-;; Menu bar: on/off by default?
-(menu-bar-mode 1)
+;; Menu bar: on in graphical Emacs, off in the terminal.
+;; To override this default, put the following in your init.el
+;; after loading eon.el:
+;; (remove-hook 'after-make-frame-functions #'eon-menu-bar-setup)
+;; (menu-bar-mode -1)
+;; Removing the hook stops EON from overriding your choice on new frames;
+;; use -1 to hide the menu bar on all frames or 1 to show the menu bar.
+(defun eon-menu-bar-setup (frame)
+  "Show the menu bar on FRAME only if it is graphical."
+  (set-frame-parameter frame 'menu-bar-lines
+                       (if (display-graphic-p frame) 1 0)))
+
+(mapc #'eon-menu-bar-setup (frame-list))
+(add-hook 'after-make-frame-functions #'eon-menu-bar-setup)
 
 ;; Scroll bar: on/off by default?
 (when (fboundp #'scroll-bar-mode) (scroll-bar-mode -1))
